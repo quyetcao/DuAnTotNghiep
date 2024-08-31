@@ -5,7 +5,7 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import component 
 import ViewChuyenxe from './component/viewpage/viewchuyenxe.jsx'
-
+import Home from './component/Pages/home.tsx';
 
 
 
@@ -16,6 +16,10 @@ const routes = createBrowserRouter([
     path: "/",
     element: <App/>,
     children: [
+      {
+        path: '/',
+        element: <Home />
+      },
       {
         path: "/viewchuyenxe",
         element: <ViewChuyenxe />
