@@ -19,7 +19,11 @@
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
+    "react-window": "^1.8.10"
+=======
     "react-router-dom": "^6.26.1"
+>>>>>>> 44f5fbcb21c4aed7a1e6f5100b35d053d30a4309
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
