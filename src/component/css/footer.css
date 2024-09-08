@@ -1,42 +1,37 @@
-.footer-top {
+.footer {
     background-color: rgb(242, 242, 242);
     opacity: 1;
     margin-top: 80px;
 }
 
-.footer-center {
-    margin-bottom: 32px;
+.footer-top {
+    padding: 25px 0;
 }
 
 .footer-content {
     width: 980px;
     margin: auto;
-    /* padding: 32px 0; */
+    padding: 8px 0;
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
 }
 
-.footer-col {
-    width: calc(25% - 18px) !important;
-}
-
-.flex-col {
+.content-top {
+    width: 980px;
+    margin: auto;
+    padding: 20px 0;
     display: flex;
-    flex-direction: column;
-    gap: 32px;
+    gap: 33px;
+    flex-wrap: wrap;
 }
 
-.footer-heading {
-    margin: 0px 0px 18px;
-    border-bottom: none;
-    color: rgb(20, 20, 20) !important;
-}
-
-.footer-p {
+.content-title {
     font-size: 24px;
     font-weight: 700;
     line-height: 32px;
+    margin: 0px 0px 18px;
+    border-bottom: none;
+    color: rgb(20, 20, 20);
 }
 
 .footer-list {
@@ -46,12 +41,6 @@
 }
 
 .footer-link {
-    display: block;
-    padding: 6px 0px;
-    color: rgb(20, 20, 20);
-}
-
-.link-text {
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;
@@ -60,6 +49,48 @@
     text-decoration: underline;
     text-underline-offset: 1px;
     word-break: normal;
+}
+
+.link-text {
+    display: block;
+    padding: 6px 0px;
+    color: rgb(20, 20, 20);
+}
+
+.content-bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.bus-station {
+    width: 25%;
+}
+
+.garage {
+    width: 75%;
+}
+
+.hhh {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+.nha-xe {
+    width: 23%;
+}
+
+
+/* footer bottom */
+.footer-left {
+    width: 100%;
+    display: flex;
+    gap: 48px;
+}
+
+.footer-col {
+    width: 24%;
 }
 
 .footer-channel {
@@ -72,13 +103,17 @@
     text-decoration: none;
 }
 
-.download-app__qr {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 16px;
+.footer-certification {
+    margin-top: 16px;
 }
 
-/* Footer-end */
+.download-app__qr-item {
+    list-style: none;
+    margin-top: 12px;
+}
+
+
+/* footer-end */
 .footer-end {
     background: rgb(255, 255, 255);
     text-align: center;
@@ -86,14 +121,17 @@
     font-size: large;
     width: 100%;
     margin: auto;
-    height: 500px;
+    padding: 16px 0;
+}
+
+.footer-mt {
+    margin-top: 16px;
 }
 
 .footer-end-center {
     width: 980px;
     margin: auto;
     font-size: 14px;
-    padding-top: 24px;
 }
 
 .ft-end__heading {
@@ -108,8 +146,6 @@
 .footer-link-text {
     font-weight: 300;
 }
-
-
 
 .link-description p {
     margin: 0;

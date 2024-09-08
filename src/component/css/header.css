@@ -73,6 +73,10 @@ body {
     align-items: center;
 }
 
+.material-icon {
+    margin-top: 3px;
+}
+
 .material-icon span {
     font-size: 18px;
 }

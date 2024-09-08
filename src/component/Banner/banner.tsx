@@ -17,7 +17,7 @@ export default function Banner() {
             <div className='homepage-body'>
                 <div className='homepage-content'>
                     <a href='' className='content-link'>
-                        <p className='content-title'>
+                        <p className='content-heading'>
                             Vexere - Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
                         </p>
                         <div className='content-icon'>
