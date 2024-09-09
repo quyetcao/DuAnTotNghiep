@@ -33,7 +33,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link, Slider } from '@mui/material';
+import { Link, Rating, Slider } from '@mui/material';
 
 
 //
@@ -61,6 +61,7 @@ import Checkbox from '@mui/material/Checkbox';
 import DanhSachChuyenXe from './ds-chuyen-xe';
 import CauHoiThuonGap from './cau-hoi-thuong-gap';
 import ThongTinTuyenDuong from './thong-tin-tuyen-duong';
+import GioiThieuTuyenDuong from './gioi-thieu-tuyen-duong';
 
 
 
@@ -93,19 +94,6 @@ export default function ViewChuyenxe() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  function renderRow(props) {
-    const { index, style } = props;
-
-    return (
-      <ListItem style={style} key={index} component="div" disablePadding>
-        <ListItemButton>
-          <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-
-        </ListItemButton>
-      </ListItem>
-    );
-  }
 
 
 
@@ -306,7 +294,7 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Giờ đi
                   </AccordionSummary>
@@ -338,32 +326,37 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Nhà Xe
                   </AccordionSummary>
+
+
                   <AccordionDetails>
-                    <TextField
-                      hiddenLabel
-                      id="filled-hidden-label-small"
-                      defaultValue="Tìm kiếm trong danh sách"
-                      variant="filled"
-                      size="small"
-                    />
-                    <Box
-                      sx={{ width: '100%', height: 400, maxWidth: 360, bgcolor: 'background.paper' }}
-                    >
-                      <FixedSizeList
-                        height={400}
-                        width={360}
-                        itemSize={46}
-                        itemCount={10}
-                        overscanCount={5}
-                      >
-                        {renderRow}
-                      </FixedSizeList>
-                    </Box>
+                    <input className='input-timkiem input-tk-nha-xe' placeholder='Tìm kiếm trong danh sách' ></input>
+                    <div className="check-box-nha-xe">
+                      <form action="#">
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle1" name="nx1" value="nx1" />
+                          <label htmlFor='vehicle1'>Anh Huy Hải Phòng (192)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle2" name="nx1" value="nx2" />
+                          <label htmlFor='vehicle2'>Hoàng Hải (152)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle3" name="nx1" value="nx3" />
+                          <label htmlFor='vehicle2'>Aha (52)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle4" name="nx1" value="nx4" />
+                          <label htmlFor='vehicle4'>AGO Hoàng Phương (39)</label><br></br>
+                        </div>
+                      </form>
+                    </div>
                   </AccordionDetails>
+
+
                 </Accordion>
                 <Accordion style={{ margin: 0 }} className="accordion" sx={{ boxShadow: 0 }}>
                   <AccordionSummary
@@ -371,7 +364,7 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Giá vé
                   </AccordionSummary>
@@ -386,14 +379,11 @@ export default function ViewChuyenxe() {
                       <DemoContainer
                         components={['MultiInputTimeRangeField', 'SingleInputTimeRangeField']}
                       >
-                        <MultiInputTimeRangeField
-                          slotProps={{
-                            textField: ({ position }) => ({
-                              label: position === 'start' ? 'Từ' : 'Đến',
-                            }),
-                          }}
-                        />
                       </DemoContainer>
+                      <div className='khoang-tien'>
+                        <p>0đ</p>
+                        <p>2000000đ</p>
+                      </div>
                     </LocalizationProvider>
                   </AccordionDetails>
                 </Accordion>
@@ -403,30 +393,32 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Điểm đón
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Slider
-                      getAriaLabel={() => 'Temperature range'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                    />
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer
-                        components={['MultiInputTimeRangeField', 'SingleInputTimeRangeField']}
-                      >
-                        <MultiInputTimeRangeField
-                          slotProps={{
-                            textField: ({ position }) => ({
-                              label: position === 'start' ? 'Từ' : 'Đến',
-                            }),
-                          }}
-                        />
-                      </DemoContainer>
-                    </LocalizationProvider>
+                    <input className='input-timkiem input-tk-nha-xe' placeholder='Tìm kiếm trong danh sách' ></input>
+                    <div className="check-box-nha-xe">
+                      <form action="#">
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle1" name="nx1" value="nx1" />
+                          <label htmlFor='vehicle1'>Anh Huy Hải Phòng (192)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle2" name="nx1" value="nx2" />
+                          <label htmlFor='vehicle2'>Hoàng Hải (152)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle3" name="nx1" value="nx3" />
+                          <label htmlFor='vehicle2'>Aha (52)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle4" name="nx1" value="nx4" />
+                          <label htmlFor='vehicle4'>AGO Hoàng Phương (39)</label><br></br>
+                        </div>
+                      </form>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
                 <Accordion style={{ margin: 0 }} className="accordion" sx={{ boxShadow: 0 }}>
@@ -435,30 +427,32 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Điểm trả
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Slider
-                      getAriaLabel={() => 'Temperature range'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                    />
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer
-                        components={['MultiInputTimeRangeField', 'SingleInputTimeRangeField']}
-                      >
-                        <MultiInputTimeRangeField
-                          slotProps={{
-                            textField: ({ position }) => ({
-                              label: position === 'start' ? 'Từ' : 'Đến',
-                            }),
-                          }}
-                        />
-                      </DemoContainer>
-                    </LocalizationProvider>
+                    <input className='input-timkiem input-tk-nha-xe' placeholder='Tìm kiếm trong danh sách' ></input>
+                    <div className="check-box-nha-xe">
+                      <form action="#">
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle1" name="nx1" value="nx1" />
+                          <label htmlFor='vehicle1'>Anh Huy Hải Phòng (192)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle2" name="nx1" value="nx2" />
+                          <label htmlFor='vehicle2'>Hoàng Hải (152)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle3" name="nx1" value="nx3" />
+                          <label htmlFor='vehicle2'>Aha (52)</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle4" name="nx1" value="nx4" />
+                          <label htmlFor='vehicle4'>AGO Hoàng Phương (39)</label><br></br>
+                        </div>
+                      </form>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
                 <Accordion style={{ margin: 0 }} className="accordion" sx={{ boxShadow: 0 }}>
@@ -467,7 +461,7 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Tiêu chí phổ biến
                   </AccordionSummary>
@@ -499,7 +493,7 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Vị trí ghế
                   </AccordionSummary>
@@ -531,7 +525,7 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Loại Xe
                   </AccordionSummary>
@@ -563,30 +557,24 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Loại ghế/giường
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Slider
-                      getAriaLabel={() => 'Temperature range'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                    />
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer
-                        components={['MultiInputTimeRangeField', 'SingleInputTimeRangeField']}
-                      >
-                        <MultiInputTimeRangeField
-                          slotProps={{
-                            textField: ({ position }) => ({
-                              label: position === 'start' ? 'Từ' : 'Đến',
-                            }),
-                          }}
-                        />
-                      </DemoContainer>
-                    </LocalizationProvider>
+                    <div className="check-box-giuong-ghe">
+                      <form action="#">
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle1" name="nx1" value="nx1" />
+                          <label htmlFor='vehicle1'>Ghế ngồi</label><br />
+                        </div>
+                        <div className="item-cb-nx">
+                          <input type="checkbox" id="vehicle2" name="nx1" value="nx2" />
+                          <label htmlFor='vehicle2'>Giường nằm</label><br />
+                        </div>
+
+                      </form>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
                 <Accordion style={{ margin: 0, borderBottom: 'none' }} className="accordion" sx={{ boxShadow: 0 }}>
@@ -595,30 +583,22 @@ export default function ViewChuyenxe() {
                     aria-controls="panel1-content"
                     id="panel1-header"
                     className="AccordionSummary"
-                    sx={{ padding: 0 }}
+                    sx={{ padding: 0, fontWeight: '700' }}
                   >
                     Đánh giá
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Slider
-                      getAriaLabel={() => 'Temperature range'}
-                      value={value}
-                      onChange={handleChange}
-                      valueLabelDisplay="auto"
-                    />
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer
-                        components={['MultiInputTimeRangeField', 'SingleInputTimeRangeField']}
-                      >
-                        <MultiInputTimeRangeField
-                          slotProps={{
-                            textField: ({ position }) => ({
-                              label: position === 'start' ? 'Từ' : 'Đến',
-                            }),
-                          }}
-                        />
-                      </DemoContainer>
-                    </LocalizationProvider>
+                    <div className="loc-bang-sao">
+                      <div className="so-sao">
+                        <Rating name="read-only" value={4} readOnly size="small" />Trở lên
+                      </div>
+                      <div className="so-sao">
+                        <Rating name="read-only" value={3} readOnly size="small" />Trở lên
+                      </div>
+                      <div className="so-sao">
+                        <Rating name="read-only" value={2} readOnly size="small" />Trở lên
+                      </div>
+                    </div>
                   </AccordionDetails>
                 </Accordion>
               </div>
@@ -640,14 +620,15 @@ export default function ViewChuyenxe() {
                   </div>
                 </div>
               </div>
-            <DanhSachChuyenXe/>
-            <DanhSachChuyenXe/>
-            <DanhSachChuyenXe/>
-            <DanhSachChuyenXe/>
+              <DanhSachChuyenXe />
+              <DanhSachChuyenXe />
+              <DanhSachChuyenXe />
+              <DanhSachChuyenXe />
             </div>
           </div>
-          <CauHoiThuonGap/>
-          <ThongTinTuyenDuong/>
+          <CauHoiThuonGap />
+          <ThongTinTuyenDuong />
+          <GioiThieuTuyenDuong />
         </div>
       </div>
     </>

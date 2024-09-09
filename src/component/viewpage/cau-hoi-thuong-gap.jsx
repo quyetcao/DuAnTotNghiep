@@ -1,9 +1,7 @@
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
 export default function CauHoiThuonGap(){
     return (
         <>
@@ -100,32 +98,72 @@ export default function CauHoiThuonGap(){
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
+          aria-controls="panel1-content"
+          id="panel1-header"
         >
-          Accordion 2
+      Câu hỏi: Review xe đi Hải Phòng từ Hà Nội nào có chất lượng tốt, xuất sắc, cao cấp nhất?
         </AccordionSummary>
         <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        Trả lời: Những hãng xe đi Hà Nội Hải Phòng chất lượng tốt, xuất sắc, cao cấp nhất là nhà xe Nhật Hồng Limousine đi Hải Phòng từ Hà Nội với điểm chất lượng là 5/5 dựa trên 1 đánh giá của khách hàng).
         </AccordionDetails>
       </Accordion>
-      <Accordion defaultExpanded>
+
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3-content"
-          id="panel3-header"
+          aria-controls="panel1-content"
+          id="panel1-header"
         >
-          Accordion Actions
+       Câu hỏi: Có loại xe Hà Nội Hải Phòng dành cho cặp đôi, xe limousine phòng đôi không?
         </AccordionSummary>
         <AccordionDetails>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        Trả lời: Hiện tại chưa có nhà xe nào có loại xe giường nằm đôi khai thác tuyến Hà Nội đi Hải Phòng.
         </AccordionDetails>
-        <AccordionActions>
-          <Button>Cancel</Button>
-          <Button>Agree</Button>
-        </AccordionActions>
+      </Accordion>
+
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+       Câu hỏi: Các hãng xe nào khai thác dòng xe Limousine đi Hải Phòng từ Hà Nội?
+        </AccordionSummary>
+        <AccordionDetails>
+        Trả lời: Hiện tại có 20 hãng xe khai thác dòng xe Limousine trên tuyến đường này là xe Nam Anh Limousine,
+         Hải Âu, Daiichi Travel, Vip Phương Huy Luxury, Hoàng Anh Limousine (Hải Phòng), Hoàng Phú Limousine, Hải Phòng Travel (Đất Cảng), 
+         Hoàng Hà Limousine, Sơn Hải Limousine, Hải Phòng Travel, Nguyễn Gia Limousine (Hải Phòng), AGO Hoàng Phương, Nhật Hồng Limousine, 
+         Lợi Vũ Limousine, Daily Limousine, Bằng Phấn, Luxury Van Limousine, Cát Bà Go Easy Limousine, Kết Đoàn Travel, Cát Bà Limousine,
+          bạn có thể tham khảo thêm thông tin và đặt vé các nhà xe này tại trang này: Xe limousine Hà Nội đi Hải Phòng
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+        Câu hỏi: Các hãng xe nào khai thác dòng xe giường nằm đi Hải Phòng từ Hà Nội?
+        </AccordionSummary>
+        <AccordionDetails>
+        Trả lời: Hiện tại có 4 hãng xe khai thác dòng xe giường nằm trên tuyến đường này là xe Hoàng Hà (Phú Thọ), Bằng Phấn, Luxury Van Limousine, Kết Đoàn Travel,
+         bạn có thể tham khảo thêm thông tin và đặt vé các nhà xe này tại trang này: Xe giường nằm Hà Nội đi Hải Phòng
+        </AccordionDetails>
+      </Accordion>
+     
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+        Câu hỏi: Nhà xe đi Hải Phòng từ Hà Nội nào khởi hành trễ nhất?
+        </AccordionSummary>
+        <AccordionDetails>
+        Trả lời: Chuyến xe có giờ xuất phát trễ (muộn) nhất là vào lúc 22:02 là của nhà xe Kết Đoàn Travel.
+        </AccordionDetails>
       </Accordion>
             </div>
         </div>
