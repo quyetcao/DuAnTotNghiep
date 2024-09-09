@@ -6,9 +6,7 @@ import Banner from "../Banner/banner";
 export default function Home() {
     return (
         <div>
-            <Header/>
             <Banner/>
-            <Footer/>
         </div>
     )
 }
