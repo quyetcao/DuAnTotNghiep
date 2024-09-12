@@ -13,17 +13,15 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.0.0",
+    "@mui/lab": "^6.0.0-beta.9",
     "@mui/material": "^5.16.7",
     "@mui/x-date-pickers": "^7.14.0",
     "@mui/x-date-pickers-pro": "^7.14.0",
     "dayjs": "^1.11.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-<<<<<<< HEAD
+    "react-router-dom": "^6.26.2",
     "react-window": "^1.8.10"
-=======
-    "react-router-dom": "^6.26.1"
->>>>>>> 44f5fbcb21c4aed7a1e6f5100b35d053d30a4309
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(36, 116, 229);
+    padding: 14px 20px;
+    color: white;
+}
+
+.header .logo img {
+    height: 40px;
+}
+
+
+
+.body-container {
+    width: 100%;
+    flex: 1 1 0%;
+    overflow: auto;
+    padding: 20px 0px;
+    background: rgb(242, 242, 242);
+}
+
+.payment {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.payment-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.wrap-left {
+    width: 621px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.payment-method {
+    padding: 20px 20px 0px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid rgb(224, 224, 224) !important;
+}
+
+
+
+.method-heading {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    color: rgb(20, 20, 20)
+}
+
+.list-qr {
+    display: flex;
+    align-items: center;
+}
+
+.ant-radio input {
+    width: 20px;
+    height: 20px;
+}
+
+.radio-input {
+    appearance: none;
+    border: 2px solid #333;
+    border-radius: 999px;
+}
+
+.list-pttt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.img-icon {
+    margin: 0 8px;
+}
+
+.title-base {
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .65);
+    line-height: 24px;
+    margin: 0;
+}
+
+.an-toan {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 4px;
+    height: 22px;
+    margin-left: 6px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgb(39, 174, 96)
+}
+
+.text-base {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.text-link {
+    color: #2474e5;
+}
+
+.border-bottom {
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.mt-20 {
+    padding: 20px 0;
+}
+
+.detail-content {
+    margin-left: 25px;
+}
+
+.content-title {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.content-support {
+    background-color: rgb(227 237 252);
+    border-radius: 8px;
+    padding: 0 16px;
+}
+
+.ho-tro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-sp {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: rgb(20, 20, 20)
+}
+
+
+/* wrap-right */
+.wrap-right {
+    width: 375px;
+}
+
+.cart-summary {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.cart-box {
+    display: flex;
+    align-items: center;
+}
+
+.cart-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+}
+
+
+.cart-detail {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.cart-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.text-price {
+    font-weight: 500;
+    padding-left: 36px;
+}
+
+.cart-info {
+    display: inline;
+    justify-content: flex-end;
+}
+
+.payment-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 12px;
+    background-color: rgb(255, 240, 214);
+    border: 1px solid rgb(255, 175, 31);
+    margin-bottom: 14px;
+}
+
+.left-content {
+    display: flex;
+    align-items: center;
+}
+
+.content-heading {
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.icon-img {
+    margin-right: 8px;
+}
+
+.content-p {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.text-content {
+    padding: 4px 30px;
+}
+
+.nhapma {
+    color: rgb(20, 138, 27);
+}
+
+a.text-link {
+    display: inline-block;
+    margin-top: 6px;
+}

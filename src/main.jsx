@@ -5,7 +5,8 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import component 
 import ViewChuyenxe from './component/viewpage/viewchuyenxe.jsx'
-import Home from './component/Pages/home.tsx';
+import Home from './component/Pages/home.jsx';
+import ThanhToan from './component/thanhtoan/thanhtoan.jsx';
 
 
 
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
       {
         path: "/viewchuyenxe",
         element: <ViewChuyenxe />
+      },
+      {
+        path: "/thanhtoan",
+        element: <ThanhToan />
       },
     ]
   },
