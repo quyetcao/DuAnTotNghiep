@@ -1,28 +1,32 @@
-.container_viewchuyenxe{
-    width:1036px;
+.container_viewchuyenxe {
+    width: 1036px;
     margin: auto;
 
 }
-.ant-tabs-nav-scroll{
+
+.ant-tabs-nav-scroll {
     background-color: #FFFFFF;
     border-radius: 12px;
-    -webkit-box-pack: center;   
+    -webkit-box-pack: center;
     background: white;
 }
-.ant-tabs-nav{
+
+.ant-tabs-nav {
     display: flex;
     justify-content: center;
 }
-.tab-nav-typetraffic{
+
+.tab-nav-typetraffic {
     display: flex;
     align-items: center;
     padding: 20px 24px 14px;
     height: auto;
     font-size: 20px;
-    gap:8px;
+    gap: 8px;
     line-height: 24px;
 }
-.selected-traffic{
+
+.selected-traffic {
     border-bottom: 2px solid rgb(36, 116, 229);
     color: rgb(36, 116, 229);
     font-weight: 600;
@@ -43,6 +47,7 @@
     visibility: hidden;
     transition: 100ms;
 }
+
 .ant-select-dropdown-menu {
     max-height: 250px;
     margin-bottom: 0;
@@ -51,11 +56,13 @@
     list-style: none;
     outline: none;
 }
-.search_chuyenxe{
+
+.search_chuyenxe {
     padding: 16px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
+
 .search_chuyenxe form {
     width: 820px;
     border: 1px solid rgb(224, 224, 224);
@@ -63,21 +70,22 @@
     display: flex;
     align-items: center;
 }
-.input_search{
-   margin-top: 10px;
+
+.input_search {
+    margin-top: 10px;
     padding-left: 20px;
-   margin-bottom: -10px;
-    display:flex ;
+    margin-bottom: -10px;
+    display: flex;
     align-items: stretch;
 }
-.input_search label{
+
+.input_search label {
     line-height: 2.5em;
 }
 
 .search_chuyenxe .timkiem {
     background-color: #FFC700;
     width: 15%;
-
     padding: 12px 0px;
     border-radius: 8px;
     color: rgb(20, 20, 20);
@@ -86,6 +94,963 @@
     line-height: 24px;
     border: none;
 }
-.date_ve{
-    position:relative;
+
+.input-timkiem {
+    padding: 5px;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid rgb(209, 208, 208);
+}
+
+.input-timkiem:hover {
+    border: 1px solid rgb(99, 143, 225);
+}
+
+.input-timkiem:focus-visible {
+    border: 1px solid rgb(99, 143, 225);
+}
+
+.date_ve {
+    position: relative;
+}
+
+.thong-tin-cac-chuyen-xe {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    gap: 10px;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+.loc-cac-chuyen-xe {
+    flex: 1 1 100%;
+    min-width: 25%;
+    max-height: 720px;
+    position: sticky;
+    top: 0;
+    box-sizing: content-box;
+    scrollbar-gutter: stable;
+    /*dữ không gian cố định cho thanh cuộn*/
+    overflow: hidden;
+    /* Ẩn thanh cuộn khi không hover */
+    transition: overflow 0.3s ease;/
+}
+
+.loc-cac-chuyen-xe:hover {
+    overflow: auto;
+
+}
+
+/*code cho phần padding của các phần nội dung lọc*/
+.css-15v22id-MuiAccordionDetails-root {
+    padding: 0px 0px 16px;
+}
+
+.title-sapxep {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 0px;
+}
+
+.radio-select {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+    font-size: 14px;
+}
+
+.sap-xep {
+    background-color: #FFFFFF;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.loc {
+    background-color: #FFFFFF;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.loc-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*code cho phần lọc nhà xe */
+
+.check-box-nha-xe {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #141414;
+}
+
+.check-box-nha-xe input[type='checkbox'] {
+    margin-bottom: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.item-cb-nx {
+    display: flex;
+    align-items: center;
+}
+
+/*code cho phần lọc bằng mệnh giá*/
+.khoang-tien {
+    display: flex;
+    font-size: 12px;
+    color: rgb(171, 167, 167);
+    justify-content: space-between;
+}
+
+/*code cho phần lọc bằng số sao*/
+.so-sao {
+    font-size: 14px;
+    color: #484848;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+/*code cho phần giường/ghế*/
+.check-box-giuong-ghe{
+padding-top: 10px;
+font-size: 14px;
+color: #141414;
+}
+
+
+
+
+
+
+
+
+
+.accordion {
+    box-shadow: none;
+    border-bottom: 1px solid grey;
+}
+
+.css-u26vfm-MuiPaper-root-MuiAccordion-root::before {
+    height: 0px;
+    width: 0px
+}
+
+.css-eqpfi5-MuiAccordionSummary-content {
+    margin-left: -16px;
+}
+
+.AccordionSummary {
+    padding: 0;
+}
+
+.thong-tin-tung-chuyen-xe {
+    scroll-behavior: smooth;
+}
+
+.ttcx-top {
+    display: flex;
+    gap: 10px;
+}
+
+.anh-loc {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow: hidden;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+
+.anh-loc img {
+    width: 20%;
+    border-radius: 8px;
+}
+
+.ttcx-top p {
+    width: 70%;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #545454;
+}
+
+.ttcx-container {
+
+    border-radius: 8px;
+    border: 1px solid rgb(224, 224, 224);
+    margin-bottom: 16px;
+    transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: rgb(255, 255, 255);
+}
+
+.ttcx-container:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.ticker {
+    padding: 16px;
+}
+
+.eRoAoT .ticket-note {
+    flex: 1 1 0%;
+    margin-right: 8px;
+}
+
+.hFIllo .notification-tag {
+    display: inline-block;
+    position: relative;
+    margin-right: 24px;
+    padding: 3px 6px;
+    background: #007AFF;
+    color: #007AFF;
+}
+
+.hFIllo .notification-tag span {
+    color: white;
+    font-size: 12px;
+}
+
+.hFIllo .notification-tag::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-top: 14px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 15px solid currentcolor;
+    position: absolute;
+    top: 0px;
+    right: -15px;
+}
+
+.hFIllo .notification-tag::after {
+    content: "•";
+    vertical-align: middle;
+    margin-right: 5px;
+    position: absolute;
+    top: 3px;
+    right: -8px;
+    color: white;
+}
+
+.hFIllo .link {
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #007AFF;
+}
+
+.img-dai-dien-cx {
+    position: relative;
+}
+
+.confim-ticker {
+    position: absolute;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    display: flex;
+    width: 120px;
+    z-index: 1;
+    height: 24px;
+    font-size: 12px;
+    left: -6px;
+    top: 10px;
+    padding: 4px 3px;
+    background: rgb(22 171 85);
+    color: rgb(255, 255, 255);
+}
+
+.confim-ticker .point {
+    position: absolute;
+    left: 0px;
+    bottom: -12px;
+    width: 0px;
+    height: 0px;
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid rgb(29, 128, 70);
+    border-left: 6px solid transparent;
+}
+
+
+.ticker-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: 150px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-right: 16px;
+    border-radius: 4px;
+}
+
+.img-anh img {
+    height: 100%;
+    width: 100%;
+    object-position: center center;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+
+.img-baner {
+    position: absolute;
+    top: 120px;
+}
+
+.img-baner img {
+    width: 80%;
+}
+
+.bus-info {
+    display: flex;
+    gap: 9rem;
+    justify-content: space-around;
+}
+
+.bus-info div {
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kERmQy .bus-info .bus-name {
+    font-size: 16px;
+    color: rgb(72, 72, 72);
+    font-weight: bold;
+}
+
+.kERmQy .bus-info .bus-rating-button {
+    padding: 0px;
+    border: 0px;
+    margin: 0px;
+    background: unset;
+}
+
+.kERmQy .bus-info .bus-rating {
+    border-radius: 2px;
+    background: rgb(36, 116, 229);
+    color: white;
+    font-size: 14px;
+    padding: 0px 4px;
+}
+
+.fare {
+    display: flex;
+    font-size: 20px;
+    color: rgb(36, 116, 229);
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    font-weight: bold;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-bottom: 4px;
+}
+
+.seat-type {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iGbCVp {
+    display: flex;
+    align-items: center;
+}
+
+.ksuOIo {
+    width: 15px;
+    height: 15px;
+}
+
+.kfeBLa {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border: 1px solid rgb(39, 174, 96);
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.kERmQy .from-to {
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(112, 112, 112);
+}
+
+.kERmQy .from-to .from-to-content .from .hour {
+    color: rgb(72, 72, 72);
+}
+
+.from-to .from-to-content .from .place {
+
+    color: rgb(72, 72, 72);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.content .content-to-info .place {
+
+    color: rgb(72, 72, 72);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kERmQy .from-to .from-to-content {
+    margin-left: 9px;
+    position: relative;
+    height: 74px;
+}
+
+.kERmQy .from-to .from-to-content .from {
+    position: absolute;
+    top: 0px;
+}
+
+.kERmQy .from-to .from-to-content .duration {
+    position: absolute;
+    top: 26px;
+    font-size: 14px;
+}
+
+.kERmQy .from-to .from-to-content .to {
+    position: absolute;
+    bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    gap: 3px;
+}
+
+.kERmQy .from-to .from-to-content .content {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 20px;
+}
+
+.kERmQy .from-to .from-to-content .content .hour {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+}
+
+.content-to-info {
+    display: flex;
+    align-items: center;
+}
+
+.TVXtN .info .seat-available {
+    text-align: right;
+    font-size: 16px;
+    line-height: 40px;
+    color: rgb(72, 72, 72);
+}
+
+.TVXtN .action .btn-booking {
+    background: rgb(255, 199, 0);
+    color: rgb(72, 72, 72);
+    font-weight: 500;
+    border-radius: 2px;
+    border: none;
+    padding: 8px 16px;
+    height: 35px;
+}
+
+.TVXtN .action {
+    display: flex;
+    align-items: flex-end;
+    float: right;
+}
+
+.TVXtN .action .btn-detail {
+    border: none;
+    text-decoration: solid;
+    background-color: transparent;
+    color: rgb(36, 116, 229);
+    font-size: 16px;
+    height: 25px;
+}
+
+.tt-ct-tung-chuyen-xe {
+
+    border-top: 1px solid grey;
+    justify-content: space-around;
+    display: flex;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+    padding: 16px;
+    color: rgba(0, 0, 0, .65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    -webkit-font-feature-settings: "tnum";
+    font-feature-settings: "tnum";
+    overflow: hidden;
+    zoom: 1;
+}
+
+
+/*code cho phần thông tin chi tiết phần giảm giá */
+
+.css-ulxgan-MuiTabs-root {
+    width: 80%;
+}
+
+.coupon-info-route-page-container {
+    flex: 1 1 100%;
+    max-width: 40%;
+    padding: 12px;
+    border: 1px solid rgb(171, 166, 166);
+    border-radius: 8px;
+}
+
+.giamgia {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.giamgia img {
+    width: 4.2rem;
+    height: 4.2rem;
+}
+
+.title-giam-gia {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 0px;
+    color: rgb(47, 128, 237);
+}
+
+.price-giam {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: rgb(20, 20, 20) !important;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+}
+
+.dk-giam {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: rgb(20, 20, 20) !important;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.hsd {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.hsd strong {
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.css-ulxgan-MuiTabs-root {
+    margin: auto
+}
+
+/*code css cho diem don tra */
+.luu-y h2 {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(0, 96, 196);
+}
+
+.diem-don-tra {
+    display: flex;
+}
+
+.trung-chuyen {
+    background-color: rgb(39, 174, 96);
+    color: rgb(255, 255, 255);
+    border-radius: 2px;
+    width: fit-content;
+    padding: 0px 4px;
+    font-size: 12px;
+}
+
+/*code phần đánh giá */
+.tong-quan-danh-gia {
+    font-size: 16px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.trung-binh-sao {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.chi-tiet-danh-gia {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chi-tiet-danh-gia {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.item-danh-gia {
+    flex: 1 1 100%;
+    max-width: 33.3%;
+}
+
+.title-dg {
+    font-size: 16px;
+    margin-bottom: -10px;
+}
+
+.item-danh-gia div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.button-binh-luan div {
+    padding-top: 30px;
+    margin-left: 60px;
+    padding-right: 60px;
+    width: 540px;
+    overflow: auto;
+    display: flex;
+}
+
+.button-binh-luan button {
+    margin-right: 10px;
+    color: rgb(14, 96, 208);
+    white-space: nowrap;
+    height: 36px;
+    line-height: 1.5;
+    padding: 0 15px;
+    border-radius: 2px;
+    border: 0.5px solid rgb(14, 96, 208);
+    background-color: transparent;
+}
+
+/**code cho phần bình luận từng chuyến xe */
+.item-bl {
+    margin-top: 30px;
+    margin-left: 60px;
+    padding-right: 60px;
+    width: 80%;
+    border-bottom: 1px solid rgb(187, 175, 175);
+}
+
+.item-bl:last-child {
+
+    border-bottom: none;
+}
+
+.item-bl-infouse {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nameuser-star div {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nd-bl p {
+    font-size: 14px;
+}
+
+.tgian-bl p {
+    display: flex;
+    align-items: center;
+    color: #B8B8B8;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.tgian-bl p span {
+    display: flex;
+    align-items: center;
+    color: #27AE60;
+    gap: 5px;
+}
+
+/*code cho phan chinh sach*/
+.chinh-sach-container {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.hinh-anh-truc-quan div {
+
+    display: flex;
+}
+
+.thanh-mau-vang {
+    position: relative;
+    width: 100%;
+    height: 18px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #FFC700;
+}
+
+.thanh-mua-do {
+    position: relative;
+    width: 100%;
+    height: 18px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-color: #F10000;
+}
+
+.title-huy {
+    display: flex;
+    justify-content: space-around;
+}
+
+.hom-nay {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 3px 3px;
+    border-radius: 3px;
+    border: 1px solid grey;
+    width: max-content;
+}
+
+.thoi-gian-hm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.khoihanh {
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    top: -20px
+}
+
+.chinh-sach-nha-xe p {
+    color: rgb(20, 20, 20);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.chinh-sach-nha-xe ul {
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+    border-bottom: 1px dashed rgb(178, 172, 172);
+}
+
+.chinh-sach-nha-xe ul li {
+    margin-left: 50px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+}
+
+/*code cho phan chi tiết giảm giá */
+.chi-tiet-ma-giam-gia {
+    background-color: rgb(242, 242, 242);
+    font-size: 14px;
+    position: relative;
+}
+
+.ctmgg-top {
+    background-color: #2474E5;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.ctmgg-top p {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.ctmgg-img img {
+    width: 100%;
+}
+
+.ctmgg-nd {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.pham-vi-ap-dung {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+
+}
+
+.dk-su-dung {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 80px;
+}
+
+.ma-so {
+    width: max-content;
+    padding: 3px 12px 1px;
+    border-radius: 4px;
+    background-color: rgb(255, 211, 51);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+}
+
+.phan-tram-giam {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 0px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tg-giam {
+    display: flex;
+    align-items: center;
+}
+
+.pv {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.button-dong {
+    display: flex;
+    min-height: 88px;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 16px 20px;
+    border-top: 1px solid rgb(224, 224, 224);
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    width: 42%;
+    background-color: white;
+}
+
+.button-dong button {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 8px;
+    color: white;
+    background: rgb(13, 46, 89);
+    border-color: rgb(13, 46, 89);
+}
+
+/*code css cho phần câu hỏi thường gặp */
+.cau-hoi-thuong-gap {
+    margin-top: 50px;
+    background-color: #FFFFFF;
+    display: flex;
+    border-radius: 5px;
+}
+
+.title-cau-hoi {
+    width: 120%;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 0px;
+    padding: 32px 16px;
+}
+
+/*code cho phần giới thiệu chuyến xe */
+.content-dynamic {
+    padding: 0 14px;
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.5;
+}
+
+.content {
+    line-height: 1.5;
+    display: block;
 }

@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import './App.css';
+import { Footer, Header } from './component/common';
 // import Header from './component/common/Header';
 
 function App() {
     return (
         <>
-            {/* <Header /> */}
+            <Header />
             <Outlet></Outlet>
-            {/* footer */}
+            <Footer/>
         </>
     );
 }

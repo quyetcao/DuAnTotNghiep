@@ -9,6 +9,7 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import FlightIcon from '@mui/icons-material/Flight';
 import TrainIcon from '@mui/icons-material/Train';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 export default function Banner() {
     return (
@@ -115,7 +116,7 @@ export default function Banner() {
                                     </div>
                                     <div className='search-btn'>
                                         <button className='style-btn'>
-                                            <span>Tìm kiếm</span>
+                                           <Link to='/viewchuyenxe'>  <span>Tìm kiếm</span></Link>
                                         </button>
                                     </div>
                                 </div>
