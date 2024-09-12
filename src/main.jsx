@@ -5,12 +5,17 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import component 
 import ViewChuyenxe from './component/viewpage/viewchuyenxe.jsx'
+<<<<<<< HEAD
 import Home from './component/Pages/home.tsx';
 import Login from './component/Pages/login.jsx';
 import Register from './component/Pages/register.jsx';
 import NoLogin from './component/bad-request/chua-login.jsx';
 import Taikhoan from './component/info-use/taikhoan.jsx';
 import ThongTinTK from './component/info-use/thong-tin-tk.jsx';
+=======
+import Home from './component/Pages/home.jsx';
+import ThanhToan from './component/thanhtoan/thanhtoan.jsx';
+>>>>>>> ae0fefed83d77b01afd0cfb0d896f1f60b995815
 
 
 
@@ -30,6 +35,7 @@ const routes = createBrowserRouter([
         element: <ViewChuyenxe />
       },
       {
+<<<<<<< HEAD
         path: "/login",
         element: <Login />
       },
@@ -53,6 +59,11 @@ const routes = createBrowserRouter([
       },
       
 
+=======
+        path: "/thanhtoan",
+        element: <ThanhToan />
+      },
+>>>>>>> ae0fefed83d77b01afd0cfb0d896f1f60b995815
     ]
   },
   

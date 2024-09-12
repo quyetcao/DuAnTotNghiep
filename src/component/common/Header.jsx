@@ -1,4 +1,3 @@
-import React from 'react';
 
 // import icon
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
