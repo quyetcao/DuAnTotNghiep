@@ -6,6 +6,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PhoneIcon from '@mui/icons-material/Phone';
 
 import '../css/header.css';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
@@ -51,7 +52,7 @@ export default function Header() {
                         <PhoneIcon fontSize="small"/>
                         Hotline 24/7
                     </div>
-                    <div className='login btn-menu'>Đăng nhập</div>
+                    <Link to='/login'><div className='login btn-menu'>Đăng nhập</div></Link>
                 </div>
             </div>
         </div>
