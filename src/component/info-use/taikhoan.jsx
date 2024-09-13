@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
+import LayoutPageTaiKhoan from "./layout-page-tk";
 
 export default function Taikhoan(){
     return (
         <>
-        <h1>Tài khoản</h1>
-        
+         <LayoutPageTaiKhoan/>
          <Outlet></Outlet>
         </>
     )

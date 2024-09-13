@@ -2,20 +2,14 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import Grid from '@mui/material/Grid2';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    ...theme.applyStyles('dark', {
-        backgroundColor: '#1A2027',
-    }),
-}));
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import RedeemIcon from '@mui/icons-material/Redeem';
+import PaymentIcon from '@mui/icons-material/Payment';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
+import '../css/user/layout-Page-tk.css';
 
 function handleClick(event) {
     event.preventDefault();
@@ -25,7 +19,7 @@ function handleClick(event) {
 export default function LayoutPageTaiKhoan() {
     const breadcrumbs = [
         <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
-            MUI
+            Trang chủ
         </Link>,
         <Link
             underline="hover"
@@ -34,25 +28,47 @@ export default function LayoutPageTaiKhoan() {
             href="/material-ui/getting-started/installation/"
             onClick={handleClick}
         >
-            Core
+            Tài khoản
         </Link>,
         <Typography key="3" sx={{ color: 'text.primary' }}>
-            Breadcrumb
+            Thông tin tài khoản
         </Typography>,
     ];
     return (
         <>
+        <div className="layout-page-tk">
             <Breadcrumbs
                 separator={<NavigateNextIcon fontSize="small" />}
                 aria-label="breadcrumb">
                 {breadcrumbs}
             </Breadcrumbs>
-            <Grid size={{ xs: 6, md: 4 }}>
-                <Item>xs=6 md=4</Item>
-            </Grid>
-            <Grid size={{ xs: 6, md: 8 }}>
-                <Item>xs=6 md=8</Item>
-            </Grid>
+            <div className="slider-bar">
+                <ul>
+                    <li><AccountCircleIcon/>
+                    <p>Thông tin tài khoản</p>
+                    </li>
+                    <li><LoyaltyIcon/>
+                    <p>Thành viên thường</p>
+                    
+                    </li>
+                    <li><ConfirmationNumberIcon/>
+                    <p>Đơn hàng của tôi</p>
+                    </li>
+                    <li><RedeemIcon/>
+                    <p>Ưu đãi</p>
+                    </li>
+                    <li><PaymentIcon/>
+                    <p>Quản lý thẻ</p>
+                    </li>
+                    <li><RateReviewIcon/>
+                    <p>Nhận xét chuyến đi</p>
+                    </li>
+                    <li><SettingsPowerIcon/>
+                    <p>Đăng xuất</p>
+                    </li>
+                </ul>
+            </div>
+            </div>
 
 
 
