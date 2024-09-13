@@ -23,7 +23,7 @@ export default function Header() {
                     className='header-title rtb'
                 >
                     Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
-                    <InfoOutlinedIcon fontSize='small'/>
+                    <span><InfoOutlinedIcon fontSize='small'/></span>
                 </a>
             </div>
             <div className='header-right'>

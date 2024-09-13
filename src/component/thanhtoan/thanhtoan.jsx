@@ -3,13 +3,6 @@ import '../css/thanhtoan.css';
 export default function ThanhToan() {
     return (
         <>
-            <div className='header'>
-                <div className='header-left'>
-                    <div className='logo'>
-                        <img src='https://storage.googleapis.com/fe-production/svgIcon/icon_vxr_full_2.svg' alt='' />
-                    </div>
-                </div>
-            </div>
             <div className="body-container">
                 <div className="payment">
                     <div className="payment-page">
@@ -39,7 +32,7 @@ export default function ThanhToan() {
                                             </span>
                                         </lable>
                                         <div className="detail-content">
-                                            <p className="content-title">Không cần nhập thông tin. Xác nhận thanh toán tức thì, nhanh chóng và ít sai sót.</p>
+                                            <p className="thanhtoan-title">Không cần nhập thông tin. Xác nhận thanh toán tức thì, nhanh chóng và ít sai sót.</p>
                                             <div className="">
                                                 <div className="content-support">
                                                     <div className="ho-tro">
@@ -47,12 +40,12 @@ export default function ThanhToan() {
                                                             Hỗ trợ nhiều ví điện tử & 42 ngân hàng
                                                         </p>
                                                         <div className="content-img__app">
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-0.png" alt="default-alt" width="24" height="24" />
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-7.png" alt="default-alt" width="24" height="24" />
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-5.png" alt="default-alt" width="24" height="24" />
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-6.png" alt="default-alt" width="24" height="24" />
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Default-0.png" alt="default-alt" width="36" height="24" />
-                                                            <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Default-1.png" alt="default-alt" width="36" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-0.png" alt="default-alt" width="24" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-7.png" alt="default-alt" width="24" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-5.png" alt="default-alt" width="24" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Wallet-6.png" alt="default-alt" width="24" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Default-0.png" alt="default-alt" width="36" height="24" />
+                                                            <img className='img__app-icon' src="https://229a2c9fe669f7b.cmccloud.com.vn/images/bank_wallet_new/Default-1.png" alt="default-alt" width="36" height="24" />
                                                         </div>
                                                         <p className="text-base">
                                                             <a href="" className="text-link">
@@ -67,8 +60,8 @@ export default function ThanhToan() {
                                         <div className="payment-container">
                                             <div className="payment-content">
                                                 <div className="left-content">
-                                                    <img className="icon-img" src="https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/critical_close.svg" alt="info" />
-                                                    <p className="content-heading">Chuyến đi chưa được bảo vệ</p>
+                                                    <img className="icon-img" src="https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/critical_close.svg" alt="info" width={'18px'} height={'18px'} />
+                                                    <p className="thanhtoan-heading">Chuyến đi chưa được bảo vệ</p>
                                                 </div>
                                                 <p className="content-p"><a href="" className="text-link">Thêm bảo hiểm</a></p>
                                             </div>
@@ -84,7 +77,7 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Bạn có thể thanh toán cho tài xế khi lên xe</p>
+                                        <p className="thanhtoan-heading text-content">Bạn có thể thanh toán cho tài xế khi lên xe</p>
                                     </div>
                                     <div className="payment-item border-bottom">
                                         <lable className="list-qr">
@@ -98,8 +91,8 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Thẻ Visa, MasterCard, JCB</p>
-                                        <p className="content-heading text-content nhapma">
+                                        <p className="thanhtoan-heading text-content">Thẻ Visa, MasterCard, JCB</p>
+                                        <p className="thanhtoan-heading text-content nhapma">
                                             Nhập mã VXRHDS50 hoặc VXRHDS100 - Giảm 50K cho đơn từ 250K và 100K cho đơn từ 450K khi thanh toán bằng thẻ tín dụng HDSAISON <br/>
                                             <a href="" className="text-link">Điều kiện sử dụng</a>
                                         </p>
@@ -116,8 +109,8 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Điện thoại của bạn phải được cài đặt ứng dụng ShopeePay</p>
-                                        <p className="content-heading text-content nhapma">
+                                        <p className="thanhtoan-heading text-content">Điện thoại của bạn phải được cài đặt ứng dụng ShopeePay</p>
+                                        <p className="thanhtoan-heading text-content nhapma">
                                             Giảm 10K khi nhập mã SPPVEXE09 cho đơn từ 100K - <br/>
                                             <a href="" className="text-link">Điều kiện sử dụng</a>
                                         </p>
@@ -134,8 +127,8 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Thiết bị cần cài đặt Ứng dụng ngân hàng (Mobile Banking) hoặc Ví VNPAY</p>
-                                        <p className="content-heading text-content nhapma">
+                                        <p className="thanhtoan-heading text-content">Thiết bị cần cài đặt Ứng dụng ngân hàng (Mobile Banking) hoặc Ví VNPAY</p>
+                                        <p className="thanhtoan-heading text-content nhapma">
                                             Giảm 10K và giảm 30K khi nhập mã VNPAYVXR10 lần lượt cho đơn từ 250K và 900K - <br/>
                                             <a href="" className="text-link">Điều kiện sử dụng</a>
                                         </p>
@@ -152,8 +145,8 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Điện thoại của bạn phải được cài đặt ứng dụng MoMo</p>
-                                        <p className="content-heading text-content nhapma">
+                                        <p className="thanhtoan-heading text-content">Điện thoại của bạn phải được cài đặt ứng dụng MoMo</p>
+                                        <p className="thanhtoan-heading text-content nhapma">
                                             Giảm 10K khi nhập mã VEXEMOMO cho đơn từ 400K - <br/>
                                             <a href="" className="text-link">Điều kiện sử dụng</a>
                                         </p>
@@ -170,7 +163,7 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Tài khoản phải có đăng ký Internet banking</p>
+                                        <p className="thanhtoan-heading text-content">Tài khoản phải có đăng ký Internet banking</p>
                                     </div>
                                     <div className="payment-item border-bottom">
                                         <lable className="list-qr">
@@ -184,7 +177,7 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Bạn cần có tài khoản Viettel Money hoặc có cài đặt ứng dụng Viettel Money</p>
+                                        <p className="thanhtoan-heading text-content">Bạn cần có tài khoản Viettel Money hoặc có cài đặt ứng dụng Viettel Money</p>
                                     </div>
                                     <div className="payment-item mt-20">
                                         <lable className="list-qr">
@@ -198,7 +191,7 @@ export default function ThanhToan() {
                                                 </p>
                                             </span>
                                         </lable>
-                                        <p className="content-heading text-content">Bạn có thể thanh toán tại các cửa hàng tiện lợi, Viettel post hoặc siêu thị</p>
+                                        <p className="thanhtoan-heading text-content">Bạn có thể thanh toán tại các cửa hàng tiện lợi, Viettel post hoặc siêu thị</p>
                                     </div>
                                 </div>
                             </div>

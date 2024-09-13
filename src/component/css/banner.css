@@ -226,10 +226,14 @@
     border-radius: 8px;
     border: none;
     font-weight: 600;
-    color: rgb(20, 20, 20);
     font-size: 18px;
     line-height: 24px;
     background: rgb(255, 211, 51);
+}
+
+.style-btn > a {
+    text-decoration: none;
+    color: rgb(20, 20, 20);
 }
 
 /* Pod container */

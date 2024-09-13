@@ -1,10 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+:root {
+    --white-color: #fff;
+    --black-color:  rgb(20, 20, 20);
+}
 
 body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 .header {
@@ -54,7 +60,7 @@ body {
 
 .payment-method {
     padding: 20px 20px 0px;
-    background: white;
+    background-color: var(--white-color);
     border-radius: 8px;
     border: 1px solid rgb(224, 224, 224) !important;
 }
@@ -66,7 +72,7 @@ body {
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 0px;
-    color: rgb(20, 20, 20)
+    color: rgb(20, 20, 20);
 }
 
 .list-qr {
@@ -113,7 +119,7 @@ body {
     height: 22px;
     margin-left: 6px;
     border-radius: 4px;
-    color: #fff;
+    color: var(--white-color);
     background-color: rgb(39, 174, 96)
 }
 
@@ -121,6 +127,7 @@ body {
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
+    margin: 0;
 }
 
 .text-link {
@@ -140,12 +147,12 @@ body {
     margin-left: 25px;
 }
 
-.content-title {
+.thanhtoan-title {
     font-weight: 300;
     font-size: 14px;
     line-height: 20px;
     margin-top: 12px;
-    margin-bottom: 6px;
+    margin-bottom: 14px;
 }
 
 .content-support {
@@ -164,7 +171,11 @@ body {
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    color: rgb(20, 20, 20)
+    color: var(--black-color);
+}
+
+.img__app-icon {
+    margin: 0 3px;
 }
 
 
@@ -175,7 +186,7 @@ body {
 
 .cart-summary {
     padding: 20px;
-    background-color: white;
+    background-color: var(--white-color);
     border-radius: 5px;
 }
 
@@ -199,7 +210,7 @@ body {
 .cart-price {
     font-size: 18px;
     font-weight: bold;
-    color: #000;
+    color: var(--black-color)
 }
 
 
@@ -244,7 +255,7 @@ body {
     align-items: center;
 }
 
-.content-heading {
+.thanhtoan-heading {
     font-size: 14px;
     font-weight: 300;
     margin: 0;
