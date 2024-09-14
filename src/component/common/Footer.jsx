@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+
 
 // import css
 import '../css/footer.css';
@@ -72,7 +73,7 @@ export default function Footer() {
                                 </ul>
                             </div>
                         </div>
-                        <div className='content-box'>
+                        <div className='content-box content-box__flex'>
                             <p className='content-title'>Xe Limousine</p>
                             <div className='content-list__car'>
                                 <ul className='footer-list'>
@@ -202,6 +203,8 @@ export default function Footer() {
                                             className='footer-link link-text'
                                         >
                                             Bến xe Gia Lâm
+                                       
+
                                         </a>
                                     </li>
                                     <li className='content-list-item'>
@@ -246,6 +249,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-lien-hung'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Liên Hưng
@@ -255,6 +259,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-phong-phu'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Phong Phú
@@ -264,6 +269,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-tien-oanh'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Tiến Oanh
@@ -273,6 +279,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-tuan-hung'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Tuấn Hưng
@@ -284,6 +291,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-khanh-phong'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Khanh Phong
@@ -293,6 +301,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-dong-phuoc'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Đồng Phước
@@ -302,6 +311,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-thuan-tien'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Thuận Tiến
@@ -311,6 +321,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-long-van-limousine'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Long Vân Limousine
@@ -322,6 +333,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-cuc-tung'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Cúc Tùng
@@ -331,6 +343,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-an-phu'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe An Phú Buslines
@@ -340,6 +353,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-bang-phan'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Bằng Phấn
@@ -349,6 +363,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-an-phu-quy'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe An Phú Quý
@@ -360,6 +375,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-36-limousine'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe 36 Limousine
@@ -369,6 +385,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-phuc-xuyen'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Phúc Xuyên
@@ -378,6 +395,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-ha-lan'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Hà Lan
@@ -387,6 +405,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-tan-kim-chi'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Tân Kim Chi
@@ -398,6 +417,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-minh-quoc'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Minh Quốc
@@ -407,6 +427,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-hai-au'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Hải Âu
@@ -416,6 +437,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-g8-sapa-open-tour'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe G8 Open Tour
@@ -425,6 +447,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-tra-lan-vien'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Trà Lan Viên
@@ -436,6 +459,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-vie-limousine'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Vie Limousine
@@ -445,6 +469,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-hao'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Hảo
@@ -454,6 +479,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-dien-linh-limousine'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Điền Linh
@@ -463,6 +489,7 @@ export default function Footer() {
                                     <a
                                         href='https://vexere.com/vi-VN/xe-nam-cuong-limousine'
                                         target='_blank'
+                                        rel='noopener noreferrer'
                                         className='footer-link link-text'
                                     >
                                         Xe Nam Cường Limousine

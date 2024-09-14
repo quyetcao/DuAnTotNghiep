@@ -93,7 +93,7 @@ body {
 .header .language img {
     height: 18px;
     width: 26px;
-    margin-right: 5px;
+    /* margin-right: 5px; */
     border: 1px solid #fff;
     border-radius: 2px;
 }
@@ -101,7 +101,7 @@ body {
 .btn-menu {
     background-color: #fff;
     color: #000;
-    padding: 5px 16px;
+    padding: 5px 15px;
     border-radius: 5px;
     height: 26px;
     font-weight: 700;
