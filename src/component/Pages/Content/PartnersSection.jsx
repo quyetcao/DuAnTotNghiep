@@ -1,14 +1,13 @@
-import React from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 
 // Cập nhật với logo của các đối tác
 const partners = [
-    { name: 'VNExpress', logo: 'public/images/img_content/logo-vne.png' },
-    { name: 'VTV', logo: 'public/images/img_content/logo-vtv.png' },
-    { name: 'Cesti', logo: 'public/images/img_content/logo-cesti.png' },
-    { name: 'Dân Trí', logo: 'public/images/img_content/logo-dantri.png' },
-    { name: 'Tuổi Trẻ', logo: 'public/images/img_content/logo-tuoitre.png' },
-    { name: 'FBNC', logo: 'public/images/img_content/logo-fbnc.png' },
+    { name: 'VNExpress', logo: '../../images/img_content/logo-vne.png' },
+    { name: 'VTV', logo: '../../images/img_content/logo-vtv.png' },
+    { name: 'Cesti', logo: '../../images/img_content/logo-cesti.png' },
+    { name: 'Dân Trí', logo: '../../images/img_content/logo-dantri.png' },
+    { name: 'Tuổi Trẻ', logo: '../../images/img_content/logo-tuoitre.png' },
+    { name: 'FBNC', logo: '../../images/img_content/logo-fbnc.png' },
 ];
 
 export default function PartnersSection() {

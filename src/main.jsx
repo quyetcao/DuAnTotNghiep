@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import component
 import Home from './component/Pages/home.jsx';
 import ViewChuyenxe from './component/viewpage/viewchuyenxe.jsx'
-import PaymentInformation from './component/viewpage/payment-information.jsx';
 import Login from './component/Pages/login.jsx';
 import Register from './component/Pages/register.jsx';
 import NoLogin from './component/bad-request/chua-login.jsx';
@@ -29,10 +28,10 @@ const routes = createBrowserRouter([
         path: "/viewchuyenxe",
         element: <ViewChuyenxe />
       },
-      {
-        path: "/payment-information",
-        element: <PaymentInformation />
-      },
+      // {
+      //   path: "/payment-information",
+      //   element: <PaymentInformation />
+      // },
       {
         path: "/login",
         element: <Login />
