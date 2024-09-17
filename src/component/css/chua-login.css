@@ -1,0 +1,27 @@
+.no-login {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.no-login img {
+    margin: auto;
+    width: 8%;
+}
+.no-login h2 {
+    margin: auto;
+}
+.no-login p {
+    margin: auto;
+}
+.btn-no-login {
+    margin: auto;
+    width: 20%;
+    padding: 15px 40px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(42, 42, 124);
+    border: none;
+    border-radius: 5px;
+}

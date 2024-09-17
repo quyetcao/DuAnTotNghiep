@@ -115,3 +115,7 @@ body {
     margin-right: 5px;
     color: red;
 }
+
+.menu > a .login {
+    margin: 0;
+}
