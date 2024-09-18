@@ -1,25 +1,16 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
-/* body {
+:root {
+    --white-color: #fff;
+    --black-color: rgb(20, 20, 20);
+}
+
+body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
-} */
-
-/* .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(36, 116, 229);
-    padding: 14px 20px;
-    color: white;
-} */
-
-/* .header .logo img {
-    height: 40px;
-} */
-
+    font-family: "Quicksand", sans-serif;
+}
 
 
 .body-container {
@@ -54,19 +45,17 @@
 
 .payment-method {
     padding: 20px 20px 0px;
-    background: white;
+    background-color: var(--white-color);
     border-radius: 8px;
     border: 1px solid rgb(224, 224, 224) !important;
 }
-
-
 
 .method-heading {
     font-weight: 700;
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 0px;
-    color: rgb(20, 20, 20)
+    color: rgb(20, 20, 20);
 }
 
 .list-qr {
@@ -100,7 +89,7 @@
     display: flex;
     font-size: 16px;
     font-weight: 500;
-    color: rgba(0, 0, 0, .65);
+    color: rgba(0, 0, 0, 0.65);
     line-height: 24px;
     margin: 0;
 }
@@ -113,14 +102,15 @@
     height: 22px;
     margin-left: 6px;
     border-radius: 4px;
-    color: #fff;
-    background-color: rgb(39, 174, 96)
+    color: var(--white-color);
+    background-color: rgb(39, 174, 96);
 }
 
 .text-base {
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
+    margin: 0;
 }
 
 .text-link {
@@ -140,13 +130,13 @@
     margin-left: 25px;
 }
 
-/* .content-title {
+.thanhtoan-title {
     font-weight: 300;
     font-size: 14px;
     line-height: 20px;
     margin-top: 12px;
-    margin-bottom: 6px;
-} */
+    margin-bottom: 14px;
+}
 
 .content-support {
     background-color: rgb(227 237 252);
@@ -164,9 +154,12 @@
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
-    color: rgb(20, 20, 20)
+    color: var(--black-color);
 }
 
+.img__app-icon {
+    margin: 0 3px;
+}
 
 /* wrap-right */
 .wrap-right {
@@ -175,7 +168,7 @@
 
 .cart-summary {
     padding: 20px;
-    background-color: white;
+    background-color: var(--white-color);
     border-radius: 5px;
 }
 
@@ -196,12 +189,17 @@
     align-items: center;
 }
 
+.cart-box-link {
+    color: #2474e5;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 .cart-price {
     font-size: 18px;
     font-weight: bold;
-    color: #000;
+    color: var(--black-color);
 }
-
 
 .cart-detail {
     width: 100%;
@@ -244,7 +242,7 @@
     align-items: center;
 }
 
-.content-heading {
+.thanhtoan-heading {
     font-size: 14px;
     font-weight: 300;
     margin: 0;
@@ -273,43 +271,43 @@ a.text-link {
 }
 
 /*code phần hiển thị thêm của radio*/
-.ant-collapse-content-box{
+.ant-collapse-content-box {
     margin-top: 20px;
 }
 .iIqzBs {
     font-weight: bold;
 }
-.PaymentMethods__LabelStyle-sc-6pvdqp-2{
+.PaymentMethods__LabelStyle-sc-6pvdqp-2 {
     padding-left: 25px;
 }
-.PaymentMethods__GuildContainer-sc-6pvdqp-5{
+.PaymentMethods__GuildContainer-sc-6pvdqp-5 {
     padding-left: 25px;
 }
-.ant-collapse-content-box{
+.ant-collapse-content-box {
     padding-left: 25px;
 }
-.jCaFku{
+.jCaFku {
     font-size: 14px;
-    color:#000000A6
+    color: #000000a6;
 }
-.cop-text p{
+.cop-text p {
     font-size: 14px;
-    color:#141414;
+    color: #141414;
 }
-.TrustMessage__Container-sc-8xur6b-0{
+.TrustMessage__Container-sc-8xur6b-0 {
     margin-top: 10px;
-    background-color: #FFF0D6;
-    padding:10px 12px;
-    border:1px solid rgb(255, 175, 31) ;
+    background-color: #fff0d6;
+    padding: 10px 12px;
+    border: 1px solid rgb(255, 175, 31);
     font-size: 14px;
-    color:#141414;
+    color: #141414;
     display: flex;
     border-radius: 5px;
     word-break: break-word;
     align-items: center;
-    gap:10px;
+    gap: 10px;
 }
-.dwyAVK{
+.dwyAVK {
     font-size: 16px;
     font-weight: bold;
 }
@@ -323,11 +321,9 @@ a.text-link {
 }
 
 .cart-kk-detail {
-
     display: flex;
     gap: 10px;
     overflow: auto;
-
 }
 
 .cart-khuyen-mai .coupon-info-route-page-container {
@@ -345,9 +341,9 @@ a.text-link {
 
 .section-ticket-header {
     margin-top: 20px;
-    padding: 10px 10px ;
+    padding: 10px 10px;
     width: 100%;
-    height:35px;
+    height: 35px;
     border: 1px solid rgb(160, 157, 157);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -358,8 +354,8 @@ a.text-link {
 
 .section-ticket-header-left {
     align-items: center;
-    gap:10px;
-    height:35px;
+    gap: 10px;
+    height: 35px;
     display: flex;
 }
 
@@ -394,7 +390,7 @@ a.text-link {
     flex: 0 0 70%;
     width: 100%;
 }
-.eSKsXb{
+.eSKsXb {
     text-overflow: ellipsis;
     font-size: 10px;
 }
@@ -407,12 +403,11 @@ a.text-link {
     margin-bottom: 0px;
 }
 
-.section-ticket-company-info div{
+.section-ticket-company-info div {
     width: 30%;
 }
 
 .section-ticket-content {
-   
     border-left: 1px solid rgb(160, 157, 157);
     border-right: 1px solid rgb(160, 157, 157);
     border-bottom: 1px solid rgb(160, 157, 157);
@@ -421,12 +416,12 @@ a.text-link {
 }
 /*******/
 .area-point-container {
-    padding:10px;
+    padding: 10px;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content:flex-start;
-    gap:20px ;
+    justify-content: flex-start;
+    gap: 20px;
 }
 .kxACTE {
     font-weight: 700;
@@ -445,10 +440,10 @@ a.text-link {
     line-height: 12px;
     margin-bottom: 0px;
 }
-.dlwjtp{
+.dlwjtp {
     display: flex;
 }
-.section-area{
+.section-area {
     display: flex;
     width: 100%;
     align-items: center;
@@ -472,11 +467,14 @@ a.text-link {
     word-break: normal;
 }
 
-
 /*card thông tin khách hàng */
 .cart-thong-tin-kh {
     margin-top: 20px;
     padding: 20px;
     background-color: white;
     border-radius: 5px;
+}
+
+.hsd {
+    margin-top: 4px;
 }

@@ -19,7 +19,7 @@ export default function Register(){
                         <div className="form_group">
                             <input type="text" name='password' placeholder='Password'></input>
                         </div>
-                        <button type='submit' >LOGIN NOW</button>
+                        <button className="submit-login" type='submit' >REGISTER NOW</button>
                     </form>
                     <p><strong>Login</strong> with other</p>
                     <div className="login_icon">

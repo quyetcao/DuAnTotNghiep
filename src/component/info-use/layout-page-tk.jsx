@@ -5,7 +5,8 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import PaymentIcon from '@mui/icons-material/Payment';
 import RateReviewIcon from '@mui/icons-material/RateReview';
-import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
+// import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
+import LogoutIcon from '@mui/icons-material/Logout';
 import '../css/user/layout-Page-tk.css';
 
 
@@ -36,7 +37,7 @@ export default function LayoutPageTaiKhoan() {
                     <li><RateReviewIcon/>
                     <p>Nhận xét chuyến đi</p>
                     </li>
-                    <li><SettingsPowerIcon/>
+                    <li><LogoutIcon/>
                     <p>Đăng xuất</p>
                     </li>
                 </ul>
