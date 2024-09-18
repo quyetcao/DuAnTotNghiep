@@ -53,6 +53,7 @@ input {
     height: 50px;
     border-radius: 5px;
     color: black;
+    padding: 0 10px;
 
 }
 
@@ -80,6 +81,7 @@ input {
     margin: auto;
     display: block;
     margin-top: 20px;
+    font-weight: 600;
 
 }
 

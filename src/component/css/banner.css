@@ -142,7 +142,7 @@
 .search-wrapper {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
 }
 
@@ -199,6 +199,7 @@
     border: none;
     outline: none;
     width: 100%;
+    height: auto;
     border: 0px;
     padding: 0px;
     background-color: unset;
