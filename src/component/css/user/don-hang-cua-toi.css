@@ -1,0 +1,69 @@
+.css-19kzrtu {
+    padding: 0;
+}
+
+.item-chuyen-xe-huy {
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid rgb(240, 236, 236);
+    padding: 16px;
+
+}
+
+.noidung-chuyen-xe-huy {
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 3px;
+}
+
+.nd-cx-huy-top {
+    padding: 0px 16px;
+    display: flex;
+    align-items:center ;
+    justify-content: space-between;
+}
+.nd-cx-huy-top div{
+    background-color: rgb(133, 133, 133);
+    width: fit-content;
+    padding: 5px 5px;
+    color:#FFFFFF;
+    font-size: 12px;
+}
+
+.thoigian-cx {
+    padding: 0px 16px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.nha-xe {
+    padding: 0px 16px;
+    font-size: 14px;
+    color:rgba(0, 0, 0, .65);
+
+}
+
+.dia-diem-don-tra {
+    padding: 0px 16px;
+    font-size: 14px;
+    color:rgba(0, 0, 0, .65);
+}
+
+.bien-so-xe {
+    padding-left:  16px;
+    padding-right: 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color:rgba(0, 0, 0, .65);
+}
+
+.btn-dat-lai {
+    border: none;
+    border-top: 1px solid rgb(192, 192, 192);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(24, 144, 255);
+}

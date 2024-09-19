@@ -12,6 +12,8 @@ import NoLogin from './component/bad-request/chua-login.jsx';
 import Taikhoan from './component/info-use/taikhoan.jsx';
 import ThongTinTK from './component/info-use/thong-tin-tk.jsx';
 import ThanhToan from './component/thanhtoan/thanhtoan.jsx';
+import DonHangCuaToi from './component/info-use/don-hang-cua-toi.jsx';
+import ChiTietGiaoDich from './component/chi-tiet-giao-dich/chi-tiet-gd.jsx';
 
 
 // Router giữa các trang 
@@ -49,12 +51,20 @@ const routes = createBrowserRouter([
         element: <ThanhToan />
       },
       {
+        path: "/chi-tiet-giao-dich",
+        element: <ChiTietGiaoDich />
+      },
+      {
         path: "/taikhoan",
         element: <Taikhoan />,
         children: [
           {
             path: "thong-tin-tk",
             element: <ThongTinTK />
+          },
+          {
+            path:"don-hang-cua-toi",
+            element:<DonHangCuaToi/>
           },
         ]
       },

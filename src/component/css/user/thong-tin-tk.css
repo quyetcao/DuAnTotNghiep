@@ -1,0 +1,26 @@
+.thong-tin-ca-nhan {
+    padding-top: 40px;
+    padding-right: 165px;
+    font-size: 14px;
+    color: #141414;
+}
+
+.group-input {
+    margin-top: 10px;
+}
+
+.group-input input {
+    margin-top: 10px;
+    height: 35px;
+    padding:15px;
+
+}
+.luu-tk{
+    color:white;
+    font-size: large;
+    width: 100%;
+    border: none;
+    height:35px;
+    border-radius: 3px;
+    background-color: rgb(22, 123, 255);
+}
