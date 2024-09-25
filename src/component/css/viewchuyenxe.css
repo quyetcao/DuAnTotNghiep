@@ -501,11 +501,11 @@ color: #141414;
     color: rgb(112, 112, 112);
 }
 
-.kERmQy .from-to .from-to-content .from .hour {
+.kERmQy .from-to .from-to-content1 .from .hour {
     color: rgb(72, 72, 72);
 }
 
-.from-to .from-to-content .from .place {
+.from-to .from-to-content1 .from .place {
 
     color: rgb(72, 72, 72);
     white-space: nowrap;
@@ -521,24 +521,26 @@ color: #141414;
     text-overflow: ellipsis;
 }
 
-.kERmQy .from-to .from-to-content {
+.kERmQy .from-to .from-to-content1 {
     margin-left: 9px;
     position: relative;
     height: 74px;
 }
 
-.kERmQy .from-to .from-to-content .from {
+.kERmQy .from-to .from-to-content1 .from {
     position: absolute;
+    width: 400px;
     top: 0px;
 }
 
-.kERmQy .from-to .from-to-content .duration {
+.kERmQy .from-to .from-to-content1 .duration {
     position: absolute;
     top: 26px;
     font-size: 14px;
 }
 
-.kERmQy .from-to .from-to-content .to {
+.kERmQy .from-to .from-to-content1 .to {
+    width: 400px;
     position: absolute;
     bottom: 2px;
     display: flex;
@@ -548,14 +550,13 @@ color: #141414;
     gap: 3px;
 }
 
-.kERmQy .from-to .from-to-content .content {
+.kERmQy .from-to .from-to-content1 .content {
     display: flex;
     -webkit-box-align: center;
-    align-items: center;
     line-height: 20px;
 }
 
-.kERmQy .from-to .from-to-content .content .hour {
+.kERmQy .from-to .from-to-content1 .content .hour {
     font-size: 20px;
     font-weight: bold;
 }
@@ -564,7 +565,7 @@ color: #141414;
     display: flex;
 }
 
-.content-to-info {
+.content-to-info1 {
     display: flex;
     align-items: center;
 }
