@@ -24,7 +24,9 @@ export default function Header() {
                     className='header-title rtb'
                 >
                     Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
-                    <InfoOutlinedIcon fontSize='small'/>
+                    <span>
+                        <InfoOutlinedIcon fontSize='small' />
+                    </span>
                 </a>
             </div>
             <div className='header-right'>
@@ -39,7 +41,7 @@ export default function Header() {
                         <a href='#' className='menu-item'>
                             Trở thành đối tác
                             <div className='material-icon'>
-                                <ArrowDropDownIcon fontSize="small"/>
+                                <ArrowDropDownIcon fontSize='small' />
                                 {/* <span className='material-symbols-outlined'>arrow_drop_down</span> */}
                             </div>
                         </a>
@@ -48,10 +50,12 @@ export default function Header() {
                         <img src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/en-flag.svg' alt='English Flag' />
                     </div>
                     <div className='hotline btn-menu'>
-                        <PhoneIcon fontSize="small"/>
+                        <PhoneIcon fontSize='small' />
                         Hotline 24/7
                     </div>
-                    <Link to='/login'><div className='login btn-menu'>Đăng nhập</div></Link>
+                    <Link to='/login'>
+                        <div className='login btn-menu'>Đăng nhập</div>
+                    </Link>
                 </div>
             </div>
         </div>

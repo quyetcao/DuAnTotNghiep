@@ -1,11 +1,11 @@
-import React from 'react';
+
 import { Box, Typography, Grid } from '@mui/material';
 
 const stations = [
-    { name: 'Bến xe Miền Đông', image: 'public/images/img_content/ben-xe-mien-dong.jpg' },
-    { name: 'Bến xe Đà Nẵng', image: 'public/images/img_content/benxe-da-nang.png' },
-    { name: 'Bến xe Đà Lạt', image: 'public/images/img_content/ben-xe-da-lat.png' },
-    { name: 'Bến xe Mỹ Đình', image: 'public/images/img_content/benxe-my-dinh.jpeg' }
+    { name: 'Bến xe Miền Đông', image: '../../images/img_content/ben-xe-mien-dong.jpg' },
+    { name: 'Bến xe Đà Nẵng', image: '../../images/img_content/benxe-da-nang.png' },
+    { name: 'Bến xe Đà Lạt', image: '../../images/img_content/ben-xe-da-lat.png' },
+    { name: 'Bến xe Mỹ Đình', image: '../../images/img_content/benxe-my-dinh.jpeg' }
 ];
 
 export default function StationsSection() {
