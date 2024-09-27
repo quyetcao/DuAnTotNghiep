@@ -99,7 +99,6 @@ export default function ViewChuyenxe() {
 
   /// danh sach menu ở thông tin chi tiết 
   const [value1, setValue1] = useState(0);
-
   const handleChange1 = (event, newValue) => {
     setValue1(newValue);
   };
