@@ -1,4 +1,5 @@
-// import React from 'react';
+// import Axios;
+import axios from 'axios';
 
 // import css
 import '../css/banner.css';
@@ -10,8 +11,31 @@ import FlightIcon from '@mui/icons-material/Flight';
 import TrainIcon from '@mui/icons-material/Train';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+
 
 export default function Banner() {
+
+    //useState
+    const [datatp, setDatatp] = useState([]);
+    // UseEffect call api lấy danh sách tỉnh thành phố 
+    useEffect(() => {
+        async function fetchdata() {
+            const res = await axios.get(`https://provinces.open-api.vn/api/`);
+            console.log(">>>>>>",res.data);
+            setDatatp(res.data);
+        }
+        fetchdata()
+    }, [])
+
+    // code hiển thị danh sách 
+    // console.log("dataaaa",datatp);
+
+    // Thao tác với thẻ input nơi di chuyển 
+    function showDanhSachTinhTP() {
+        alert("HElllo")
+    }
     return (
         <div className='homepage'>
             <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
@@ -77,7 +101,15 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Nơi xuất phát</label>
-                                                    <input className='style-input' type='text' value='Đà Nẵng' />
+                                                    <input className='style-input' type='text' value='Đà Nẵng' onClick={showDanhSachTinhTP} />
+                                                    <div className="ds-tinh-tp  hide-ds">
+                                                        <ul>
+                                                            {datatp.map((item) => {
+                                                               return <li key={item.code}>{item.name}</li>
+                                                            })
+                                                            }
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className='input-items'>
@@ -116,7 +148,7 @@ export default function Banner() {
                                     </div>
                                     <div className='search-btn'>
                                         <button className='style-btn'>
-                                           <Link to='/viewchuyenxe'>  <span>Tìm kiếm</span></Link>
+                                            <Link to='/viewchuyenxe'>  <span>Tìm kiếm</span></Link>
                                         </button>
                                     </div>
                                 </div>

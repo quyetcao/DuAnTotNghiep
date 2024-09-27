@@ -166,7 +166,7 @@
     align-items: center;
     width: 20%;
     gap: 10px;
-    padding: 2px 12px;
+    padding: 2px 8px;
 }
 
 .border-right {
@@ -184,6 +184,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    position: relative;
 }
 
 .style-text {
@@ -207,6 +208,7 @@
     line-height: 16px;
     color: rgb(20, 20, 20);
     font-weight: 600;
+    font-family: "Quicksand", sans-serif;
 }
 
 .add-date {
@@ -266,4 +268,19 @@
     line-height: 24px;
     font-weight: 500;
     color: #fff;
+}
+/*code phần danh sách  */
+.ds-tinh-tp{
+    position: absolute;
+    background: white;
+    padding: 5px;
+    width: 12rem;
+    height:15rem;
+    left:-40px;
+    top:50px;
+    z-index: 1;
+    border-radius: 5px;
+    border: 1px solid rgb(204, 204, 204);
+    overflow:hidden ;
+    overflow-y: auto;
 }
