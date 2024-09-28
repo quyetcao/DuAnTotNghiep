@@ -208,7 +208,7 @@
     line-height: 16px;
     color: rgb(20, 20, 20);
     font-weight: 600;
-    font-family: "Quicksand", sans-serif;
+    font-family: "Mulish", sans-serif;
 }
 
 .add-date {
@@ -232,6 +232,12 @@
     font-size: 18px;
     line-height: 24px;
     background: rgb(255, 211, 51);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; 
+}
+
+.style-btn:hover {
+    background-color: rgb(255, 228, 133);;
 }
 
 .style-btn > a {
@@ -269,11 +275,12 @@
     font-weight: 500;
     color: #fff;
 }
-/*code phần danh sách  */
+
+/*code phần danh sách tỉnh thành phố  */
 .ds-tinh-tp{
     position: absolute;
     background: white;
-    padding: 5px;
+    padding: 6px;
     width: 12rem;
     height:15rem;
     left:-40px;
@@ -283,4 +290,26 @@
     border: 1px solid rgb(204, 204, 204);
     overflow:hidden ;
     overflow-y: auto;
+    cursor: pointer;
 }
+
+.ds-tinh-tp ul {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0;
+}
+
+.ds-tinh-tp ul li {
+    font-size: 14px;
+    padding: 7px 12px;
+    color: #686868;
+    transition: all ease-in-out 0.15s;
+}
+
+.ds-tinh-tp ul li:hover {
+    background: #e3f1ff;
+}
+.hide-ds{
+    display: none;
+}
+

@@ -13,29 +13,41 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-
-
 export default function Banner() {
-
     //useState
     const [datatp, setDatatp] = useState([]);
-    // UseEffect call api lấy danh sách tỉnh thành phố 
+    const [tpTo, settpTo] = useState('');
+    // UseEffect call api lấy danh sách tỉnh thành phố
     useEffect(() => {
         async function fetchdata() {
             const res = await axios.get(`https://provinces.open-api.vn/api/`);
-            console.log(">>>>>>",res.data);
+            // console.log('>>>>>>', res.data);
             setDatatp(res.data);
         }
-        fetchdata()
-    }, [])
+        fetchdata();
+    }, []);
 
-    // code hiển thị danh sách 
-    // console.log("dataaaa",datatp);
 
-    // Thao tác với thẻ input nơi di chuyển 
+
+    // Thao tác với thẻ input nơi di chuyển
+    var element = document.getElementById('ds-tinh-tp');
     function showDanhSachTinhTP() {
-        alert("HElllo")
+        element.classList.remove('hide-ds');
     }
+
+      function showDanhSachTinhTP1(){
+         element.classList.remove('hide-ds');
+      }
+
+    function selectTpTo(e) {
+        console.log(e.target);
+        settpTo(e.target.innerHTML);
+        var element = document.getElementById('ds-tinh-tp');
+        element.classList.add('hide-ds')
+    }
+
+
+
     return (
         <div className='homepage'>
             <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
@@ -101,13 +113,17 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Nơi xuất phát</label>
-                                                    <input className='style-input' type='text' value='Đà Nẵng' onClick={showDanhSachTinhTP} />
-                                                    <div className="ds-tinh-tp  hide-ds">
+                                                    <input
+                                                        className='style-input'
+                                                        type='text'
+                                                        value={tpTo}
+                                                        onClick={showDanhSachTinhTP}
+                                                    />
+                                                    <div id='ds-tinh-tp' className='ds-tinh-tp  hide-ds' >
                                                         <ul>
                                                             {datatp.map((item) => {
-                                                               return <li key={item.code}>{item.name}</li>
-                                                            })
-                                                            }
+                                                                return <li key={item.code} onClick={selectTpTo}>{item.name}</li>;
+                                                            })}
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -121,7 +137,14 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Nơi đến</label>
-                                                    <input className='style-input' type='text' value='Hà Nội' />
+                                                    <input className='style-input' type='text' value='Hà Nội' onClick={showDanhSachTinhTP1} />
+                                                     <div id='ds-tinh-tp' className='ds-tinh-tp ' >
+                                                        <ul>
+                                                            {datatp.map((item) => {
+                                                                return <li key={item.code} onClick={selectTpTo}>{item.name}</li>;
+                                                            })}
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className='input-items'>
@@ -147,9 +170,11 @@ export default function Banner() {
                                         </div>
                                     </div>
                                     <div className='search-btn'>
-                                        <button className='style-btn'>
-                                            <Link to='/viewchuyenxe'>  <span>Tìm kiếm</span></Link>
-                                        </button>
+                                        <Link to='/viewchuyenxe'>
+                                            <button className='style-btn'>
+                                                <span>Tìm kiếm</span>
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

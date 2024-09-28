@@ -22,7 +22,6 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 export default function Dashboard() {
@@ -112,7 +111,7 @@ export default function Dashboard() {
                             <div className="thongke-item">
                                 <div className="thongke-item-group">
                                     <div className="thongke-item__left">
-                                        <RefreshIcon color="disabled" />
+                                        <i className="icon-return fa-solid fa-rotate-right" style={{ color: 'rgb(118, 118, 118)' }} />
                                         <span className="thongke-text ml-icon">5 phút trước</span>
                                     </div>
                                     <div className="thongke-item__right">
@@ -135,7 +134,7 @@ export default function Dashboard() {
                             <div className="thongke-item">
                                 <div className="thongke-item-group">
                                     <div className="thongke-item__left">
-                                        <RefreshIcon color="disabled" />
+                                        <i className="icon-return fa-solid fa-rotate-right" style={{ color: 'rgb(118, 118, 118)' }} />
                                         <span className="thongke-text ml-icon">5 phút trước</span>
                                     </div>
                                     <div className="thongke-item__right">
@@ -158,7 +157,7 @@ export default function Dashboard() {
                             <div className="thongke-item">
                                 <div className="thongke-item-group">
                                     <div className="thongke-item__left">
-                                        <RefreshIcon color="disabled" />
+                                        <i className="icon-return fa-solid fa-rotate-right" style={{ color: 'rgb(118, 118, 118)' }} />
                                         <span className="thongke-text ml-icon">5 phút trước</span>
                                     </div>
                                     <div className="thongke-item__right">
@@ -181,7 +180,7 @@ export default function Dashboard() {
                             <div className="thongke-item">
                                 <div className="thongke-item-group">
                                     <div className="thongke-item__left">
-                                        <RefreshIcon color="disabled" />
+                                        <i className="icon-return fa-solid fa-rotate-right" style={{ color: 'rgb(118, 118, 118)' }} />
                                         <span className="thongke-text ml-icon">5 phút trước</span>
                                     </div>
                                     <div className="thongke-item__right">
