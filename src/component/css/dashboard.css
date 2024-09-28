@@ -67,7 +67,7 @@ body {
     align-items: center;
 }
 
-.search-container > input {
+.search-container>input {
     border: none;
     background-color: transparent;
     outline: none;
@@ -116,7 +116,7 @@ body {
     background-color: rgb(17, 17, 17);
 }
 
-.info-list > .info-item > p {
+.info-list>.info-item>p {
     margin: 0;
 }
 
@@ -177,7 +177,7 @@ body {
     margin-left: 6px;
 }
 
-.icon-color-blue  {
+.icon-color-blue {
     color: var(--color-primary);
 }
 
@@ -189,10 +189,11 @@ body {
     width: 100%;
     display: flex;
     gap: 16px;
+
 }
 
 .thongke-item {
-    width: 25%;
+    width: 100%;
     background-color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
@@ -234,4 +235,29 @@ body {
 .thongke-heading {
     font-size: 22px;
     font-weight: 600;
+}
+
+.top {
+    padding-top: 20px
+}
+
+.more-btt p {
+    color: (internal value);
+    text-decoration: underline;
+    cursor: auto;
+}
+
+/* Thống kê hàng 3 */
+.card-left {
+    width: 50%;
+    display: flex;
+    gap: 16px;
+    flex-direction: column
+}
+
+.card-right {
+    width: 50%;
+    display: flex;
+    gap: 16px;
+    flex-direction: column
 }
