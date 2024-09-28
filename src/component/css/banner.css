@@ -276,7 +276,7 @@
     color: #fff;
 }
 
-/*code phần danh sách  */
+/*code phần danh sách tỉnh thành phố  */
 .ds-tinh-tp{
     position: absolute;
     background: white;
@@ -309,3 +309,7 @@
 .ds-tinh-tp ul li:hover {
     background: #e3f1ff;
 }
+.hide-ds{
+    display: none;
+}
+
