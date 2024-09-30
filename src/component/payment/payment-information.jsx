@@ -1,9 +1,9 @@
-// import React from "react";
-// import { Header } from "../common";
+import React from "react";
+import { Header } from "../common";
 import { Container, Grid } from "@mui/material";
-import ThongTinLienHe from "./ThongTinLienHe";
+import ThongTinLienHe from "./payment/ThongTinLienHe"
 import ThongTinChuyenDi from "./payment/ThongTinChuyenDi";
-// import TongTien from "./payment/TongTien";
+import TongTien from "./payment/TongTien";
 import MucTienIch from "./payment/MucTienIch";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
                     <MucTienIch />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    {/* <TongTien /> */}
+                    <TongTien />
                     <ThongTinChuyenDi />
                 </Grid>
             </Grid>

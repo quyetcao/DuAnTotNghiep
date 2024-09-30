@@ -19,7 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 16px;
+    row-gap: 12px;
     margin-top: 8px;
 }
 
@@ -188,7 +188,7 @@ body {
 }
 
 .thongke-item {
-    width: 25%;
+    width: 100%;
     background-color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
