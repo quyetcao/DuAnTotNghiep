@@ -59,13 +59,13 @@ export default function Dashboard() {
                                     <p className="heading-title">Duy Anh</p>
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <NotificationsIcon />
+                                    <NotificationsIcon fontSize='small'/>
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <ArrowDropDownIcon />
+                                    <ArrowDropDownIcon fontSize='small'/>
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <LocalPhoneIcon />
+                                    <LocalPhoneIcon fontSize='small'/>
                                 </li>
                             </ul>
                         </div>

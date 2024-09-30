@@ -15,6 +15,7 @@ import ThanhToan from './component/thanhtoan/thanhtoan.jsx';
 import DonHangCuaToi from './component/info-use/don-hang-cua-toi.jsx';
 import ChiTietGiaoDich from './component/chi-tiet-giao-dich/chi-tiet-gd.jsx';
 import Dashboard from './component/dashboard/dashboard.jsx';
+import DSNhanVien from './component/ds-nhanvien/ds-nhanvien.jsx';
 
 
 // Router giữa các trang 
@@ -58,6 +59,10 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />
+      },
+      {
+        path: "/ds-nhanvien",
+        element: <DSNhanVien />
       },
       {
         path: "/taikhoan",
