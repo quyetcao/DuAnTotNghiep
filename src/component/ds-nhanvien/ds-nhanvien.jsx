@@ -22,7 +22,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 export default function DSNhanVien() {
     return (
         <div className='ds-nhanvien'>
-            <div className='sidebar'>
+            <div className='sidebar sidebar-border__right '>
                 <a href='#'>
                     <NotesOutlinedIcon />
                 </a>

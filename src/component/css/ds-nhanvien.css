@@ -14,15 +14,15 @@ body {
 
 /* side bar */
 .sidebar {
-    /* height: 100vh; */
+    height: 100vh;
     width: 60px;
-    /* background-color: #f7f7f7; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border-right: 5px solid red; */
-    border-right: 1px solid transparent;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-border__right {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .sidebar a {
@@ -149,7 +149,7 @@ body {
 
 .info-item__notification {
     position: absolute;
-    content: "";
+    content: '';
     width: 12px;
     height: 12px;
     border-radius: 999px;
@@ -261,7 +261,8 @@ table {
     padding: 12px;
 }
 
-th, td {
+th,
+td {
     padding: 0 12px;
 }
 
@@ -287,8 +288,6 @@ th, td {
 .table-border__bottom {
     border-bottom: 2px solid rgb(243, 243, 243);
 }
-
-
 
 .trangthai-lamviec {
     display: flex;
@@ -351,7 +350,7 @@ th, td {
     border-radius: 6px;
     border: 1px solid #b4b4b4;
     cursor: pointer;
-    transition: all ease-in-out 0.15s; 
+    transition: all ease-in-out 0.15s;
 }
 
 .page-list__item:hover {

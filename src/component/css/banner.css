@@ -205,7 +205,7 @@
     padding: 0px;
     background-color: unset;
     font-size: 15px;
-    line-height: 16px;
+    /* line-height: 16px; */
     color: rgb(20, 20, 20);
     font-weight: 600;
     font-family: "Mulish", sans-serif;

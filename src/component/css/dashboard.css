@@ -185,6 +185,7 @@ body {
     width: 100%;
     display: flex;
     gap: 16px;
+    margin: 16px 0;
 }
 
 .thongke-item {
@@ -230,4 +231,9 @@ body {
 .thongke-heading {
     font-size: 22px;
     font-weight: 600;
+}
+
+.card-left, .card-right {
+    display: grid;    
+    row-gap: 16px;
 }
