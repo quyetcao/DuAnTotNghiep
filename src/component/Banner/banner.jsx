@@ -17,6 +17,8 @@ export default function Banner() {
     //useState
     const [datatp, setDatatp] = useState([]);
     const [tpTo, settpTo] = useState('');
+    const [tpfrom, settpfrom] = useState('');
+    const [inputlocation, setInputLocation] = useState('');
     // UseEffect call api lấy danh sách tỉnh thành phố
     useEffect(() => {
         async function fetchdata() {
@@ -30,21 +32,15 @@ export default function Banner() {
 
 
     // Thao tác với thẻ input nơi di chuyển
-    var element = document.getElementById('ds-tinh-tp');
-    function showDanhSachTinhTP() {
-        element.classList.remove('hide-ds');
+    function showDanhSachTinhTP(e) {
+        console.log(inputlocation);
+        setInputLocation(e);
     }
 
-      function showDanhSachTinhTP1(){
-         element.classList.remove('hide-ds');
-      }
-
-    function selectTpTo(e) {
-        console.log(e.target);
-        settpTo(e.target.innerHTML);
-        var element = document.getElementById('ds-tinh-tp');
-        element.classList.add('hide-ds')
-    }
+ 
+    // document.addEventListener('click', (e) => {
+     
+    // })
 
 
 
@@ -116,16 +112,21 @@ export default function Banner() {
                                                     <input
                                                         className='style-input'
                                                         type='text'
-                                                        value={tpTo}
-                                                        onClick={showDanhSachTinhTP}
+                                                        value={tpfrom}
+                                                        placeholder='Hà Nội'
+                                                        onClick={() => {
+                                                            showDanhSachTinhTP('input-from')
+                                                        }}
                                                     />
-                                                    <div id='ds-tinh-tp' className='ds-tinh-tp  hide-ds' >
-                                                        <ul>
-                                                            {datatp.map((item) => {
-                                                                return <li key={item.code} onClick={selectTpTo}>{item.name}</li>;
-                                                            })}
-                                                        </ul>
-                                                    </div>
+                                                    {inputlocation == 'input-from' &&
+                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' >
+                                                            <ul>
+                                                                {datatp.map((item) => {
+                                                                    return <li key={item.code} onClick={() => { settpfrom(item.name),setInputLocation('') }}>{item.name}</li>;
+                                                                })}
+                                                            </ul>
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
                                             <div className='input-items'>
@@ -137,14 +138,22 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Nơi đến</label>
-                                                    <input className='style-input' type='text' value='Hà Nội' onClick={showDanhSachTinhTP1} />
-                                                     <div id='ds-tinh-tp' className='ds-tinh-tp ' >
-                                                        <ul>
-                                                            {datatp.map((item) => {
-                                                                return <li key={item.code} onClick={selectTpTo}>{item.name}</li>;
-                                                            })}
-                                                        </ul>
-                                                    </div>
+                                                    <input className='style-input'
+                                                        type='text'
+                                                        placeholder='Hải Phòng'
+                                                        value={tpTo}
+                                                        onClick={() => { showDanhSachTinhTP('input-to') }} />
+
+                                                    {inputlocation == 'input-to' &&
+                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' >
+                                                            <ul>
+                                                                {datatp.map((item) => {
+                                                                    return <li key={item.code} onClick={() => { settpTo(item.name),setInputLocation('') }} >{item.name}</li>;
+                                                                })}
+                                                            </ul>
+                                                        </div>
+                                                    }
+
                                                 </div>
                                             </div>
                                             <div className='input-items'>
