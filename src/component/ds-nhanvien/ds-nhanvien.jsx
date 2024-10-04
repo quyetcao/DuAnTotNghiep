@@ -18,8 +18,37 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useState, useEffect, useRef } from 'react';
 
 export default function DSNhanVien() {
+    // code logic
+
+    const [isMenuVisible, setMenuVisible] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuVisible(!isMenuVisible);
+    };
+
+    // Tạo ref để tham chiếu đến div chứa menu  
+    const menuRef = useRef(null);
+
+    // Hàm ẩn menu khi click ra ngoài vùng menu
+    const handleClickOutside = (event) => {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        // Lắng nghe sự kiện click trên toàn document
+        document.addEventListener('mousedown', handleClickOutside);
+        
+        // Cleanup event listener khi component unmount
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className='ds-nhanvien'>
             <div className='sidebar sidebar-border__right '>
@@ -140,10 +169,19 @@ export default function DSNhanVien() {
                                     {/* <span className="item-table__disable">Đã nghỉ việc</span> */}
                                 </td>
                                 <td rowSpan='2'>
-                                    <MoreVertIcon style={{ color: '#6e6e6e' }} />
-                                    {/* <div className='account-management'>
-                                        
-                                    </div> */}
+                                    <span className='item-active' onClick={toggleMenu}>
+                                        <MoreVertIcon className='item-active__icon-active' />
+                                    </span>
+                                    {isMenuVisible && (
+                                        <div className='account-management' ref={menuRef}>
+                                            <ul>
+                                                <li className='border-bottom__account'>Chỉnh sửa</li>
+                                                <li className='border-bottom__account'>Khóa tài khoản</li>
+                                                <li className='border-bottom__account'>Đặt lại mật khẩu</li>
+                                                <li>Xóa nhân viên</li>
+                                            </ul>
+                                        </div>
+                                    )}
                                 </td>
                             </tr>
                             <tr className='table-tr__td'>

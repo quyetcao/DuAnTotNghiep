@@ -296,21 +296,34 @@ td {
 
 .item-active {
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
+    padding: 12px 0;
+}
+
+.item-active__icon-active {
+    color: #6e6e6e;
+}
+
+.item-active__icon-active:hover,
+.item-active__icon-active:active {
+    color: #1e88e5;
 }
 
 .account-management {
     position: absolute;
     width: 160px;
     height: auto;
-    top: 55px;
-    right: -10px;
+    top: 430px;
+    right: 44px;
     border: 1px solid #f1f1f1;
     box-shadow: 5px 5px 10px #e3e3e3;
     border-radius: 6px;
-    z-index: 999;
+    z-index: 1;
     overflow: hidden;
+    background-color: #fff;
 }
 
 .account-management ul {
@@ -320,7 +333,7 @@ td {
 }
 
 .account-management ul li {
-    padding: 8px 12px;
+    padding: 12px;
     cursor: pointer;
 }
 
@@ -328,6 +341,10 @@ td {
     color: var(--color-primary);
     background-color: #e3f2fd;
     transition: all ease-in-out 0.15s;
+}
+
+.border-bottom__account {
+    border-bottom: 1px solid #e1e1e1;
 }
 
 .page-button {
@@ -358,3 +375,4 @@ td {
     background-color: #e3f2fd;
     border: 1px solid #e3f2fd;
 }
+

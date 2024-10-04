@@ -13,7 +13,7 @@ export default function Login() {
                         <p>Chào mừng bạn đến với website Vexere.com</p>
                         <form action=''>
                             <div className='form_group'>
-                                <input type='text' name='email' placeholder='Số điện thoại'></input>
+                                <input type='text' name='sdt' placeholder='Số điện thoại'></input>
                             </div>
                             <div className='form_group'>
                                 <input type='email' name='email' placeholder='Email'></input>
