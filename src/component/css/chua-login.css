@@ -21,7 +21,12 @@
     color: white;
     font-size: 18px;
     font-weight: 600;
-    background-color: rgb(42, 42, 124);
+    background-color: #2474E5;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.chua-login {
+    text-align: center;
 }

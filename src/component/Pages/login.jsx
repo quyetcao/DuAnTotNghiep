@@ -16,10 +16,10 @@ export default function Login() {
                                 <input type='text' name='email' placeholder='Số điện thoại'></input>
                             </div>
                             <div className='form_group'>
-                                <input type='text' name='email' placeholder='Email'></input>
+                                <input type='email' name='email' placeholder='Email'></input>
                             </div>
                             <div className='form_group'>
-                                <input type='text' name='password' placeholder='Password'></input>
+                                <input type='password' name='password' placeholder='Password'></input>
                             </div>
                             <div className='link-register'>
                                 <span className='link-text-register'>Bạn chưa có tài khoản?</span>
