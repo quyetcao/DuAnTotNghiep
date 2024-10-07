@@ -1,0 +1,376 @@
+:root {
+    --color-heading: rgb(72, 72, 72);
+
+}
+
+.content {
+    width: 980px;
+    margin: auto;
+    display: block;
+}
+
+.tuyen-duong {
+    margin-top: 48px;
+}
+
+.content-heading__text {
+    color: var(--color-heading);
+    text-align: left;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    opacity: 1;
+    margin-bottom: 16px;
+}
+
+.slide-route {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, .65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+}
+
+.slick-slide {
+    overflow: hidden;
+}
+
+.slick-track {
+    position: relative;
+    display: flex;
+    /* gap: 12px; */
+    width: 1960px;
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+}
+
+.slick-active {
+    width: 245px;
+}
+
+.div-item a {
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.img-content {
+    width: 233px;
+    height: 116px;
+}
+
+.img-content img {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.cart-content {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    padding: 12px 12px 32px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 233px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.cart-content p {
+    margin: 0;
+}
+
+.cart-content-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.cart-content-fare {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+/* button */
+/*code css cho ưu đãi nổi bậc */
+.scroll-list-item-udnb {
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid rgb(224, 224, 224);
+    box-shadow: unset;
+    cursor: pointer;
+    height: 250px;
+}
+
+.scroll-list-item-udnb img {
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.slick-slide {
+    padding: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
+.slick-dots{
+    display: none !important;
+}
+
+/* box */
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-container {
+    margin-top: 26px;
+}
+
+.scroll-list-container {
+    max-width: 100%;
+    display: flex;
+    flex: 1 1 0%;
+    overflow: auto !important;
+}
+
+.scroll-list {
+    display: flex;
+    gap: 16px;
+}
+
+.scroll-list-item {
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid rgb(224, 224, 224);
+    box-shadow: unset;
+    cursor: pointer;
+}
+
+.scroll-list-item img {
+    width: 300px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.item-content-title {
+    margin: 12px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* feedback */
+.feedback {
+    width: 980px
+}
+
+.feedback-container {
+    display: flex;
+    gap: 20px;
+}
+
+.feedback-body {
+    display: flex;
+    gap: 20px;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid rgb(224, 224, 224);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px;
+    width: 480px;
+    height: 380px;
+}
+
+.feedback-body:nth-child(n+3) {
+    display: none;
+}
+
+.feedback-content>p {
+    margin: 0;
+}
+
+.feedback-author>img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.feedback-content p {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0px;
+    margin-bottom: 0px;
+    color: var(--color-heading);
+}
+
+.feedback-text__name {
+    color: rgb(36, 116, 229);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin-top: 16px;
+    margin-bottom: 4px !important;
+}
+
+.feedback-text__content {
+    color: rgb(71, 71, 71) !important;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+
+/*  */
+.slick-dot {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.slick-dot li>button {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    margin: 0 8px;
+    padding: 0;
+    background-color: transparent;
+    border: 2px solid rgb(133, 187, 245);
+}
+
+.slick-dot .slick-dot-select {
+    background-color: rgb(47, 128, 237);
+}
+
+
+/* cart connect */
+.cart-connect {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+}
+
+.connect-item {
+    display: flex;
+    width: 25%;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.connect-body {
+    margin-left: 6px;
+}
+
+.connect-body>p {
+    margin: 0;
+}
+
+.connect-body>.connect-body__title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    color: rgb(72, 72, 72);
+    margin-bottom: 8px;
+}
+
+.connect-body>.connect-body__text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0px;
+    color: rgb(133, 133, 133) !important;
+}
+
+.img-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.img-list img {
+    width: auto;
+    height: 44px;
+}
+
+/* bus station */
+.bus-home {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.list-bus {
+    position: relative;
+    display: inline-block;
+    /* Để hình ảnh không chiếm toàn bộ chiều rộng */
+}
+
+.list-bus>img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+
+.list-bus .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    /* Màu phủ đen với độ trong suốt */
+    z-index: 1;
+    /* Đảm bảo lớp phủ nằm trên hình ảnh */
+    pointer-events: none;
+    /* Để lớp phủ không ảnh hưởng đến các thao tác với hình ảnh */
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.text-overlay {
+    position: absolute;
+    bottom: 30%;
+    /* Canh giữa theo chiều dọc */
+    left: 50%;
+    /* Canh giữa theo chiều ngang */
+    transform: translate(-50%, -50%);
+    /* Dịch chuyển để canh giữa */
+    color: white;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+    z-index: 2;
+}
+
+.slick-next {
+    margin-right: 55px;
+}
+
+.slick-prev {
+    margin-left: 35px;
+}
+
+.slick-arrow {
+    z-index: 1;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: #f5efef !important;
+    font-size: 30px !important;
+}
