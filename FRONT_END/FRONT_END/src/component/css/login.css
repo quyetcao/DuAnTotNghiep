@@ -64,6 +64,13 @@
 
 .form_group input {
     caret-color: #fe2c55;
+    transition: all .3s;
+}
+
+.form_group input:focus,
+.form_group input:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, .2);
 }
 
 .icon {
@@ -87,6 +94,12 @@
     margin-top: 20px;
     font-size: 16px;
     font-weight: 700;
+    transition: all .3s;
+}
+
+.submit-login:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 5px rgba(24, 144, 255, .2);
 }
 
 .login_icon {
