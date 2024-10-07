@@ -224,6 +224,7 @@
     font-weight: 600;
     color: rgb(36, 116, 229);
     cursor: pointer;
+    position: relative;
 }
 
 .input-items__title {
@@ -320,5 +321,15 @@
 }
 .hide-ds{
     display: none;
+}
+.show-date-grid1{
+    position: absolute;
+    position: absolute;
+    top:62px;
+    left:-450px;
+    background-color: white;
+    z-index: 1;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
 }
 

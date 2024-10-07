@@ -26,7 +26,7 @@ export default function Banner() {
     const [tpTo, settpTo] = useState('');
     const [tpfrom, settpfrom] = useState('');
     const [departuredate, setdeparturedate] = useState('');
-    const [ returndate, setreturndate] = useState('');
+    const [returndate, setreturndate] = useState('');
     const [inputsearch, setInputSearch] = useState('');
     // UseEffect call api lấy danh sách tỉnh thành phố
     useEffect(() => {
@@ -45,9 +45,16 @@ export default function Banner() {
         console.log(inputsearch);
         setInputSearch(e);
     }
-    function handleDateChange(e){
-        setdeparturedate(e);
-        setInputSearch('');
+    function handleDateChange(input, date) {
+        // console.log(e);
+        if (input === 'date-to') {
+            setdeparturedate(date);
+            setInputSearch('');
+        }
+        else if (input === 'date-from') {
+            setreturndate(date);
+            setInputSearch('');
+        }
     }
 
 
@@ -58,7 +65,7 @@ export default function Banner() {
 
 
     return (
-        <div className='homepage'>
+        <div className='homepage' >
             <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
             <div className='homepage-body'>
                 <div className='homepage-content'>
@@ -178,13 +185,13 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Ngày đi</label>
-                                                    <input className='style-input' type='text' value={departuredate} onClick={() => {showDanhSachTinhTP('show-date')}} />
+                                                    <input className='style-input' type='text' placeholder='Thu,10 Oct 2024' value={departuredate} onClick={() => { showDanhSachTinhTP('show-date-to') }} />
 
-                                                    {inputsearch === 'show-date' &&
+                                                    {inputsearch === 'show-date-to' &&
                                                         <div className="show-date-grid">
                                                             <LocalizationProvider dateAdapter={AdapterDayjs} >
                                                                 <DemoContainer components={['DateRangeCalendar']}>
-                                                                    <DateRangeCalendar  onChange={handleDateChange} />
+                                                                    <DateRangeCalendar onChange={(date) => { handleDateChange('date-to', date) }} />
                                                                 </DemoContainer>
                                                             </LocalizationProvider>
                                                         </div>}
@@ -192,16 +199,36 @@ export default function Banner() {
 
                                                 </div>
                                             </div>
-                                            <div className='input-items add-date'>
-                                                <div className='input-icon'>
-                                                    <div className='icon-material'>
-                                                        <AddIcon />
+
+
+                                            {returndate === '' ?
+                                                <div className='input-items add-date'>
+                                                    <div className='input-icon'>
+                                                        <div className='icon-material'>
+                                                            <AddIcon />
+                                                        </div>
                                                     </div>
+                                                    <p className='input-items__title' onClick={() => { showDanhSachTinhTP('show-date-from') }}> Thêm ngày về</p>
+                                                    {inputsearch === 'show-date-from' &&
+                                                        <div className="show-date-grid1">
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                                                <DemoContainer components={['DateRangeCalendar']}>
+                                                                    <DateRangeCalendar onChange={(date) => { handleDateChange('date-from', date) }} />
+                                                                </DemoContainer>
+                                                            </LocalizationProvider>
+                                                        </div>}
+                                                </div> :
+                                                <div className='input-data'>
+                                                    <label className='style-text'>Ngày về</label>
+                                                    <input className='style-input' type='text' value={returndate} />
                                                 </div>
-                                                <p className='input-items__title'>Thêm ngày về</p>
-                                            </div>
+                                            }
+
                                         </div>
                                     </div>
+
+
+
                                     <div className='search-btn'>
                                         <Link to='/viewchuyenxe'>
                                             <button className='style-btn'>
@@ -209,6 +236,8 @@ export default function Banner() {
                                             </button>
                                         </Link>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
