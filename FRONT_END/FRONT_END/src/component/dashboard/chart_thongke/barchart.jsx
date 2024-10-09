@@ -3,7 +3,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const BarChart = ({ labels, dataSet1, dataSet2 }) => {
+export default function BarChart({ labels, dataSet1, dataSet2 }) {
     const data = {
         labels,
         datasets: [
@@ -32,5 +32,3 @@ const BarChart = ({ labels, dataSet1, dataSet2 }) => {
 
     return <Bar data={data} options={options} />;
 };
-
-export default BarChart;

@@ -169,6 +169,10 @@
     padding: 2px 8px;
 }
 
+.input-items-cursor {
+    cursor: pointer;
+}
+
 .border-right {
     width: 11px;
     height: 50px;
@@ -185,6 +189,16 @@
     flex-direction: column;
     gap: 6px;
     position: relative;
+    cursor: pointer;
+}
+.show-date-grid {
+    position: absolute;
+    top: 63px;
+    left: -285px;
+    background-color: white;
+    z-index: 1;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
 }
 
 .style-text {
@@ -208,13 +222,14 @@
     /* line-height: 16px; */
     color: rgb(20, 20, 20);
     font-weight: 600;
-    font-family: "Mulish", sans-serif;
+    font-family: 'Mulish', sans-serif;
 }
 
 .add-date {
     font-weight: 600;
     color: rgb(36, 116, 229);
     cursor: pointer;
+    position: relative;
 }
 
 .input-items__title {
@@ -233,11 +248,11 @@
     line-height: 24px;
     background: rgb(255, 211, 51);
     cursor: pointer;
-    transition: all 0.3s ease-in-out; 
+    transition: all 0.3s ease-in-out;
 }
 
 .style-btn:hover {
-    background-color: rgb(255, 228, 133);;
+    background-color: rgb(255, 228, 133);
 }
 
 .style-btn > a {
@@ -277,18 +292,18 @@
 }
 
 /*code phần danh sách tỉnh thành phố  */
-.ds-tinh-tp{
+.ds-tinh-tp {
     position: absolute;
     background: white;
     padding: 6px;
     width: 12rem;
-    height:15rem;
-    left:-40px;
-    top:50px;
+    height: 15rem;
+    left: -40px;
+    top: 50px;
     z-index: 1;
     border-radius: 5px;
     border: 1px solid rgb(204, 204, 204);
-    overflow:hidden ;
+    overflow: hidden;
     overflow-y: auto;
     cursor: pointer;
 }
@@ -309,7 +324,15 @@
 .ds-tinh-tp ul li:hover {
     background: #e3f1ff;
 }
-.hide-ds{
+.hide-ds {
     display: none;
 }
-
+.show-date-grid1 {
+    position: absolute;
+    top: 69px;
+    left: -462px;
+    background-color: white;
+    z-index: 1;
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+}

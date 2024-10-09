@@ -13,7 +13,7 @@ ChartJS.register(
     Legend
 );
 
-const MixedChart = () => {
+export default function MixedChart() {
     const data = {
         labels: ['Hà Nội - Sapa', 'Sapa - Hà Nội', 'Sài Gòn - Đà Lạt', 'Đà Lạt - Sài Gòn', 'Đà Nẵng - Nha Trang'], // Tên tuyến đường
         datasets: [
@@ -65,4 +65,4 @@ const MixedChart = () => {
     return <Bar data={data} options={options} />;
 };
 
-export default MixedChart;
+;

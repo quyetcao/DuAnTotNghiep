@@ -62,7 +62,7 @@
     height: 116px;
 }
 
-.img-content img { 
+.img-content img {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
@@ -92,7 +92,33 @@
 }
 
 /* button */
+/*code css cho ưu đãi nổi bậc */
+.scroll-list-item-udnb {
+    width: 300px;
+    border-radius: 4px;
+    border: 1px solid rgb(224, 224, 224);
+    box-shadow: unset;
+    cursor: pointer;
+    height: 250px;
+}
 
+.scroll-list-item-udnb img {
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.slick-slide {
+    padding: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
+.slick-dots{
+    display: none !important;
+}
 
 /* box */
 .box {
@@ -121,7 +147,7 @@
     border-radius: 4px;
     border: 1px solid rgb(224, 224, 224);
     box-shadow: unset;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .scroll-list-item img {
@@ -161,11 +187,11 @@
     display: none;
 }
 
-.feedback-content > p {
+.feedback-content>p {
     margin: 0;
 }
 
-.feedback-author > img {
+.feedback-author>img {
     width: 180px;
     height: 180px;
     object-fit: cover;
@@ -210,7 +236,7 @@
     justify-content: center;
 }
 
-.slick-dot li > button {
+.slick-dot li>button {
     width: 12px;
     height: 12px;
     border-radius: 100%;
@@ -244,11 +270,11 @@
     margin-left: 6px;
 }
 
-.connect-body > p {
+.connect-body>p {
     margin: 0;
 }
 
-.connect-body > .connect-body__title {
+.connect-body>.connect-body__title {
     font-size: 18px;
     font-weight: 700;
     line-height: 24px;
@@ -256,7 +282,7 @@
     margin-bottom: 8px;
 }
 
-.connect-body > .connect-body__text {
+.connect-body>.connect-body__text {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -281,17 +307,18 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    gap: 8px    ;
+    gap: 8px;
 }
 
 .list-bus {
     position: relative;
-    display: inline-block; /* Để hình ảnh không chiếm toàn bộ chiều rộng */
+    display: inline-block;
+    /* Để hình ảnh không chiếm toàn bộ chiều rộng */
 }
 
-.list-bus > img {
+.list-bus>img {
     display: block;
-    width: 100%; 
+    width: 100%;
     height: auto;
     border-radius: 4px;
 }
@@ -303,23 +330,47 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.45); /* Màu phủ đen với độ trong suốt */
-    z-index: 1; /* Đảm bảo lớp phủ nằm trên hình ảnh */
-    pointer-events: none; /* Để lớp phủ không ảnh hưởng đến các thao tác với hình ảnh */
+    background-color: rgba(0, 0, 0, 0.45);
+    /* Màu phủ đen với độ trong suốt */
+    z-index: 1;
+    /* Đảm bảo lớp phủ nằm trên hình ảnh */
+    pointer-events: none;
+    /* Để lớp phủ không ảnh hưởng đến các thao tác với hình ảnh */
     z-index: 1;
     border-radius: 4px;
 }
 
 .text-overlay {
     position: absolute;
-    bottom: 30%;  /* Canh giữa theo chiều dọc */
-    left: 50%; /* Canh giữa theo chiều ngang */
-    transform: translate(-50%, -50%); /* Dịch chuyển để canh giữa */
-    color: white; 
+    bottom: 30%;
+    /* Canh giữa theo chiều dọc */
+    left: 50%;
+    /* Canh giữa theo chiều ngang */
+    transform: translate(-50%, -50%);
+    /* Dịch chuyển để canh giữa */
+    color: white;
     width: 100%;
     font-size: 18px;
     font-weight: 600;
     text-align: center;
     margin: 0;
     z-index: 2;
+}
+
+.slick-next {
+    margin-right: 55px;
+}
+
+.slick-prev {
+    margin-left: 35px;
+}
+
+.slick-arrow {
+    z-index: 1;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: #f5efef !important;
+    font-size: 30px !important;
 }

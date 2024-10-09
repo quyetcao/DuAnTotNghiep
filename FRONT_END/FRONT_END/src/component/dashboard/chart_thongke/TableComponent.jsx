@@ -1,7 +1,7 @@
 import React from 'react';
 import './css-chart/tablecomponent.css';
 
-const TableComponent = () => {
+export default function TableComponent() {
     const data = [
         { route: 'Hà Nội - Sapa', trips: 987, fillRate: '98%', avgRevenue: '987,654 đ' },
         { route: 'Sapa - Hà Nội', trips: 876, fillRate: '87%', avgRevenue: '876,543 đ' },
@@ -36,4 +36,3 @@ const TableComponent = () => {
     );
 };
 
-export default TableComponent;

@@ -1,115 +1,16 @@
 import '../css/contentcuatui.css';
+import DynamicSlidesContentTDPB from './slickContent-1';
+import DynamicSlidesContentUDNB from './slickContent-2';
+import PauseOnHoverContent3 from './slickContent-3';
 
 export default function Content() {
     return (
         <div className='content'>
             <div className='tuyen-duong'>
                 <h1 className='content-heading__text'>Tuyến đường phổ biến</h1>
-                <div className='popular-route'>
-                    <div className='group-route'>
-                        <div className='slide-route'>
-                            <div className='slick-slide'>
-                                <div className='slick-track'>
-                                    <div className='slick-active'>
-                                        <div className='div-item'>
-                                            <a href='#'>
-                                                <div className='img-content'>
-                                                    <img
-                                                        src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/5/img_hero.png?v1'
-                                                        alt=''
-                                                        width='233'
-                                                        height='116px'
-                                                    />
-                                                </div>
-                                                <div className='cart-content'>
-                                                    <p className='cart-content-title'>Sài Gòn-Nha Trang</p>
-                                                    <p className='cart-content-fare'>Từ 200.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className='slick-active'>
-                                        <div className='div-item'>
-                                            <a href='#'>
-                                                <div className='img-content'>
-                                                    <img
-                                                        src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/24/img_hero.png'
-                                                        alt=''
-                                                        width='233'
-                                                        height='116px'
-                                                    />
-                                                </div>
-                                                <div className='cart-content'>
-                                                    <p className='cart-content-title'>Hà Nội-Hải Phòng</p>
-                                                    <p className='cart-content-fare'>Từ 100.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className='slick-active'>
-                                        <div className='div-item'>
-                                            <a href='#'>
-                                                <div className='img-content'>
-                                                    <img
-                                                        src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/3/img_hero.png'
-                                                        alt=''
-                                                        width='233'
-                                                        height='116px'
-                                                    />
-                                                </div>
-                                                <div className='cart-content'>
-                                                    <p className='cart-content-title'>Sài Gòn-Đà Lạt</p>
-                                                    <p className='cart-content-fare'>Từ 199.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className='slick-active'>
-                                        <div className='div-item'>
-                                            <a href='#'>
-                                                <div className='img-content'>
-                                                    <img
-                                                        src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/22/img_hero.png'
-                                                        alt=''
-                                                        width='233'
-                                                        height='116px'
-                                                    />
-                                                </div>
-                                                <div className='cart-content'>
-                                                    <p className='cart-content-title'>Sài Gòn-Phan Thiết</p>
-                                                    <p className='cart-content-fare'>Từ 149.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className='slick-active'>
-                                        <div className='div-item'>
-                                            <a href='#'>
-                                                <div className='img-content'>
-                                                    <img
-                                                        src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/25/img_hero.png'
-                                                        alt=''
-                                                        width='233'
-                                                        height='116px'
-                                                    />
-                                                </div>
-                                                <div className='cart-content'>
-                                                    <p className='cart-content-title'>Sài Gòn-Phan Rang</p>
-                                                    <p className='cart-content-fare'>Từ 180.000đ</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  <DynamicSlidesContentTDPB />
             </div>
+          
             {/* ưu đãi nổi bật */}
             <div className='box'>
                 <div className='category-container'>
@@ -117,7 +18,7 @@ export default function Content() {
                     <div className='category-content-container'>
                         <div className='scroll-list-container'>
                             <div className='scroll-list'>
-                                <div className='scroll-list-item'>
+                                {/* <div className='scroll-list-item'>
                                     <img
                                         className='item-image'
                                         src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/post/images/163/img_card.png?v=147'
@@ -230,10 +131,13 @@ export default function Content() {
                                             Giảm đến 25% cho khách hàng lần đầu tiên đặt dịch vụ tại Vexere
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
+
                             </div>
                         </div>
                     </div>
+
+                    <DynamicSlidesContentUDNB />
                 </div>
             </div>
 
@@ -360,7 +264,7 @@ export default function Content() {
                     <div className='category-content-container'>
                         <div className='scroll-list-container'>
                             <div className='scroll-list'>
-                                <div className='scroll-list-item'>
+                                {/* <div className='scroll-list-item'>
                                     <img
                                         className='item-image'
                                         src='https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/post/images/217/img_card.png?v=6'
@@ -449,10 +353,11 @@ export default function Content() {
                                             Xe buýt Hop On Hop Off ở Thành phố Hồ Chí Minh
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
+                    <PauseOnHoverContent3/>
                 </div>
             </div>
 

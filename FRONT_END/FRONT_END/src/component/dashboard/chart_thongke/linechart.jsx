@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const LineChart = () => {
+export default function LineChart() {
     const data = {
         labels: ['Văn phòng Hà Nội', 'Văn phòng Sapa', 'VexRe', 'Đại lý A', 'Đại lý B'], // Tên các văn phòng
         datasets: [
@@ -39,5 +39,3 @@ const LineChart = () => {
 
     return <Line data={data} options={options} />;
 };
-
-export default LineChart;

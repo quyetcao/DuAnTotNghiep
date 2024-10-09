@@ -11,14 +11,22 @@ import FlightIcon from '@mui/icons-material/Flight';
 import TrainIcon from '@mui/icons-material/Train';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
+// import viLocale from 'date-fns/locale/vi/index.js';
 
 export default function Banner() {
     //useState
     const [datatp, setDatatp] = useState([]);
     const [tpTo, settpTo] = useState('');
     const [tpfrom, settpfrom] = useState('');
-    const [inputlocation, setInputLocation] = useState('');
+    const [departuredate, setdeparturedate] = useState('');
+    const [returndate, setreturndate] = useState('');
+    const [inputsearch, setInputSearch] = useState('');
     // UseEffect call api lấy danh sách tỉnh thành phố
     useEffect(() => {
         async function fetchdata() {
@@ -29,20 +37,45 @@ export default function Banner() {
         fetchdata();
     }, []);
 
-
-
     // Thao tác với thẻ input nơi di chuyển
     function showDanhSachTinhTP(e) {
-        console.log(inputlocation);
-        setInputLocation(e);
+        console.log(inputsearch);
+        setInputSearch(e);
+    }
+    function handleDateChange(input, date) {
+        // console.log(e);
+        if (input === 'date-to') {
+            setdeparturedate(date);
+            setInputSearch('');
+        } else if (input === 'date-from') {
+            setreturndate(date);
+            setInputSearch('');
+        }
     }
 
- 
     // document.addEventListener('click', (e) => {
-     
+
     // })
 
+    // Tạo ref để theo dõi vùng danh sách
+    const danhSachTinhTPRef = useRef(null);
 
+    // useEffect để ẩn danh sách khi click ra ngoài
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (danhSachTinhTPRef.current && !danhSachTinhTPRef.current.contains(event.target)) {
+                setInputSearch(''); // Ẩn danh sách khi click ra ngoài
+            }
+        };
+
+        // Gắn sự kiện mousedown cho document
+        document.addEventListener('mousedown', handleClickOutside);
+
+        // Hủy sự kiện khi component bị unmount
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className='homepage'>
@@ -107,26 +140,38 @@ export default function Banner() {
                                                         alt=''
                                                     />
                                                 </div>
-                                                <div className='input-data'>
+                                                <div
+                                                    className='input-data'
+                                                    onClick={() => {
+                                                        showDanhSachTinhTP('input-from');
+                                                    }}
+                                                >
                                                     <label className='style-text'>Nơi xuất phát</label>
                                                     <input
                                                         className='style-input'
                                                         type='text'
                                                         value={tpfrom}
                                                         placeholder='Hà Nội'
-                                                        onClick={() => {
-                                                            showDanhSachTinhTP('input-from')
-                                                        }}
                                                     />
-                                                    {inputlocation == 'input-from' &&
-                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' >
+                                                    {inputsearch == 'input-from' && (
+                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
                                                             <ul>
                                                                 {datatp.map((item) => {
-                                                                    return <li key={item.code} onClick={() => { settpfrom(item.name),setInputLocation('') }}>{item.name}</li>;
+                                                                    return (
+                                                                        <li
+                                                                            key={item.code}
+                                                                            onClick={() => {
+                                                                                settpfrom(item.name),
+                                                                                    setInputSearch('');
+                                                                            }}
+                                                                        >
+                                                                            {item.name}
+                                                                        </li>
+                                                                    );
                                                                 })}
                                                             </ul>
                                                         </div>
-                                                    }
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className='input-items'>
@@ -136,27 +181,46 @@ export default function Banner() {
                                                         alt=''
                                                     />
                                                 </div>
-                                                <div className='input-data'>
+                                                <div
+                                                    className='input-data'
+                                                    onClick={() => {
+                                                        showDanhSachTinhTP('input-to');
+                                                    }}
+                                                >
                                                     <label className='style-text'>Nơi đến</label>
-                                                    <input className='style-input'
+                                                    <input
+                                                        className='style-input'
                                                         type='text'
                                                         placeholder='Hải Phòng'
                                                         value={tpTo}
-                                                        onClick={() => { showDanhSachTinhTP('input-to') }} />
+                                                    />
 
-                                                    {inputlocation == 'input-to' &&
-                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' >
+                                                    {inputsearch == 'input-to' && (
+                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
                                                             <ul>
                                                                 {datatp.map((item) => {
-                                                                    return <li key={item.code} onClick={() => { settpTo(item.name),setInputLocation('') }} >{item.name}</li>;
+                                                                    return (
+                                                                        <li
+                                                                            key={item.code}
+                                                                            onClick={() => {
+                                                                                settpTo(item.name), setInputSearch('');
+                                                                            }}
+                                                                        >
+                                                                            {item.name}
+                                                                        </li>
+                                                                    );
                                                                 })}
                                                             </ul>
                                                         </div>
-                                                    }
-
+                                                    )}
                                                 </div>
                                             </div>
-                                            <div className='input-items'>
+                                            <div
+                                                className='input-items input-items-cursor'
+                                                onClick={() => {
+                                                    showDanhSachTinhTP('show-date-to');
+                                                }}
+                                            >
                                                 <div className='input-icon'>
                                                     <img
                                                         src='https://storage.googleapis.com/fe-production/svgIcon/event_vex_blue_24dp.svg'
@@ -165,19 +229,65 @@ export default function Banner() {
                                                 </div>
                                                 <div className='input-data'>
                                                     <label className='style-text'>Ngày đi</label>
-                                                    <input className='style-input' type='text' value='T4, 20/08/2024' />
+                                                    <input
+                                                        className='style-input'
+                                                        type='text'
+                                                        placeholder='Thu,10 Oct 2024'
+                                                        value={departuredate}
+                                                    />
+
+                                                    {inputsearch === 'show-date-to' && (
+                                                        <div className='show-date-grid'>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DemoContainer components={['DateRangeCalendar']}>
+                                                                    <DateRangeCalendar
+                                                                        onChange={(date) => {
+                                                                            handleDateChange('date-to', date);
+                                                                        }}
+                                                                    />
+                                                                </DemoContainer>
+                                                            </LocalizationProvider>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
-                                            <div className='input-items add-date'>
-                                                <div className='input-icon'>
-                                                    <div className='icon-material'>
-                                                        <AddIcon />
+
+                                            {returndate === '' ? (
+                                                <div
+                                                    className='input-items add-date'
+                                                    onClick={() => {
+                                                        showDanhSachTinhTP('show-date-from');
+                                                    }}
+                                                >
+                                                    <div className='input-icon'>
+                                                        <div className='icon-material'>
+                                                            <AddIcon />
+                                                        </div>
                                                     </div>
+                                                    <p className='input-items__title'> Thêm ngày về</p>
+                                                    {inputsearch === 'show-date-from' && (
+                                                        <div className='show-date-grid1'>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DemoContainer components={['DateRangeCalendar']}>
+                                                                    <DateRangeCalendar
+                                                                        onChange={(date) => {
+                                                                            handleDateChange('date-from', date);
+                                                                        }}
+                                                                    />
+                                                                </DemoContainer>
+                                                            </LocalizationProvider>
+                                                        </div>
+                                                    )}
                                                 </div>
-                                                <p className='input-items__title'>Thêm ngày về</p>
-                                            </div>
+                                            ) : (
+                                                <div className='input-data'>
+                                                    <label className='style-text'>Ngày về</label>
+                                                    <input className='style-input' type='text' value={returndate} />
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
+
                                     <div className='search-btn'>
                                         <Link to='/viewchuyenxe'>
                                             <button className='style-btn'>
