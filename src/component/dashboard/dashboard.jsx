@@ -2,6 +2,10 @@ import '../css/dashboard.css';
 
 // import chart
 import PieChart from './chart_thongke/piechar';
+import LineChart from './chart_thongke/LineChart';
+import MixedChart from './chart_thongke/MixedChart';
+import TableComponent from './chart_thongke/TableComponent';
+import DoanhThuVaLuotChay from './chart_thongke/doanhthuvaluotchay';
 // import BarChart from './chart_thongke/BarChart';
 
 // import mui icon
@@ -69,13 +73,13 @@ export default function Dashboard() {
                                     <p className="heading-title">Duy Anh</p>
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <NotificationsIcon fontSize='small'/>
+                                    <NotificationsIcon fontSize='small' />
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <ArrowDropDownIcon fontSize='small'/>
+                                    <ArrowDropDownIcon fontSize='small' />
                                 </li>
                                 <li className="info-item info-item__background">
-                                    <LocalPhoneIcon fontSize='small'/>
+                                    <LocalPhoneIcon fontSize='small' />
                                 </li>
                             </ul>
                         </div>
@@ -217,7 +221,7 @@ export default function Dashboard() {
                                 </div>
                                 <p className='thongke-title'>Doanh thu & số lượng vé theo tuyến đường</p>
                                 <div className='chart-item'>
-                                    {/* <BarChart /> */}
+                                    <MixedChart />
                                 </div>
                                 <a href="#" className='more-btt'><p>Xem thêm</p></a>
                             </div>
@@ -234,8 +238,7 @@ export default function Dashboard() {
                                 </div>
                                 <p className='thongke-title'>Số lượng chuyến và tỉ lệ lắp đầy mỗi tuyến đường</p>
                                 <div className='chart'>
-
-
+                                    <TableComponent />
                                 </div>
                                 <a href="#" className='more-btt'><p>Xem thêm</p></a>
                             </div>
@@ -274,7 +277,7 @@ export default function Dashboard() {
                                 </div>
                                 <p className='thongke-title'>Doanh thu theo văn phòng/đại lý (VNĐ)</p>
                                 <div className='chart'>
-
+                                    <LineChart />
                                 </div>
                                 <a href="#" className='more-btt'><p>Xem thêm</p></a>
                             </div>
@@ -442,7 +445,7 @@ export default function Dashboard() {
                                 </div>
                                 <p className='thongke-title'>Doanh thu và lượt chạy theo xe</p>
                                 <div className='chart'>
-
+                                    <DoanhThuVaLuotChay />
                                 </div>
                                 <a href="#" className='more-btt'><p>Xem thêm</p></a>
                             </div>

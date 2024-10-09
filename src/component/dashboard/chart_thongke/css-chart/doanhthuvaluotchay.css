@@ -1,0 +1,61 @@
+.doanh-thu-luot-chay-container {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Căn giữa các thành phần */
+    margin-bottom: 10px;
+    /* Khoảng cách giữa các hàng */
+}
+
+.bar-container {
+    display: flex;
+    align-items: center;
+}
+
+.bar {
+    background-color: #007bff;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: right;
+    /* Căn chữ về phía bên phải của thanh */
+}
+
+.doanh-thu {
+    background-color: #007bff;
+    /* Màu xanh dương cho doanh thu */
+}
+
+.luot-chay {
+    background-color: #007bff;
+    /* Màu xanh lá cây cho lượt chạy */
+}
+
+.xe {
+    margin: 0 20px;
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+/* Căn thanh bên trái (doanh thu) về phía bên phải */
+.bar-container.left {
+    justify-content: flex-end;
+    width: 45%;
+    /* Chiếm 50% chiều rộng khung chứa */
+}
+
+/* Căn thanh bên phải (lượt chạy) về phía bên trái */
+.bar-container.right {
+    justify-content: flex-start;
+    width: 45%;
+    /* Chiếm 50% chiều rộng khung chứa */
+}

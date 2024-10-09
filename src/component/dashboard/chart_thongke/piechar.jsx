@@ -30,12 +30,13 @@
 // };
 
 // export default PieChart;
+
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = () => {
+export default function PieChart() {
     const data = {
         labels: ['Limousine 9 chỗ', 'Limousine 22 giường VIP', 'Giường nằm 44 giường', 'Limousine 34 giường VIP'],
         datasets: [
@@ -51,25 +52,33 @@ const PieChart = () => {
     const options = {
         responsive: true,
         maintainAspectRatio: false, // Để biểu đồ tự động chiếm chiều cao khung
-        aspectRatio: 1.5, // Điều chỉnh tỷ lệ giữa chiều rộng và chiều cao, ví dụ: 1.5 (giảm chiều cao)
+        aspectRatio: 1.5, // Điều chỉnh tỷ lệ giữa chiều rộng và chiều cao
         plugins: {
             legend: {
                 position: 'right', // Hiển thị legend bên phải
+                labels: {
+                    font: {
+                        size: 16, // Tăng kích thước font của label
+                    },
+                },
             },
         },
         layout: {
             padding: {
-                top: 10, // Giảm padding trên
-                bottom: 10, // Giảm padding dưới
+                top: 0, // Giảm padding trên
+                bottom: 0, // Giảm padding dưới
             },
         },
     };
 
     return (
-        <div style={{ height: '300px' }}> {/* Điều chỉnh chiều cao của khung chứa */}
+        <div style={{ height: '330px' }}> {/* Điều chỉnh chiều cao của khung chứa */}
             <Pie data={data} options={options} />
         </div>
     );
 };
 
-export default PieChart;
+
+
+
+

@@ -63,7 +63,7 @@ body {
     align-items: center;
 }
 
-.search-container > input {
+.search-container>input {
     border: none;
     background-color: transparent;
     outline: none;
@@ -112,7 +112,7 @@ body {
     background-color: rgb(17, 17, 17);
 }
 
-.info-list > .info-item > p {
+.info-list>.info-item>p {
     margin: 0;
 }
 
@@ -233,7 +233,9 @@ body {
     font-weight: 600;
 }
 
-.card-left, .card-right {
-    display: grid;    
+.card-left,
+.card-right {
+    width: 50%;
+    display: grid;
     row-gap: 16px;
 }
