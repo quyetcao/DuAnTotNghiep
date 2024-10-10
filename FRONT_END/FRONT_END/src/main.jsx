@@ -85,7 +85,7 @@ const routes = createBrowserRouter([
     element: <AppAdmin />,
     children: [
       {
-        path: '',
+        path: 'dashboard',
         element: <Dashboard />
       },
       
