@@ -123,7 +123,7 @@ export default function DSNhanVien() {
                     <div className='employee-list'>
                         <h2 className='empolyee-title'>Danh sách nhân viên</h2>
                         <div className='add-employee employee-background'>
-                            <AddIcon style={{ fontSize: '20px', color: '#f0f0f0' }} />
+                            <AddIcon style={{ fontSize: '20px', color: '#fff' }} />
                             <span className='employee-text'>Thêm nhân viên</span>
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export default function DSNhanVien() {
                                 </td>
                                 <td rowSpan='2'>
                                     <span className='item-active' onClick={toggleMenu}>
-                                        <MoreVertIcon className='item-active__icon-active' />
+                                        <MoreVertIcon className='item-active__icon-active' fontSize='small' />
                                     </span>
                                     {isMenuVisible && (
                                         <div className='account-management' ref={menuRef}>
