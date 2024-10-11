@@ -2,7 +2,7 @@ import '../css/dashboard.css';
 
 // import chart
 import PieChart from './chart_thongke/piechar';
-import LineChart from './chart_thongke/LineChart';
+// import LineChart from './chart_thongke/LineChart';
 import MixedChart from './chart_thongke/MixedChart';
 import TableComponent from './chart_thongke/TableComponent';
 import DoanhThuVaLuotChay from './chart_thongke/doanhthuvaluotchay';
@@ -305,7 +305,7 @@ export default function Dashboard() {
                                 </div>
                                 <p className='thongke-title'>Doanh thu theo văn phòng/đại lý (VNĐ)</p>
                                 <div className='chart'>
-                                    <LineChart />
+                                    {/* <LineChart /> */}
                                 </div>
                                 <a href='#' className='more-btt'>
                                     <p>Xem thêm</p>

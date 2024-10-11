@@ -4,13 +4,30 @@ import ScrollableTabsButtonVisible from './tab-ctcx';
 // import mui icon
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import ChooseSeat from './tab-clickseat-choselocation.jsx';
+import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
+
+
 
 export default function DanhSachChuyenXe() {
     function openttct(e) {
-        console.log(e);
+        console.log(e.target);
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
         if (elements.length > 0) {
-            elements[0].style.display = 'block';
+                elements[0].style.display = 'block';
+        }
+
+        var a = document.getElementsByClassName('ticker-container');
+        if (a.length > 0) {
+            a[0].style.height = 'auto';
+        }
+    }
+
+    function openClickSeat(e){
+        console.log(e.target);
+        var elements = document.getElementsByClassName('set-chair');
+        if (elements.length > 0) {
+                elements[0].style.display = 'block';
         }
 
         var a = document.getElementsByClassName('ticker-container');
@@ -144,7 +161,7 @@ export default function DanhSachChuyenXe() {
                                             type='button'
                                             className='ant-btn btn-booking '
                                         >
-                                            <span>Chọn chuyến</span>
+                                            <span onClick={openClickSeat} >Chọn chuyến</span>
                                         </button>
                                     </div>
                                 </div>
@@ -156,6 +173,11 @@ export default function DanhSachChuyenXe() {
             <div className='thong-tin-chi-tiet' style={{ display: 'none' }}>
                 <div className='tt-ct-tung-chuyen-xe'>
                     <ScrollableTabsButtonVisible />
+                </div>
+            </div>
+            <div className='set-chair'>
+                <div className='tt-ct-seat-tung-chuyen-xe'>
+                 <HorizontalLinearStepper />
                 </div>
             </div>
         </div>
