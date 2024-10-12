@@ -32,3 +32,4 @@ export default function BarChart({ labels, dataSet1, dataSet2 }) {
 
     return <Bar data={data} options={options} />;
 };
+// BỎ chart này nha

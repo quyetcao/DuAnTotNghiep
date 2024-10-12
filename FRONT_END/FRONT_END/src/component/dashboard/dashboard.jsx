@@ -2,7 +2,7 @@ import '../css/dashboard.css';
 
 // import chart
 import PieChart from './chart_thongke/piechar';
-import LineChart from './chart_thongke/LineChart';
+import LineChart from './chart_thongke/linechart.jsx';
 import MixedChart from './chart_thongke/MixedChart';
 import TableComponent from './chart_thongke/TableComponent';
 import DoanhThuVaLuotChay from './chart_thongke/doanhthuvaluotchay';

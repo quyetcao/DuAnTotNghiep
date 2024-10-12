@@ -17,7 +17,7 @@ import ChiTietGiaoDich from './component/chi-tiet-giao-dich/chi-tiet-gd.jsx';
 import Dashboard from './component/dashboard/dashboard.jsx';
 import DSNhanVien from './component/ds-nhanvien/ds-nhanvien.jsx';
 import AppAdmin from './AdminApp.jsx';
-import BookingInfomation from './component/payment/payment-information.jsx';
+import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 
 
 // Router giữa các trang 
@@ -56,7 +56,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/booking1",
-        element: <BookingInfomation />
+        element: <BookingConfirmation />
       },
       {
         path: "/chi-tiet-giao-dich",
@@ -71,8 +71,8 @@ const routes = createBrowserRouter([
             element: <ThongTinTK />
           },
           {
-            path:"don-hang-cua-toi",
-            element:<DonHangCuaToi/>
+            path: "don-hang-cua-toi",
+            element: <DonHangCuaToi />
           },
         ]
       },
@@ -88,7 +88,7 @@ const routes = createBrowserRouter([
         path: '',
         element: <Dashboard />
       },
-      
+
       {
         path: "ds-nhanvien",
         element: <DSNhanVien />
