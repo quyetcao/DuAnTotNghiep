@@ -325,7 +325,7 @@ color: #141414;
     content: "";
     width: 0px;
     height: 0px;
-    border-top: 14px solid transparent;
+    border-top: 13px solid transparent;
     border-bottom: 13px solid transparent;
     border-left: 15px solid currentcolor;
     position: absolute;
@@ -339,7 +339,7 @@ color: #141414;
     margin-right: 5px;
     position: absolute;
     top: 3px;
-    right: -8px;
+    right: -9.5px;
     color: white;
 }
 
@@ -447,7 +447,7 @@ color: #141414;
     background: rgb(36, 116, 229);
     color: white;
     font-size: 14px;
-    padding: 0px 4px;
+    padding: 2px 4px;
 }
 
 .fare {
@@ -506,7 +506,7 @@ color: #141414;
 }
 
 .from-to .from-to-content1 .from .place {
-
+    margin-left: 4px;
     color: rgb(72, 72, 72);
     white-space: nowrap;
     overflow: hidden;
@@ -580,7 +580,7 @@ color: #141414;
 .TVXtN .action .btn-booking {
     background: rgb(255, 199, 0);
     color: rgb(72, 72, 72);
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 2px;
     border: none;
     padding: 8px 16px;
@@ -594,12 +594,19 @@ color: #141414;
 }
 
 .TVXtN .action .btn-detail {
+    display: flex; 
+    align-items: center;
     border: none;
     text-decoration: solid;
     background-color: transparent;
     color: rgb(36, 116, 229);
     font-size: 16px;
     height: 25px;
+}
+
+.ant-btn-link__link {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .tt-ct-tung-chuyen-xe {
@@ -648,6 +655,7 @@ color: #141414;
 }
 
 .title-giam-gia {
+    gap: 2px;
     font-weight: 700;
     font-size: 10px;
     line-height: 12px;
@@ -684,14 +692,15 @@ color: #141414;
     font-size: 10px;
     line-height: 12px;
     display: flex;
+    gap: 4px;
     -webkit-box-align: center;
     align-items: center;
     margin-bottom: 0px;
+    color: #000;
 }
 
 .hsd strong {
     font-weight: 700;
-    font-size: 10px;
     line-height: 12px;
     display: flex;
     -webkit-box-align: center;
@@ -776,10 +785,13 @@ color: #141414;
 }
 
 .button-binh-luan button {
+    display: flex;
+    align-items: center;
     margin-right: 10px;
     color: rgb(14, 96, 208);
     white-space: nowrap;
     height: 36px;
+    font-size: 12px;
     line-height: 1.5;
     padding: 0 15px;
     border-radius: 2px;
@@ -1055,3 +1067,60 @@ color: #141414;
     line-height: 1.5;
     display: block;
 }
+
+/* tiện nghi */
+/* .tien-nghi {
+    padding: 12px;
+} */
+
+.box-1 {
+    background-color: rgb(245, 245, 245);
+}
+
+.tien-nghi__item {
+    padding: 12px;
+}
+
+.tien-nghi__group {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    /* padding: 12px; */
+}
+
+.tien-nghi__group img, .tien-nghi__list-item img {
+    width: 32px;
+    height: 32px;
+}
+
+.tien-nghi__desc {
+    margin: 0;    
+}
+
+.tien-nghi__line {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(192, 192, 192);
+}
+
+.box-2 {
+    margin-top: 24px;
+}
+
+.tien-nghi__list {
+    display: flex;     
+    justify-content: space-between; 
+    flex-wrap: wrap;         
+  }
+  
+  .tien-nghi__list-item {
+    flex: 0 0 32%;           
+    box-sizing: border-box;  
+    display: flex;
+    align-items: center;
+  }
+
+  .item-group__list {
+    padding-left: 8px;
+    margin-bottom: 24px;
+  }

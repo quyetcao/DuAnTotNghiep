@@ -27,10 +27,7 @@ body {
 
 .sidebar a {
     margin: 4px 0;
-    font-size: 18px;
     color: gray;
-    text-align: center;
-    display: block;
 }
 
 .sidebar a i {
@@ -123,7 +120,7 @@ body {
     width: 1px;
     height: 28px;
     top: 3px;
-    right: 241px;
+    right: 242px;
     background-color: rgb(17, 17, 17);
 }
 
@@ -132,7 +129,7 @@ body {
 }
 
 .heading-title {
-    font-size: 16px;
+    font-size: 15px;
     padding: 2px 4px;
     color: var(--color-primary);
 }
@@ -166,10 +163,14 @@ body {
     margin: 4px 12px;
 }
 
+.empolyee-title {
+    font-size: 20px;
+}
+
 .add-employee {
     display: flex;
     align-items: center;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 6px;
 }
 
@@ -179,7 +180,8 @@ body {
 }
 
 .employee-text {
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 600;
     margin-left: 6px;
 }
 
@@ -193,7 +195,7 @@ body {
 }
 
 .active-heading {
-    font-size: 18px;
+    font-size: 16px;
     padding: 12px 40px;
     margin: 0;
     color: #474747;
@@ -257,8 +259,13 @@ table {
     background-color: #e9eef3;
 }
 
+.table-heading {
+    font-size: 14px;
+}
+
 .table-tr__td td {
     padding: 12px;
+    font-size: 14px;
 }
 
 th,
@@ -316,7 +323,7 @@ td {
     position: absolute;
     width: 160px;
     height: auto;
-    top: 430px;
+    top: 338px;
     right: 44px;
     border: 1px solid #f1f1f1;
     box-shadow: 5px 5px 10px #e3e3e3;
@@ -364,6 +371,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 14px;
     border-radius: 6px;
     border: 1px solid #b4b4b4;
     cursor: pointer;

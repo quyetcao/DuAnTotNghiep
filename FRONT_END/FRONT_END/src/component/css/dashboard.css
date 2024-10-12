@@ -28,7 +28,8 @@ body {
     font-size: 18px;
     color: gray;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 7px 10px;
+    transition: all 0.3s ease;
 }
 
 .sidebar a.active {
@@ -169,7 +170,7 @@ body {
 }
 
 .group-title {
-    font-size: 16px;
+    font-size: 14px;
     margin-left: 6px;
 }
 
@@ -211,16 +212,17 @@ body {
 }
 
 .thongke-title {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .thongke-text {
+    font-size: 14px;
     color: rgb(118, 118, 118);
 }
 
 .thongke-text__percent {
     color: #333;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -229,7 +231,7 @@ body {
 }
 
 .thongke-heading {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -238,4 +240,8 @@ body {
     width: 50%;
     display: grid;
     row-gap: 16px;
+}
+
+.more-btt > p {
+    margin: 4px 0;
 }

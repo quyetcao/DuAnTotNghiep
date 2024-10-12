@@ -6,9 +6,7 @@ import './App.css';
 function AppAdmin() {
     return (
         <>
-      
             <Outlet></Outlet>
-     
         </>
     );
 }

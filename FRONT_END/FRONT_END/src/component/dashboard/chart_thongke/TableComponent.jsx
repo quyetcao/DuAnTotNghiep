@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import './css-chart/tablecomponent.css';
 
 export default function TableComponent() {

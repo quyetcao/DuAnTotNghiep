@@ -18,6 +18,8 @@ import Dashboard from './component/dashboard/dashboard.jsx';
 import DSNhanVien from './component/ds-nhanvien/ds-nhanvien.jsx';
 import AppAdmin from './AdminApp.jsx';
 import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
+import AdminHandle from './component/admin-handle/admin-handle.jsx';
+
 
 
 // Router giữa các trang 
@@ -85,13 +87,17 @@ const routes = createBrowserRouter([
     element: <AppAdmin />,
     children: [
       {
-        path: '',
+        path: 'dashboard',
         element: <Dashboard />
       },
 
       {
         path: "ds-nhanvien",
         element: <DSNhanVien />
+      },
+      {
+        path: "admin-handle",
+        element: <AdminHandle />
       },
     ]
   },

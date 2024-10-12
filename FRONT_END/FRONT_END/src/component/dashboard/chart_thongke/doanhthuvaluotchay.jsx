@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import './css-chart/doanhthuvaluotchay.css';
 
 export default function DoanhThuVaLuotChay() {
