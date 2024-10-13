@@ -101,27 +101,52 @@ export default function quanLyDatVeXe() {
                         <div className="trip-info">
                             <div className="trip-header">
                                 <span>Thuộc chuyến 09:30 ngày 20/02/2020 tuyến Nghệ An - Hà Nội</span>
-                                <a href="#" className="update-info-link">Cập nhật thông tin</a>
                             </div>
                             <div className="trip-content">
                                 <div className="trip-details">
-                                    <p><strong>Thông tin chuyến</strong></p>
-                                    <p>Loại xe: Giường nằm 40 chỗ (Có WC)</p>
-                                    <p>Số xe: <a href="#">29B1-123.45</a> (<a href="tel:0987654321">0987.654.321</a>)</p>
-                                    <p>Tài xế: Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</p>
-                                    <p>Phụ xe: Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</p>
-                                    <p>Ghi chú: Đây là text nhập cho phần ghi chú cho dài thật dài thêm dài thêm dài thêm dài thêm dài dài dài</p>
+                                    <div className="info-header">
+                                        <strong>Thông tin chuyến</strong>
+                                        <a href="#" className="update-info-link">Cập nhật thông tin</a>
+                                    </div>
+                                    <div className="info-item">
+                                        <span className="info-label">Loại xe:</span>
+                                        <span>Giường nằm 40 chỗ (Có WC)</span>
+                                    </div>
+                                    <div className="info-item">
+                                        <span className="info-label">Số xe:</span>
+                                        <a href="#" className="vehicle-link">29B1-123.45</a> (<a href="tel:0987654321">0987.654.321</a>)
+                                    </div>
+                                    <div className="info-item">
+                                        <span className="info-label">Tài xế:</span>
+                                        <span>Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</span>
+                                    </div>
+                                    <div className="info-item">
+                                        <span className="info-label">Phụ xe:</span>
+                                        <span>Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</span>
+                                    </div>
+                                    <div className="info-item">
+                                        <span className="info-label">Ghi chú:</span>
+                                        <span>Đây là text nhập cho phần ghi chú, nhập thêm ghi chú cho dài thật dài thêm dài thêm dài thêm dài thêm dài dài dài</span>
+                                    </div>
                                 </div>
                                 <div className="trip-stats">
-                                    <p><strong>Thống kê chuyến</strong></p>
-                                    <div className="progress-bar">
-                                        <div className="filled" style={{ width: '75%' }}></div>
+                                    <div className="stats-header">
+                                        <strong>Thống kê chuyến</strong>
+                                        <a href="#" className="stats-link">&gt;</a>
                                     </div>
-                                    <p>30/40 (75%)</p>
+                                    <div className="stats-progress">
+                                        <div className="progress-bar">
+                                            <div className="paid" style={{ width: '50%' }}></div>
+                                            <div className="reserved" style={{ width: '25%' }}></div>
+                                        </div>
+                                        <div className="stats-info">
+                                            <span>30/40 (75%)</span>
+                                        </div>
+                                    </div>
                                     <div className="stats-details">
-                                        <span>Thanh toán: 20 vé</span>
-                                        <span>Đặt chỗ: 10 vé</span>
-                                        <span>Trống: 10 vé</span>
+                                        <div><span className="label">Thanh toán:</span> 20 vé</div>
+                                        <div><span className="label">Đặt chỗ:</span> 10 vé</div>
+                                        <div><span className="label">Trống:</span> 10 vé</div>
                                     </div>
                                 </div>
                             </div>

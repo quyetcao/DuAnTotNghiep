@@ -114,46 +114,77 @@ body {
 
 /* Phần giữa  */
 .trip-info {
-    background-color: #f1f3f5;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     padding: 15px;
     font-family: Arial, sans-serif;
     color: #333;
+    margin: auto;
 }
 
 .trip-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+    text-align: left;
+    margin-bottom: 10px;
     font-size: 14px;
     color: #666;
+}
+
+.trip-content {
+    display: flex;
+    gap: 20px;
+}
+
+.trip-details {
+    width: 70%;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .update-info-link {
     color: #007bff;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
 }
 
-.trip-content {
-    display: flex;
-    justify-content: space-between;
-}
-
-.trip-details,
-.trip-stats {
-    width: 48%;
-}
-
-.trip-details p,
-.trip-stats p {
+.info-item {
     margin: 5px 0;
 }
 
-a {
+.info-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.vehicle-link {
     color: #007bff;
     text-decoration: none;
+}
+
+.trip-stats {
+    width: 30%;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stats-progress {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .progress-bar {
@@ -161,25 +192,36 @@ a {
     border-radius: 5px;
     overflow: hidden;
     height: 10px;
-    margin: 10px 0;
     width: 100%;
+    display: flex;
 }
 
-.progress-bar .filled {
+.paid {
     background-color: #ffc107;
     height: 100%;
 }
 
+.reserved {
+    background-color: #f66;
+    height: 100%;
+}
+
+.stats-info {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
 .stats-details {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-top: 10px;
+    font-size: 12px;
     color: #666;
 }
 
-.stats-details span {
-    margin-right: 15px;
+.stats-details div {
+    margin: 5px 0;
+}
+
+.label {
+    font-weight: bold;
 }
 
 
