@@ -93,6 +93,43 @@ export default function quanLyDatVeXe() {
                     </div>
                     {/* phần lõi */}
                     <div className='dashboard-center'>
+                        {/* phần đầu */}
+                        <div>
+
+                        </div>
+                        {/* Phần giữa */}
+                        <div className="trip-info">
+                            <div className="trip-header">
+                                <span>Thuộc chuyến 09:30 ngày 20/02/2020 tuyến Nghệ An - Hà Nội</span>
+                                <a href="#" className="update-info-link">Cập nhật thông tin</a>
+                            </div>
+                            <div className="trip-content">
+                                <div className="trip-details">
+                                    <p><strong>Thông tin chuyến</strong></p>
+                                    <p>Loại xe: Giường nằm 40 chỗ (Có WC)</p>
+                                    <p>Số xe: <a href="#">29B1-123.45</a> (<a href="tel:0987654321">0987.654.321</a>)</p>
+                                    <p>Tài xế: Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</p>
+                                    <p>Phụ xe: Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</p>
+                                    <p>Ghi chú: Đây là text nhập cho phần ghi chú cho dài thật dài thêm dài thêm dài thêm dài thêm dài dài dài</p>
+                                </div>
+                                <div className="trip-stats">
+                                    <p><strong>Thống kê chuyến</strong></p>
+                                    <div className="progress-bar">
+                                        <div className="filled" style={{ width: '75%' }}></div>
+                                    </div>
+                                    <p>30/40 (75%)</p>
+                                    <div className="stats-details">
+                                        <span>Thanh toán: 20 vé</span>
+                                        <span>Đặt chỗ: 10 vé</span>
+                                        <span>Trống: 10 vé</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* phần cuối */}
+                        <div>
+
+                        </div>
 
                     </div>
                 </div>
