@@ -18,7 +18,7 @@ import Dashboard from './component/dashboard/dashboard.jsx';
 import DSNhanVien from './component/ds-nhanvien/ds-nhanvien.jsx';
 import AppAdmin from './AdminApp.jsx';
 import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
-import AdminHandle from './component/admin-handle/admin-handle.jsx';
+// import AdminHandle from './component/admin-handle/admin-handle.jsx';
 import QuanLyDatVeXe from './component/quan_ly_dat_ve_xe/quanLyDatVeXe.jsx';
 
 
@@ -99,10 +99,10 @@ const routes = createBrowserRouter([
         path: "quanLyDatVeXe",
         element: <QuanLyDatVeXe />
       },
-      {
-        path: "admin-handle",
-        element: <AdminHandle />
-      },
+      // {
+      //   path: "admin-handle",
+      //   element: <AdminHandle />
+      // },
     ]
   },
 

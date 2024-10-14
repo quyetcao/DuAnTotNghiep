@@ -9,19 +9,21 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
+// import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+// import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+// import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-import RefreshIcon from '@mui/icons-material/Refresh';
-
-
+// import RefreshIcon from '@mui/icons-material/Refresh';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EditIcon from '@mui/icons-material/Edit';
+import OpenWithIcon from '@mui/icons-material/OpenWith';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 export default function quanLyDatVeXe() {
     return (
@@ -94,72 +96,345 @@ export default function quanLyDatVeXe() {
                     {/* phần lõi */}
                     <div className='dashboard-center'>
                         {/* phần đầu */}
-                        <div>
-
-                        </div>
+                        <div></div>
                         {/* Phần giữa */}
-                        <div className="trip-info">
-                            <div className="trip-header">
+                        <div className='trip-info'>
+                            <div className='trip-header'>
                                 <span>Thuộc chuyến 09:30 ngày 20/02/2020 tuyến Nghệ An - Hà Nội</span>
                             </div>
-                            <div className="trip-content">
-                                <div className="trip-details">
-                                    <div className="info-header">
+                            <div className='trip-content'>
+                                <div className='trip-details'>
+                                    <div className='info-header'>
                                         <strong>Thông tin chuyến</strong>
-                                        <a href="#" className="update-info-link">Cập nhật thông tin</a>
+                                        <a href='#' className='update-info-link'>
+                                            Cập nhật thông tin
+                                        </a>
                                     </div>
-                                    <div className="info-item">
-                                        <span className="info-label">Loại xe:</span>
-                                        <span>Giường nằm 40 chỗ (Có WC)</span>
+                                    <div className='trip-info__row'>
+                                        <div className='trip-info__item'>
+                                            <span className='info-label'>Loại xe:</span>
+                                            <span>Giường nằm 40 chỗ (Có WC)</span>
+                                        </div>
+                                        <div className='trip-info__item'>
+                                            <span className='info-label'>Tài xế:</span>
+                                            <div className='info-value'>
+                                                <span>
+                                                    Phạm Ngọc Duy Anh (<a>0987.654.321</a>)
+                                                </span>
+                                                <br />
+                                                <span>
+                                                    Phạm Ngọc Duy Anh (<a>0987.654.321</a>)
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className='trip-info__item'>
+                                            <span className='info-label'>Phụ xe:</span>
+                                            <div className='info-value'>
+                                                <span>
+                                                    Phạm Ngọc Duy Anh (<a>0987.654.321</a>)
+                                                </span>
+                                                <br />
+                                                <span>
+                                                    Phạm Ngọc Duy Anh (<a>0987.654.321</a>)
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="info-item">
-                                        <span className="info-label">Số xe:</span>
-                                        <a href="#" className="vehicle-link">29B1-123.45</a> (<a href="tel:0987654321">0987.654.321</a>)
+                                    <div className='trip-info__row'>
+                                        <div className='trip-info__item'>
+                                            <span className='info-label'>Số xe:</span>
+                                            <span href='#' className='vehicle-link'>    
+                                                <strong>29B1-123.45</strong> <span>(<a>0987.654.321</a>)</span>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="info-item">
-                                        <span className="info-label">Tài xế:</span>
-                                        <span>Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</span>
-                                    </div>
-                                    <div className="info-item">
-                                        <span className="info-label">Phụ xe:</span>
-                                        <span>Nguyễn Ngọc Duy Anh (<a href="tel:0987654321">0987.654.321</a>)</span>
-                                    </div>
-                                    <div className="info-item">
-                                        <span className="info-label">Ghi chú:</span>
-                                        <span>Đây là text nhập cho phần ghi chú, nhập thêm ghi chú cho dài thật dài thêm dài thêm dài thêm dài thêm dài dài dài</span>
+                                    <div className='trip-info__item'>
+                                        <span className='info-label'>Ghi chú:</span>
+                                        <span>
+                                            Đây là text nhập cho phần ghi chú, nhập thêm ghi chú cho dài thật dài thêm
+                                            dài thêm dài thêm dài thêm dài thêm dài dài dài
+                                        </span>
                                     </div>
                                 </div>
-                                <div className="trip-stats">
-                                    <div className="stats-header">
+                                <div className='trip-stats'>
+                                    <div className='stats-header'>
                                         <strong>Thống kê chuyến</strong>
-                                        <a href="#" className="stats-link">&gt;</a>
+                                        <a href='#' className='stats-link'>
+                                            <NavigateNextIcon />
+                                        </a>
                                     </div>
-                                    <div className="stats-progress">
-                                        <div className="progress-bar">
-                                            <div className="paid" style={{ width: '50%' }}></div>
-                                            <div className="reserved" style={{ width: '25%' }}></div>
+                                    <div className='stats-progress'>
+                                        <div className='progress-bar'>
+                                            <div className='paid' style={{ width: '50%' }}></div>
+                                            <div className='reserved' style={{ width: '25%' }}></div>
                                         </div>
-                                        <div className="stats-info">
-                                            <span>30/40 (75%)</span>
+                                        <div className='stats-info'>
+                                            <span>
+                                                <strong>30</strong>/40 (<strong>75%</strong>)
+                                            </span>
                                         </div>
                                     </div>
-                                    <div className="stats-details">
-                                        <div><span className="label">Thanh toán:</span> 20 vé</div>
-                                        <div><span className="label">Đặt chỗ:</span> 10 vé</div>
-                                        <div><span className="label">Trống:</span> 10 vé</div>
+                                    <div className='stats-details'>
+                                        <div>
+                                            <span className='label stats-details__pay'>Thanh toán:</span>{' '}
+                                            <strong>20</strong> vé
+                                        </div>
+                                        <div>
+                                            <span className='label stats-details__datcho'>Đặt chỗ:</span>{' '}
+                                            <strong>10</strong> vé
+                                        </div>
+                                        <div>
+                                            <span className='label stats-details__trong'>Trống:</span>{' '}
+                                            <strong>10</strong> vé
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='button-group'>
+                                <div className='button-group__left'>
+                                    <div className='group-left-list'>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-left-item__btn'>In phơi</button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-left-item__btn'>Làm mới</button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-left-item__btn'>Đón - trả</button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-left-item__btn'>T/chuyển</button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button
+                                                className='group-item__btn group-left-item__btn'
+                                                style={{ color: '#f66' }}
+                                            >
+                                                Xuất bến
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='button-group__right'>
+                                    <div className='group-left-list'>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-right-item__btn'>Thống kê</button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-right-item__btn'>
+                                                Thống kê mới
+                                            </button>
+                                        </div>
+                                        <div className='group-left-item'>
+                                            <button className='group-item__btn group-right-item__btn'>
+                                                Vé không đi
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         {/* phần cuối */}
-                        <div>
-
+                        <div className='group-center'>
+                            <div className='admin'>
+                                <div className='admin-list'>
+                                    <div className='admin-item admin-item-bg1'>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-title'>A1</span>
+                                            </div>
+                                            <div className='admin-item__right group-item__top'>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                                    101 Láng Hạ
+                                                </span>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                                    3
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <PhoneIcon fontSize='small' />
+                                                <span className='admin-text__num'>0987654321</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text'>123 Lê Lợi</span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <span className='admin-item-title'>Duy Anh</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-price'>250.000</span>
+                                            </div>
+                                        </div>
+                                        <p className='admin-heading-test'>Đây là dòng ghi chú</p>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <div className='admin-item-icon__bottom'>
+                                                    <div className='admin-item__border'>
+                                                        <EditIcon fontSize='small' />
+                                                    </div>
+                                                    <div className='admin-item__border'>
+                                                        <OpenWithIcon fontSize='small' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text '>VPHN</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='admin-item admin-item-bg2'>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-title'>A1</span>
+                                            </div>
+                                            <div className='admin-item__right group-item__top'>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                                    101 Láng Hạ
+                                                </span>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                                    3
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <PhoneIcon fontSize='small' />
+                                                <span className='admin-text__num'>0987654321</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text'>123 Lê Lợi</span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <span className='admin-item-title'>Duy Anh</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-price'>250.000</span>
+                                            </div>
+                                        </div>
+                                        <p className='admin-heading-test'>Đây là dòng ghi chú</p>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <div className='admin-item-icon__bottom'>
+                                                    <div className='admin-item__border'>
+                                                        <EditIcon fontSize='small' />
+                                                    </div>
+                                                    <div className='admin-item__border'>
+                                                        <OpenWithIcon fontSize='small' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text '>VPHN</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='admin-item'>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-title'>A1</span>
+                                            </div>
+                                            <div className='admin-item__right group-item__top'>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                                    101 Láng Hạ
+                                                </span>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                                    3
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <PhoneIcon fontSize='small' />
+                                                <span className='admin-text__num'>0987654321</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text'>123 Lê Lợi</span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <span className='admin-item-title'>Duy Anh</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-price'>250.000</span>
+                                            </div>
+                                        </div>
+                                        <p className='admin-heading-test'>Đây là dòng ghi chú</p>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <div className='admin-item-icon__bottom'>
+                                                    <div className='admin-item__border'>
+                                                        <EditIcon fontSize='small' />
+                                                    </div>
+                                                    <div className='admin-item__border'>
+                                                        <OpenWithIcon fontSize='small' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text '>VPHN</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='admin-item'>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-title'>A1</span>
+                                            </div>
+                                            <div className='admin-item__right group-item__top'>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                                    101 Láng Hạ
+                                                </span>
+                                                <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                                    3
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <PhoneIcon fontSize='small' />
+                                                <span className='admin-text__num'>0987654321</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text'>123 Lê Lợi</span>
+                                            </div>
+                                        </div>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <span className='admin-item-title'>Duy Anh</span>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-price'>250.000</span>
+                                            </div>
+                                        </div>
+                                        <p className='admin-heading-test'>Đây là dòng ghi chú</p>
+                                        <div className='admin-item-group'>
+                                            <div className='admin-item__right'>
+                                                <div className='admin-item-icon__bottom'>
+                                                    <div className='admin-item__border'>
+                                                        <EditIcon fontSize='small' />
+                                                    </div>
+                                                    <div className='admin-item__border'>
+                                                        <OpenWithIcon fontSize='small' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='admin-item__left'>
+                                                <span className='admin-text '>VPHN</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
         </>
     );

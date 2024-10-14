@@ -93,8 +93,12 @@ export default function AdminHandle() {
                                         <span className='admin-title'>A1</span>
                                     </div>
                                     <div className='admin-item__right group-item__top'>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>101 Láng Hạ</span>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>3</span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                            101 Láng Hạ
+                                        </span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                            3
+                                        </span>
                                     </div>
                                 </div>
                                 <div className='admin-item-group'>
@@ -118,8 +122,12 @@ export default function AdminHandle() {
                                 <div className='admin-item-group'>
                                     <div className='admin-item__right'>
                                         <div className='admin-item-icon__bottom'>
-                                            <div className='admin-item__border'><EditIcon fontSize='small' /></div>
-                                            <div className='admin-item__border'><OpenWithIcon fontSize='small' /></div>
+                                            <div className='admin-item__border'>
+                                                <EditIcon fontSize='small' />
+                                            </div>
+                                            <div className='admin-item__border'>
+                                                <OpenWithIcon fontSize='small' />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='admin-item__left'>
@@ -133,8 +141,12 @@ export default function AdminHandle() {
                                         <span className='admin-title'>A1</span>
                                     </div>
                                     <div className='admin-item__right group-item__top'>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>101 Láng Hạ</span>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>3</span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                            101 Láng Hạ
+                                        </span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                            3
+                                        </span>
                                     </div>
                                 </div>
                                 <div className='admin-item-group'>
@@ -158,8 +170,12 @@ export default function AdminHandle() {
                                 <div className='admin-item-group'>
                                     <div className='admin-item__right'>
                                         <div className='admin-item-icon__bottom'>
-                                            <div className='admin-item__border'><EditIcon fontSize='small' /></div>
-                                            <div className='admin-item__border'><OpenWithIcon fontSize='small' /></div>
+                                            <div className='admin-item__border'>
+                                                <EditIcon fontSize='small' />
+                                            </div>
+                                            <div className='admin-item__border'>
+                                                <OpenWithIcon fontSize='small' />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='admin-item__left'>
@@ -173,8 +189,12 @@ export default function AdminHandle() {
                                         <span className='admin-title'>A1</span>
                                     </div>
                                     <div className='admin-item__right group-item__top'>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>101 Láng Hạ</span>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>3</span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                            101 Láng Hạ
+                                        </span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                            3
+                                        </span>
                                     </div>
                                 </div>
                                 <div className='admin-item-group'>
@@ -198,8 +218,12 @@ export default function AdminHandle() {
                                 <div className='admin-item-group'>
                                     <div className='admin-item__right'>
                                         <div className='admin-item-icon__bottom'>
-                                            <div className='admin-item__border'><EditIcon fontSize='small' /></div>
-                                            <div className='admin-item__border'><OpenWithIcon fontSize='small' /></div>
+                                            <div className='admin-item__border'>
+                                                <EditIcon fontSize='small' />
+                                            </div>
+                                            <div className='admin-item__border'>
+                                                <OpenWithIcon fontSize='small' />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='admin-item__left'>
@@ -213,8 +237,12 @@ export default function AdminHandle() {
                                         <span className='admin-title'>A1</span>
                                     </div>
                                     <div className='admin-item__right group-item__top'>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>101 Láng Hạ</span>
-                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>3</span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-1'>
+                                            101 Láng Hạ
+                                        </span>
+                                        <span className='admin-item__box admin-text admin-item__color admin-item__box-bg-2'>
+                                            3
+                                        </span>
                                     </div>
                                 </div>
                                 <div className='admin-item-group'>
@@ -238,16 +266,19 @@ export default function AdminHandle() {
                                 <div className='admin-item-group'>
                                     <div className='admin-item__right'>
                                         <div className='admin-item-icon__bottom'>
-                                            <div className='admin-item__border'><EditIcon fontSize='small' /></div>
-                                            <div className='admin-item__border'><OpenWithIcon fontSize='small' /></div>
+                                            <div className='admin-item__border'>
+                                                <EditIcon fontSize='small' />
+                                            </div>
+                                            <div className='admin-item__border'>
+                                                <OpenWithIcon fontSize='small' />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className='admin-item__left'>
                                         <span className='admin-text '>VPHN</span>
                                     </div>
                                 </div>
-                            </div>  
-                            
+                            </div>
                         </div>
                     </div>
                 </div>
