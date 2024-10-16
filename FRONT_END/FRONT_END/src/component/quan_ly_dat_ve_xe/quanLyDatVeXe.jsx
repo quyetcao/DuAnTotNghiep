@@ -24,6 +24,10 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function quanLyDatVeXe() {
     return (
@@ -96,11 +100,161 @@ export default function quanLyDatVeXe() {
                     {/* phần lõi */}
                     <div className='dashboard-center'>
                         {/* phần đầu */}
-                        <div></div>
+
+                        <div className='qlnx'>
+                            <div className='qlnx-group'>
+                                <div className='qlnx-group__list'>
+                                    <div className='qlnx-group__item'>
+                                        <p className='qlnx-item__heading'>Nơi đi</p>
+                                        <div className='qlnx-box'>
+                                            <span className='qlnx-box__title'>Bến xe Phía Đông</span>
+                                            <div className='qlnx-box__icon'>
+                                                <ExpandMoreIcon />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='qlnx-group__item'>
+                                        <p className='qlnx-item__heading'>Nơi đến</p>
+                                        <div className='qlnx-box'>
+                                            <span className='qlnx-box__title'>Bến xe Phía Đông</span>
+                                            <div className='qlnx-box__icon'>
+                                                <ExpandMoreIcon />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='qlnx-group__item'>
+                                        <p className='qlnx-item__heading'>Ngày khởi hành</p>
+                                        <div className='qlnx-box'>
+                                            <div className='qlnx-box__icon'>
+                                                <ChevronLeftIcon />
+                                            </div>
+                                            <span className='qlnx-box__title'>Thứ 3, 20-2-2022</span>
+                                            <div className='qlnx-box__icon'>
+                                                <ChevronRightIcon />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='qlnx-group__item'>
+                                        <p className='qlnx-item__heading'>Lọc chuyến đi</p>
+                                        <div className='qlnx-box'>
+                                            <div className='qlnx-box__route'>
+                                                <div className='qlnx-box__route-item qlnx-padding'>
+                                                    <span className='qlnx-box__title'>Tuyến đường 1</span>
+                                                    <div className='qlnx-box__icon qlnx-box__icon-small'>
+                                                        <CancelIcon />
+                                                    </div>
+                                                </div>
+                                                <div className='qlnx-box__route-item qlnx-padding'>
+                                                    <span className='qlnx-box__title'>Tuyến đường 1</span>
+                                                    <div className='qlnx-box__icon qlnx-box__icon-small'>
+                                                        <CancelIcon />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='qlnx-box__icon'>
+                                                <ExpandMoreIcon />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='time-group'>
+                            <div className='time-group__list'>
+                                <div className='time-group__item time-group__item-select'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                                <div className='time-group__item'>
+                                    <div className='time-group__heading'>07:00</div>
+                                    <div className='time-group__title'>123.45 - 10/10</div>
+                                    <div className='time-group__progress-bar'>
+                                        <div className='time-group__progress'></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Phần giữa */}
                         <div className='trip-info'>
                             <div className='trip-header'>
-                                <span>Thuộc chuyến 09:30 ngày 20/02/2020 tuyến Nghệ An - Hà Nội</span>
+                                <span>
+                                    Thuộc chuyến <strong>09:30</strong> ngày <strong>20/02/2020</strong> tuyến{' '}
+                                    <strong>Nghệ An - Hà Nội</strong>
+                                </span>
                             </div>
                             <div className='trip-content'>
                                 <div className='trip-details'>
@@ -143,8 +297,11 @@ export default function quanLyDatVeXe() {
                                     <div className='trip-info__row'>
                                         <div className='trip-info__item'>
                                             <span className='info-label'>Số xe:</span>
-                                            <span href='#' className='vehicle-link'>    
-                                                <strong>29B1-123.45</strong> <span>(<a>0987.654.321</a>)</span>
+                                            <span href='#' className='vehicle-link'>
+                                                <strong>29B1-123.45</strong>{' '}
+                                                <span>
+                                                    (<a>0987.654.321</a>)
+                                                </span>
                                             </span>
                                         </div>
                                     </div>
@@ -253,8 +410,10 @@ export default function quanLyDatVeXe() {
                                             </div>
                                         </div>
                                         <div className='admin-item-group'>
-                                            <div className='admin-item__right'>
-                                                <PhoneIcon fontSize='small' />
+                                            <div className='admin-item__right admin-item__right-icon'>
+                                                <div className='admin-item__icon'>
+                                                    <PhoneIcon />
+                                                </div>
                                                 <span className='admin-text__num'>0987654321</span>
                                             </div>
                                             <div className='admin-item__left'>
@@ -274,10 +433,10 @@ export default function quanLyDatVeXe() {
                                             <div className='admin-item__right'>
                                                 <div className='admin-item-icon__bottom'>
                                                     <div className='admin-item__border'>
-                                                        <EditIcon fontSize='small' />
+                                                        <EditIcon />
                                                     </div>
                                                     <div className='admin-item__border'>
-                                                        <OpenWithIcon fontSize='small' />
+                                                        <OpenWithIcon />
                                                     </div>
                                                 </div>
                                             </div>
@@ -301,8 +460,10 @@ export default function quanLyDatVeXe() {
                                             </div>
                                         </div>
                                         <div className='admin-item-group'>
-                                            <div className='admin-item__right'>
-                                                <PhoneIcon fontSize='small' />
+                                            <div className='admin-item__right admin-item__right-icon'>
+                                                <div className='admin-item__icon'>
+                                                    <PhoneIcon />
+                                                </div>
                                                 <span className='admin-text__num'>0987654321</span>
                                             </div>
                                             <div className='admin-item__left'>
@@ -322,10 +483,10 @@ export default function quanLyDatVeXe() {
                                             <div className='admin-item__right'>
                                                 <div className='admin-item-icon__bottom'>
                                                     <div className='admin-item__border'>
-                                                        <EditIcon fontSize='small' />
+                                                        <EditIcon />
                                                     </div>
                                                     <div className='admin-item__border'>
-                                                        <OpenWithIcon fontSize='small' />
+                                                        <OpenWithIcon />
                                                     </div>
                                                 </div>
                                             </div>
@@ -349,8 +510,10 @@ export default function quanLyDatVeXe() {
                                             </div>
                                         </div>
                                         <div className='admin-item-group'>
-                                            <div className='admin-item__right'>
-                                                <PhoneIcon fontSize='small' />
+                                            <div className='admin-item__right admin-item__right-icon'>
+                                                <div className='admin-item__icon'>
+                                                    <PhoneIcon />
+                                                </div>
                                                 <span className='admin-text__num'>0987654321</span>
                                             </div>
                                             <div className='admin-item__left'>
@@ -370,10 +533,10 @@ export default function quanLyDatVeXe() {
                                             <div className='admin-item__right'>
                                                 <div className='admin-item-icon__bottom'>
                                                     <div className='admin-item__border'>
-                                                        <EditIcon fontSize='small' />
+                                                        <EditIcon />
                                                     </div>
                                                     <div className='admin-item__border'>
-                                                        <OpenWithIcon fontSize='small' />
+                                                        <OpenWithIcon />
                                                     </div>
                                                 </div>
                                             </div>
@@ -397,8 +560,10 @@ export default function quanLyDatVeXe() {
                                             </div>
                                         </div>
                                         <div className='admin-item-group'>
-                                            <div className='admin-item__right'>
-                                                <PhoneIcon fontSize='small' />
+                                            <div className='admin-item__right admin-item__right-icon'>
+                                                <div className='admin-item__icon'>
+                                                    <PhoneIcon />
+                                                </div>
                                                 <span className='admin-text__num'>0987654321</span>
                                             </div>
                                             <div className='admin-item__left'>
@@ -418,10 +583,10 @@ export default function quanLyDatVeXe() {
                                             <div className='admin-item__right'>
                                                 <div className='admin-item-icon__bottom'>
                                                     <div className='admin-item__border'>
-                                                        <EditIcon fontSize='small' />
+                                                        <EditIcon />
                                                     </div>
                                                     <div className='admin-item__border'>
-                                                        <OpenWithIcon fontSize='small' />
+                                                        <OpenWithIcon />
                                                     </div>
                                                 </div>
                                             </div>
