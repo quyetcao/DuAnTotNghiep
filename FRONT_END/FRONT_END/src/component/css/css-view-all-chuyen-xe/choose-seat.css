@@ -1,0 +1,110 @@
+.note-go-bus{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    justify-content: space-between;
+    border-radius: 8px;
+    border: 1px solid rgb(47, 128, 237);
+    background-color: rgb(236, 244, 253);
+    padding: 10px 12px 12px;
+    height: 44px;
+}
+.note-go-bus-2{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap:10px;
+    border-radius: 8px;
+    border: 1px solid rgb(39, 174, 96);
+    background-color: rgb(238, 251, 244);
+    padding: 10px 12px 12px;
+    height: 44px;
+}
+.ds-giam-gia{
+    margin-top: 20px;
+    width: 42rem;
+    display: flex;
+    gap:15px;
+    overflow: auto;
+}
+.info-seat{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    
+}
+.price-seat{
+    width: 60%;
+}
+.seat-1{
+    display: flex;
+    align-items: center;
+    gap:10px;
+}
+.seat-1 p{
+    font-size: 14px;
+
+}
+.daMVvn {
+    min-width: 22px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    cursor: not-allowed;
+}
+.daMVvn svg rect {
+    stroke: rgb(242, 242, 242);
+    fill: rgb(224, 224, 224);
+}
+.daMVvn svg .icon-disabled {
+    fill: rgb(242, 242, 242);
+}
+.dLgsTe svg .icon-selected {
+    fill: rgb(39, 174, 96);
+}
+.dLgsTe svg rect {
+    stroke: rgb(39, 174, 96);
+    fill: rgb(139, 229, 176);
+}
+.dLgsTe svg .icon-disabled {
+    fill: transparent;
+}
+.lfCjCF svg rect {
+    stroke: rgb(174, 112, 255);
+}
+.vvWPx svg rect {
+    stroke: rgb(251, 164, 66);
+}
+
+/**/
+.xe-bus{
+    padding: 24px 12px 12px;
+    background: rgb(242, 242, 242);
+    border-radius: 25px 25px 5px 5px;
+    
+}
+/*hang-ghe -giuwa*/
+.hang-ghe-giua{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+}
+.hang-ghe-giua svg{
+    flex: 0 0 40%;
+    margin-top:5px;
+}
+.vo-lang{
+    display: flex;
+    gap:2px;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+.hang-ghe-cuoi{
+    display: flex;
+    margin-top: 10px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}

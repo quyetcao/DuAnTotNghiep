@@ -1,0 +1,63 @@
+.diem-don-diem-tra{
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.hTYbup {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-bottom: 0px;
+}
+.color-chu-xanh{
+    color: rgb(36, 116, 229);
+    font-weight: 600;
+    text-decoration:underline;
+}
+.ddxe{
+    width: 95%;
+    background-color: rgb(247, 247, 247);
+    padding: 10px 10px;
+    color: rgb(72, 72, 72);
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.label-container{
+    display: flex;
+    justify-content: space-between;
+}
+.hidden-button{
+    border: none;
+    background-color: transparent;
+}
+.value-container{
+    display: flex;
+    justify-content: space-between;
+}
+.hidden-button{
+    display: flex;
+    align-items: center;
+    gap:5px;
+}
+.form-check-label{
+    display: flex;
+    align-items: baseline;
+}
+.form-check-label li {
+    list-style-type: none;
+    color: rgb(72, 72, 72);
+    font-size: 14px;
+}
+.note-go-bus-2{
+    width: max-content;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    gap:10px;
+    border-radius: 8px;
+    border: 1px solid rgb(39, 174, 96);
+    background-color: rgb(238, 251, 244);
+    padding: 10px 12px 12px;
+    height: 44px;
+}
