@@ -1,4 +1,6 @@
 .footer {
+    padding-left: 160px;
+    padding-right: 160px;
     background-color: rgb(242, 242, 242);
     opacity: 1;
     margin-top: 80px;
@@ -9,7 +11,7 @@
 }
 
 .footer-content {
-    width: 980px;
+    width:100%;
     margin: auto;
     padding: 8px 0;
     display: flex;
@@ -17,7 +19,7 @@
 }
 
 .content-top {
-    width: 980px;
+    width: 100%;
     margin: auto;
     padding: 20px 0;
     display: flex;
@@ -130,7 +132,7 @@
 }
 
 .footer-end-center {
-    width: 980px;
+    width: 100%;
     margin: auto;
     font-size: 14px;
 }
@@ -165,4 +167,10 @@
 
 .no-title:hover {
     color: #1890ff;
+}
+
+@media (max-width:800px) {
+    .footer-end{
+        display:none ;
+    }
 }

@@ -22,11 +22,22 @@ function DynamicSlidesContentTDPB() {
                 },
             },
             {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                    infinite: true,
+                    dots: true,
+                    arrows: false, 
+                },
+            },
+            {
                 breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
                     initialSlide: 2,
+                    arrows: false, 
                 },
             },
             {
@@ -34,6 +45,7 @@ function DynamicSlidesContentTDPB() {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
+                    arrows: false, 
                 },
             },
         ],

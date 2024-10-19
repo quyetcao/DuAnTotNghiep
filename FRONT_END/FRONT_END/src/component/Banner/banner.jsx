@@ -53,9 +53,6 @@ export default function Banner() {
         }
     }
 
-    // document.addEventListener('click', (e) => {
-
-    // })
 
     // Tạo ref để theo dõi vùng danh sách
     const danhSachTinhTPRef = useRef(null);
@@ -254,7 +251,7 @@ export default function Banner() {
 
                                             {returndate === '' ? (
                                                 <div
-                                                    className='input-items add-date'
+                                                    className='input-items add-date input-them-ngay-ve'
                                                     onClick={() => {
                                                         showDanhSachTinhTP('show-date-from');
                                                     }}
@@ -282,7 +279,7 @@ export default function Banner() {
                                             ) : (
                                                 <div className='input-data'>
                                                     <label className='style-text'>Ngày về</label>
-                                                    <input className='style-input' type='text' value={returndate} />
+                                                    <input className='style-input no-underline' type='text' value={returndate} />
                                                 </div>
                                             )}
                                         </div>

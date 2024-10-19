@@ -118,3 +118,17 @@ body {
 .menu > a .login {
     margin: 0;
 }
+/****responsive****/
+@media (max-width: 900px) {
+    .header {
+        display:none;
+    }
+   
+    
+}
+
+
+/* Style cho màn hình nhỏ hơn 480px (thiết bị di động nhỏ hơn) */
+@media (max-width: 480px) {
+  
+}

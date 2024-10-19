@@ -5,6 +5,8 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import ChooseLocation from './choose-location';
+import ChooseSeat from './choose-seat';
 
 
 export default function HorizontalLinearStepper(){
@@ -87,7 +89,7 @@ export default function HorizontalLinearStepper(){
 
           
           <Typography sx={{ mt: 2, mb: 1 }}>
-          {activeStep + 1 === 1 ? <div>Helo</div> : <h2>Alo</h2> }
+          {activeStep + 1 === 1 ? <ChooseSeat/> : <ChooseLocation/> }
 
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

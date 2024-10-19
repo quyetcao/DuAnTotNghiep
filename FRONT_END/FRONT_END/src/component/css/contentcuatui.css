@@ -4,12 +4,14 @@
 }
 
 .content {
-    width: 980px;
+    /* width: 980px; */
+    
     margin: auto;
     display: block;
 }
 
 .tuyen-duong {
+    
     margin-top: 48px;
 }
 
@@ -127,6 +129,7 @@
 }
 
 .category-container {
+    width: 100%;
     margin-top: 26px;
 }
 
@@ -164,7 +167,7 @@
 
 /* feedback */
 .feedback {
-    width: 980px
+    /* width: 980px */
 }
 
 .feedback-container {
@@ -373,4 +376,37 @@
 .slick-next:before {
     color: #f5efef !important;
     font-size: 30px !important;
+}
+
+
+
+
+/**responsive***/
+@media (min-width: 1040px) {
+    .content{
+      padding-left: 160px;
+      padding-right: 160px;
+    }
+  }
+
+@media (max-width:1024px){
+    .content{
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+}
+@media (max-width: 768px) {
+
+  .cart-content-title{
+    font-size: 14px;
+  }
+  .content{
+    padding-left: 20px;
+  }
+ 
+}
+
+
+@media (max-width: 480px) {
+  
 }
