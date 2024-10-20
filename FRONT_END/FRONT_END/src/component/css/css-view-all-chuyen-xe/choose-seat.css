@@ -26,12 +26,16 @@
     margin-top: 20px;
     width: 42rem;
     display: flex;
-    gap:15px;
+    gap:30px;
     overflow: auto;
 }
-.info-seat{
+.coupon-info-route-page-container{
+    padding-right: 60px;
+}
+.seat-info{
     margin-top: 20px;
     display: flex;
+    gap:10px;
     align-items: center;
     justify-content: flex-start;
     
@@ -39,14 +43,13 @@
 .price-seat{
     width: 60%;
 }
-.seat-1{
+/* .seat-1{
     display: flex;
     align-items: center;
     gap:10px;
-}
-.seat-1 p{
+} */
+.seat-name{
     font-size: 14px;
-
 }
 .daMVvn {
     min-width: 22px;
@@ -79,8 +82,18 @@
     stroke: rgb(251, 164, 66);
 }
 
+
+
+
+
+.info-choose-seat{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
 /**/
 .xe-bus{
+    height:max-content;
     padding: 24px 12px 12px;
     background: rgb(242, 242, 242);
     border-radius: 25px 25px 5px 5px;
@@ -92,9 +105,12 @@
     flex-wrap: wrap;
     justify-content:space-around;
 }
-.hang-ghe-giua svg{
-    flex: 0 0 40%;
-    margin-top:5px;
+.hang-ghe-giua div{
+    flex: 0 0 50%;
+    margin-top:3px;
+   display: flex;
+   justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center;
 }
 .vo-lang{
     display: flex;

@@ -10,7 +10,7 @@ import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import FlightIcon from '@mui/icons-material/Flight';
 import TrainIcon from '@mui/icons-material/Train';
 import AddIcon from '@mui/icons-material/Add';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -18,6 +18,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvid
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
 // import viLocale from 'date-fns/locale/vi/index.js';
+
+//import react hook form 
+import { useForm } from "react-hook-form";
 
 export default function Banner() {
     //useState
@@ -74,6 +77,18 @@ export default function Banner() {
         };
     }, []);
 
+
+
+    //thao tac voi form search 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+      } = useForm()
+      const onSubmit = (data) => console.log(data)
+
+
     return (
         <div className='homepage'>
             <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
@@ -92,6 +107,7 @@ export default function Banner() {
                     </a>
                     <div className='search'>
                         <div className='search-content'>
+                    
                             <div className='search-top'>
                                 <div className='search-list'>
                                     <div className='list-item'>
@@ -127,6 +143,7 @@ export default function Banner() {
                                 </div>
                             </div>
                             <div className='search-bottom'>
+                            <form action="" onSubmit={handleSubmit(onSubmit)}>
                                 <div className='search-wrapper'>
                                     <div className='search-input'>
                                         <div className='input-list'>
@@ -149,6 +166,7 @@ export default function Banner() {
                                                         type='text'
                                                         value={tpfrom}
                                                         placeholder='Hà Nội'
+                                                        {...register("noi-xuat-phat")}
                                                     />
                                                     {inputsearch == 'input-from' && (
                                                         <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
@@ -190,6 +208,7 @@ export default function Banner() {
                                                         type='text'
                                                         placeholder='Hải Phòng'
                                                         value={tpTo}
+                                                        {...register("noi-den")}
                                                     />
 
                                                     {inputsearch == 'input-to' && (
@@ -231,6 +250,7 @@ export default function Banner() {
                                                         type='text'
                                                         placeholder='Thu,10 Oct 2024'
                                                         value={departuredate}
+                                                        {...register("ngay-di")}
                                                     />
 
                                                     {inputsearch === 'show-date-to' && (
@@ -279,21 +299,22 @@ export default function Banner() {
                                             ) : (
                                                 <div className='input-data'>
                                                     <label className='style-text'>Ngày về</label>
-                                                    <input className='style-input no-underline' type='text' value={returndate} />
+                                                    <input className='style-input no-underline' type='text' value={returndate}  {...register("ngay-ve")} />
                                                 </div>
                                             )}
                                         </div>
                                     </div>
 
                                     <div className='search-btn'>
-                                        <Link to='/viewchuyenxe'>
-                                            <button className='style-btn'>
-                                                <span>Tìm kiếm</span>
-                                            </button>
-                                        </Link>
+                                            <input className='style-btn' type='submit' value='Tìm Kiếm'/>
+                                              
+                                            
                                     </div>
+                                    
                                 </div>
+                                </form>
                             </div>
+                           
                         </div>
                     </div>
                 </div>

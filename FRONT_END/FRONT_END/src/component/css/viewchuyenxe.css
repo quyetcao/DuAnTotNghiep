@@ -550,18 +550,18 @@ color: #141414;
     gap: 3px;
 }
 
-.kERmQy .from-to .from-to-content1 .content {
+.kERmQy .from-to .from-to-content1 .content-cx {
     display: flex;
     -webkit-box-align: center;
     line-height: 20px;
 }
 
-.kERmQy .from-to .from-to-content1 .content .hour {
+.kERmQy .from-to .from-to-content1 .content-cx .hour {
     font-size: 20px;
     font-weight: bold;
 }
 
-.content {
+.content-cx {
     display: flex;
 }
 
@@ -1063,7 +1063,7 @@ color: #141414;
     line-height: 1.5;
 }
 
-.content {
+.content-cx {
     line-height: 1.5;
     display: block;
 }

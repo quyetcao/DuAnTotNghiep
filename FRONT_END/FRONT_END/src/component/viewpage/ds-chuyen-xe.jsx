@@ -4,7 +4,7 @@ import ScrollableTabsButtonVisible from './tab-ctcx';
 // import mui icon
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-import ChooseSeat from './tab-clickseat-choselocation.jsx';
+// import ChooseSeat from './tab-clickseat-choselocation.jsx';
 import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
 
@@ -129,12 +129,12 @@ export default function DanhSachChuyenXe() {
                                         ></path>
                                     </svg>
                                     <div className='from-to-content1'>
-                                        <div className='content from'>
+                                        <div className='content-cx from'>
                                             <div className='hour'>18:03</div>
                                             <div className='place'>• Hà Nội</div>
                                         </div>
                                         <div className='duration'>1h30m</div>
-                                        <div className='content to'>
+                                        <div className='content-cx to'>
                                             <div className='content-to-info1 '>
                                                 <div className='hour'>19:33</div>
                                                 <div className='place'>• Hải Phòng</div>
