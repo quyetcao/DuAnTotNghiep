@@ -894,7 +894,7 @@ export default function Content() {
                             </div>
 
                             <div className='feedback-body'>
-                                <div className='feedback-author'>
+                                <div className='feedback-author feedback-author__2'>
                                     <img
                                         src='https://229a2c9fe669f7b.cmccloud.com.vn/images/testimonial-phi.jpg'
                                         alt=''
