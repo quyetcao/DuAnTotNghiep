@@ -1,7 +1,6 @@
 .container_viewchuyenxe {
-    width: 1036px;
+    width: 75%;
     margin: auto;
-
 }
 
 .ant-tabs-nav-scroll {
@@ -81,6 +80,9 @@
 
 .input_search label {
     line-height: 2.5em;
+}
+.title-chuyenxe{
+    display: none;
 }
 
 .search_chuyenxe .timkiem {
@@ -221,11 +223,12 @@
     margin-bottom: 10px;
     align-items: center;
 }
+
 /*code cho phần giường/ghế*/
-.check-box-giuong-ghe{
-padding-top: 10px;
-font-size: 14px;
-color: #141414;
+.check-box-giuong-ghe {
+    padding-top: 10px;
+    font-size: 14px;
+    color: #141414;
 }
 
 
@@ -418,7 +421,7 @@ color: #141414;
 
 .bus-info {
     display: flex;
-    gap: 9rem;
+    gap: 8rem;
     justify-content: space-around;
 }
 
@@ -594,7 +597,7 @@ color: #141414;
 }
 
 .TVXtN .action .btn-detail {
-    display: flex; 
+    display: flex;
     align-items: center;
     border: none;
     text-decoration: solid;
@@ -1047,7 +1050,7 @@ color: #141414;
 }
 
 .title-cau-hoi {
-    width: 120%;
+    width: 100%;
     font-size: 18px;
     font-weight: 700;
     line-height: 24px;
@@ -1088,13 +1091,14 @@ color: #141414;
     /* padding: 12px; */
 }
 
-.tien-nghi__group img, .tien-nghi__list-item img {
+.tien-nghi__group img,
+.tien-nghi__list-item img {
     width: 32px;
     height: 32px;
 }
 
 .tien-nghi__desc {
-    margin: 0;    
+    margin: 0;
 }
 
 .tien-nghi__line {
@@ -1108,19 +1112,96 @@ color: #141414;
 }
 
 .tien-nghi__list {
-    display: flex;     
-    justify-content: space-between; 
-    flex-wrap: wrap;         
-  }
-  
-  .tien-nghi__list-item {
-    flex: 0 0 32%;           
-    box-sizing: border-box;  
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tien-nghi__list-item {
+    flex: 0 0 32%;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-  }
+}
 
-  .item-group__list {
+.item-group__list {
     padding-left: 8px;
     margin-bottom: 24px;
-  }
+}
+.ds-cx-tablet{
+    display: none;
+}
+/* ds-cx-desktop */
+/* ds-cx-tablet */
+/***Responsive**/
+@media (max-width:1351px) {
+  
+
+}
+
+@media (max-width:1065px) {
+    /*ẩn các thành phần không cần thiết*/
+
+    .ds-cx-desktop{
+      display: none;
+    }
+    .ds-cx-tablet{
+        display: block;
+    }
+    .container_viewchuyenxe {
+        width: 100%;
+       
+    }
+    .loc-cac-chuyen-xe {
+        display: none;
+    }
+    .ttcx-top p{
+        display: none;
+        padding:20px;
+    }
+    .title-chuyenxe{
+        display: block;
+    }
+    .title-cx-2{
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    /*chỉnh cho css chuyến xe */
+    .thong-tin-tung-chuyen-xe{
+        padding: 30px;
+    }
+    .link{
+        font-size: 18px;
+    }
+    .ticker-container {
+        padding-left: 20px;
+        padding-right: 20px;
+        justify-content: space-between;
+    }
+    /* .img-anh img {
+        width: 250px;
+        height:168px;
+    } */
+    .ticker{
+        margin-bottom: 15px;
+    }
+    .kERmQy .bus-info .bus-name {
+        font-size: 20px;
+        color: rgb(72, 72, 72);
+        font-weight: bold;
+    }
+    /*phần câu hỏi thường gặp*/
+    .cau-hoi-thuong-gap{
+        flex-direction: column;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .info-tuyen-duong{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+
+
+}

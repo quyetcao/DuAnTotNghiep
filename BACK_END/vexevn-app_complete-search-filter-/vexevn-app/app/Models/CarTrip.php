@@ -39,4 +39,16 @@ class CarTrip extends Model
                     ->withTimestamps();
         
     }
+
+    public function scopeNotStarted($query) {
+        return $query->where('status', 'not_started');
+    }
+    
+    public function scopeRunning($query) {
+        return $query->where('status', 'running');
+    }
+
+    public function scopeCompleted($query) {
+        return $query->where('status', 'completed');
+    }
 }

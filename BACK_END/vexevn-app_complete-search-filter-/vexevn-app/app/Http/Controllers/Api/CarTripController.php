@@ -22,21 +22,19 @@ use App\Models\CarTrip;
 use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
 
-class CarTripController extends Controller
-{
+class CarTripController extends Controller {
     public function listCarTrip()
     {
         $data = CarTrip::with(['pickupPoints', 'dropoffPoints'])->paginate(10);
 
         return response()->json([
             'status' => 200,
-            'message' => 'Hiển thị danh  sách chuyến xe thành công',
+            'message' => 'Hiển thị danh sách chuyến xe thành công',
             'data' => $data
         ], 200);
     }
 
-    public function uploadCarTrip(Request $request)
-    {
+    public function uploadCarTrip(Request $request){
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
@@ -120,8 +118,7 @@ class CarTripController extends Controller
         }
     }
 
-    public function updateCarTrip(Request $request, $id)
-    {
+    public function updateCarTrip(Request $request, $id){
         // Validate dữ liệu
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
@@ -204,10 +201,10 @@ class CarTripController extends Controller
             $updatedDOP = collect($request->dropoff_points);
 
             // Xóa những điểm trả không còn có trong request
-            $existingDOP->each(function($existsingPoint) use ($updatedDOP) {
+            $existingDOP->each(function ($existsingPoint) use ($updatedDOP) {
                 $found = $updatedDOP->firstWhere('id', $existsingPoint->dropoff_point_id);
 
-                if(!$found) {
+                if (!$found) {
                     $existsingPoint->delete();
                 }
             });
@@ -239,7 +236,6 @@ class CarTripController extends Controller
                     'listNewDropoffPoints' => $listNewDOP
                 ]
             ], 200);
-
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -250,10 +246,10 @@ class CarTripController extends Controller
         }
     }
 
-    public function deleteCarTrip($id) {
+    public function deleteCarTrip($id){
         $carTrip = CarTrip::find($id);
 
-        if(!$carTrip) {
+        if (!$carTrip) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Không tìm thấy chuyến xe!'
@@ -264,7 +260,7 @@ class CarTripController extends Controller
             DB::beginTransaction();
 
             // Xóa các bản ghi ở bảng trung gian car_trip_pickup_points
-            $carTrip->pickupPoints()->detach(); 
+            $carTrip->pickupPoints()->detach();
 
             // Xóa các bản ghi ở bảng trung gian car_trip_dropoff_points
             $carTrip->dropoffPoints()->detach();
@@ -278,7 +274,6 @@ class CarTripController extends Controller
                 'status' => 200,
                 'message' => 'Chuyến xe đã được xóa thành công!'
             ], 200);
-            
         } catch (\Throwable $th) {
             DB::rollBack();
 

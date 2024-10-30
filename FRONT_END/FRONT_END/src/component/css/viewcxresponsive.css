@@ -1,0 +1,105 @@
+.chuyen-xe-responsive {
+    background-color: #ffffff;
+    border: 1px solid rgb(204, 204, 204);
+    /* padding: 12px 16px; */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.show-time{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:5px 16px;
+    /* border-bottom: 1px dotted rgb(221, 218, 218); */
+}
+.cx-tg-font{
+    color:#141414;
+    font-size: 24px;
+    font-weight: 900;
+}
+.tong-thoi-gian{
+    color:#141414;
+    font-size: 12px;
+}
+.dia-diem-don-tra-khach{
+    padding:5px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 800;
+    border-bottom: 1px dotted rgb(221, 218, 218);
+}
+.sl-ghe-of-xe{
+    font-size: 12px;
+    color:#2474E5;
+}
+.ticker-info-nha-xe{
+    display: flex;
+    padding: 12px 16px;
+    justify-content:space-between;
+    border-bottom: 1px dotted rgb(221, 218, 218);
+}
+.imga-cx{
+    display: flex;
+    gap:15px;
+    align-items: center;
+}
+.ticker-info-price{
+    padding:5px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.sl-ghe-con{
+    font-size: 20px;
+   text-transform: lowercase;
+    color:#2474E5;
+}
+.price-old{
+    text-align: right;
+    line-height: 30px;
+    text-decoration:line-through;
+}
+.price-now{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 40px;
+}
+.ticker-info-price-right{
+    width: 100%;
+}
+.ticker-info-price-right >.ticker-info-price-center{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.title-pay{
+    text-align: right;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 12px;
+    letter-spacing: 0px;
+}
+.tiker-bottom{
+    display: flex;
+    align-items: center;
+}
+.icon-info-ticker{
+    width:200px;
+    display:flex ;
+    padding:8px 15px;
+    background-color: rgb(36, 116, 229);
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color:#ffffff;
+}
+.title-info-ticker{
+    width: 100%;
+    display: flex;
+    padding:8px 15px;
+    justify-content: space-between;
+    background-color: #E4EBF4;
+    text-overflow: ellipsis;
+    color: rgb(36, 116, 229);
+    overflow: hidden;
+    border-bottom-right-radius: 5px;
+}

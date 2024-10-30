@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CarController;
 use App\Http\Controllers\Api\CarTripController;
+use App\Http\Controllers\Api\ProvinceController;
+use App\Http\Controllers\Api\SearchController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -15,14 +17,13 @@ Route::get('/user', function (Request $request) {
 /* =====================================================================
                             CAR SYSTEM 
 ===========================================================================*/
-Route::post('/hello', [CarController::class, 'hello']);
 
 // CAR TYPE
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/cartypes/index', [CarController::class, 'listCarType']);
-    
+
     Route::post('/cartypes/create', [CarController::class, 'addCarType']);
-    
+
     Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
 
     Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
@@ -31,7 +32,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 // CAR HOUSE
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/carhouse/index', [CarController::class, 'listCarHouse']);
-    
+
     Route::post('/carhouse/create', [CarController::class, 'addCarHouse']);
 
     Route::post('/carhouse/update/{id}', [CarController::class, 'updateCarHouse']);
@@ -53,9 +54,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 // CITY
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/city/index', [CarController::class, 'listCity']);
-    
+
     Route::post('/city/create', [CarController::class, 'addCity']);
-    
+
     Route::post('/city/update/{id}', [CarController::class, 'updateCity']);
 
     Route::delete('/city/delete/{id}', [CarController::class, 'deleteCity']);
@@ -87,6 +88,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     // Route::get('')
 });
 
+Route::get('/provinces', [ProvinceController::class, 'getProvinces']);
+
 // CAR ROUTE POINT
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/carroute/index', [CarController::class, 'listCarRoute']);
@@ -107,4 +110,9 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
 
     Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+});
+
+// SEARCH
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 });

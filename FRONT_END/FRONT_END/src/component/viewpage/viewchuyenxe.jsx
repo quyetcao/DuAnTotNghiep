@@ -62,6 +62,7 @@ import DanhSachChuyenXe from './ds-chuyen-xe';
 import CauHoiThuonGap from './cau-hoi-thuong-gap';
 import ThongTinTuyenDuong from './thong-tin-tuyen-duong';
 import GioiThieuTuyenDuong from './gioi-thieu-tuyen-duong';
+import DanhSachChuyenXeResponsive from './ds-chuyenxe-responsive';
 
 
 
@@ -619,10 +620,22 @@ export default function ViewChuyenxe() {
                   </div>
                 </div>
               </div>
-              <DanhSachChuyenXe />
-              <DanhSachChuyenXe />
-              <DanhSachChuyenXe />
-              <DanhSachChuyenXe />
+              <div className="title-chuyenxe">
+                <h3 className='title-cx-1'>Đặt mua vé xe đi từ Hà Nội Đến Hải Phòng Chất lượng cao và giá vé ưu đãi nhất:8386 Chuyến</h3>
+                <p className='title-cx-2'>Đặt chuyến xe trực tuyến</p>
+              </div>
+              <div className='ds-cx-desktop'>
+                <DanhSachChuyenXe />
+                <DanhSachChuyenXe />
+                <DanhSachChuyenXe />
+                <DanhSachChuyenXe />
+              </div>
+              <div className='ds-cx-tablet'>
+                <DanhSachChuyenXeResponsive />
+                <DanhSachChuyenXeResponsive />
+                <DanhSachChuyenXeResponsive />
+                <DanhSachChuyenXeResponsive />
+              </div>
             </div>
           </div>
           <CauHoiThuonGap />

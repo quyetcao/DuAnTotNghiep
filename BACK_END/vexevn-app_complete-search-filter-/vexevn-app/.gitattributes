@@ -6,6 +6,13 @@
 *.md diff=markdown
 *.php diff=php
 
+# Đảm bảo tất cả file văn bản sử dụng LF (Unix-style line endings)
+* text=auto
+
+# Giữ lại CRLF cho file .bat (Windows batch scripts)
+*.bat text eol=crlf
+
+
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore

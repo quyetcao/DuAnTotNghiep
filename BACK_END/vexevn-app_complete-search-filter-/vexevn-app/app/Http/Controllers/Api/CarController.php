@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+
 use App\Models\CarType;
 use App\Models\CarHouse;
 use App\Models\Car;
@@ -81,7 +82,6 @@ class CarController extends Controller
                 'message' => 'Điểm đón đã được thêm thành công',
                 'data' => $carType,
             ], 201);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
@@ -145,7 +145,6 @@ class CarController extends Controller
                 'message' => 'Loại xe đã được cập nhật thành công',
                 'data' => $data
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
@@ -195,8 +194,8 @@ class CarController extends Controller
         $carHouse = CarHouse::all();
 
         return response()->json([
-            'status' => true,
-            'message' => 'Product listed successfully',
+            'status' => 200,
+            'message' => 'Hiển thị danh sách nhà xe thành công',
             'data' => $carHouse
         ], 200);
     }
@@ -210,8 +209,8 @@ class CarController extends Controller
 
         if ($validateCarHouse->fails()) {
             return response()->json([
-                'status' => false,
-                'message' => 'Validation error',
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
                 'data' => $validateCarHouse->errors()
             ], 422);
         }
@@ -225,13 +224,13 @@ class CarController extends Controller
             $carHouse = CarHouse::create($inputData);
 
             return response()->json([
-                'status' => true,
-                'message' => 'Car House Added Successfully',
+                'status' => 201,
+                'message' => 'Nhà xe tạo mới thành công!',
                 'data' => $carHouse
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => false,
+                'status' => 500,
                 'message' => $th->getMessage(),
             ], 500);
         }
@@ -243,8 +242,8 @@ class CarController extends Controller
 
         if (!$carHouse) {
             return response()->json([
-                'status' => false,
-                'message' => 'Car Type not found'
+                'status' => 404,
+                'message' => 'Không tìm thấy nhà xe!'
             ], 404);
         }
 
@@ -255,8 +254,8 @@ class CarController extends Controller
 
         if ($validateCarhouse->fails()) {
             return response()->json([
-                'status' => false,
-                'message' => 'Validation error',
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
                 'data' => $validateCarhouse->errors()
             ], 422);
         }
@@ -269,13 +268,13 @@ class CarController extends Controller
             $carHouse->save();
 
             return response()->json([
-                'status' => true,
-                'message' => 'Car House updated successfully',
+                'status' => 200,
+                'message' => 'Cập nhật nhà xe thành công!',
                 'data' => $carHouse
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => false,
+                'status' => 500,
                 'message' => $th->getMessage(),
             ], 500);
         }
@@ -287,16 +286,16 @@ class CarController extends Controller
 
         if (!$carHouse) {
             return response()->json([
-                'status' => false,
-                'message' => 'Product not found',
+                'status' => 404,
+                'message' => 'Không tìm thấy nhà xe!',
             ], 404);
         }
 
         $carHouse->delete();
 
         return response()->json([
-            'status' => true,
-            'message' => 'Car House deleted successfully',
+            'status' => 200,
+            'message' => 'Nhà xe đã được xóa thành công!',
             'delete_data' => $carHouse
         ], 200);
     }
@@ -307,19 +306,19 @@ class CarController extends Controller
     public function listCar()
     {
         // Lấy all xe kèm ảnh liên quan của mỗi xe
-        $cars = Car::with('carImages')->get();
+        $cars = Car::with('carImages')->paginate(10);
 
-        // Lấy loại xe và nhà xe
-        $carTypes = CarType::all();
-        $carHouses = CarHouse::all();
+        // // Lấy loại xe và nhà xe
+        // $carTypes = CarType::all();
+        // $carHouses = CarHouse::all();
 
         return response()->json([
             'status' => true,
-            'message' => 'Car, Car Type and Car House listed successfully',
+            'message' => 'Hiển thị danh sách xe thành công!',
             'data' => [
                 'cars' => $cars,
-                'carTypes' => $carTypes,
-                'carHouses' => $carHouses,
+                // 'carTypes' => $carTypes,
+                // 'carHouses' => $carHouses,
             ]
         ], 200);
     }
@@ -559,126 +558,11 @@ class CarController extends Controller
         }
     }
 
-/*=====================================================================
-                            CITY 
-===========================================================================
-
-    public function listCity()
-    {
-        $cities = City::all();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Cities listed successfully',
-            'data' => $cities
-        ], 200);
-    }
-
-    public function addCity(Request $request)
-    {
-        $validateCity = Validator::make($request->all(), [
-            'name' => 'required|string|unique:cities,name'
-        ]);
-
-        if ($validateCity->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation error',
-                'data' => $validateCity->errors()
-            ], 422);
-        }
-
-        try {
-            $city = City::create([
-                'name' => $request->name
-            ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'City added successfully',
-                'data' => $city
-            ], 201);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function updateCity(Request $request, $id)
-    {
-        $city = City::find($id);
-
-        if (!$city) {
-            return response()->json([
-                'status' => false,
-                'message' => 'City not found!'
-            ], 404);
-        }
-
-        $validateCity = Validator::make($request->all(), [
-            'name' => 'required|string|unique:cities,name,' . $id
-        ]);
-        // $validateCity = $request->validate([
-        //     'name' => 'required|string'
-        // ]);
-
-        if ($validateCity->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation error',
-                'data' => $validateCity->errors()
-            ], 422);
-        }
-
-
-        try {
-            $city->name = $request->name;
-            $city->save();
-            // $city->update([
-            //     'name' => $validateCity['name'],
-            // ]);
-
-            return response()->json([
-                'status' => true,
-                'message' => 'City updated successfully',
-                'data' => $city
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
-
-    public function deleteCity($id)
-    {
-        $city = City::find($id);
-
-        if (!$city) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy thành phố!'
-            ], 404);
-        }
-
-
-        $city->delete();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Thành phố đã được xoá thành công',
-            'delete_data' => $city
-        ], 200);
-    }
-*/
-
 /* =====================================================================
                         PICK UP POINT 
 ===========================================================================*/
-    public function listPickupPoint() {
+    public function listPickupPoint()
+    {
         $data = PickupPoint::all();
 
         return response()->json([
@@ -695,14 +579,14 @@ class CarController extends Controller
             // 'city_id' => 'required|exists:cities,id',
             'car_house_id' => 'nullable|exists:car_houses,id',
             'is_public' => 'required|boolean'
-        ]); 
+        ]);
 
         if ($validatePUP->fails()) {
             return response()->json([
                 'status' => 422,
                 'message' => 'Lỗi xác thực form',
                 'data' => $validatePUP->errors()
-            ],422);
+            ], 422);
         }
 
         try {
@@ -719,18 +603,15 @@ class CarController extends Controller
                 'message' => 'Điểm đón đã được thêm thành công',
                 'data' => $pickupPoint
             ], 201);
-        
-
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
                 'message' => $th->getMessage()
             ], 500);
         }
-
-        
     }
-    public function updatePickupPoint(Request $request, $id) {
+    public function updatePickupPoint(Request $request, $id)
+    {
         $pickupPoint = PickupPoint::find($id);
 
         if (!$pickupPoint) {
@@ -741,7 +622,7 @@ class CarController extends Controller
         }
 
         $validatePUP = Validator::make($request->all(), [
-            'name' => 'required|string|unique:pickup_points,name,' .$id,
+            'name' => 'required|string|unique:pickup_points,name,' . $id,
             'address' => 'nullable|string',
             // 'city_id' => 'required|exists:cities,id',
             'car_house_id' => 'nullable|exists:car_houses,id',
@@ -770,16 +651,15 @@ class CarController extends Controller
                 'message' => 'Điểm đón đã được cập nhật thành công',
                 'data' => $pickupPoint,
             ], 200);
-            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
                 'message' => $th->getMessage()
             ], 500);
         }
-
     }
-    public function deletePickupPoint ($id) {
+    public function deletePickupPoint($id)
+    {
         $data = PickupPoint::find($id);
 
         if (!$data) {
@@ -798,240 +678,237 @@ class CarController extends Controller
         ], 200);
     }
 
-/* =====================================================================
+    /* =====================================================================
                         DROP OFF POINT 
 ===========================================================================*/
-public function listDropoffPoint() {
-    $data = DropoffPoint::all();
-
-    return response()->json([
-        'status' => 200,
-        'message' => 'Hiển thị danh sách điểm dừng thành công',
-        'data' => $data
-    ], 200);
-}
-public function uploadDropoffPoint(Request $request)
-{
-    $validateDOP = Validator::make($request->all(), [
-        'name' => 'required|string|unique:pickup_points,name',
-        'address' => 'nullable|string',
-        // 'city_id' => 'required|exists:cities,id',
-        'car_house_id' => 'nullable|exists:car_houses,id',
-        'is_public' => 'required|boolean'
-    ]); 
-
-    if ($validateDOP->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validateDOP->errors()
-        ],422);
-    }
-
-    try {
-        $dropoffPoint = DropoffPoint::create([
-            'name' => $request->name,
-            'address' => $request->address,
-            // 'city_id' => $request->city_id,
-            'car_house_id' => $request->car_house_id,
-            'is_public' => $request->is_public
-        ]);
-
-        return response()->json([
-            'status' => 201,
-            'message' => 'Điểm dừng đã được thêm thành công',
-            'data' => $dropoffPoint
-        ], 201);
-    
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage()
-        ], 500);
-    }
-
-    
-}
-public function updateDropoffPoint(Request $request, $id) {
-    $dropoffPoint = DropoffPoint::find($id);
-
-    if (!$dropoffPoint) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy điểm dừng!',
-        ], 404);
-    }
-
-    $validatePUP = Validator::make($request->all(), [
-        'name' => 'required|string|unique:pickup_points,name,' .$id,
-        'address' => 'nullable|string',
-        // 'city_id' => 'required|exists:cities,id',
-        'car_house_id' => 'nullable|exists:car_houses,id',
-        'is_public' => 'required|boolean'
-    ]);
-
-    if ($validatePUP->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validatePUP->errors()
-        ], 422);
-    }
-
-    try {
-        $dropoffPoint->name = $request->name;
-        $dropoffPoint->address = $request->address;
-        // $dropoffPoint->city_id = $request->city_id;
-        $dropoffPoint->car_house_id = $request->car_house_id;
-        $dropoffPoint->is_public = $request->is_public;
-
-        $dropoffPoint->save();
+    public function listDropoffPoint()
+    {
+        $data = DropoffPoint::all();
 
         return response()->json([
             'status' => 200,
-            'message' => 'Điểm dừng đã được cập nhật thành công',
-            'data' => $dropoffPoint,
+            'message' => 'Hiển thị danh sách điểm dừng thành công',
+            'data' => $data
         ], 200);
-        
-    } catch (\Throwable $th) {
+    }
+    public function uploadDropoffPoint(Request $request)
+    {
+        $validateDOP = Validator::make($request->all(), [
+            'name' => 'required|string|unique:pickup_points,name',
+            'address' => 'nullable|string',
+            // 'city_id' => 'required|exists:cities,id',
+            'car_house_id' => 'nullable|exists:car_houses,id',
+            'is_public' => 'required|boolean'
+        ]);
+
+        if ($validateDOP->fails()) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
+                'data' => $validateDOP->errors()
+            ], 422);
+        }
+
+        try {
+            $dropoffPoint = DropoffPoint::create([
+                'name' => $request->name,
+                'address' => $request->address,
+                // 'city_id' => $request->city_id,
+                'car_house_id' => $request->car_house_id,
+                'is_public' => $request->is_public
+            ]);
+
+            return response()->json([
+                'status' => 201,
+                'message' => 'Điểm dừng đã được thêm thành công',
+                'data' => $dropoffPoint
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    public function updateDropoffPoint(Request $request, $id)
+    {
+        $dropoffPoint = DropoffPoint::find($id);
+
+        if (!$dropoffPoint) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy điểm dừng!',
+            ], 404);
+        }
+
+        $validatePUP = Validator::make($request->all(), [
+            'name' => 'required|string|unique:pickup_points,name,' . $id,
+            'address' => 'nullable|string',
+            // 'city_id' => 'required|exists:cities,id',
+            'car_house_id' => 'nullable|exists:car_houses,id',
+            'is_public' => 'required|boolean'
+        ]);
+
+        if ($validatePUP->fails()) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
+                'data' => $validatePUP->errors()
+            ], 422);
+        }
+
+        try {
+            $dropoffPoint->name = $request->name;
+            $dropoffPoint->address = $request->address;
+            // $dropoffPoint->city_id = $request->city_id;
+            $dropoffPoint->car_house_id = $request->car_house_id;
+            $dropoffPoint->is_public = $request->is_public;
+
+            $dropoffPoint->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Điểm dừng đã được cập nhật thành công',
+                'data' => $dropoffPoint,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+    public function deleteDropoffPoint($id)
+    {
+        $data = DropoffPoint::find($id);
+
+        if (!$data) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy điểm dừng!'
+            ], 404);
+        }
+
+        $data->delete();
+
         return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage()
-        ], 500);
+            'status' => 200,
+            'message' => 'Điểm dừng đã được xoá thành công',
+            'delete_data' => $data
+        ], 200);
     }
 
-}
-public function deleteDropoffPoint ($id) {
-    $data = DropoffPoint::find($id);
-
-    if (!$data) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy điểm dừng!'
-        ], 404);
-    }
-
-    $data->delete();
-
-    return response()->json([
-        'status' => 200,
-        'message' => 'Điểm dừng đã được xoá thành công',
-        'delete_data' => $data
-    ], 200);
-}
-
-/* =====================================================================
+    /* =====================================================================
                             CAR ROUTE
 ===========================================================================*/
-public function listCarRoute() {
-    $data = CarRoute::all();
-
-    return response()->json([
-        'status' => 200,
-        'message' => 'Hiển thị danh sách tuyến đường thành công',
-        'data' => $data
-    ], 200);
-}
-public function uploadCarRoute(Request $request) {
-    $validateCR = Validator::make($request->all(), [
-        'city_from' => 'required|string',
-        'city_to' => 'required|string',
-        'description' => 'nullable|string'
-    ]);
-
-    if ($validateCR->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validateCR->errors()
-        ], 422);
-    }
-
-    try {
-        $carRoute = CarRoute::create([
-            'city_from' => $request->city_from,
-            'city_to' => $request->city_to,
-            'description' => $request->description
-        ]);
-
-        return response()->json([
-            'status' => 201,
-            'message' => 'Tuyến đường đã được thêm thành công',
-            'data' => $carRoute
-        ], 201);
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage()
-        ], 500);
-    }
-}
-
-public function updateCarRoute(Request $request, $id) {
-    $carRoute = CarRoute::find($id);
-
-    if(!$carRoute) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy tuyến đường!',
-        ], 404);
-    }
-
-    $validateCR = Validator::make($request->all(), [
-        'city_from' => 'required|string',
-        'city_to' => 'required|string',
-        'description' => 'nullable|string'
-    ]);
-
-    if ($validateCR->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validateCR->errors()
-        ], 422);
-    }
-
-    try {
-        $carRoute->city_from = $request->city_from;
-        $carRoute->city_to = $request->city_to;
-        $carRoute->description = $request->description;
-
-        $carRoute->save();
+    public function listCarRoute()
+    {
+        $data = CarRoute::all();
 
         return response()->json([
             'status' => 200,
-            'message' => 'Tuyến đường đã được cập nhật thành công',
-            'data' => $carRoute
+            'message' => 'Hiển thị danh sách tuyến đường thành công',
+            'data' => $data
         ], 200);
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage()
-        ], 500);
     }
-}
+    public function uploadCarRoute(Request $request)
+    {
+        $validateCR = Validator::make($request->all(), [
+            'city_from' => 'required|string',
+            'city_to' => 'required|string',
+            'description' => 'nullable|string'
+        ]);
 
-public function deleteCarRoute($id) {
-    $carRoute = CarRoute::find($id);
+        if ($validateCR->fails()) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
+                'data' => $validateCR->errors()
+            ], 422);
+        }
 
-    if(!$carRoute) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy tuyến đường!',
-        ], 404);
+        try {
+            $carRoute = CarRoute::create([
+                'city_from' => $request->city_from,
+                'city_to' => $request->city_to,
+                'description' => $request->description
+            ]);
+
+            return response()->json([
+                'status' => 201,
+                'message' => 'Tuyến đường đã được thêm thành công',
+                'data' => $carRoute
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
-    $carRoute->delete();
+    public function updateCarRoute(Request $request, $id)
+    {
+        $carRoute = CarRoute::find($id);
 
-    return response()->json([
-        'status' => 200,
-        'message' => 'Tuyến đường đã được xoá thành công',
-        'delete_data' => $carRoute
-    ], 200);
+        if (!$carRoute) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy tuyến đường!',
+            ], 404);
+        }
 
-}
+        $validateCR = Validator::make($request->all(), [
+            'city_from' => 'required|string',
+            'city_to' => 'required|string',
+            'description' => 'nullable|string'
+        ]);
 
+        if ($validateCR->fails()) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Lỗi xác thực form',
+                'data' => $validateCR->errors()
+            ], 422);
+        }
+
+        try {
+            $carRoute->city_from = $request->city_from;
+            $carRoute->city_to = $request->city_to;
+            $carRoute->description = $request->description;
+
+            $carRoute->save();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Tuyến đường đã được cập nhật thành công',
+                'data' => $carRoute
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function deleteCarRoute($id)
+    {
+        $carRoute = CarRoute::find($id);
+
+        if (!$carRoute) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy tuyến đường!',
+            ], 404);
+        }
+
+        $carRoute->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Tuyến đường đã được xoá thành công',
+            'delete_data' => $carRoute
+        ], 200);
+    }
 }

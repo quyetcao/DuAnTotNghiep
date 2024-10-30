@@ -83,10 +83,26 @@ export default function Banner() {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
-      } = useForm()
-      const onSubmit = (data) => console.log(data)
+        // formState: { errors },
+      } = useForm({
+        defaultValues: {
+          city_from:'',
+          city_to:''
+        }
+    })
+
+
+      const handleSubmitSearch = () => {
+        handleSubmit(onSubmit)();
+      
+    };
+    function onSubmit(data) {
+        data.city_from= tpfrom;
+        data.city_to = tpTo,
+        console.log("datainform them cphn", data);
+       
+ 
+    }
 
 
     return (
@@ -143,7 +159,7 @@ export default function Banner() {
                                 </div>
                             </div>
                             <div className='search-bottom'>
-                            <form action="" onSubmit={handleSubmit(onSubmit)}>
+                            <form action="" onSubmit={handleSubmit(handleSubmitSearch)}>
                                 <div className='search-wrapper'>
                                     <div className='search-input'>
                                         <div className='input-list'>

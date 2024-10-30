@@ -5,7 +5,7 @@ import ScrollableTabsButtonVisible from './tab-ctcx';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 // import ChooseSeat from './tab-clickseat-choselocation.jsx';
-import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
+// import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
 
 
@@ -175,11 +175,11 @@ export default function DanhSachChuyenXe() {
                     <ScrollableTabsButtonVisible />
                 </div>
             </div>
-            <div className='set-chair'>
+            {/* <div className='set-chair'>
                 <div className='tt-ct-seat-tung-chuyen-xe'>
                  <HorizontalLinearStepper />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
