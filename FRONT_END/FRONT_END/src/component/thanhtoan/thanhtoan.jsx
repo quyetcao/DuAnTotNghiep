@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import ErrorIcon from '@mui/icons-material/Error';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 // import WarningIcon from '@mui/icons-material/Warning';
 import '../css/thanhtoan.css';
 
@@ -9,9 +13,46 @@ export default function ThanhToan() {
             <div className='body-container'>
                 <div className='payment'>
                     <div className='payment-page'>
+                        <div className='wrap-top'>
+                            <div className='wrap-top1'>
+                                <div className='wrap-top__icon'>
+                                    <ArrowBackIcon/>
+                                </div>
+                                <div className='wrap-top__left'>
+                                    <div className='left-box'>
+                                        <div className='left-box__title'>Cửa Ông Limousine</div>
+                                        <span className='left-box__text'><strong>11:00</strong>
+                                            <span className='wrap-top__left-icon'><FiberManualRecordIcon  /></span>
+                                            Tue, 02/11/2024
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='wrap-top__right'><a href=''>Chi tiết</a></div>
+                            </div>
+                            <div className='wrap-top2'>
+                                <div className='wrap-top2__left'>
+                                    <div className='wrap-top2__span'><CheckCircleOutlineOutlinedIcon /></div>
+                                    <div className='wrap-top2__text'>Xác nhận hành trình</div>
+                                </div>
+                                <div className='wrap-top2__right'>
+                                    <div className='wrap-top2__border'></div>
+                                    <div className='wrap-top2__circle'>10</div>
+                                    <div className='wrap-top2__text'>Thanh toán</div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className='payments-security'>
+                            <span className='payments-security__icon'>
+                                <GppGoodOutlinedIcon fontSize='small'/>
+                            </span>
+                            <span className='payments-security__title'>Nhiều cách thanh toán, bảo mật tuyệt đối</span>
+                        </div>
                         <div className='wrap-left'>
                             <div className='payment-method'>
                                 <p className='method-heading'>Phương thức thanh toán</p>
+                                <div className='method-heading2'>Chọn phương thức thanh toán</div>
                                 <div className='group-payment'>
                                     <div className='payment-item border-bottom'>
                                         <lable className='list-qr'>
@@ -25,7 +66,7 @@ export default function ThanhToan() {
                                                     className='img-icon'
                                                 />
                                                 <p className='title-base'>
-                                                    QR chuyển khoản/ Ví điện tử
+                                                   <span className='hehehe'> QR chuyển khoản/ Ví điện tử</span>
                                                     <div className='an-toan'>
                                                         <img
                                                             src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/gpp_good.svg'
@@ -91,9 +132,10 @@ export default function ThanhToan() {
                                                                 width='36'
                                                                 height='24'
                                                             />
+                                                            <div className='plus-img'>+ 40</div>
                                                         </div>
                                                         <p className='text-base'>
-                                                            <a href='' className='text-link'>
+                                                            <a href='' className='text-link text-link1'>
                                                                 Xem tất cả
                                                             </a>
                                                         </p>
