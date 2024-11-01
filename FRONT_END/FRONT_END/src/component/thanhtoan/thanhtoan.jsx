@@ -518,7 +518,7 @@ export default function ThanhToan() {
                                                 width='16'
                                                 height='16'
                                             />
-                                            <p className='base__Caption01Highlight-sc-1tvbuqk-17 jCbuWT'>
+                                            <p className='section-ticket-header-left__title'>
                                                 T6, 13/09/2024
                                             </p>
                                             <div className='total-ticket'>
@@ -530,7 +530,7 @@ export default function ThanhToan() {
                                                     width='16'
                                                     height='16'
                                                 />
-                                                <p className='base__Caption01-sc-1tvbuqk-16 jPSIDj'>1</p>
+                                                <p className='section-ticket-header-left__title total-ticket__text'>1</p>
                                             </div>
                                         </div>
                                         <div>

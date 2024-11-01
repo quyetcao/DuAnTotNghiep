@@ -209,7 +209,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 16px;
+    margin-top: 14px;
 }
 
 .cart-text {
@@ -357,15 +357,15 @@ a.text-link1 {
 }
 
 .section-ticket-header-left {
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     height: 35px;
-    display: flex;
 }
 
-.total-ticket {
-    display: flex;
-    align-items: center;
+.total-ticket__text {
+    margin-left: 4px !important;
 }
 
 .section-ticket-company-info {
@@ -374,19 +374,17 @@ a.text-link1 {
     display: flex;
     flex-direction: row;
 }
-.base__Caption01Highlight-sc-1tvbuqk-17 {
-    margin-top: 5px;
+
+.section-ticket-header-left__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
 }
+
 .beAglg {
     width: 58px;
     height: 36px;
     border-radius: 4px;
-}
-.jCbuWT {
-    font-size: 12px;
-    line-height: 16px;
-    font-weight: 700;
-    margin-bottom: 0px;
 }
 
 .section-ticket-company-info-name {
@@ -457,7 +455,7 @@ a.text-link1 {
     font-size: 10px;
     font-weight: 700;
     line-height: 12px;
-    margin-bottom: 0px;
+    margin: 0;
 }
 .bVQrWf {
     color: rgb(36, 116, 229);
@@ -495,6 +493,22 @@ a.text-link1 {
     display: none;
 }
 
+
+@media (max-width: 768px) {
+    .wrap-right {
+        width: 621px !important;
+    }
+
+    .cart-khuyen-mai .coupon-info-route-page-container  {
+        min-width: 46%;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+
+
 @media (max-width: 480px) {
     .body-container {
         padding: 0 0 !important;
@@ -505,12 +519,16 @@ a.text-link1 {
         gap: 0;
     }
 
+    .cart-khuyen-mai .coupon-info-route-page-container {
+        min-width: 80%;
+    }
+
     .payment-method {
         padding: 0 !important;
         border: none !important;
     }
 
-    .wrap-left {
+    .wrap-left, .wrap-right {
         width: 375px !important;
     }
 
