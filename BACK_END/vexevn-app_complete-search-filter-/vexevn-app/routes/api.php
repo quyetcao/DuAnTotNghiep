@@ -115,3 +115,8 @@ Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip'
 // SEARCH
 
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
+//Banner
+Route::get('banners', [BannerController::class, 'listBanners']);
+Route::post('banners/addBanner', [BannerController::class, 'addBanner']);
+Route::post('banners/update/{id}', [BannerController::class, 'update']);
+Route::delete('banners/delete/{id}', [BannerController::class, 'delete']);
