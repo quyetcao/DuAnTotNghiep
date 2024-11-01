@@ -20,6 +20,7 @@ import AppAdmin from './AdminApp.jsx';
 import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 // import AdminHandle from './component/admin-handle/admin-handle.jsx';
 import QuanLyDatVeXe from './component/quan_ly_dat_ve_xe/quanLyDatVeXe.jsx';
+import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
 
 
 
@@ -64,6 +65,11 @@ const routes = createBrowserRouter([
       {
         path: "/chi-tiet-giao-dich",
         element: <ChiTietGiaoDich />
+      },
+      /**router test thử các trang  */
+      {
+        path:"/respon1",
+        element:<SelectSeatResponsive/>
       },
       {
         path: "/taikhoan",

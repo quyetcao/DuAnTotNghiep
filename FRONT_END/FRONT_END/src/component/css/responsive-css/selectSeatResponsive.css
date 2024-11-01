@@ -1,0 +1,24 @@
+.header-responsive-pay-step1{
+    background-color: #2474E5;
+    color:aliceblue;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.header-rs-pay-left{
+    display: flex;
+    align-items: center;
+    gap:15px;
+}
+.name-cx-res{
+    font-weight: 800;
+}
+.thoi-gian-res{
+    font-size: 12px;
+}
+.container-responsive-select-seat{
+    display: flex;
+    padding:20px;
+    gap:10px;
+    overflow: hidden;
+    overflow-x: auto;
+}
