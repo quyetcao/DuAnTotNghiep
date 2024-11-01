@@ -429,7 +429,7 @@ export default function ThanhToan() {
                                 </div>
                                 <div className='cart-kk-detail'>
                                     <div className='coupon-info-route-page-container'>
-                                        <div className='giamgia'>
+                                        <div className='giamgia-thanhtoan'>
                                             <img
                                                 src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png'
                                                 alt=''

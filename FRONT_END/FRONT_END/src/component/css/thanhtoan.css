@@ -332,7 +332,7 @@ a.text-link1 {
 
 .cart-khuyen-mai .coupon-info-route-page-container {
     margin-top: 10px;
-    min-width: 80%;
+    min-width: auto;
 }
 
 /*card thông tin chuyến đi */
@@ -493,13 +493,36 @@ a.text-link1 {
     display: none;
 }
 
+.giamgia-thanhtoan {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 1024px) {
+.header {
+    display: none;
+}
+
+    .wrap-left, .wrap-right {
+        min-width: 100% !important;
+    }
+
+    .cart-khuyen-mai .coupon-info-route-page-container {
+        /* min-width: 38% !important; */
+    }
+
+    .footer {
+        display: none;
+    }
+}
 
 @media (max-width: 768px) {
     .wrap-right {
         width: 621px !important;
     }
 
-    .cart-khuyen-mai .coupon-info-route-page-container  {
+    .cart-khuyen-mai .coupon-info-route-page-container {
         min-width: 46%;
     }
 
@@ -508,6 +531,257 @@ a.text-link1 {
     }
 }
 
+@media (max-width: 650px) {
+    .body-container {
+        padding: 0 0 !important;
+        background-color: transparent !important;
+    }
+
+    .payment-page {
+        gap: 0;
+    }
+
+    .cart-khuyen-mai .coupon-info-route-page-container {
+        min-width: 80%;
+    }
+
+    .payment-method {
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    .wrap-left,
+    .wrap-right {
+        width: 375px !important;
+    }
+
+    .wrap-top {
+        width: 100%;
+        height: 3.5%;
+        display: block;
+        color: var(--white-color);
+        background-color: rgb(36, 116, 229);
+    }
+
+    .wrap-top1 {
+        /* margin-left: 30px;
+            margin-right: 30px; */
+        padding: 12px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .left-box__title {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .left-box__text {
+        font-size: 14px;
+    }
+
+    .wrap-top__left-icon svg {
+        width: 5px;
+        height: 5px;
+        margin: 2px 3px;
+    }
+
+    .wrap-top__right a {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .wrap-top2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrap-top2__left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrap-top2__span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+    }
+
+    .wrap-top2__span svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .wrap-top2__text {
+        font-size: 12px;
+    }
+
+    .wrap-top2__border {
+        width: 22px;
+        height: 0.5px;
+        background-color: #fff;
+        margin: 0 12px;
+    }
+
+    .wrap-top2__right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrap-top2__circle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        border-radius: 999px;
+        width: 16px;
+        height: 16px;
+        font-weight: 600;
+        color: var(--color-primary);
+        background-color: #fff;
+        margin-right: 8px;
+    }
+
+    .payments-security {
+        display: flex;
+        align-items: center;
+        margin: 16px 0;
+        border-radius: 6px;
+        padding: 8px 40px;
+        border: 1px solid rgb(39, 174, 96);
+        background-color: rgb(238, 251, 244) !important;
+    }
+
+    .payments-security__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgb(15, 170, 79);
+        margin-right: 4px;
+    }
+
+    .payments-security__title {
+        font-size: 14px;
+    }
+
+    .method-heading2 {
+        display: block;
+        margin-top: 12px;
+        font-weight: 600;
+        color: rgb(133, 133, 133);
+    }
+
+    .ant-radio {
+        display: none;
+    }
+
+    .hehehe,
+    .title-base {
+        width: 100%;
+        color: var(--black-color);
+        font-weight: 700;
+    }
+
+    .title-base {
+        font-size: 14px;
+        flex-wrap: wrap;
+    }
+
+    .text-base {
+        font-size: 10px;
+    }
+
+    .thanhtoan-title {
+        margin-left: 16px;
+        font-size: 12px !important;
+    }
+
+    .an-toan {
+        margin-left: 0 !important;
+        margin-top: 6px;
+    }
+
+    .text-sp {
+        display: none;
+    }
+
+    .content-support {
+        margin-left: 13px;
+        padding: 0 !important;
+        background-color: transparent !important;
+    }
+
+    .content-img__app {
+        display: flex;
+        align-items: center;
+    }
+
+    .content-img__app img {
+        border: 1px solid #dddddd;
+        border-radius: 2px;
+    }
+
+    .plus-img {
+        display: block;
+        background-color: var(--color-primary);
+        color: var(--white-color);
+        border-radius: 12px;
+        font-size: 12px;
+        padding: 4px 6px;
+        font-weight: 700;
+    }
+
+    a.text-link1 {
+        display: none !important;
+    }
+
+    .content-p {
+        margin: 0;
+        padding: 8px;
+    }
+
+    .text-content {
+        font-size: 12px !important;
+        margin-left: 10px !important;
+    }
+
+    .payment-item {
+        padding: 12px 0 !important;
+    }
+
+    .PaymentMethods__LabelStyle-sc-6pvdqp-2 {
+        padding-left: 16px !important;
+        font-size: 14px !important;
+    }
+
+    .PaymentMethods__GuildContainer-sc-6pvdqp-5 {
+        padding-left: 16px !important;
+        font-size: 12px !important;
+        line-height: 20px !important;
+    }
+
+    .cart-summary {
+        padding: 0 !important;
+    }
+
+    .cart-khuyen-mai {
+        padding: 0 !important;
+    }
+
+    .cart-thong-tin-chuyen-di {
+        padding: 0 !important;
+    }
+
+    .cart-thong-tin-kh {
+        padding: 0 !important;
+    }
+}
 
 @media (max-width: 480px) {
     .body-container {
@@ -528,8 +802,9 @@ a.text-link1 {
         border: none !important;
     }
 
-    .wrap-left, .wrap-right {
-        width: 375px !important;
+    .wrap-left,
+    .wrap-right {
+        min-width: 375px !important;
     }
 
     .wrap-top {
@@ -749,9 +1024,9 @@ a.text-link1 {
 
     .cart-khuyen-mai {
         padding: 0 !important;
-    }    
+    }
 
-    .cart-thong-tin-chuyen-di  {
+    .cart-thong-tin-chuyen-di {
         padding: 0 !important;
     }
 
