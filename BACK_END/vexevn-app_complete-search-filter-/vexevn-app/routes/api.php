@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CarController;
 use App\Http\Controllers\Api\CarTripController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\BannerController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -115,8 +116,9 @@ Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip'
 // SEARCH
 
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
+
 //Banner
-Route::get('banners', [BannerController::class, 'listBanners']);
-Route::post('banners/addBanner', [BannerController::class, 'addBanner']);
-Route::post('banners/update/{id}', [BannerController::class, 'update']);
-Route::delete('banners/delete/{id}', [BannerController::class, 'delete']);
+Route::get('banner/index', [BannerController::class, 'listBanner']);
+Route::post('banner/create', [BannerController::class, 'uploadBanner']);
+Route::post('banner/update/{id}', [BannerController::class, 'updateBanner']);
+Route::delete('banner/delete/{id}', [BannerController::class, 'deleteBanner']);
