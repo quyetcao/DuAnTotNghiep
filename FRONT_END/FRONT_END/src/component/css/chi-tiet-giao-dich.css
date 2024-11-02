@@ -253,7 +253,7 @@ a.text-link {
 
 .cart-khuyen-mai .coupon-info-route-page-container {
     margin-top: 10px;
-    min-width: 80%;
+    max-width: 75%;
 }
 
 /*card thông tin chuyến đi */

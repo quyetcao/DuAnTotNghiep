@@ -20,7 +20,7 @@ body {
     width: 100%;
     flex: 1 1 0%;
     overflow: auto;
-    padding: 20px 0px;
+    padding: 20px 0px 0px;
     background: rgb(242, 242, 242);
 }
 
@@ -499,12 +499,97 @@ a.text-link1 {
     gap: 12px;
 }
 
-@media (max-width: 1024px) {
-.header {
+.footer {
     display: none;
 }
 
-    .wrap-left, .wrap-right {
+.payment-footer {
+    position: fixed;       /* Cố định vị trí */
+    bottom: 0;             /* Căn sát đáy */
+    left: 0;               /* Căn lề trái */
+    width: 100%;    
+    z-index: 1;
+    padding: 24px 16px;
+    background-color: #fff;
+}
+
+.payment-ft__body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.payment-footer__left {
+    width: 620px;
+    border-radius: 8px;
+    border: none;
+    background: rgb(255, 211, 51);
+    height: 48px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: none;
+    text-shadow: none;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.payment-footer__left:hover {
+    background-color: rgb(255, 228, 133);
+}
+
+.payment-footer__right {
+    width: 375px;
+}
+
+.payment-ft-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.thanhtoan-btn {
+    background-color: ;
+}
+
+.payment-ft-content__title {
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.payment-ft__right-title {
+    font-size: 14px;
+}
+
+.hmm {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.chinhsach-baomat {
+    font-size: 14px;
+}
+
+.chinhsach-baomat__link {
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.payment-total {
+    display: none;
+}
+
+@media (max-width: 1024px) {
+    .header {
+        display: none;
+    }
+
+    .wrap-left,
+    .wrap-right {
         min-width: 100% !important;
     }
 
@@ -523,7 +608,7 @@ a.text-link1 {
     }
 
     .cart-khuyen-mai .coupon-info-route-page-container {
-        min-width: 46%;
+        width: 46% !important;
     }
 
     .footer {
@@ -542,7 +627,7 @@ a.text-link1 {
     }
 
     .cart-khuyen-mai .coupon-info-route-page-container {
-        min-width: 80%;
+        min-width: 70%;
     }
 
     .payment-method {
@@ -553,6 +638,7 @@ a.text-link1 {
     .wrap-left,
     .wrap-right {
         width: 375px !important;
+        padding: 0 16px;
     }
 
     .wrap-top {
@@ -794,7 +880,7 @@ a.text-link1 {
     }
 
     .cart-khuyen-mai .coupon-info-route-page-container {
-        min-width: 80%;
+        min-width: 80% !important;
     }
 
     .payment-method {
@@ -1033,4 +1119,25 @@ a.text-link1 {
     .cart-thong-tin-kh {
         padding: 0 !important;
     }
+
+    .hmm {
+        display: none;
+    }
+
+    .payment-footer__right {
+        display: none;
+    }
+
+    .payment-footer__left {
+        height: 48px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-radius: 8px;
+        width: 80%;
+    }
+
+    
 }

@@ -16,36 +16,41 @@ export default function ThanhToan() {
                         <div className='wrap-top'>
                             <div className='wrap-top1'>
                                 <div className='wrap-top__icon'>
-                                    <ArrowBackIcon/>
+                                    <ArrowBackIcon />
                                 </div>
                                 <div className='wrap-top__left'>
                                     <div className='left-box'>
                                         <div className='left-box__title'>Cửa Ông Limousine</div>
-                                        <span className='left-box__text'><strong>11:00</strong>
-                                            <span className='wrap-top__left-icon'><FiberManualRecordIcon  /></span>
+                                        <span className='left-box__text'>
+                                            <strong>11:00</strong>
+                                            <span className='wrap-top__left-icon'>
+                                                <FiberManualRecordIcon />
+                                            </span>
                                             Tue, 02/11/2024
                                         </span>
                                     </div>
                                 </div>
-                                <div className='wrap-top__right'><a href=''>Chi tiết</a></div>
+                                <div className='wrap-top__right'>
+                                    <a href=''>Chi tiết</a>
+                                </div>
                             </div>
                             <div className='wrap-top2'>
                                 <div className='wrap-top2__left'>
-                                    <div className='wrap-top2__span'><CheckCircleOutlineOutlinedIcon /></div>
+                                    <div className='wrap-top2__span'>
+                                        <CheckCircleOutlineOutlinedIcon />
+                                    </div>
                                     <div className='wrap-top2__text'>Xác nhận hành trình</div>
                                 </div>
                                 <div className='wrap-top2__right'>
                                     <div className='wrap-top2__border'></div>
                                     <div className='wrap-top2__circle'>10</div>
                                     <div className='wrap-top2__text'>Thanh toán</div>
-
                                 </div>
-
                             </div>
                         </div>
                         <div className='payments-security'>
                             <span className='payments-security__icon'>
-                                <GppGoodOutlinedIcon fontSize='small'/>
+                                <GppGoodOutlinedIcon fontSize='small' />
                             </span>
                             <span className='payments-security__title'>Nhiều cách thanh toán, bảo mật tuyệt đối</span>
                         </div>
@@ -66,7 +71,7 @@ export default function ThanhToan() {
                                                     className='img-icon'
                                                 />
                                                 <p className='title-base'>
-                                                   <span className='hehehe'> QR chuyển khoản/ Ví điện tử</span>
+                                                    <span className='hehehe'> QR chuyển khoản/ Ví điện tử</span>
                                                     <div className='an-toan'>
                                                         <img
                                                             src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/gpp_good.svg'
@@ -518,9 +523,7 @@ export default function ThanhToan() {
                                                 width='16'
                                                 height='16'
                                             />
-                                            <p className='section-ticket-header-left__title'>
-                                                T6, 13/09/2024
-                                            </p>
+                                            <p className='section-ticket-header-left__title'>T6, 13/09/2024</p>
                                             <div className='total-ticket'>
                                                 <img
                                                     className='people-icon ls-is-cached lazyloaded'
@@ -530,7 +533,9 @@ export default function ThanhToan() {
                                                     width='16'
                                                     height='16'
                                                 />
-                                                <p className='section-ticket-header-left__title total-ticket__text'>1</p>
+                                                <p className='section-ticket-header-left__title total-ticket__text'>
+                                                    1
+                                                </p>
                                             </div>
                                         </div>
                                         <div>
@@ -685,6 +690,34 @@ export default function ThanhToan() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                {/* phan thanh toan */}
+                <div className='payment-footer kkk'>
+                    <div className='payment-ft__body'>
+                        <div className='payment-footer__left thanhtoan-btn'>
+                            <div className='payment-ft-content '>
+                                <img
+                                    className='payment-ft-content__img'
+                                    src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/shield_lock.svg'
+                                />
+                                <span className='payment-ft-content__title'>Thanh toán</span>
+                            </div>
+                        </div>
+                        <div className='payment-footer__right'>
+                            <span className='payment-ft__right-title'>
+                                Bạn sẽ sớm nhận được biển số xe, số điện thoại tài xế và dễ dàng thay đổi điểm đón trả
+                                sau khi đặt.
+                            </span>
+                        </div>
+                    </div>
+                    <div className='hmm'>
+                        <span className='chinhsach-baomat'>
+                            Bằng việc nhấn nút Thanh toán, bạn đồng ý với{' '}
+                            <a href='' className='chinhsach-baomat__link'>
+                                Chính sách bảo mật thanh toán
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>
