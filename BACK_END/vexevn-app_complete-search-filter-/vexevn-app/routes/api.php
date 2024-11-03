@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CarTripController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\BannerController;
+use App\Http\Controllers\Api\EventController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -118,7 +119,13 @@ Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip'
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 
 //Banner
-Route::get('banner/index', [BannerController::class, 'listBanner']);
-Route::post('banner/create', [BannerController::class, 'uploadBanner']);
-Route::post('banner/update/{id}', [BannerController::class, 'updateBanner']);
-Route::delete('banner/delete/{id}', [BannerController::class, 'deleteBanner']);
+Route::get('/banner/index', [BannerController::class, 'listBanner']);
+Route::post('/banner/create', [BannerController::class, 'uploadBanner']);
+Route::post('/banner/update/{id}', [BannerController::class, 'updateBanner']);
+Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
+
+// EVENT
+Route::get('/event/index', [EventController::class, 'listEvent']);
+Route::post('/event/create', [EventController::class, 'uploadEvent']);
+Route::post('/event/update/{id}', [EventController::class, 'updateEvent']);
+Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
