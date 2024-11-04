@@ -44,7 +44,9 @@ Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse'])
 
 // CAR
 
-Route::get('/car/index', [CarController::class, 'listCar']);
+Route::get('/car/{id}', [CarController::class, 'showCar']);
+
+Route::get('/car', [CarController::class, 'listCar']);
 
 Route::post('/car/create', [CarController::class, 'uploadCar']);
 
@@ -104,8 +106,9 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 
 
 // CAR TRIP
+Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 
-Route::get('/cartrip/index', [CarTripController::class, 'listCarTrip']);
+Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 
 Route::post('/cartrip/create', [CarTripController::class, 'uploadCarTrip']);
 

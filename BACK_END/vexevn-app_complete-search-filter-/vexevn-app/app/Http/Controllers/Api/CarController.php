@@ -323,6 +323,23 @@ class CarController extends Controller
         ], 200);
     }
 
+    public function showCar($id) {
+        $data = Car::with('carImages')->find($id);
+
+        if (!$data) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy xe!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Lấy thông tin chi tiết xe thành công!',
+            'data' => $data
+        ], 200);
+    }
+
     public function uploadCar(Request $request)
     {
         $validatorCar = Validator::make($request->all(), [

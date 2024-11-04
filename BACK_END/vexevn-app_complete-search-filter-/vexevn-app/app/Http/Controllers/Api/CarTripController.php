@@ -25,11 +25,28 @@ use App\Models\CarTripPickupPoint;
 class CarTripController extends Controller {
     public function listCarTrip()
     {
-        $data = CarTrip::with(['pickupPoints', 'dropoffPoints'])->paginate(10);
+        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints'])->paginate(10);
 
         return response()->json([
             'status' => 200,
             'message' => 'Hiển thị danh sách chuyến xe thành công',
+            'data' => $data
+        ], 200);
+    }
+
+    public function showCarTrip($id) {
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints'])->find($id);
+
+        if (!$data) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy chuyến xe!',
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Lấy thông tin chi tiết chuyến xe thành công!',
             'data' => $data
         ], 200);
     }
