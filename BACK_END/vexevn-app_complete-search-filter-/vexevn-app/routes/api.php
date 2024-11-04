@@ -106,6 +106,8 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 
 
 // CAR TRIP
+Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
+
 Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 
 Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
@@ -117,9 +119,8 @@ Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip'])
 Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
 
 
-// SEARCH
 
-Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
+
 
 //Banner
 Route::get('/banner/index', [BannerController::class, 'listBanner']);
