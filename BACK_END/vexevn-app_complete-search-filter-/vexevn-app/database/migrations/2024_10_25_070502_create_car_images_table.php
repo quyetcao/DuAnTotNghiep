@@ -10,17 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('car_images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('car_id');
-            $table->string('image')->nullable();
-            $table->timestamps();
+{
+    Schema::create('car_images', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('car_id');
+        $table->string('image')->nullable();
+        $table->timestamps();
 
+        $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+    });
+}
 
-            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
-        });
-    }
 
     /**
      * Reverse the migrations.

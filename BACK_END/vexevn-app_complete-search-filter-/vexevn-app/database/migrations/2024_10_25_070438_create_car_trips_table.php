@@ -13,21 +13,22 @@ return new class extends Migration
     {
         Schema::create('car_trips', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('car_id'); // Xe chạy chuyến
-            $table->unsignedBigInteger('car_route_id')->nullable(); // Liên kết với tuyến xe (có thể null)
-            $table->date('departure_date'); // Ngày khởi hành
+            $table->unsignedBigInteger('car_id');
+            $table->unsignedBigInteger('car_route_id')->nullable();
+            $table->date('departure_time');
+            $table->date('departure_date');
             $table->date('arrival_date');
-            $table->date('return_date')->nullable(); // Ngày về (nếu có)
+            $table->date('return_date')->nullable();
             $table->unsignedBigInteger('price'); // Giá vé
-            $table->enum('status', ['not_started', 'running', 'completed']); // Trạng thái chuyến xe
+            $table->enum('status', ['not_started', 'running', 'completed']);
             $table->timestamps();
-
-
-            // Foreign key tham chiếu tới bảng cars
+    
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->foreign('car_route_id')->references('id')->on('car_routes')->onDelete('cascade');
         });
     }
+    
+
 
     /**
      * Reverse the migrations.
