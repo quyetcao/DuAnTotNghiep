@@ -129,7 +129,14 @@ Route::post('/banner/update/{id}', [BannerController::class, 'updateBanner']);
 Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
 
 // EVENT
-Route::get('/event/index', [EventController::class, 'listEvent']);
+Route::get('/event/', [EventController::class, 'listEvent']);
 Route::post('/event/create', [EventController::class, 'uploadEvent']);
 Route::post('/event/update/{id}', [EventController::class, 'updateEvent']);
 Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
+// ARTICLE
+Route::get('/article/{id}', [EventController::class, 'showArticle']);
+Route::get('/article/', [EventController::class, 'listArticle']);
+Route::post('/article/create', [EventController::class, 'uploadArticle']);
+Route::post('/article/update/{id}', [EventController::class, 'updateArticle']);
+Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);
+ 
