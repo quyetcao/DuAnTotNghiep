@@ -189,14 +189,14 @@ class CarController extends Controller
                                 CAR HOUSE
 ===========================================================================*/
 
-
+   
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();
 
         return response()->json([
             'status' => 200,
-            'message' => 'Hiển thị danh sách nhà xe thành công',
+            'message' => 'Hiển thị danh sách nhà xe thành công!',
             'data' => $carHouse
         ], 200);
     }
