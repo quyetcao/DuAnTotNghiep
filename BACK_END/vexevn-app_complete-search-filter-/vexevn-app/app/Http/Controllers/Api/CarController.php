@@ -189,6 +189,7 @@ class CarController extends Controller
                                 CAR HOUSE
 ===========================================================================*/
 
+
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();
@@ -236,6 +237,7 @@ class CarController extends Controller
         }
     }
 
+   
     public function updateCarHouse(Request $request, $idNX)
     {
         $carHouse = CarHouse::find($idNX);
