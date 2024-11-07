@@ -1,20 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+
+  import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
   // Tất cả chuyến xe search theo thời gian, search theo tuyến đường
-  allChuyenXe:[],
+  AllChuyenXeSearch:[],
+  isLoadcx:false,
   
   };
-  export const ViewAllChuyenXe = createSlice({
-    name: "",
+
+  
+  export const ViewUserSearchChuyenxe = createSlice({
+    name: "ViewChuyenXeSearch",
     initialState,
     reducers: {
-      getAllChuyenXeTheoTuyen(state, action){
-        console.log("action.payload", action.payload);
-        state.allChuyenXe = action.payload;
+      reDataCx(state,action){
+        state.AllChuyenXeSearch = [];
+      },
+      getAllChuyenXeSearch(state, action){
+        console.log("action.payloadviewchuyenxesearch", action.payload);
+        state.AllChuyenXeSearch = action.payload  ;
+       
+      },
+      changeIsLoadcx(state,action){
+        if(action.payload==true){
+          state.isLoadcx = action.payload
+        }else{
+          state.isLoadcx = action.payload
+        }
+     
       }
+
+
     },
   });
   
-  export const {getAllChuyenXeTheoTuyen  } = ViewAllChuyenXe.actions;
+  export const {getAllChuyenXeSearch,changeIsLoadcx,reDataCx } = ViewUserSearchChuyenxe.actions;

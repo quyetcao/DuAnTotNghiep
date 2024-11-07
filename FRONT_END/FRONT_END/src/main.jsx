@@ -21,6 +21,7 @@ import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 // import AdminHandle from './component/admin-handle/admin-handle.jsx';
 import QuanLyDatVeXe from './component/quan_ly_dat_ve_xe/quanLyDatVeXe.jsx';
 import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
+import NoSearch from './component/viewpage/nosearch.jsx';
 
 
 
@@ -49,6 +50,10 @@ const routes = createBrowserRouter([
       {
         path: "/register",
         element: <Register />
+      },
+      {
+        path: "/nosearch",
+        element: <NoSearch />
       },
       {
         path: "/chualogin",

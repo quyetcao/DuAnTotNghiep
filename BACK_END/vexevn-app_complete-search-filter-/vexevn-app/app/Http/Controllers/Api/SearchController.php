@@ -40,10 +40,10 @@ class SearchController extends Controller
 
         // Kiểm tra tuyến đường
         $carRoute = CarRoute::where('city_from', $request->city_from)
-                            ->where('city_to', $request->city_to)
-                            ->first();
-        
-        if(!$carRoute) {
+            ->where('city_to', $request->city_to)
+            ->first();
+
+        if (!$carRoute) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Tuyến đường này không tồn tại trong hệ thống',
@@ -52,18 +52,20 @@ class SearchController extends Controller
         }
 
         // Kiểm tra chuyến xe 
-        $tripsQuery  = Cartrip::where('car_route_id', $carRoute->id)
-                        ->where('departure_date', '>=', $request->departure_date);
-        
+
+        $tripsQuery = CarTrip::where('car_route_id', $carRoute->id)
+            ->where('departure_date', '=', $request->departure_date);
+
+
         // Nếu có return_date thì thêm điều kiện
         if ($request->filled('return_date')) {
-            $tripsQuery->where('return_date', '<=', $request->return_date);
+            $tripsQuery->where('return_date', '=', $request->return_date);
         }
 
         // **THÊM LỌC: GIỜ ĐI, GIÁ VÉ, NHÀ XE và LOẠI XE
-        if($request->filled('departure_time_from') && $request->filled('departure_time_to')) {
+        if ($request->filled('departure_time_from') && $request->filled('departure_time_to')) {
             // Lọc giờ đi (theo phạm vi && kq tương đối)
-            $tripsQuery->whereHas('pickupPoints', function($query) use ($request) {
+            $tripsQuery->whereHas('pickupPoints', function ($query) use ($request) {
                 $query->whereBetween('pickup_time', [$request->departure_time_from, $request->departure_time_to]);
             });
         }
@@ -75,20 +77,20 @@ class SearchController extends Controller
 
         // Lọc loại xe
         if ($request->filled('car_type_id')) {
-            $tripsQuery->whereHas('car', function($query) use ($request) {
+            $tripsQuery->whereHas('car', function ($query) use ($request) {
                 $query->where('car_type_id', $request->car_type_id);
             });
         }
 
         // Lọc theo nhà xe
         if ($request->filled('car_house_id')) {
-            $tripsQuery->whereHas('car', function($query) use ($request) {
+            $tripsQuery->whereHas('car', function ($query) use ($request) {
                 $query->where('car_house_id', $request->car_house_id);
             });
         }
 
         // THÊM LOGIC SẮP XẾP
-        if($request->filled('sort_by')) {
+        if ($request->filled('sort_by')) {
             switch ($request->sort_by) {
                 case 'price_asc':
                     $tripsQuery->orderBy('price', 'asc');
@@ -99,17 +101,17 @@ class SearchController extends Controller
                     break;
 
                 case 'earliest_departure':
-                    $tripsQuery->whereHas('pickupPoints', function($query) {
+                    $tripsQuery->whereHas('pickupPoints', function ($query) {
                         $query->orderBy('pickup_time', 'asc');
                     });
                     break;
-                
+
                 case 'latest_departure':
-                    $tripsQuery->whereHas('pickupPoints', function($query) {
+                    $tripsQuery->whereHas('pickupPoints', function ($query) {
                         $query->orderBy('pickup_time', 'desc');
                     });
                     break;
-                
+
                 default:
                     break;
             }
@@ -119,8 +121,8 @@ class SearchController extends Controller
         // Lấy kết quả chuyến xe
         // $trips = $tripsQuery->with('pickupPoints')->get();
         $trips = $tripsQuery->with('pickupPoints')->get();
-                        
-        if($trips->isEmpty()) {
+
+        if ($trips->isEmpty()) {
             return response()->json([
                 'status' => 404,
                 'message' => 'Hiện không có chuyến xe phù hợp với tuyến đường',
@@ -133,6 +135,5 @@ class SearchController extends Controller
             'message' => 'Tìm kiếm chuyến đi thành công',
             'data' => $trips
         ], 200);
-        
     }
 }

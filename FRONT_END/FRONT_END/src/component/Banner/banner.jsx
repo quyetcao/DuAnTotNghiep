@@ -1,5 +1,6 @@
 // import Axios;
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import css
 import '../css/banner.css';
@@ -13,14 +14,21 @@ import AddIcon from '@mui/icons-material/Add';
 // import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangeCalendar } from '@mui/x-date-pickers-pro/DateRangeCalendar';
 // import viLocale from 'date-fns/locale/vi/index.js';
 
 //import react hook form 
 import { useForm } from "react-hook-form";
+import { MobileDatePicker } from '@mui/x-date-pickers';
+import { getSearchChuyenxe } from '../../redux/viewchuyenxe/viewcx-asynThunk';
+import { useNavigate } from "react-router-dom";
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
+
+
+
 
 export default function Banner() {
     //useState
@@ -45,17 +53,19 @@ export default function Banner() {
         console.log(inputsearch);
         setInputSearch(e);
     }
-    function handleDateChange(input, date) {
-        // console.log(e);
-        if (input === 'date-to') {
-            setdeparturedate(date);
-            setInputSearch('');
-        } else if (input === 'date-from') {
-            setreturndate(date);
-            setInputSearch('');
-        }
-    }
 
+
+
+
+    // function lấy ngày đi ngày về gửi lên form 
+    function SelectDatereturnChangr(date) {
+        const selectedDateReturn = date ? date.format('YYYY-MM-DD') : null;
+        setreturndate(selectedDateReturn)
+    }
+    function SelectDateChange(date) {
+        const selectedDate = date ? date.format('YYYY-MM-DD') : null;
+        setdeparturedate(selectedDate)
+    };
 
     // Tạo ref để theo dõi vùng danh sách
     const danhSachTinhTPRef = useRef(null);
@@ -84,25 +94,35 @@ export default function Banner() {
         register,
         handleSubmit,
         // formState: { errors },
-      } = useForm({
+    } = useForm({
         defaultValues: {
-          city_from:'',
-          city_to:''
+            city_from: '',
+            city_to: ''
         }
     })
 
 
-      const handleSubmitSearch = () => {
+    const handleSubmitSearch = () => {
         handleSubmit(onSubmit)();
-      
+
     };
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     function onSubmit(data) {
-        data.city_from= tpfrom;
+        data.city_from = tpfrom;
         data.city_to = tpTo,
+            data.departure_date = departuredate;
+        data.arrival_date = returndate;
         console.log("datainform them cphn", data);
-       
- 
+        dispatch(getSearchChuyenxe(data)).then(() => {
+            navigate('./viewchuyenxe')
+        })
+
     }
+    const isLoadBtnSearch = useSelector((state) => state.ViewChuyenXeSearch?.isLoadcx);
+    console.log("", isLoadBtnSearch);
+
+    /// gửi dispath dữ liệu lên serve dữ liệu gomò form gồm các thành phần như 101->107
 
 
     return (
@@ -123,7 +143,7 @@ export default function Banner() {
                     </a>
                     <div className='search'>
                         <div className='search-content'>
-                    
+
                             <div className='search-top'>
                                 <div className='search-list'>
                                     <div className='list-item'>
@@ -159,178 +179,206 @@ export default function Banner() {
                                 </div>
                             </div>
                             <div className='search-bottom'>
-                            <form action="" onSubmit={handleSubmit(handleSubmitSearch)}>
-                                <div className='search-wrapper'>
-                                    <div className='search-input'>
-                                        <div className='input-list'>
-                                            <div className='input-items'>
-                                                <div className='input-icon'>
-                                                    <img
-                                                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/pickup_vex_blue_24dp.svg'
-                                                        alt=''
-                                                    />
+                                <form action="" onSubmit={handleSubmit(handleSubmitSearch)}>
+                                    <div className='search-wrapper'>
+                                        <div className='search-input'>
+                                            <div className='input-list'>
+                                                <div className='input-items'>
+                                                    <div className='input-icon'>
+                                                        <img
+                                                            src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/pickup_vex_blue_24dp.svg'
+                                                            alt=''
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className='input-data'
+                                                        onClick={() => {
+                                                            showDanhSachTinhTP('input-from');
+                                                        }}
+                                                    >
+                                                        <label className='style-text'>Nơi xuất phát</label>
+                                                        <input
+                                                            className='style-input'
+                                                            type='text'
+                                                            value={tpfrom}
+                                                            placeholder='Hà Nội'
+                                                            {...register("city_from")}
+                                                        />
+                                                        {inputsearch == 'input-from' && (
+                                                            <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
+                                                                <ul>
+                                                                    {datatp.map((item) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={item.code}
+                                                                                onClick={() => {
+                                                                                    settpfrom(item.name),
+                                                                                        setInputSearch('');
+                                                                                }}
+                                                                            >
+                                                                                {item.name}
+                                                                            </li>
+                                                                        );
+                                                                    })}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                <div className='input-items'>
+                                                    <div className='input-icon'>
+                                                        <img
+                                                            src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/dropoff_new_24dp.svg'
+                                                            alt=''
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className='input-data'
+                                                        onClick={() => {
+                                                            showDanhSachTinhTP('input-to');
+                                                        }}
+                                                    >
+                                                        <label className='style-text'>Nơi đến</label>
+                                                        <input
+                                                            className='style-input'
+                                                            type='text'
+                                                            placeholder='Hải Phòng'
+                                                            value={tpTo}
+                                                            {...register("city_to")}
+                                                        />
+
+                                                        {inputsearch == 'input-to' && (
+                                                            <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
+                                                                <ul>
+                                                                    {datatp.map((item) => {
+                                                                        return (
+                                                                            <li
+                                                                                key={item.code}
+                                                                                onClick={() => {
+                                                                                    settpTo(item.name), setInputSearch('');
+                                                                                }}
+                                                                            >
+                                                                                {item.name}
+                                                                            </li>
+                                                                        );
+                                                                    })}
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
                                                 <div
-                                                    className='input-data'
+                                                    className='input-items input-items-cursor'
                                                     onClick={() => {
-                                                        showDanhSachTinhTP('input-from');
-                                                    }}
-                                                >
-                                                    <label className='style-text'>Nơi xuất phát</label>
-                                                    <input
-                                                        className='style-input'
-                                                        type='text'
-                                                        value={tpfrom}
-                                                        placeholder='Hà Nội'
-                                                        {...register("noi-xuat-phat")}
-                                                    />
-                                                    {inputsearch == 'input-from' && (
-                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
-                                                            <ul>
-                                                                {datatp.map((item) => {
-                                                                    return (
-                                                                        <li
-                                                                            key={item.code}
-                                                                            onClick={() => {
-                                                                                settpfrom(item.name),
-                                                                                    setInputSearch('');
-                                                                            }}
-                                                                        >
-                                                                            {item.name}
-                                                                        </li>
-                                                                    );
-                                                                })}
-                                                            </ul>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className='input-items'>
-                                                <div className='input-icon'>
-                                                    <img
-                                                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/dropoff_new_24dp.svg'
-                                                        alt=''
-                                                    />
-                                                </div>
-                                                <div
-                                                    className='input-data'
-                                                    onClick={() => {
-                                                        showDanhSachTinhTP('input-to');
-                                                    }}
-                                                >
-                                                    <label className='style-text'>Nơi đến</label>
-                                                    <input
-                                                        className='style-input'
-                                                        type='text'
-                                                        placeholder='Hải Phòng'
-                                                        value={tpTo}
-                                                        {...register("noi-den")}
-                                                    />
-
-                                                    {inputsearch == 'input-to' && (
-                                                        <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
-                                                            <ul>
-                                                                {datatp.map((item) => {
-                                                                    return (
-                                                                        <li
-                                                                            key={item.code}
-                                                                            onClick={() => {
-                                                                                settpTo(item.name), setInputSearch('');
-                                                                            }}
-                                                                        >
-                                                                            {item.name}
-                                                                        </li>
-                                                                    );
-                                                                })}
-                                                            </ul>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div
-                                                className='input-items input-items-cursor'
-                                                onClick={() => {
-                                                    showDanhSachTinhTP('show-date-to');
-                                                }}
-                                            >
-                                                <div className='input-icon'>
-                                                    <img
-                                                        src='https://storage.googleapis.com/fe-production/svgIcon/event_vex_blue_24dp.svg'
-                                                        alt=''
-                                                    />
-                                                </div>
-                                                <div className='input-data'>
-                                                    <label className='style-text'>Ngày đi</label>
-                                                    <input
-                                                        className='style-input'
-                                                        type='text'
-                                                        placeholder='Thu,10 Oct 2024'
-                                                        value={departuredate}
-                                                        {...register("ngay-di")}
-                                                    />
-
-                                                    {inputsearch === 'show-date-to' && (
-                                                        <div className='show-date-grid'>
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                <DemoContainer components={['DateRangeCalendar']}>
-                                                                    <DateRangeCalendar
-                                                                        onChange={(date) => {
-                                                                            handleDateChange('date-to', date);
-                                                                        }}
-                                                                    />
-                                                                </DemoContainer>
-                                                            </LocalizationProvider>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            {returndate === '' ? (
-                                                <div
-                                                    className='input-items add-date input-them-ngay-ve'
-                                                    onClick={() => {
-                                                        showDanhSachTinhTP('show-date-from');
+                                                        showDanhSachTinhTP('show-date-to');
                                                     }}
                                                 >
                                                     <div className='input-icon'>
-                                                        <div className='icon-material'>
-                                                            <AddIcon />
-                                                        </div>
+                                                        <img
+                                                            src='https://storage.googleapis.com/fe-production/svgIcon/event_vex_blue_24dp.svg'
+                                                            alt=''
+                                                        />
                                                     </div>
-                                                    <p className='input-items__title'> Thêm ngày về</p>
-                                                    {inputsearch === 'show-date-from' && (
-                                                        <div className='show-date-grid1'>
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                <DemoContainer components={['DateRangeCalendar']}>
-                                                                    <DateRangeCalendar
-                                                                        onChange={(date) => {
-                                                                            handleDateChange('date-from', date);
-                                                                        }}
-                                                                    />
-                                                                </DemoContainer>
-                                                            </LocalizationProvider>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            ) : (
-                                                <div className='input-data'>
-                                                    <label className='style-text'>Ngày về</label>
-                                                    <input className='style-input no-underline' type='text' value={returndate}  {...register("ngay-ve")} />
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
+                                                    <div className='input-data'>
+                                                        <label className='style-text'>Ngày đi</label>
+                                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                            <MobileDatePicker
+                                                                format="DD-MM-YYYY"
+                                                                sx={{
+                                                                    // Tùy chỉnh kích thước input
+                                                                    '& input': {
+                                                                        height: '5px', // Kích thước chiều cao
+                                                                        fontSize: '14px',
+                                                                        padding: '8px',
+                                                                        marginLeft: '-10px'// Kích thước font chữ
+                                                                    },
+                                                                    // Loại bỏ outline
+                                                                    '& .MuiOutlinedInput-root': {
+                                                                        '& fieldset': {
+                                                                            border: 'none', // Không có đường viền
+                                                                        },
+                                                                        '&:hover fieldset': {
+                                                                            border: 'none', // Không có đường viền khi hover
+                                                                        },
+                                                                        '&.Mui-focused fieldset': {
+                                                                            border: 'none', // Không có đường viền khi focus
+                                                                        },
+                                                                    },
+                                                                }}
+                                                                onChange={SelectDateChange}
+                                                            />
+                                                        </LocalizationProvider>
 
-                                    <div className='search-btn'>
-                                            <input className='style-btn' type='submit' value='Tìm Kiếm'/>
-                                              
-                                            
+                                                    </div>
+                                                </div>
+
+                                                {returndate === '' ? (
+                                                    <div
+                                                        className='input-items add-date input-them-ngay-ve'
+                                                        onClick={() => {
+                                                            showDanhSachTinhTP('show-date-from');
+                                                        }}
+                                                    >
+                                                        <div className='input-icon'>
+                                                            <div className='icon-material'>
+                                                                <AddIcon />
+                                                            </div>
+                                                        </div>
+                                                        <p className='input-items__title'> Thêm ngày về</p>
+                                                        {inputsearch === 'show-date-from' && (
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <MobileDatePicker sx={{
+                                                                    // Tùy chỉnh kích thước input
+                                                                    '& input': {
+                                                                        height: '5px', // Kích thước chiều cao
+                                                                        fontSize: '14px',
+                                                                        padding: '8px',
+                                                                        marginLeft: '-10px'// Kích thước font chữ
+                                                                    },
+                                                                    // Loại bỏ outline
+                                                                    '& .MuiOutlinedInput-root': {
+                                                                        '& fieldset': {
+                                                                            border: 'none', // Không có đường viền
+                                                                        },
+                                                                        '&:hover fieldset': {
+                                                                            border: 'none', // Không có đường viền khi hover
+                                                                        },
+                                                                        '&.Mui-focused fieldset': {
+                                                                            border: 'none', // Không có đường viền khi focus
+                                                                        },
+                                                                    },
+                                                                }}
+                                                                    onChange={SelectDatereturnChangr}
+                                                                />
+                                                            </LocalizationProvider>
+                                                        )}
+                                                    </div>
+                                                ) : (
+                                                    <div className='input-data'>
+                                                        <label className='style-text'>Ngày về</label>
+                                                        <input className='style-input no-underline' type='text' value={returndate}  {...register("ngay-ve")} />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                        {
+                                            isLoadBtnSearch === false ? <div className='search-btn'>
+                                                <input className='style-btn' type='submit' value='Tìm Kiếm' /> 
+                                            </div> : <LoadingButton
+                                                    loading
+                                                    loadingPosition="start"
+                                                    startIcon={<SaveIcon />}
+                                                    variant="outlined"
+                                                >
+                                                    Tìm Kiếm
+                                                </LoadingButton>
+                                       }
+
+
                                     </div>
-                                    
-                                </div>
                                 </form>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>

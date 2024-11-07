@@ -190,6 +190,7 @@
     position: relative;
     cursor: pointer;
 }
+/* 
 .show-date-grid {
     position: absolute;
     top: 63px;
@@ -198,7 +199,7 @@
     z-index: 1;
     border: 1px solid #e8e8e8;
     border-radius: 3px;
-}
+} */
 
 .style-text {
     font-size: 12px;

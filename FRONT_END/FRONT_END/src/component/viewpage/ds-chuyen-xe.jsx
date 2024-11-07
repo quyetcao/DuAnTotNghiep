@@ -7,9 +7,11 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 // import ChooseSeat from './tab-clickseat-choselocation.jsx';
 // import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { callApiGetCarType } from '../../redux/info-bus/infobus-asynThunk';
 
-
-export default function DanhSachChuyenXe() {
+export default function DanhSachChuyenXe({item}) {
     function openttct(e) {
         console.log(e.target);
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
@@ -35,6 +37,26 @@ export default function DanhSachChuyenXe() {
             a[0].style.height = 'auto';
         }
     }
+
+
+
+
+
+
+    
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(callApiGetCarType(item.car_id))
+        // dispatch(callAsbypickuppoint(item.car_id))
+        // dispatch(callAsbydropoffpoint(item.car_id))
+    }, [])
+     
+
+    const infobus = useSelector((state) => state.InfoofBus?.infoBus[item.car_id]);
+    console.log("infobuss", infobus);
+    // const infobus = useSelector((state) => state.InfoofBus?.infoBus); lấy toàn bộ 
+    // console.log("infobuss", infobus);
+    
 
     return (
         <div className='ttcx-container'>
@@ -94,7 +116,7 @@ export default function DanhSachChuyenXe() {
                             </div>
                             <div className='seat-type'>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    Limousine 11 chỗ
+                                    {infobus?.name} 11 chỗ
                                     <div className='Sponsored__Container-sc-17s1or6-0 iGbCVp'>
                                         <div className='icon'>
                                             <img
