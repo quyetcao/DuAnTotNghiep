@@ -15,7 +15,6 @@ class Article extends Model
         'event_id',
         'title',
         'content',
-        'image',
         'publication_date',
         'status'
     ];
@@ -30,5 +29,9 @@ class Article extends Model
     
     public function getImageUrlArticle() {
         return $this->image ? asset('storage/images/articles/' . $this->image) : null;
+    }
+
+    public function articleImages() {
+        return $this->hasMany(ArticleImage::class);
     }
 }

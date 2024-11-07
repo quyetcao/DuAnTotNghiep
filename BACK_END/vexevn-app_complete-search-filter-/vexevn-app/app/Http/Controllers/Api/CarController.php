@@ -22,7 +22,7 @@ use App\Models\CarRoute;
 // use App\Models\CarTrip;
 
 
-class CarController extends Controller
+class CarController extends HelpController
 {
 
     /* =====================================================================
@@ -350,7 +350,7 @@ class CarController extends Controller
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars',
             'model' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validatorCar->fails()) {
@@ -428,7 +428,7 @@ class CarController extends Controller
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars,license_plate,' . $car->id,
             'model' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validateCar->fails()) {
@@ -580,6 +580,15 @@ class CarController extends Controller
 /* =====================================================================
                         PICK UP POINT 
 ===========================================================================*/
+public function showPickupPoint($id) {
+    $data = PickupPoint::find($id);
+
+        if(!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
+}
     public function listPickupPoint()
     {
         $data = PickupPoint::all();
@@ -700,6 +709,15 @@ class CarController extends Controller
     /* =====================================================================
                         DROP OFF POINT 
 ===========================================================================*/
+public function showDropoffPoint($id) {
+    $data = DropoffPoint::find($id);
+
+        if(!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+}
     public function listDropoffPoint()
     {
         $data = DropoffPoint::all();
