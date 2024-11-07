@@ -72,9 +72,9 @@ export default function ScrollableTabsButtonVisible({index}) {
         },
     }));
 
-    //////
+  
     function openttct(index) {
-        console.log('hello');
+        console.log(index);
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
         if (elements.length > 0) {
             elements[index].style.display = 'none';

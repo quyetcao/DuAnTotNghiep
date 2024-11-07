@@ -64,4 +64,6 @@ class CarTrip extends Model
     public function scopeCompleted($query) {
         return $query->where('status', 'completed');
     }
+
+ 
 }

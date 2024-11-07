@@ -12,44 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { callApiGetCar, callApiGetCarHouse, callApiGetCarType, callApiTuyenDuong, callAsbydropoffpoint, callAsbypickuppoint } from '../../redux/info-bus/infobus-asynThunk';
 import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
-export default function DanhSachChuyenXe({ item, index }) {
-    var elements1 = document.getElementsByClassName('set-chair');
-    var elements = document.getElementsByClassName('thong-tin-chi-tiet');
-    const [active, setActive] = useState(null);
-    const [avtive2,setActive2]= useState(null);
-
-    const [activeIndex, setActiveIndex] = useState(null);
- 
-    function openttct(index) {
-        console.log("index",index);
-        if (elements.length > 0) {
-            elements[index].style.display='block';
-        }
-}
-function openClickSeat(index) {
-    setActiveIndex(prevIndex => {
-        console.log('Active index before change:', prevIndex); // Debug
-        return prevIndex === index ? null : index;
-    });
-}
-
-
-    // function openClickSeat(index) {
-    //     console.log("index",index);
-    //     if(active == index){
-    //         setActive(null)
-    //     }else{
-    //         if(avtive2 !== index){
-    //             setActive(null)
-    //         }
-    //         setActive(index)
-    
-    //     }
-      
-    // }
-
-
-
+export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onToggle,onclick}) {
 
     const infobus = useSelector((state) => state.InfoofBus?.infoBus[item?.car_id]);
     // console.log("infobuss", infobus);
@@ -73,6 +36,7 @@ function openClickSeat(index) {
         // call tuyến đường 
         dispatch(callApiTuyenDuong(item?.car_route_id));
     }, [])
+
     useEffect(() => {
         if (item?.car_id) {
             dispatch(callApiGetCar(item.car_id));
@@ -85,19 +49,19 @@ function openClickSeat(index) {
             dispatch(callApiGetCarHouse(infobus?.car_house_id, item?.car_id));
             // Call loại xe
             dispatch(callApiGetCarType(infobus?.car_type_id, item?.car_id));
-            // Call thời gian điểm đón
-            dispatch(callAsbypickuppoint(item?.id, item?.car_id));
-            // Call thời gian điểm đến
-            dispatch(callAsbydropoffpoint(item?.id, item?.car_id));
+            // // Call thời gian điểm đón
+            // dispatch(callAsbypickuppoint(item?.id, item?.car_id));
+            // // Call thời gian điểm đến
+            // dispatch(callAsbydropoffpoint(item?.id, item?.car_id));
         }
     }, [infobus, item?.car_id]);
 
     function SplitChu(diadiem) {
         if (diadiem) {
             if (diadiem.startsWith('Thành phố')) {
-                return diadiem.substring(10); 
+                return diadiem.substring(10);
             } else if (diadiem.startsWith('Tỉnh')) {
-                return diadiem.substring(4);  
+                return diadiem.substring(4);
             }
         }
         return diadiem;
@@ -199,14 +163,12 @@ function openClickSeat(index) {
                                     <div className='from-to-content1'>
                                         <div className='content-cx from'>
                                             <div className='hour'>{diemdon?.[0]?.pickup_time.substring(0, 5)}</div>
-                                            {/* {diemdon[0]?.pickup_time} */}
                                             <div className='place'>•{SplitChu(tuyenduong?.city_from)}</div>
                                         </div>
                                         <div className='duration'>1h30m</div>
                                         <div className='content-cx to'>
                                             <div className='content-to-info1 '>
                                                 <div className='hour'>{diemtra?.[diemtra?.length - 1]?.dropoff_time.substring(0, 5)}</div>
-                                                {/* {diemtra[diemtra?.length-1]?.dropoff_time} */}
                                                 <div className='place'>•{SplitChu(tuyenduong?.city_to)}</div>
                                             </div>
                                         </div>
@@ -219,20 +181,21 @@ function openClickSeat(index) {
                                     <div className='action'>
                                         <button
                                             type='button'
-                                            onClick={() => { openttct(index)}}
+                                            onClick={onToggle}
                                             className='ant-btn btn-detail ant-btn-link'
                                             style={{ zIndex: 1 }}
                                         >
-                                            <span className='ant-btn-link__link'>Thông tin chi tiết</span>
+                                            {isActive ? <span className='ant-btn-link__link'>Ẩn Thông tin chi tiết</span> : <span className='ant-btn-link__link'> Thông tin chi tiết</span>}
                                             <ArrowDropDownOutlinedIcon className='ArrowDropDownOutlinedIcon' />
                                         </button>
                                         <button
                                             data-tracking-event='selected_route'
                                             type='button'
-                                            onClick={()=>{openClickSeat(index);}}
+                                            onClick={onclick}
                                             className='ant-btn btn-booking '
                                         >
-                                            <span>Chọn chuyến</span>
+                                            {isActive1 ? <span>Ẩn chuyến</span> : <span>Chọn chuyến</span>}
+
                                         </button>
                                     </div>
                                 </div>
@@ -241,16 +204,20 @@ function openClickSeat(index) {
                     </div>
                 </div>
             </div>
-            <div className='thong-tin-chi-tiet' style={{ display: 'none' }}>
-                <div className='tt-ct-tung-chuyen-xe'>
-                    <ScrollableTabsButtonVisible index={index} />
+            {isActive &&
+                <div className='thong-tin-chi-tiet'>
+                    <div className='tt-ct-tung-chuyen-xe'>
+                        <ScrollableTabsButtonVisible index={index} />
+                    </div>
                 </div>
-            </div>
-            <div className='set-chair'>
-                <div className='tt-ct-seat-tung-chuyen-xe'>
-               {activeIndex == index && <HorizontalLinearStepper index={index} car_id={item?.car_id} /> } 
+            }
+            {isActive1 &&
+                <div className='set-chair'>
+                    <div className='tt-ct-seat-tung-chuyen-xe'>
+                         <HorizontalLinearStepper index={index} car_id={item.car_id} itemallthongtincx={item}  />
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

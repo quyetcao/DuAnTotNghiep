@@ -1,8 +1,8 @@
 
 import EditIcon from '@mui/icons-material/Edit';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useEffect } from 'react';
+// import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -13,26 +13,30 @@ import Pagination from '../../../pagination/pagination';
 export default function Quanlychuyenxe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1); 
     useEffect(() => {
-        dispatch(CallapiGetAllcxofCarHouse(1,1));
-    }, []);
+        dispatch(CallapiGetAllcxofCarHouse(1,currentPage));
+    }, [currentPage]);
     const allcx = useSelector((state) => state.ChuyenxeofCarHouse?.AllChuyenXecarhouse);
     console.log('all car ', allcx);
 
 
     // //edit 
-    // function EditCarofCarHouse(id) {
-    //     navigate(`/admincarhouse/editcar/${id}`);
-    // }
+    function EditCxofCarHouse(id) {
+        navigate(`/admincarhouse/edit-chuyen-xe/${id}`);
+    }
     // delete
     async function deleteCxcarhouse(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
             await dispatch(CallapiGetDeleteCxCarHouse(id));
-            await dispatch(CallapiGetAllListCar());
+            await dispatch(CallapiGetAllcxofCarHouse(1,currentPage));
         }
     }
-
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber); // Cập nhật trang
+      };
+    
     return (
         <>
             <div className='dashboard-body'>
@@ -81,7 +85,7 @@ export default function Quanlychuyenxe() {
                                                     <td>{itemlist?.status}</td>
                                                     <td className='action-icons'>
                                                         <EditIcon   onClick={() => {
-                                                                    // EditCarofCarHouse(itemlist?.id);
+                                                                    EditCxofCarHouse(itemlist?.id);
                                                                 }} />
                                                         <DeleteIcon
                                                                 onClick={() => {
@@ -96,7 +100,7 @@ export default function Quanlychuyenxe() {
                             </tbody>
                         </table>
                     </div>
-                    <Pagination links={allcx.links}/>
+                    <Pagination links={allcx?.links} onPageChange={handlePageChange} />
                 </div>
             </div>
         </>
