@@ -21,8 +21,8 @@ Route::get('/user', function (Request $request) {
 ===========================================================================*/
 
 // CAR TYPE
-
-Route::get('/cartypes/index', [CarController::class, 'listCarType']);
+Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
+Route::get('/cartypes', [CarController::class, 'listCarType']);
 
 Route::post('/cartypes/create', [CarController::class, 'addCarType']);
 
@@ -32,8 +32,8 @@ Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
 
 
 // CAR HOUSE
-
-Route::get('/carhouse/index', [CarController::class, 'listCarHouse']);
+Route::get('/carhouse/{id}', [CarController::class, 'showCarHouse']);
+Route::get('/carhouse', [CarController::class, 'listCarHouse']);
 
 Route::post('/carhouse/create', [CarController::class, 'addCarHouse']);
 
@@ -56,8 +56,8 @@ Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
 
 
 // CITY
-
-Route::get('/city/index', [CarController::class, 'listCity']);
+Route::get('/city/{id}', [CarController::class, 'showCity']);
+Route::get('/city', [CarController::class, 'listCity']);
 
 Route::post('/city/create', [CarController::class, 'addCity']);
 
@@ -93,12 +93,12 @@ Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoff
 
 // Route::get('')
 
-
-Route::get('/provinces', [ProvinceController::class, 'getProvinces']);
+// PROVINCE
+Route::get('/province', [ProvinceController::class, 'getProvinces']);
 
 // CAR ROUTE POINT
-
-Route::get('/carroute/index', [CarController::class, 'listCarRoute']);
+Route::get('/carroute/{id}', [CarController::class, 'showCarRoute']);
+Route::get('/carroute', [CarController::class, 'listCarRoute']);
 
 Route::post('/carroute/create', [CarController::class, 'uploadCarRoute']);
 
@@ -125,7 +125,8 @@ Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip'
 
 
 //Banner
-Route::get('/banner/index', [BannerController::class, 'listBanner']);
+Route::get('/banner/{id}', [BannerController::class, 'showBanner']);
+Route::get('/banner', [BannerController::class, 'listBanner']);
 Route::post('/banner/create', [BannerController::class, 'uploadBanner']);
 Route::post('/banner/update/{id}', [BannerController::class, 'updateBanner']);
 Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);

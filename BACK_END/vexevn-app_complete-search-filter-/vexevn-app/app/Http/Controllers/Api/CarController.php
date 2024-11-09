@@ -28,6 +28,17 @@ class CarController extends HelpController
     /* =====================================================================
                                 CAR TYPE
 ===========================================================================*/
+    public function showCartype($id)
+    {
+        $data = CarType::find($id);
+
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
+    }
+
     public function listCarType()
     {
         $data = CarType::all();
@@ -188,6 +199,16 @@ class CarController extends HelpController
     /* =====================================================================
                                 CAR HOUSE
 ===========================================================================*/
+    public function showCarHouse($id)
+    {
+        $data = CarHouse::find($id);
+
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
+    }
 
     public function listCarHouse()
     {
@@ -303,6 +324,16 @@ class CarController extends HelpController
     /* =====================================================================
                                     CAR 
 ===========================================================================*/
+    public function showCar($id)
+    {
+        $data = Car::find($id);
+
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy xe!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết xe thành công!', $data);
+    }
     public function listCar()
     {
         // Lấy all xe kèm ảnh liên quan của mỗi xe
@@ -320,24 +351,6 @@ class CarController extends HelpController
                 // 'carTypes' => $carTypes,
                 // 'carHouses' => $carHouses,
             ]
-        ], 200);
-    }
-
-    public function showCar($id)
-    {
-        $data = Car::with('carImages')->find($id);
-
-        if (!$data) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy xe!',
-            ], 404);
-        }
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Lấy thông tin chi tiết xe thành công!',
-            'data' => $data
         ], 200);
     }
 
@@ -839,6 +852,16 @@ class CarController extends HelpController
     /* =====================================================================
                             CAR ROUTE
 ===========================================================================*/
+    public function showCarRoute($id)
+    {
+        $data = CarRoute::find($id);
+
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy tuyến đường!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết tuyến đường thành công!', $data);
+    }
     public function listCarRoute()
     {
         $data = CarRoute::all();

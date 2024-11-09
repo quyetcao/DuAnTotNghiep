@@ -7,8 +7,18 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class BannerController extends Controller
+class BannerController extends HelpController
 {
+    public function showBanner($id)
+        {
+            $data = Banner::find($id);
+    
+            if (!$data) {
+                return $this->sendNotFoundResponse('Không tìm thấy banner!');
+            }
+    
+            return $this->sendResponse(200, 'Lấy thông tin chi tiết banner thành công!', $data);
+        }
     public function listBanner()
     {
         $data = Banner::all();
