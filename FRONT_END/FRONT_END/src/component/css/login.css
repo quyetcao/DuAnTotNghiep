@@ -10,6 +10,7 @@
     max-width: 60%;
     border-radius: 5px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    box-sizing: border-box;
 }
 
 .css-trang-tri {
@@ -45,32 +46,35 @@
     text-align: center;
 }
 
-.form_group > input {
+.form_group > input,
+.form_group > .input-wrapper > input {
     border: none;
     outline: none;
     border: 1px solid #d9d9d9;
+    font-family: 'Mulish', sans-serif !important;
     width: 100%;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     color: black;
-    padding: 0 10px;
-
+    padding: 0 15px;
+    font-size: 16px;
 }
 
 .form_group {
-    margin-top: 30px;
     position: relative;
+    margin: 30px 0;
+
 }
 
 .form_group input {
     caret-color: #fe2c55;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .form_group input:focus,
 .form_group input:hover {
     border-color: #40a9ff;
-    box-shadow: 0 0 0 3px rgba(24, 144, 255, .2);
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
 }
 
 .icon {
@@ -80,7 +84,6 @@
     top: 10px;
 }
 
-
 .submit-login {
     margin-top: 20px;
     border: none;
@@ -88,18 +91,18 @@
     height: 50px;
     color: aliceblue;
     border-radius: 10px;
-    background-color: #2474E5;
+    background-color: #2474e5;
     margin: auto;
     display: block;
     margin-top: 20px;
     font-size: 16px;
     font-weight: 700;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .submit-login:hover {
     border-color: #40a9ff;
-    box-shadow: 0 0 0 5px rgba(24, 144, 255, .2);
+    box-shadow: 0 0 0 5px rgba(24, 144, 255, 0.2);
 }
 
 .login_icon {
@@ -133,10 +136,33 @@
 
 .link-text-register {
     font-size: 15px;
-    color: #000000A6;
+    color: #000000a6;
     margin-right: 8px;
 }
 
 .login_icon {
     margin-top: 12px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center; /* Căn giữa icon mắt theo chiều dọc */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 20%;
+    cursor: pointer;
+    color: #666;
+    z-index: 1;
+}
+
+.error {
+    text-align: left !important;
+    color: red;
+    font-size: 14px;
+    margin: 5px 0 0 2px;
+
 }
