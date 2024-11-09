@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { combineSlices } from "@reduxjs/toolkit";
+import { configureStore,combineSlices  } from "@reduxjs/toolkit";
+import { ViewUserSearchChuyenxe } from "../redux/viewchuyenxe/createSlice";
+import { InfoofBus } from "./info-bus/createSlice-infobus";
 
-
-// import { CategorysSlice, ChiPhiHangNgaySlice, DsngaySlice, HandleRegister, HanmuchiSLice, UserSlice } from "./createSlice";
-
-export const rootReducer = combineSlices();
+// Kết hợp các reducer
+const rootReducer = combineSlices( 
+  ViewUserSearchChuyenxe,
+  InfoofBus,
+   );
 
 export const store = configureStore({
   reducer: rootReducer,

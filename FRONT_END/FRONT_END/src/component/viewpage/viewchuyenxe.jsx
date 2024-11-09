@@ -1,5 +1,7 @@
 //import css 
 import '../css/viewchuyenxe.css'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // import icon 
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
@@ -33,27 +35,12 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Link, Rating, Slider } from '@mui/material';
+import { Rating, Slider } from '@mui/material';
 
 
 //
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { MultiInputTimeRangeField } from '@mui/x-date-pickers-pro/MultiInputTimeRangeField';
-
-// import Box from '@mui/material/Box';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import { FixedSizeList } from 'react-window';
-// import Checkbox from '@mui/material/Checkbox';
-
-
-/// import thong tin chi tiet 
-
-// import Tabs, { tabsClasses } from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import TabPanel from '@mui/lab/TabPanel';
 
 
 
@@ -63,7 +50,8 @@ import CauHoiThuonGap from './cau-hoi-thuong-gap';
 import ThongTinTuyenDuong from './thong-tin-tuyen-duong';
 import GioiThieuTuyenDuong from './gioi-thieu-tuyen-duong';
 import DanhSachChuyenXeResponsive from './ds-chuyenxe-responsive';
-
+import { useNavigate } from "react-router-dom";
+import NoSearch from './nosearch';
 
 
 
@@ -105,6 +93,30 @@ export default function ViewChuyenxe() {
   };
 
 
+
+
+
+
+
+
+  /////////code để show thông tin chuyến xe đã được search 
+  const allChuyenxeSearch = useSelector((state) => state.ViewChuyenXeSearch?.AllChuyenXeSearch);
+  console.log("cx search", allChuyenxeSearch);
+  
+
+
+  // 
+  const [viewNoSearch, setviewNoSearch]=useState(false)
+  useEffect(() => {
+    if (allChuyenxeSearch.length === 0) {
+      console.log("view No search ");
+      setviewNoSearch(true);
+    } else {
+      setviewNoSearch(false);
+    }
+  }, []);
+
+
   return (
 
     <>
@@ -125,6 +137,8 @@ export default function ViewChuyenxe() {
                 <span>Tàu hỏa</span>
               </div>
             </div>
+
+
             <div className="search_chuyenxe">
               <form action="">
                 <div className="input_search noi_xuat_phat" >
@@ -151,26 +165,9 @@ export default function ViewChuyenxe() {
                         },
                       }}
                     />
-                    {/* <ul className="VXRSelect2__DropdownWrapper-sc-13qmht0-1 UVRNF ant-select-dropdown-menu ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical">
-                                            <li className="ant-select-dropdown-menu-item-group">
-                                                <div className="ant-select-dropdown-menu-item-group-title" title="Địa điểm phổ biến">Địa điểm phổ biến</div>
-                                                <ul className="ant-select-dropdown-menu-item-group-list">
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Hải Phòng</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Nghệ An</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Hà Giang</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Quảng Ninh</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Sơn La</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Ninh Bình</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Thanh Hóa</li>
-                                                    <li className="Option__OptionItem-sc-6gsygm-0 RERwY ant-select-dropdown-menu-item ">Sa Pa</li>
-                                                </ul>
-                                            </li>
-                                        </ul> */}
                   </div>
                 </div>
-                {/* <div>
-                                    <SwapHorizontalCircleIcon fontSize="medium"/>
-                                </div> */}
+
                 <div className="input_search noi_den" >
                   <div className="icon_container icon_noi_den">
                     <FmdGoodIcon sx={{ color: red[500], fontSize: '33px' }} />
@@ -264,6 +261,8 @@ export default function ViewChuyenxe() {
             </div>
           </div>
 
+
+     {viewNoSearch ? <NoSearch></NoSearch> :
           <div className="thong-tin-cac-chuyen-xe">
             <div className="loc-cac-chuyen-xe">
               <div className="sap-xep">
@@ -625,10 +624,10 @@ export default function ViewChuyenxe() {
                 <p className='title-cx-2'>Đặt chuyến xe trực tuyến</p>
               </div>
               <div className='ds-cx-desktop'>
-                <DanhSachChuyenXe />
-                <DanhSachChuyenXe />
-                <DanhSachChuyenXe />
-                <DanhSachChuyenXe />
+                {allChuyenxeSearch.map((item)=>{
+                  return <DanhSachChuyenXe key={item.id} item={item} />
+                })}
+                
               </div>
               <div className='ds-cx-tablet'>
                 <DanhSachChuyenXeResponsive />
@@ -638,6 +637,8 @@ export default function ViewChuyenxe() {
               </div>
             </div>
           </div>
+          }
+
           <CauHoiThuonGap />
           <ThongTinTuyenDuong />
           <GioiThieuTuyenDuong />
