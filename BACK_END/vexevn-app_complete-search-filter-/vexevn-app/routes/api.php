@@ -67,8 +67,9 @@ Route::delete('/city/delete/{id}', [CarController::class, 'deleteCity']);
 
 
 // PICK UP POINT
+Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPoint']);
 
-Route::get('/pickuppoint/index', [CarController::class, 'listPickupPoint']);
+Route::get('/pickuppoint', [CarController::class, 'listPickupPoint']);
 
 Route::post('/pickuppoint/create', [CarController::class, 'uploadPickupPoint']);
 
@@ -81,7 +82,8 @@ Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPo
 
 // DROP OFF POINT
 
-Route::get('/dropoffpoint/index', [CarController::class, 'listDropoffPoint']);
+Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPoint']);
+Route::get('/dropoffpoint', [CarController::class, 'listDropoffPoint']);
 
 Route::post('/dropoffpoint/create', [CarController::class, 'uploadDropoffPoint']);
 
@@ -108,10 +110,6 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // CAR TRIP
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 
-<<<<<<< HEAD
-=======
-// SEARCH
->>>>>>> 6e2ee1d2521eff6b5f14786bbe9327f000408255
 Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 
 Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
@@ -125,10 +123,6 @@ Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip'
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6e2ee1d2521eff6b5f14786bbe9327f000408255
 
 //Banner
 Route::get('/banner/index', [BannerController::class, 'listBanner']);
@@ -137,7 +131,14 @@ Route::post('/banner/update/{id}', [BannerController::class, 'updateBanner']);
 Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
 
 // EVENT
-Route::get('/event/index', [EventController::class, 'listEvent']);
+Route::get('/event/{id}', [EventController::class, 'showEvent']);
+Route::get('/event', [EventController::class, 'listEvent']);
 Route::post('/event/create', [EventController::class, 'uploadEvent']);
 Route::post('/event/update/{id}', [EventController::class, 'updateEvent']);
 Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
+// ARTICLE
+Route::get('/article/{id}', [EventController::class, 'showArticle']);
+Route::get('/article', [EventController::class, 'listArticle']);
+Route::post('/article/create', [EventController::class, 'uploadArticle']);
+Route::post('/article/update/{id}', [EventController::class, 'updateArticle']);
+Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);

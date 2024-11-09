@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('article_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            $table->string('title');
-            $table->text('content');
+            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
             $table->string('image')->nullable();
-            $table->date('publication_date')->nullable();
-            $table->enum('status', ['published', 'draft'])->default('draft');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('article_images');
     }
 };
