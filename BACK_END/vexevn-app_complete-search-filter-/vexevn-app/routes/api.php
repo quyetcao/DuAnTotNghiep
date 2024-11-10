@@ -58,8 +58,8 @@ Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
 
 
 // CITY
-
-Route::get('/city/index', [CarController::class, 'listCity']);
+Route::get('/city/{id}', [CarController::class, 'showCity']);
+Route::get('/city', [CarController::class, 'listCity']);
 
 Route::post('/city/create', [CarController::class, 'addCity']);
 
@@ -95,8 +95,8 @@ Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoff
 
 // Route::get('')
 
-
-Route::get('/provinces', [ProvinceController::class, 'getProvinces']);
+// PROVINCE
+Route::get('/province', [ProvinceController::class, 'getProvinces']);
 
 // CAR ROUTE POINT
 Route::get('/carroute/{id}', [CarController::class, 'findrouterbyid']);

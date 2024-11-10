@@ -10,7 +10,6 @@ use App\Enums\ArticleStatus;
 class Article extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'event_id',
         'title',

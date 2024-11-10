@@ -26,7 +26,7 @@ class ProvinceController extends Controller
 
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Lấy danh sách tên các tỉnh thành - thành phố thành công',
+                    'message' => 'Lấy danh sách tên các tỉnh thành - thành phố thành công!',
                     'data' => $provinceNames
                 ], 200);
             } else {

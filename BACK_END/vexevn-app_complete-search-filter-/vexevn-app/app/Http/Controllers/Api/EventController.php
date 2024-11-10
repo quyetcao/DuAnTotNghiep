@@ -16,6 +16,15 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class EventController extends HelpController
 {
+    public function showEvent($id) {
+        $data = Event::find($id);
+    
+            if(!$data) {
+                return $this->sendNotFoundResponse('Không tìm thấy sự kiện!');
+            }
+    
+            return $this->sendResponse(200, 'Lấy thông tin chi tiết sự kiện thành công!', $data);
+    }
     public function listEvent()
     {
         $data = Event::paginate(10);
