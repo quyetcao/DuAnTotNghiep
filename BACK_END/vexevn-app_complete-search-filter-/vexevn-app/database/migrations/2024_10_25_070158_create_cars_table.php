@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('license_plate')->unique();
             $table->string('model')->nullable();
             $table->timestamps();
-
+    
             $table->foreign('car_house_id')->references('id')->on('car_houses')->onDelete('cascade');
             $table->foreign('car_type_id')->references('id')->on('car_types')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.

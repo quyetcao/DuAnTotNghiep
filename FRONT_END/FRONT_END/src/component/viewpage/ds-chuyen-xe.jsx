@@ -9,27 +9,27 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callApiGetCarType } from '../../redux/info-bus/infobus-asynThunk';
+import { callApiGetCar, callApiGetCarHouse, callApiGetCarType, callApiTuyenDuong, callAsbydropoffpoint, callAsbypickuppoint } from '../../redux/info-bus/infobus-asynThunk';
 
-export default function DanhSachChuyenXe({item}) {
-    function openttct(e) {
-        console.log(e.target);
+export default function DanhSachChuyenXe({ item, index }) {
+    function openttct(index) {
+        console.log(index);
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
         if (elements.length > 0) {
-                elements[0].style.display = 'block';
+            elements[index].style.display = 'block';
         }
 
         var a = document.getElementsByClassName('ticker-container');
         if (a.length > 0) {
-            a[0].style.height = 'auto';
+            a[item?.id].style.height = 'auto';
         }
     }
 
-    function openClickSeat(e){
+    function openClickSeat(e) {
         console.log(e.target);
         var elements = document.getElementsByClassName('set-chair');
         if (elements.length > 0) {
-                elements[0].style.display = 'block';
+            elements[0].style.display = 'block';
         }
 
         var a = document.getElementsByClassName('ticker-container');
@@ -41,22 +41,74 @@ export default function DanhSachChuyenXe({item}) {
 
 
 
+    const infobus = useSelector((state) => state.InfoofBus?.infoBus[item?.car_id]);
+    console.log("infobuss", infobus);
+    const infobushouse = useSelector((state) => state.InfoofBusHouse?.infoBusHouse[item?.car_id]);
+    console.log("infobussHouse", infobushouse);
+    const carType = useSelector((state) => state.InfoofCarType?.cartype[item?.car_id]);
+    console.log("infocarType", carType);
+    const diemdon = useSelector((state) => state.Infopickuppoint?.allpickuppoint[item?.car_id]);
+    console.log("diemdon", diemdon);
+    const diemtra = useSelector((state) => state.Infodropoffpoint?.alldropoffpoint[item?.car_id]);
+    console.log("diemtra", diemtra);
+    const tuyenduong = useSelector((state) => state.InfoofBus?.infoTuyenDuong.data);
+    console.log("tuyenduong", tuyenduong);
+
+    // const infobus = useSelector((state) => state.InfoofBus?.infoBus); lấy toàn bộ 
+    // console.log("infobuss", infobus);Infodropoffpoint,Infopickuppoint
 
 
-    
+
+
+    /// cách này rất chậm 
+    // useEffect(() => {
+    //     dispatch(callApiGetCar(item?.car_id))
+    //     //dispatch call nhà xe 
+    //     dispatch(callApiGetCarHouse(infobus?.car_house_id,item?.car_id))
+    //     //dispatch call loại xe 
+    //     dispatch(callApiGetCarType(infobus?.car_type_id,item?.car_id))
+    //     // call điểm đón
+    //     dispatch(callAsbypickuppoint(item?.id,item?.car_id))
+    //     // call điểm đến 
+    //     dispatch(callAsbydropoffpoint(item?.id,item?.car_id))
+    // }, [infobus])
+
+
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(callApiGetCarType(item.car_id))
-        // dispatch(callAsbypickuppoint(item.car_id))
-        // dispatch(callAsbydropoffpoint(item.car_id))
+        // call tuyến đường 
+        dispatch(callApiTuyenDuong(item?.car_route_id));
     }, [])
-     
+    useEffect(() => {
+        if (item?.car_id) {
+            dispatch(callApiGetCar(item.car_id));
+        }
+    }, [item?.car_id]);
 
-    const infobus = useSelector((state) => state.InfoofBus?.infoBus[item.car_id]);
-    console.log("infobuss", infobus);
-    // const infobus = useSelector((state) => state.InfoofBus?.infoBus); lấy toàn bộ 
-    // console.log("infobuss", infobus);
-    
+    useEffect(() => {
+        if (infobus && item?.car_id) {
+            // Call nhà xe
+            dispatch(callApiGetCarHouse(infobus.car_house_id, item.car_id));
+            // Call loại xe
+            dispatch(callApiGetCarType(infobus.car_type_id, item.car_id));
+            // Call thời gian điểm đón
+            dispatch(callAsbypickuppoint(item.id, item.car_id));
+            // Call thời gian điểm đến
+            dispatch(callAsbydropoffpoint(item.id, item.car_id));
+        }
+    }, [infobus, item?.car_id]);
+
+    function SplitChu(diadiem) {
+        if (diadiem) {
+            if (diadiem.startsWith('Thành phố')) {
+                return diadiem.substring(10); 
+            } else if (diadiem.startsWith('Tỉnh')) {
+                return diadiem.substring(4);  
+            }
+        }
+        return diadiem;
+    }
+
 
     return (
         <div className='ttcx-container'>
@@ -101,7 +153,7 @@ export default function DanhSachChuyenXe({item}) {
                         <div className='TicketPC__TripInfo-sc-1mxgwjh-6 kERmQy'>
                             <div className='bus-info'>
                                 <div>
-                                    <div className='bus-name'>Hải Phòng Travel (Đất Cảng)</div>
+                                    <div className='bus-name'>{infobushouse?.name}</div>
                                     <button type='button' className='ant-btn bus-rating-button'>
                                         <div className='bus-rating'>
                                             {/* className='anticon anticon-star' */}
@@ -111,12 +163,12 @@ export default function DanhSachChuyenXe({item}) {
                                     </button>
                                 </div>
                                 <div className='fare'>
-                                    <div>Từ 230.000đ</div>
+                                    <div>Từ {(item?.price).toLocaleString('de-DE')}đ</div>
                                 </div>
                             </div>
                             <div className='seat-type'>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    {infobus?.name} 11 chỗ
+                                    {carType?.name}
                                     <div className='Sponsored__Container-sc-17s1or6-0 iGbCVp'>
                                         <div className='icon'>
                                             <img
@@ -152,14 +204,16 @@ export default function DanhSachChuyenXe({item}) {
                                     </svg>
                                     <div className='from-to-content1'>
                                         <div className='content-cx from'>
-                                            <div className='hour'>18:03</div>
-                                            <div className='place'>• Hà Nội</div>
+                                            <div className='hour'>{diemdon?.[0]?.pickup_time.substring(0, 5)}</div>
+                                            {/* {diemdon[0]?.pickup_time} */}
+                                            <div className='place'>•{SplitChu(tuyenduong?.city_from)}</div>
                                         </div>
                                         <div className='duration'>1h30m</div>
                                         <div className='content-cx to'>
                                             <div className='content-to-info1 '>
-                                                <div className='hour'>19:33</div>
-                                                <div className='place'>• Hải Phòng</div>
+                                                <div className='hour'>{diemtra?.[diemtra?.length - 1]?.dropoff_time.substring(0, 5)}</div>
+                                                {/* {diemtra[diemtra?.length-1]?.dropoff_time} */}
+                                                <div className='place'>•{SplitChu(tuyenduong?.city_to)}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +225,7 @@ export default function DanhSachChuyenXe({item}) {
                                     <div className='action'>
                                         <button
                                             type='button'
-                                            onClick={openttct}
+                                            onClick={() => { openttct(index) }}
                                             className='ant-btn btn-detail ant-btn-link'
                                             style={{ zIndex: 1 }}
                                         >
@@ -194,7 +248,7 @@ export default function DanhSachChuyenXe({item}) {
             </div>
             <div className='thong-tin-chi-tiet' style={{ display: 'none' }}>
                 <div className='tt-ct-tung-chuyen-xe'>
-                    <ScrollableTabsButtonVisible />
+                    <ScrollableTabsButtonVisible index={index} />
                 </div>
             </div>
             {/* <div className='set-chair'>

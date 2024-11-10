@@ -46,7 +46,7 @@ function a11yProps(index) {
     };
 }
 
-export default function ScrollableTabsButtonVisible() {
+export default function ScrollableTabsButtonVisible({index}) {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -73,11 +73,11 @@ export default function ScrollableTabsButtonVisible() {
     }));
 
     //////
-    function openttct() {
+    function openttct(index) {
         console.log('hello');
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
         if (elements.length > 0) {
-            elements[0].style.display = 'none';
+            elements[index].style.display = 'none';
         }
     }
 
@@ -491,7 +491,7 @@ export default function ScrollableTabsButtonVisible() {
             <TabPanel value={value} index={6}>
                 Nội dung của Tab 7
             </TabPanel>
-            <CancelOutlinedIcon sx={{ position: 'absolute', top: 0, right: 0, color: 'red' }} onClick={openttct} />
+            <CancelOutlinedIcon sx={{ position: 'absolute', top: 0, right: 0, color: 'red' }} onClick={()=>{openttct(index)}} />
             <Drawer
                 anchor='right'
                 open={drawer}

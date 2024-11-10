@@ -50,7 +50,7 @@ import CauHoiThuonGap from './cau-hoi-thuong-gap';
 import ThongTinTuyenDuong from './thong-tin-tuyen-duong';
 import GioiThieuTuyenDuong from './gioi-thieu-tuyen-duong';
 import DanhSachChuyenXeResponsive from './ds-chuyenxe-responsive';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import NoSearch from './nosearch';
 
 
@@ -624,8 +624,8 @@ export default function ViewChuyenxe() {
                 <p className='title-cx-2'>Đặt chuyến xe trực tuyến</p>
               </div>
               <div className='ds-cx-desktop'>
-                {allChuyenxeSearch.map((item)=>{
-                  return <DanhSachChuyenXe key={item.id} item={item} />
+                {allChuyenxeSearch.map((item,index)=>{
+                  return <DanhSachChuyenXe key={item.id} index={index} item={item} />
                 })}
                 
               </div>

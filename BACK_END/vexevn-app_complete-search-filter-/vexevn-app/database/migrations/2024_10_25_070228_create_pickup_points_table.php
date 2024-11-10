@@ -11,25 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dropoff_points', function (Blueprint $table) {
+        Schema::create('pickup_points', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('address')->nullable();
-            // $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('car_house_id')->nullable();
             $table->boolean('is_public')->default(true);
             $table->timestamps();
-
-            // $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+    
             $table->foreign('car_house_id')->references('id')->on('car_houses')->onDelete('set null');
         });
     }
+
+        
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('dropoff_points');
+        Schema::dropIfExists('pickup_points');
     }
 };

@@ -19,10 +19,13 @@ use App\Models\PickupPoint;
 use App\Models\DropoffPoint;
 use App\Models\BusRoute;
 use App\Models\CarRoute;
+use App\Models\CarTripDropoffPoint;
+use App\Models\CarTripPickupPoint;
+
 // use App\Models\CarTrip;
 
 
-class CarController extends Controller
+class CarController extends HelpController
 {
 
     /* =====================================================================
@@ -37,6 +40,15 @@ class CarController extends Controller
             'message' => 'Hiển thị danh sách Loại Xe thành công',
             'data' => $data
         ], 200);
+    }
+
+    public function showCarType($id)
+    {
+        $data = CarType::find($id);
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
     }
 
     public function addCarType(Request $request)
@@ -189,16 +201,26 @@ class CarController extends Controller
                                 CAR HOUSE
 ===========================================================================*/
 
+   
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();
 
         return response()->json([
             'status' => 200,
-            'message' => 'Hiển thị danh sách nhà xe thành công',
+            'message' => 'Hiển thị danh sách nhà xe thành công!',
             'data' => $carHouse
         ], 200);
     }
+
+    public function showBusHouse($id)
+{
+    $data = CarHouse::find($id);
+    if (!$data) {
+        return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
+    }
+    return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
+}
 
     public function addCarHouse(Request $request)
     {
@@ -236,6 +258,7 @@ class CarController extends Controller
         }
     }
 
+   
     public function updateCarHouse(Request $request, $idNX)
     {
         $carHouse = CarHouse::find($idNX);
@@ -348,7 +371,7 @@ class CarController extends Controller
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars',
             'model' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validatorCar->fails()) {
@@ -426,7 +449,7 @@ class CarController extends Controller
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars,license_plate,' . $car->id,
             'model' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validateCar->fails()) {
@@ -578,6 +601,23 @@ class CarController extends Controller
 /* =====================================================================
                         PICK UP POINT 
 ===========================================================================*/
+public function showPickupPoint($carTripId)
+{
+    $data = CarTripPickupPoint::where('car_trip_id', $carTripId)->get();
+    if ($data->isEmpty()) {
+        return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+    }
+    return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+}
+// public function showPickupPoint($car_trip_id) {
+//     $data = PickupPoint::findAll($car_trip_id);
+
+//         if(!$data) {
+//             return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+//         }
+
+//         return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
+// }
     public function listPickupPoint()
     {
         $data = PickupPoint::all();
@@ -677,7 +717,7 @@ class CarController extends Controller
     }
     public function deletePickupPoint($id)
     {
-        $data = PickupPoint::find($id);
+        $data = PickupPoint::findAll($id);
 
         if (!$data) {
             return response()->json([
@@ -698,6 +738,24 @@ class CarController extends Controller
     /* =====================================================================
                         DROP OFF POINT 
 ===========================================================================*/
+public function showDropoffPoint($carTripId)
+{
+    $data = CarTripDropoffPoint::where('car_trip_id', $carTripId)->get();
+
+    if ($data->isEmpty()) {
+        return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+    }
+    return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+}
+// public function showDropoffPoint($id) {
+//     $data = DropoffPoint::findAll($id);
+
+//         if(!$data) {
+//             return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+//         }
+
+//         return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+// }
     public function listDropoffPoint()
     {
         $data = DropoffPoint::all();
@@ -818,6 +876,15 @@ class CarController extends Controller
     /* =====================================================================
                             CAR ROUTE
 ===========================================================================*/
+public function findrouterbyid($id)
+{
+    $data = CarRoute::find($id);
+    if (!$data) {
+        return $this->sendNotFoundResponse('Không tìm thấy Tuyến Đường!');
+    }
+    return $this->sendResponse(200, 'Lấy thông tin tuyến đường thành công!', $data);
+}
+
     public function listCarRoute()
     {
         $data = CarRoute::all();

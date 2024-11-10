@@ -6,6 +6,7 @@ const initialState = {
   // Tất cả chuyến xe search theo thời gian, search theo tuyến đường
   AllChuyenXeSearch:[],
   isLoadcx:false,
+
   
   };
 
