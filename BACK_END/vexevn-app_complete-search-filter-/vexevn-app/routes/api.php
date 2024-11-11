@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\SeatController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -155,6 +156,7 @@ Route::delete('/event/{id}', [EventController::class, 'deleteEvent']);
 // ARTICLE
 
 Route::get('/article/{id}', [EventController::class, 'showArticle']);
+
 Route::get('/article', [EventController::class, 'listArticle']);
 
 Route::post('/article', [EventController::class, 'CreateArticle']);
@@ -163,3 +165,12 @@ Route::post('/article/{id}', [EventController::class, 'updateArticle']);
 
 Route::delete('/article/{id}', [EventController::class, 'deleteArticle']);
  
+//SEAT
+
+Route::get('seats', [SeatController::class, 'ListSeat']);
+
+Route::post('seats', [SeatController::class, 'CreateSeat']);
+
+Route::post('seats/{id}', [SeatController::class, 'updateSeat']);
+
+Route::delete('seats/{id}', [SeatController::class, 'deleteSeat']);
