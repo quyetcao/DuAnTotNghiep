@@ -78,7 +78,7 @@ class BannerController extends HelpController
         if (!$banner) {
             return response()->json([
                 'status' => 404,
-                'message' => 'Không tìm thấy banner với ID đã cho!',
+                'message' => '404 not found!',
             ], 404);
         }
 
@@ -106,7 +106,7 @@ class BannerController extends HelpController
             }
 
             // Tạo tên file hình ảnh mới
-            $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('images/banners'), $imageName);
 
             // Cập nhật đường dẫn hình ảnh
@@ -134,7 +134,6 @@ class BannerController extends HelpController
             ], 500);
         }
     }
-
     public function deleteBanner($id)
     {
         // Tìm id 
@@ -164,17 +163,3 @@ class BannerController extends HelpController
         ], 200);
     }
 }
-// {
-//     $banner = Banner::find($id);
-
-//     // Xóa hình ảnh khỏi thư mục
-//     if ($banner->image_url) {
-//         $imagePath = public_path('images/banners/' . basename($banner->image_url));
-//         if (file_exists($imagePath)) {
-//             unlink($imagePath);
-//         }
-//     }
-//     $banner->delete();
-
-//     return response()->json(['message' => 'Banner deleted successfully.'], 204);
-// }

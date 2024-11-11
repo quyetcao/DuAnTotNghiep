@@ -21,51 +21,52 @@ Route::get('/user', function (Request $request) {
 ===========================================================================*/
 
 // CAR TYPE
-Route::get('/cartypes/{id}', [CarController::class, 'showCarType']); 
+Route::get('/cartypes/{id}', [CarController::class, 'ShowCarType']); 
 
-Route::get('/cartypes/', [CarController::class, 'listCarType']);
+Route::get('/cartypes', [CarController::class, 'ListCarType']);
 
-Route::post('/cartypes/create', [CarController::class, 'addCarType']);
+Route::post('/cartypes', [CarController::class, 'CreateCarType']);
 
-Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
+Route::post('/cartypes/{id}', [CarController::class, 'UpdateCarType']);
 
-Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
+Route::delete('/cartypes/{id}', [CarController::class, 'DeleteCarType']);
 
 
 // CAR HOUSE
-Route::get('/carhouse/{id}', [CarController::class, 'showBusHouse']); 
+Route::get('/carhouse/{id}', [CarController::class, 'ShowCarHouse']); 
 
-Route::get('/carhouse/', [CarController::class, 'listCarHouse']);
+Route::get('/carhouse', [CarController::class, 'ListCarHouse']);
 
-Route::post('/carhouse/create', [CarController::class, 'addCarHouse']);
+Route::post('/carhouse', [CarController::class, 'CreateCarHouse']);
 
-Route::post('/carhouse/update/{id}', [CarController::class, 'updateCarHouse']);
+Route::post('/carhouse/{id}', [CarController::class, 'UpdateCarHouse']);
 
-Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse']);
+Route::delete('/carhouse/{id}', [CarController::class, 'DeleteCarHouse']);
 
 
 // CAR
 
-Route::get('/car/{id}', [CarController::class, 'showCar']);
+Route::get('/car/{id}', [CarController::class, 'ShowCar']);
 
-Route::get('/car', [CarController::class, 'listCar']);
+Route::get('/car', [CarController::class, 'ListCar']);
 
-Route::post('/car/create', [CarController::class, 'uploadCar']);
+Route::post('/car', [CarController::class, 'CreateCar']);
 
-Route::post('/car/update/{id}', [CarController::class, 'updateCar']);
+Route::post('/car/{id}', [CarController::class, 'UpdateCar']);
 
-Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
+Route::delete('car/{id}', [CarController::class, 'DeleteCar']);
 
 
 // CITY
-Route::get('/city/{id}', [CarController::class, 'showCity']);
-Route::get('/city', [CarController::class, 'listCity']);
+// Route::get('/city/{id}', [CarController::class, 'showCity']);
 
-Route::post('/city/create', [CarController::class, 'addCity']);
+// Route::get('/city', [CarController::class, 'ListCity']);
 
-Route::post('/city/update/{id}', [CarController::class, 'updateCity']);
+// Route::post('/city', [CarController::class, 'CreateCity']);
 
-Route::delete('/city/delete/{id}', [CarController::class, 'deleteCity']);
+// Route::post('/city/{id}', [CarController::class, 'UpdateCity']);
+
+// Route::delete('/city/{id}', [CarController::class, 'DeleteCity']);
 
 
 // PICK UP POINT
@@ -73,11 +74,11 @@ Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPoint']);
 
 Route::get('/pickuppoint', [CarController::class, 'listPickupPoint']);
 
-Route::post('/pickuppoint/create', [CarController::class, 'uploadPickupPoint']);
+Route::post('/pickuppoint', [CarController::class, 'CreatePickupPoint']);
 
-Route::post('/pickuppoint/update/{id}', [CarController::class, 'updatePickupPoint']);
+Route::post('/pickuppoint/{id}', [CarController::class, 'UpdatePickupPoint']);
 
-Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPoint']);
+Route::delete('/pickuppoint/{id}', [CarController::class, 'DeletePickupPoint']);
 
 // Route::get('')
 
@@ -87,27 +88,26 @@ Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPoint']);
 
 Route::get('/dropoffpoint', [CarController::class, 'listDropoffPoint']);
 
-Route::post('/dropoffpoint/create', [CarController::class, 'uploadDropoffPoint']);
+Route::post('/dropoffpoint', [CarController::class, 'CreateDropoffPoint']);
 
-Route::post('/dropoffpoint/update/{id}', [CarController::class, 'updateDropoffPoint']);
+Route::post('/dropoffpoint/{id}', [CarController::class, 'updateDropoffPoint']);
 
-Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoffPoint']);
+Route::delete('/dropoffpoint/{id}', [CarController::class, 'deleteDropoffPoint']);
 
-// Route::get('')
 
 // PROVINCE
 Route::get('/province', [ProvinceController::class, 'getProvinces']);
 
 // CAR ROUTE POINT
-Route::get('/carroute/{id}', [CarController::class, 'findrouterbyid']);
+Route::get('/carroute/{id}', [CarController::class, 'ShowCarRoute']);
 
-Route::get('/carroute/', [CarController::class, 'listCarRoute']);
+Route::get('/carroute', [CarController::class, 'listCarRoute']);
 
-Route::post('/carroute/create', [CarController::class, 'uploadCarRoute']);
+Route::post('/carroute', [CarController::class, 'CreateCarRoute']);
 
-Route::post('/carroute/update/{id}', [CarController::class, 'updateCarRoute']);
+Route::post('/carroute/{id}', [CarController::class, 'updateCarRoute']);
 
-Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute']);
+Route::delete('/carroute/{id}', [CarController::class, 'deleteCarRoute']);
 
 
 // CAR TRIP
@@ -118,24 +118,26 @@ Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 
 Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 
-Route::post('/cartrip/create', [CarTripController::class, 'uploadCarTrip']);
+Route::post('/cartrip', [CarTripController::class, 'CreateCarTrip']);
 
-Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
+Route::post('/cartrip/{id}', [CarTripController::class, 'updateCarTrip']);
 
-Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+Route::delete('/cartrip/{id}', [CarTripController::class, 'deleteCarTrip']);
 
 
 
 
 
 //Banner
-Route::get('/banner/index', [BannerController::class, 'listBanner']);
+Route::get('/banner', [BannerController::class, 'listBanner']);
 
-Route::post('/banner/create', [BannerController::class, 'uploadBanner']);
+Route::get('/banner/{id}', [BannerController::class, 'showBanner']);
 
-Route::post('/banner/update/{id}', [BannerController::class, 'updateBanner']);
+Route::post('/banner', [BannerController::class, 'CreateBanner']);
 
-Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
+Route::post('/banner/{id}', [BannerController::class, 'updateBanner']);
+
+Route::delete('/banner/{id}', [BannerController::class, 'deleteBanner']);
 
    
 // EVENT
@@ -143,11 +145,11 @@ Route::get('/event/{id}', [EventController::class, 'showEvent']);
 
 Route::get('/event', [EventController::class, 'listEvent']);
 
-Route::post('/event/create', [EventController::class, 'uploadEvent']);
+Route::post('/event', [EventController::class, 'CreateEvent']);
 
-Route::post('/event/update/{id}', [EventController::class, 'updateEvent']);
+Route::post('/event/{id}', [EventController::class, 'updateEvent']);
 
-Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
+Route::delete('/event/{id}', [EventController::class, 'deleteEvent']);
 
 
 // ARTICLE
@@ -156,9 +158,9 @@ Route::get('/article/{id}', [EventController::class, 'showArticle']);
 
 Route::get('/article', [EventController::class, 'listArticle']);
 
-Route::post('/article/create', [EventController::class, 'uploadArticle']);
+Route::post('/article', [EventController::class, 'CreateArticle']);
 
-Route::post('/article/update/{id}', [EventController::class, 'updateArticle']);
+Route::post('/article/{id}', [EventController::class, 'updateArticle']);
 
-Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);
+Route::delete('/article/{id}', [EventController::class, 'deleteArticle']);
  

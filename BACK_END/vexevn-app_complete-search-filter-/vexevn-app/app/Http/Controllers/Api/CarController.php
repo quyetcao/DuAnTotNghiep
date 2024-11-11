@@ -21,6 +21,7 @@ use App\Models\BusRoute;
 use App\Models\CarRoute;
 use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
+use Illuminate\Support\Facades\DB;
 
 // use App\Models\CarTrip;
 
@@ -31,18 +32,8 @@ class CarController extends HelpController
     /* =====================================================================
                                 CAR TYPE
 ===========================================================================*/
-    public function showCartype($id)
-    {
-        $data = CarType::find($id);
 
-        if (!$data) {
-            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
-        }
-
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
-    }
-
-    public function listCarType()
+    public function ListCarType()
     {
         $data = CarType::all();
 
@@ -53,7 +44,7 @@ class CarController extends HelpController
         ], 200);
     }
 
-    public function showCarType($id)
+    public function ShowCarType($id)
     {
         $data = CarType::find($id);
         if (!$data) {
@@ -62,12 +53,12 @@ class CarController extends HelpController
         return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
     }
 
-    public function addCarType(Request $request)
+    public function CreateCarType(Request $request)
     {
         $validateCarType = Validator::make($request->all(), [
             'name' => 'required|string|unique:car_types,name',
             'quantity_seat' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //max 2MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //max 2MB
         ]);
 
         if ($validateCarType->fails()) {
@@ -113,7 +104,7 @@ class CarController extends HelpController
         }
     }
 
-    public function updateCarType(Request $request, $id)
+    public function UpdateCarType(Request $request, $id)
     {
         $data = CarType::find($id);
 
@@ -176,7 +167,7 @@ class CarController extends HelpController
         }
     }
 
-    public function deleteCarType($idLX)
+    public function DeleteCarType($idLX)
     {
         // Tìm id 
         $carType = CarType::find($idLX);
@@ -222,8 +213,7 @@ class CarController extends HelpController
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
     }
 
-   
-    public function listCarHouse()
+    public function ListCarHouse()
     {
         $carHouse = CarHouse::all();
 
@@ -234,16 +224,7 @@ class CarController extends HelpController
         ], 200);
     }
 
-    public function showBusHouse($id)
-{
-    $data = CarHouse::find($id);
-    if (!$data) {
-        return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
-    }
-    return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
-}
-
-    public function addCarHouse(Request $request)
+    public function CreateCarHouse(Request $request)
     {
         $validateCarHouse = Validator::make($request->all(), [
             'name' => 'required|unique:car_houses,name',
@@ -280,7 +261,7 @@ class CarController extends HelpController
     }
 
    
-    public function updateCarHouse(Request $request, $idNX)
+    public function UpdateCarHouse(Request $request, $idNX)
     {
         $carHouse = CarHouse::find($idNX);
 
@@ -345,7 +326,7 @@ class CarController extends HelpController
     }
 
     /* =====================================================================
-                                    CAR 
+                                    CAR 1
 ===========================================================================*/
     public function showCar($id)
     {
@@ -377,7 +358,7 @@ class CarController extends HelpController
         ], 200);
     }
 
-    public function uploadCar(Request $request)
+    public function CreateCar(Request $request)
     {
         $validatorCar = Validator::make($request->all(), [
             'name' => 'required|string|unique:cars,name',
@@ -385,7 +366,7 @@ class CarController extends HelpController
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars',
             'model' => 'nullable|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg'
+            'images.*' => 'required|image|mimes:jpeg,png,jpg'
         ]);
 
         if ($validatorCar->fails()) {
@@ -429,7 +410,7 @@ class CarController extends HelpController
                     $images[] = $imageName;
                 }
             }
-
+           
             return response()->json([
                 'status' => true,
                 'message' => 'A car added successfully',
@@ -439,6 +420,7 @@ class CarController extends HelpController
                 ]
             ], 201);
         } catch (\Throwable $th) {
+           
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -642,7 +624,7 @@ public function showPickupPoint($carTripId)
             'data' => $data
         ], 200);
     }
-    public function uploadPickupPoint(Request $request)
+    public function createPickupPoint(Request $request)
     {
         $validatePUP = Validator::make($request->all(), [
             'name' => 'required|string|unique:pickup_points,name',
@@ -888,9 +870,9 @@ public function showDropoffPoint($carTripId)
     }
 
     /* =====================================================================
-                            CAR ROUTE
+                           CAR ROUTE POINT
 ===========================================================================*/
-public function findrouterbyid($id)
+public function ShowCarRoute($id)
 {
     $data = CarRoute::find($id);
     if (!$data) {
@@ -909,7 +891,7 @@ public function findrouterbyid($id)
             'data' => $data
         ], 200);
     }
-    public function uploadCarRoute(Request $request)
+    public function CreateCarRoute(Request $request)
     {
         $validateCR = Validator::make($request->all(), [
             'city_from' => 'required|string',
