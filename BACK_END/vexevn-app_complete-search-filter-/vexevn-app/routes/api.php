@@ -155,7 +155,6 @@ Route::delete('/event/{id}', [EventController::class, 'deleteEvent']);
 // ARTICLE
 
 Route::get('/article/{id}', [EventController::class, 'showArticle']);
-
 Route::get('/article', [EventController::class, 'listArticle']);
 
 Route::post('/article', [EventController::class, 'CreateArticle']);
