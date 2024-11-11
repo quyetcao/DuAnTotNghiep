@@ -169,6 +169,8 @@ Route::delete('/article/{id}', [EventController::class, 'deleteArticle']);
 
 Route::get('seats', [SeatController::class, 'ListSeat']);
 
+Route::get('seats/{id}', [SeatController::class, 'showSeat']);
+
 Route::post('seats', [SeatController::class, 'CreateSeat']);
 
 Route::post('seats/{id}', [SeatController::class, 'updateSeat']);

@@ -8,131 +8,101 @@ use Illuminate\Http\Request;
 use App\Models\Car;
 use Illuminate\Support\Facades\Validator;
 
-
 class SeatController extends Controller
 {
-    // Lấy tất cả các ghế
-    public function listSeat()
+    protected function sendResponse($statusCode, $message, $data = null)
     {
-        $Seat= Seat::all();
-
         return response()->json([
-            'status' => 200,
-            'message' => 'Hiển thị danh sách nhà xe thành công',
-            'data' => $Seat
-        ], 200);
+            'status' => $statusCode,
+            'message' => $message,
+            'data' => $data,
+        ], $statusCode);
     }
 
-    // Tạo mới ghế
-    public function CreateSeat(Request $request)
+    public function showSeat($id)
     {
-        // Validate dữ liệu
+        $data = Seat::find($id);
+
+        if (!$data) {
+            return $this->sendResponse(404, 'Không tìm thấy seat!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết seat thành công!', $data);
+    }
+
+    public function listSeat()
+    {
+        $seats = Seat::all();
+        return $this->sendResponse(200, 'Hiển thị danh sách nhà xe thành công', $seats);
+    }
+
+    public function createSeat(Request $request)
+    {
         $validated = $request->validate([
-            'cars_id' => 'required|exists:cars,id', // Đảm bảo rằng cars_id tồn tại trong bảng cars
+            'cars_id' => 'required|exists:cars,id',
             'seat_number' => 'required|string',
             'position' => 'required|string',
             'price' => 'required|numeric|min:0',
             'is_sold' => 'boolean',
             'status' => 'required|string|in:available,chosen,not_for_sale',
         ]);
-    
+
         try {
-            // Tìm `car` nếu bạn muốn xác nhận
             $car = Car::findOrFail($validated['cars_id']);
-    
-            // Tạo ghế mới với dữ liệu được xác thực
-            $Seat = Seat::create($validated);
-    
-            return response()->json([
-                'status' => 201,
-                'message' => 'Ghế tạo mới thành công!',
-                'data' => $Seat
-            ], 201);
+            $seat = Seat::create($validated);
+
+            return $this->sendResponse(201, 'Ghế tạo mới thành công!', $seat);
         } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
+            return $this->sendResponse(500, $th->getMessage());
         }
     }
 
-    // Cập nhật thông tin ghế
     public function updateSeat(Request $request, $id)
-{
-    // Tìm kiếm ghế
-    $seat = Seat::find($id);
+    {
+        $seat = Seat::find($id);
 
-    if (!$seat) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy ghế!'
-        ], 404);
+        if (!$seat) {
+            return $this->sendResponse(404, 'Không tìm thấy ghế!');
+        }
+
+        $validateSeat = Validator::make($request->all(), [
+            'cars_id' => 'required|exists:cars,id',
+            'seat_number' => 'required|string',
+            'position' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'is_sold' => 'boolean',
+            'status' => 'required|string|in:available,chosen,not_for_sale',
+        ]);
+
+        if ($validateSeat->fails()) {
+            return $this->sendResponse(422, 'Lỗi xác thực form', $validateSeat->errors());
+        }
+
+        try {
+            $seat->cars_id = $request->cars_id;
+            $seat->seat_number = $request->seat_number;
+            $seat->position = $request->position;
+            $seat->price = $request->price;
+            $seat->is_sold = $request->is_sold;
+            $seat->status = $request->status;
+            $seat->save();
+
+            return $this->sendResponse(200, 'Cập nhật ghế thành công!', $seat);
+        } catch (\Throwable $th) {
+            return $this->sendResponse(500, $th->getMessage());
+        }
     }
 
-    // Validate dữ liệu
-    $validateSeat = Validator::make($request->all(), [
-        'cars_id' => 'required|exists:cars,id',
-        'seat_number' => 'required|string',
-        'position' => 'required|string',
-        'price' => 'required|numeric|min:0',
-        'is_sold' => 'boolean',
-        'status' => 'required|string|in:available,chosen,not_for_sale',
-    ]);
-
-    if ($validateSeat->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validateSeat->errors()
-        ], 422);
-    }
-
-    try {
-        // Cập nhật thông tin ghế
-        $seat->cars_id = $request->cars_id;
-        $seat->seat_number = $request->seat_number;
-        $seat->position = $request->position;
-        $seat->price = $request->price;
-        $seat->is_sold = $request->is_sold;
-        $seat->status = $request->status;
-
-        $seat->save();
-
-        return response()->json([
-'status' => 200,
-            'message' => 'Cập nhật ghế thành công!',
-            'data' => $seat
-        ], 200);
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage(),
-        ], 500);
-    }
-    }
-
-
-    // Xóa ghế
     public function deleteSeat($id)
     {
-    // Tìm kiếm ghế
-    $seat = Seat::find($id);
+        $seat = Seat::find($id);
 
-    if (!$seat) {
-        return response()->json([
-            'status' => 404,
-            'message' => 'Không tìm thấy ghế!',
-        ], 404);
+        if (!$seat) {
+            return $this->sendResponse(404, 'Không tìm thấy ghế!');
+        }
+
+        $seat->delete();
+
+        return $this->sendResponse(200, 'Ghế đã được xóa thành công!', $seat);
     }
-
-    // Xóa ghế
-    $seat->delete();
-
-    return response()->json([
-        'status' => 200,
-        'message' => 'Ghế đã được xóa thành công!',
-        'delete_data' => $seat
-    ], 200);
-    }
-
-    }
+}

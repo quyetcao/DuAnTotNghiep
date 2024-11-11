@@ -16,11 +16,11 @@ class CreateSeatsTable extends Migration
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cars_id');
-            $table->string('seat_number'); // Số ghế
-            $table->string('position'); // Vị trí của ghế (ghế cuối, ghế giữa, hoặc ghế đầu)
-            $table->decimal('price', 10, 2); // Giá của ghế
-            $table->boolean('is_sold')->default(false); // Trạng thái ghế đã bán hay chưa
-            $table->string('status')->default('available'); // Trạng thái: có sẵn, đang chọn, hoặc không bán
+            $table->string('seat_number');
+            $table->string('position');
+            $table->decimal('price', 10, 2);
+            $table->boolean('is_sold')->default(false);
+            $table->string('status')->default('available');
             $table->timestamps();
 
             $table->foreign('cars_id')->references('id')->on('cars')->onDelete('cascade');
