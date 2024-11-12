@@ -29,7 +29,7 @@ class BannerController extends HelpController
             'data' => $data
         ], 200);
     }
-    public function uploadBanner(Request $request)
+    public function createBanner(Request $request)
     {
         // Xác thực dữ liệu đầu vào
         $validateBanner = Validator::make($request->all(), [

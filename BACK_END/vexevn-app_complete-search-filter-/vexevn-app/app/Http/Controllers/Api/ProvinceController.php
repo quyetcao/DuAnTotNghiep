@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class ProvinceController extends Controller
 {
-    public function getProvinces()
+    public function listProvince()
     {
         try {
 
