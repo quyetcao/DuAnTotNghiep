@@ -51,7 +51,7 @@ class CarTripController extends Controller {
         ], 200);
     }
 
-    public function uploadCarTrip(Request $request){
+    public function createCarTrip(Request $request){
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',

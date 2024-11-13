@@ -10,15 +10,15 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('car_types', function (Blueprint $table) {
-        $table->id();
-        $table->string('name')->unique();
-        $table->integer('quantity_seat')->default(0);
-        $table->string('image')->nullable();
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('car_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->integer('quantity_seat')->default(0);
+            $table->string('image')->nullable();
+            $table->timestamps();
+        });
+    }
 
 
     /**
