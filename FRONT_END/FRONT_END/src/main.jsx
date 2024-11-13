@@ -23,6 +23,9 @@ import QuanLyDatVeXe from './component/quan_ly_dat_ve_xe/quanLyDatVeXe.jsx';
 import QuanLyChiendich from './component/quan-li-chien-dich/qlcd.jsx';
 import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
 import NoSearch from './component/viewpage/nosearch.jsx';
+import AppAdminQLWeb from './AdminWeb.jsx';
+import ShowDsCarHouse from './component/adminweb/admin-show-carhouse.jsx';
+import AddCarHouse from './component/adminweb/admin-add-carhouse.jsx';
 
 
 
@@ -95,7 +98,6 @@ const routes = createBrowserRouter([
     ]
   },
   {
-
     path: "/admin",
     element: <AppAdmin />,
     children: [
@@ -119,6 +121,22 @@ const routes = createBrowserRouter([
       //   path: "admin-handle",
       //   element: <AdminHandle />
       // },
+    ]
+  },
+
+  {
+    path: "/adminweb",
+    element: <AppAdminQLWeb />,
+    children: [
+      {
+        path: 'show-ds-carhouse',
+        element: <ShowDsCarHouse />
+      },
+      {
+        path: 'addcarhouse',
+        element: <AddCarHouse />
+      },
+    
     ]
   },
 
