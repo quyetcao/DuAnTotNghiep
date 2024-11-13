@@ -44,14 +44,14 @@ class CarController extends HelpController
         ], 200);
     }
 
-    // public function showCarType($id)
-    // {
-    //     $data = CarType::find($id);
-    //     if (!$data) {
-    //         return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
-    //     }
-    //     return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
-    // }
+    public function showCarType($id)
+    {
+        $data = CarType::find($id);
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
+    }
 
     public function createCarType(Request $request)
     {
