@@ -25,7 +25,7 @@ use App\Models\CarTripPickupPoint;
 class CarTripController extends Controller {
     public function listCarTrip()
     {
-        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints'])->paginate(10);
+        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints']);
 
         return response()->json([
             'status' => 200,
@@ -55,6 +55,7 @@ class CarTripController extends Controller {
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
+            //'departure_time' => 'required|date_format:H:i',
             'departure_date' => 'required|date',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
@@ -84,6 +85,7 @@ class CarTripController extends Controller {
             $carTrip = CarTrip::create([
                 'car_id' => $request->car_id,
                 'car_route_id' => $request->car_route_id,
+                //'departure_time' => $request->departure_time,
                 'departure_date' => $request->departure_date,
                 'arrival_date' => $request->arrival_date,
                 'return_date' => $request->return_date,
