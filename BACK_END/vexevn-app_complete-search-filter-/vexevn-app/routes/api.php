@@ -158,3 +158,14 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/article/update/{id}', [EventController::class, 'updateArticle']);
     Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);
 });
+
+//Ticket
+
+Route::get('/ticket/{id}', [EventController::class, 'showTicket']);
+Route::get('/ticket', [EventController::class, 'listTicket']);
+
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/ticket', [EventController::class, 'createTicket']);
+    Route::post('/ticket/{id}', [EventController::class, 'updateTicket']);
+    Route::delete('/ticket/{id}', [EventController::class, 'deleteTicket']);
+// });
