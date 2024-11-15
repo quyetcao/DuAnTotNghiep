@@ -15,15 +15,15 @@ class CreateSeatsTable extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cars_id');
+            $table->unsignedBigInteger('car_id');
+            $table->unsignedBigInteger('car_type_id'); // Thêm cột cartype_id
             $table->string('seat_number');
-            $table->string('position');
-            $table->decimal('price', 10, 2);
-            $table->boolean('is_sold')->default(false);
-            $table->string('status')->default('available');
+            $table->enum('seat_type', ['vip', 'standard']);
+            $table->unsignedBigInteger('price');
             $table->timestamps();
 
-            $table->foreign('cars_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('car_type_id')->references('id')->on('car_types')->onDelete('cascade'); // Ràng buộc khóa ngoại (giả sử bảng 'car_types' tồn tại)
         });
     }
 

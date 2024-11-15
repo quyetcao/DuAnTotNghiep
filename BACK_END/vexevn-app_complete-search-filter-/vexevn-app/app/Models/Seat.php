@@ -9,12 +9,24 @@ class Seat extends Model
 {
     use HasFactory;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
-        'cars_id',
+        'car_id',
+        'car_type_id',
         'seat_number',
-        'position',
+        'seat_type',
         'price',
-        'is_sold',
-        'status',
     ];
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class, 'cars_id');
+    }
+
+    public function carType()
+    {
+        return $this->belongsTo(CarType::class, 'car_type_id');
+    }
 }

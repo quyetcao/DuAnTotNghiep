@@ -16,6 +16,7 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id(); // ID vé
             $table->string('name');//tên vé
+            $table->unsignedBigInteger('car_id'); // Liên kết với xe
             $table->unsignedBigInteger('car_trip_id'); // Liên kết với chuyến xe
             $table->enum('status', ['not_started','running','completed']); // Trạng thái vé
             $table->timestamps();
