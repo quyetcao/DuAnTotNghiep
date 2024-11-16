@@ -27,7 +27,7 @@ use App\Models\SeatCarTrip;
 class CarTripController extends Controller {
     public function listCarTrip()
     {
-        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints'])->paginate(10);
+        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints', 'seats'])->paginate(10);
 
         return response()->json([
             'status' => 200,
@@ -37,7 +37,7 @@ class CarTripController extends Controller {
     }
 
     public function showCarTrip($id) {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints'])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->find($id);
 
         if (!$data) {
             return response()->json([

@@ -19,6 +19,10 @@ class CarTrip extends Model
         'status'
     ];
 
+    public function seats() {
+    return $this->hasMany(Seat::class, 'car_id', 'car_id');
+    }
+
     public function car() {
         return $this->belongsTo(Car::class);
     }
