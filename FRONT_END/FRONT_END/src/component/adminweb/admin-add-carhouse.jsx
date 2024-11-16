@@ -1,8 +1,7 @@
-import '../css/adminweb/addcarhouse.css'
-import { useForm } from "react-hook-form";
+import '../css/adminweb/addcarhouse.css';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { CallapiAddCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
-
 
 import '../css/quan-li-chien-dich.css';
 
@@ -22,23 +21,19 @@ import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 
 export default function AddCarHouse() {
-
-  //thao tac voi form gửi add nhà xe 
+    //thao tac voi form gửi add nhà xe
     const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm()
-  const onSubmit = (data) => {
-    
-    console.log(data)
-    dispatch(CallapiAddCarHouse(data))
-  }
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        dispatch(CallapiAddCarHouse(data));
+    };
 
+    // const navigate = useNavigate();
 
-  // const navigate = useNavigate();
-
-
-  return (
-    <>
-     <div className='container'>
+    return (
+        <>
+            <div className='container'>
                 <div className='sidebar'>
                     <a href='#' className='sidebar-icon'>
                         <DashboardOutlinedIcon />
@@ -100,24 +95,34 @@ export default function AddCarHouse() {
                             </div>
                         </div>
 
-      <form id="busForm" onSubmit={handleSubmit(onSubmit)}>
-        <h2>Nhập Thông Tin Nhà Xe</h2>
+                        <form id='busForm' onSubmit={handleSubmit(onSubmit)}>
+                            <h2>Nhập Thông Tin Nhà Xe</h2>
 
-        <label htmlFor="busName">Tên Nhà Xe</label>
-        <input type="text" id="busName"    {...register('name', { required: true })}  placeholder="Nhập tên nhà xe..."  />
+                            <label htmlFor='busName'>Tên Nhà Xe</label>
+                            <input
+                                type='text'
+                                id='busName'
+                                {...register('name', { required: true })}
+                                placeholder='Nhập tên nhà xe...'
+                            />
 
-        {/* <label htmlFor="address">Địa Chỉ</label>
-        <input type="text" id="address"    {...register('diachi', { required: true })}  placeholder="Nhập địa chỉ..." /> */}
+                            {/* <label htmlFor="address">Địa Chỉ</label>
+                            <input type="text" id="address"    {...register('diachi', { required: true })}  placeholder="Nhập địa chỉ..." /> */}
 
-        <label htmlFor="phone">Số Điện Thoại</label>
-        <input type="tel" id="phone"   {...register("phone")} placeholder="Nhập số điện thoại..." pattern="[0-9]{10}"/>
+                            <label htmlFor='phone'>Số Điện Thoại</label>
+                            <input
+                                type='tel'
+                                id='phone'
+                                {...register('phone')}
+                                placeholder='Nhập số điện thoại...'
+                                pattern='[0-9]{10}'
+                            />
 
-        <input type="submit" value='Thêm nhà xe'/>
-      </form>
-</div>
-</div>
-</div>
-    </>
-
-  )
+                            <input className='input-submit' type='submit' value='Thêm nhà xe' />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }
