@@ -71,7 +71,7 @@ class CarTripController extends Controller {
         'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
         'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
 
-        'cartype_id' => 'required|exists:car_types,id', 
+        'car_type_id' => 'required|exists:car_types,id', 
     ]);
 
     if ($validateCT->fails()) {
@@ -127,10 +127,10 @@ class CarTripController extends Controller {
             ], 422);
         }
 
-        if (!$car->cartype_id) {
+        if (!$car->car_type_id) {
             return response()->json([
                 'status' => 422,
-                'message' => 'Xe không có loại xe được chỉ định (cartype_id là null).',
+                'message' => 'Xe không có loại xe được chỉ định (car_type_id là null).',
             ], 422);
         }
 
@@ -147,7 +147,7 @@ class CarTripController extends Controller {
         for ($i = 1; $i <= $numberOfSeats; $i++) {
             // Tạo ghế
             $seat = Seat::create([
-                'cars_id' => $carTrip->car_id,
+                'car_id' => $carTrip->car_id,
                 'seat_number' => 'Seat ' . $i,
                 'seat_type' => $i <= 5 ? 'vip' : 'standard', 
                 'price' => $i <= 5 ? 300 : 150, 
