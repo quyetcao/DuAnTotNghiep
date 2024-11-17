@@ -28,28 +28,4 @@ class Ticket extends Model
         return $this->belongsTo(CarRoute::class);
     }
 
-    public function pickupPoints() {
-        return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
-                    ->withPivot('pickup_time')
-                    ->withTimestamps();
-    }
-
-    public function dropoffPoints() {
-        return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
-                    ->withPivot('dropoff_time')
-                    ->withTimestamps();
-        
-    }
-
-    public function scopeNotStarted($query) {
-        return $query->where('status', 'not_started');
-    }
-    
-    public function scopeRunning($query) {
-        return $query->where('status', 'running');
-    }
-
-    public function scopeCompleted($query) {
-        return $query->where('status', 'completed');
-    }
 }
