@@ -162,14 +162,15 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 
 //Ticket
 
-Route::get('/ticket/{id}', [EventController::class, 'showTicket']);
-Route::get('/ticket', [EventController::class, 'listTicket']);
+Route::get('/ticket/{id}', [TicketController::class, 'showTicket']);
+Route::get('/ticket', [TicketController::class, 'listTicket']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/ticket', [EventController::class, 'createTicket']);
-    Route::post('/ticket/{id}', [EventController::class, 'updateTicket']);
-    Route::delete('/ticket/{id}', [EventController::class, 'deleteTicket']);
+    Route::post('/ticket', [TicketController::class, 'createTicket']);
+    Route::post('/ticket/{id}', [TicketController::class, 'updateTicket']);
+    Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 // });
+
 
 //Seat
 
