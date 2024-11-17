@@ -21,7 +21,7 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('car_route_id')->nullable();
             $table->timestamps();
 
-            // Ràng buộc khóa ngoại với cascade delete
+            // Ràng buộc khóa ngoại 
             $table->foreign('car_trip_id')->references('id')->on('car_trips')->onDelete('cascade'); 
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->foreign('car_route_id')->references('id')->on('car_routes')->onDelete('cascade');   
