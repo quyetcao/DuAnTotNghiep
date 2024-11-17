@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\CarTrip;
 use Illuminate\Support\Facades\Validator;
 
 class TicketController extends HelpController
@@ -11,21 +12,24 @@ class TicketController extends HelpController
     // 1. Hiển thị thông tin vé theo ID
     public function showTicket($id)
     {
-        $data = Ticket::with(['carTrip','car','pickupPoints', 'dropoffPoints'])->find($id);
+        $data = Ticket::with(['carTrip','car'])->find($id);
     
         if (!$data) {
             return response()->json(['message' => 'Vé không tồn tại'], 404);
         }
     
-        return response()->json($data);
+        return $this->sendResponse(
+            200, 'Hiển thị chi tiết vé thành công', $data
+        );
     }
     
 
     // 2. Danh sách tất cả vé
     public function listTicket()
     {
-        $data = Ticket::with(['carTrip','car','pickupPoints', 'dropoffPoints'])->paginate(10);
-    
+        $data = Ticket::with(['carTrip','car'])->paginate(10);
+       
+
         if ($data->isEmpty()) { //isEmpty kiểm tra data
             return response()->json([
                 'status' => 404,
@@ -48,17 +52,13 @@ class TicketController extends HelpController
             'car_trip_id' => 'nullable|exists:car_trips,id',
             'car_id' => 'nullable|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
-
-            'pickup_points.*.id' => 'required|exists:pickup_points,id',
-            'pickup_points.*.pickup_time' => 'required|date_format:H:i',
-            'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
-            'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
         ]);
     
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
     
+        // Tạo vé mới
         $ticket = Ticket::create([
             'name' => $request->name,
             'status' => $request->status,
@@ -67,8 +67,19 @@ class TicketController extends HelpController
             'car_route_id' => $request->car_route_id,
         ]);
     
-        return response()->json(['message' => 'Tạo vé thành công', 'ticket' => $ticket], 201);
+        // Lấy thông tin của CarTrip nếu car_trip_id được cung cấp
+        $carTrip = null;
+        if ($request->car_trip_id) {
+            $carTrip = $ticket->carTrip; // Quan hệ 'carTrip' được định nghĩa trong model Ticket
+        }
+    
+        return response()->json([
+            'message' => 'Tạo vé thành công',
+            'ticket' => $ticket,
+            'car_trip' => $carTrip // Trả về thông tin của CarTrip (nếu có)
+        ], 201);
     }
+    
     
     // 4. Cập nhật thông tin vé
     public function updateTicket(Request $request, $id)
