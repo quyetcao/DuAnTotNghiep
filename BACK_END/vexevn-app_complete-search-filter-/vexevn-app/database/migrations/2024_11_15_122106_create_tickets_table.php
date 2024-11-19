@@ -19,12 +19,14 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('car_trip_id')->nullable(); 
             $table->unsignedBigInteger('car_id');
             $table->unsignedBigInteger('car_route_id')->nullable();
+            $table->unsignedBigInteger('seat_car_trips_id')->nullable();
             $table->timestamps();
 
             // Ràng buộc khóa ngoại 
             $table->foreign('car_trip_id')->references('id')->on('car_trips')->onDelete('cascade'); 
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->foreign('car_route_id')->references('id')->on('car_routes')->onDelete('cascade');   
+            $table->foreign('seat_car_trips_id')->references('id')->on('seat_car_trips')->onDelete('cascade');   
                   
                   
         });
