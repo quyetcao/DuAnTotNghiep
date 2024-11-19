@@ -7,7 +7,7 @@
     background-color: transparent;
     display: flex;
     margin: auto;
-    max-width: 60%;
+    max-width: 70%;
     border-radius: 5px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     box-sizing: border-box;
@@ -87,8 +87,8 @@
 .submit-login {
     margin-top: 20px;
     border: none;
-    width: 50%;
-    height: 50px;
+    /* width: 50%; */
+    /* height: 50px; */
     color: aliceblue;
     border-radius: 10px;
     background-color: #2474e5;
@@ -96,7 +96,7 @@
     display: block;
     margin-top: 20px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     transition: all 0.3s;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .form_login_right img {
-    width: 80%;
+    width: 70%;
 }
 
 .link-register {
@@ -165,4 +165,68 @@
     font-size: 14px;
     margin: 5px 0 0 2px;
 
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 940px) {
+    .form_login {
+        display: block;
+        box-shadow: none;
+    }
+
+    .form_login_right {
+        display: none;
+    }
+
+    .css-trang-tri, .css-trang-tri2 {
+        display: none;
+    }
+
+    .form_login_left {
+        padding-top: 20px !important;
+        padding: 0;
+    }
+
+    .form_login_left h1 {
+        font-size: 20px;
+    }
+
+    .form_login_left p {
+        font-size: 14px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    
+
+    .form_login {
+        display: block;
+        box-shadow: none;
+    }
+
+    .form_login_right {
+        display: none;
+    }
+
+    .css-trang-tri, .css-trang-tri2 {
+        display: none;
+    }
+
+    .form_login_left {
+        padding-top: 20px !important;
+        padding: 0;
+    }
+
+    .form_login_left h1 {
+        font-size: 20px;
+    }
+
+    .form_login_left p {
+        font-size: 14px;
+    }
 }
