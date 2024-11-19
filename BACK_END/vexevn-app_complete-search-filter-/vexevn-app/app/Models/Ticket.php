@@ -13,7 +13,8 @@ class Ticket extends Model
         'status',
         'car_trip_id',
         'car_id',
-        'car_route_id'
+        'car_route_id',
+        'seat_car_trips_id',
     ];
     
     public function carTrip()
@@ -27,5 +28,9 @@ class Ticket extends Model
     public function carRoute() {
         return $this->belongsTo(CarRoute::class);
     }
-
+    public function seatCarTrip()
+    {
+        return $this->belongsTo(SeatCarTrip::class);
+    }
+    
 }
