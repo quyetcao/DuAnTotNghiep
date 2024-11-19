@@ -15,6 +15,8 @@ class Ticket extends Model
         'car_id',
         'car_route_id',
         'seat_car_trips_id',
+        'pickup_points_id',
+        'dropoff_points_id',
     ];
     
     public function carTrip()
@@ -27,6 +29,18 @@ class Ticket extends Model
 
     public function carRoute() {
         return $this->belongsTo(CarRoute::class);
+    }
+    public function pickupPoints() {
+        return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
+                    ->withPivot('pickup_time')
+                    ->withTimestamps();
+    }
+
+    public function dropoffPoints() {
+        return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
+                    ->withPivot('dropoff_time')
+                    ->withTimestamps();
+        
     }
     public function seatCarTrip()
     {
