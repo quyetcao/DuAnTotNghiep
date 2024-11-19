@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Str;
 
@@ -17,20 +18,14 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
 
-// use SpeedSMSAPI;
-use App\Services\SpeedSMSAPI;
 
 
 class AuthController extends HelpController
 {
-    // private $accessToken = "Yc5jyzJNxX5Yat-yTTFrXVrlwOGU5xcA";
-    // public $api = new SpeedSMSAPI('Yc5jyzJNxX5Yat-yTTFrXVrlwOGU5xcA');
-
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
-
     // public function handleGoogleCallback () {
     //     $googleUser = Socialite::driver('google')->user();
     //     $findUser = User::where('google_id', $googleUser->id)->first();
@@ -92,94 +87,82 @@ class AuthController extends HelpController
         });
     }
 
-    public function sendSMS($phone, $content)
+    // Sign up
+    public function signUp(Request $request)
     {
-        try {
-            $sms = new SpeedSMSAPI('Yc5jyzJNxX5Yat-yTTFrXVrlwOGU5xcA'); // Sử dụng access token 
-            $return = $sms->sendSMS([$phone], $content, SpeedSMSAPI::SMS_TYPE_CSKH, "");
+        $rules = [
+            'phone' => 'required|regex:/^[0-9]{10}$/',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|confirmed'
+        ];
 
-            // Kiểm tra kết quả trả về từ API
-            if ($return['error'] == 0) {
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'Gửi SMS thành công!',
-                ]);
-            } else {
-                Log::error('SMS send error:', $return);
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
+            $user = User::create([
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
 
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Gửi SMS thất bại!',
-                    'details' => $return,
-                ]);
+            if (!$user) {
+                return $this->sendResponse(500, 'Không thể tạo người dùng');
             }
-        } catch (\Exception $e) {
-             // Log exception nếu có lỗi xảy ra
-        Log::error('Error sending SMS:', ['message' => $e->getMessage()]);
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Error sending SMS: ' . $e->getMessage(),
-            ]);
-        }
+
+            return $this->sendResponse(201, 'Người dùng tạo mới thành công!', $user);
+        });
     }
 
-    public function loginOrRegisterSMS(Request $request) {
-        $phone = $request->input('phone');
-        $user = User::where('phone', $phone)->first();
-
-        // Xét đã có acc chưa
-        if ($user) {
-            // Send OTP
-            $otp = rand(1000, 9999);
-
-            // Nội dung tin nhắn gửi đến người dùng
-            $content = "Mã OTP đăng nhập của bạn là: $otp";
-            $this->sendSMS('0945583797', $content);
-
-            return response()->json([
-                'status' => 'success',
-                'otp' => $otp, // Lưu OTP trong DB
-                'message' => 'OTP đã được gửi, vui lòng kiểm tra tin nhắn.',
+    public function login (Request $request) {
+        try {
+            $validateUser = Validator::make($request->all(), [        
+                'email' => 'required|email',
+                'password' => 'required|string'
             ]);
-            // return redirect()->route('verify.sms.page');
-        } 
-        // Nếu người dùng chưa có, gửi mã OTP để đăng ký và đăng nhập
-        else {
-            $otp = rand(1000, 9999); // Mã OTP
 
-            // Gửi SMS với mã OTP
-            $content = "Mã OTP đăng ký của bạn là: $otp";
-            $this->sendSMS('0945583797', $content);
+            if ($validateUser->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Lỗi xác thực!',
+                    'errors' => $validateUser->errors(),
+                ], 422);
+            }
 
-            // return redirect()->route('verify.sms.page');
-        }
-    }
+            if (!Auth::attempt($request->only(['email','password']))) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Email hoặc Password không đúng',
+                ], 401);
+            }
 
-    // Phương thức xác nhận OTP và đăng nhập
-    public function verifyOTP(Request $request)
-    {
-        $phone = $request->input('phone');
-        $otp = $request->input('otp');
-        
-        // Kiểm tra số điện thoại và OTP
-        $user = User::where('phone', $phone)->first();
-
-        if ($user && $user->otp == $otp) {
-            // Đăng nhập người dùng
-            Auth::login($user);
-
-            // Xóa OTP sau khi đăng nhập
-            $user->update(['otp' => null]);
-
+            $user = User::where('email', $request->email)->first();
             return response()->json([
-                'status' => 'success',
+                'status' => 200,
                 'message' => 'Đăng nhập thành công!',
-            ]);
-        }
+                'token' => $user->createToken('API TOKEN')->plainTextToken
+            ], 200);
 
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function profile () {
+        $user = Auth::user();
         return response()->json([
-            'status' => 'error',
-            'message' => 'OTP không chính xác.',
-        ], 400);
+            'status' => 200,
+            'message' => 'Thông tin tài khoản',
+            'data' => $user
+        ], 200);
+    }
+
+    public function logout() {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Đăng xuất thành công',
+            'data' => []
+        ], 200);
     }
 }

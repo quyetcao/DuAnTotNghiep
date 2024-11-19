@@ -18,6 +18,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::post('/auth/signup', [AuthController::class, 'signUp']);
+Route::post('/auth/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::get('/auth/profile', [AuthController::class, 'profile']);
+
+    Route::get('/auth/logout', [AuthController::class, 'logout']);
+});
 
 /* =====================================================================
                             CAR SYSTEM 
