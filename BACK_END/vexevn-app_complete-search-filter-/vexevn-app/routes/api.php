@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\TicketController;
+use App\Http\Controllers\Api\CommentController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -183,3 +184,10 @@ Route::get('/seat', [SeatController::class, 'listSeat']);
     Route::post('/seat/{id}', [SeatController::class, 'updateSeat']);
     Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
 // });
+
+//Comment
+Route::get('/comment/{id}', [CommentController::class, 'show']); 
+Route::get('/comment', [CommentController::class, 'index']); 
+Route::post('/comment', [CommentController::class, 'store']); 
+Route::post('/comment/{id}', [CommentController::class, 'update']); 
+Route::delete('/comment/{id}', [CommentController::class, 'destroy']); 
