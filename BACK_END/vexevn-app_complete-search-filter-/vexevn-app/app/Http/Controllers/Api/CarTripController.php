@@ -24,10 +24,11 @@ use App\Models\CarTripPickupPoint;
 use App\Models\Seat;
 use App\Models\SeatCarTrip;
 
-class CarTripController extends Controller {
+class CarTripController extends Controller
+{
     public function listCarTrip()
     {
-        $data = CarTrip::with(['car','pickupPoints', 'dropoffPoints', 'seats'])->paginate(10);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->paginate(10);
 
         return response()->json([
             'status' => 200,
@@ -36,7 +37,8 @@ class CarTripController extends Controller {
         ], 200);
     }
 
-    public function showCarTrip($id) {
+    public function showCarTrip($id)
+    {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->find($id);
 
         if (!$data) {
@@ -54,137 +56,146 @@ class CarTripController extends Controller {
     }
 
     public function createCarTrip(Request $request)
-{
-    $validateCT = Validator::make($request->all(), [
-        'car_id' => 'required|exists:cars,id',
-        'car_route_id' => 'nullable|exists:car_routes,id',
-        'departure_date' => 'required|date',
-        'arrival_date' => 'required|date|after_or_equal:departure_date',
-        'return_date' => 'nullable|date|after_or_equal:arrival_date',
-        'price' => 'required|numeric|min:0',
+    {
+        $validateCT = Validator::make($request->all(), [
+            'car_id' => 'required|exists:cars,id',
+            'car_route_id' => 'nullable|exists:car_routes,id',
+            'departure_date' => 'required|date',
+            'arrival_date' => 'required|date|after_or_equal:departure_date',
+            'return_date' => 'nullable|date|after_or_equal:arrival_date',
+            'price' => 'required|numeric|min:0',
+            'driver_1' => 'nullable|string',
+            'driver_2' => 'nullable|string',
+            'assistant_1' => 'nullable|string',
+            'assistant_2' => 'nullable|string',
 
-        'pickup_points' => 'required|array',
-        'pickup_points.*.id' => 'required|exists:pickup_points,id',
-        'pickup_points.*.pickup_time' => 'required|date_format:H:i',
+            'pickup_points' => 'required|array',
+            'pickup_points.*.id' => 'required|exists:pickup_points,id',
+            'pickup_points.*.pickup_time' => 'required|date_format:H:i',
 
-        'dropoff_points' => 'required|array',
-        'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
-        'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
+            'dropoff_points' => 'required|array',
+            'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
+            'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
 
-        'car_type_id' => 'required|exists:car_types,id', 
-    ]);
-
-    if ($validateCT->fails()) {
-        return response()->json([
-            'status' => 422,
-            'message' => 'Lỗi xác thực form',
-            'data' => $validateCT->errors()
-        ], 422);
-    }
-
-    try {
-        DB::beginTransaction(); 
-
-        // Tạo chuyến xe mới
-        $carTrip = CarTrip::create([
-            'car_id' => $request->car_id,
-            'car_route_id' => $request->car_route_id,
-            'departure_date' => $request->departure_date,
-            'arrival_date' => $request->arrival_date,
-            'return_date' => $request->return_date,
-            'price' => $request->price,
-            'status' => 'not_started',
+            'car_type_id' => 'required|exists:car_types,id',
         ]);
 
-        // Lưu điểm đón
-        $listNewPUP = [];
-        foreach ($request->pickup_points as $pickupPoint) {
-            CarTripPickupPoint::create([
-                'car_trip_id' => $carTrip->id,
-                'pickup_point_id' => $pickupPoint['id'],
-                'pickup_time' => $pickupPoint['pickup_time']
-            ]);
-            $listNewPUP[] = $pickupPoint;
-        }
-
-        // Lưu điểm trả
-        $listNewDOP = [];
-        foreach ($request->dropoff_points as $dropoffPoint) {
-            CarTripDropoffPoint::create([
-                'car_trip_id' => $carTrip->id,
-                'dropoff_point_id' => $dropoffPoint['id'],
-                'dropoff_time' => $dropoffPoint['dropoff_time']
-            ]);
-            $listNewDOP[] = $dropoffPoint;
-        }
-
-        $car = Car::find($carTrip->car_id); 
-
-        if (!$car) {
+        if ($validateCT->fails()) {
             return response()->json([
                 'status' => 422,
-                'message' => 'Xe không tồn tại trong cơ sở dữ liệu.',
+                'message' => 'Lỗi xác thực form',
+                'data' => $validateCT->errors()
             ], 422);
         }
 
-        if (!$car->car_type_id) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Xe không có loại xe được chỉ định (car_type_id là null).',
-            ], 422);
-        }
+        try {
+            DB::beginTransaction();
 
-        $carType = CarType::find($car->car_type_id); 
-
-        if (!$carType) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Không tìm thấy thông tin loại xe.',
-            ], 422);
-        }
-
-        $numberOfSeats = $carType->quantity_seat; 
-        for ($i = 1; $i <= $numberOfSeats; $i++) {
-            // Tạo ghế
-            $seat = Seat::create([
-                'car_id' => $carTrip->car_id,
-                'seat_number' => 'Seat ' . $i,
-                'seat_type' => $i <= 5 ? 'vip' : 'standard', 
-                'price' => $i <= 5 ? 300 : 150, 
-                'car_type_id' => $request->car_type_id, 
+            // Tạo chuyến xe mới
+            $carTrip = CarTrip::create([
+                'car_id' => $request->car_id,
+                'car_route_id' => $request->car_route_id,
+                'departure_date' => $request->departure_date,
+                'arrival_date' => $request->arrival_date,
+                'return_date' => $request->return_date,
+                'price' => $request->price,
+                'status' => 'not_started',
+                'driver_1' => $request->driver_1,
+                'driver_2' => $request->driver_1,
+                'assistant_1' => $request->assistant_1,
+                'assistant_2' => $request->assistant_2,
             ]);
 
-            SeatCarTrip::create([
-                'seat_id' => $seat->id,
-                'car_id' => $carTrip->car_id,
-                'trip_id' => $carTrip->id,
-                'is_available' => true,
-            ]);
+            // Lưu điểm đón
+            $listNewPUP = [];
+            foreach ($request->pickup_points as $pickupPoint) {
+                CarTripPickupPoint::create([
+                    'car_trip_id' => $carTrip->id,
+                    'pickup_point_id' => $pickupPoint['id'],
+                    'pickup_time' => $pickupPoint['pickup_time']
+                ]);
+                $listNewPUP[] = $pickupPoint;
+            }
+
+            // Lưu điểm trả
+            $listNewDOP = [];
+            foreach ($request->dropoff_points as $dropoffPoint) {
+                CarTripDropoffPoint::create([
+                    'car_trip_id' => $carTrip->id,
+                    'dropoff_point_id' => $dropoffPoint['id'],
+                    'dropoff_time' => $dropoffPoint['dropoff_time']
+                ]);
+                $listNewDOP[] = $dropoffPoint;
+            }
+
+            $car = Car::find($carTrip->car_id);
+
+            if (!$car) {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Xe không tồn tại trong cơ sở dữ liệu.',
+                ], 422);
+            }
+
+            if (!$car->car_type_id) {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Xe không có loại xe được chỉ định (car_type_id là null).',
+                ], 422);
+            }
+
+            $carType = CarType::find($car->car_type_id);
+
+            if (!$carType) {
+                return response()->json([
+                    'status' => 422,
+                    'message' => 'Không tìm thấy thông tin loại xe.',
+                ], 422);
+            }
+
+            $numberOfSeats = $carType->quantity_seat;
+            for ($i = 1; $i <= $numberOfSeats; $i++) {
+                // Tạo ghế
+                $seat = Seat::create([
+                    'car_id' => $carTrip->car_id,
+                    'seat_number' => 'Seat ' . $i,
+                    'seat_type' => $i <= 5 ? 'vip' : 'standard',
+                    'price' => $i <= 5 ? 300 : 150,
+                    'car_type_id' => $request->car_type_id,
+                ]);
+
+                SeatCarTrip::create([
+                    'seat_id' => $seat->id,
+                    'car_id' => $carTrip->car_id,
+                    'trip_id' => $carTrip->id,
+                    'is_available' => true,
+                ]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 201,
+                'message' => 'Chuyến xe tạo mới thành công!',
+                'data' => [
+                    'carTrip' => $carTrip,
+                    'listNewPickupPoints' => $listNewPUP,
+                    'listNewDropoffPoints' => $listNewDOP
+                ]
+            ], 201);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage(),
+            ], 500);
         }
-
-        DB::commit(); 
-
-        return response()->json([
-            'status' => 201,
-            'message' => 'Chuyến xe tạo mới thành công!',
-            'data' => [
-                'carTrip' => $carTrip,
-                'listNewPickupPoints' => $listNewPUP,
-                'listNewDropoffPoints' => $listNewDOP
-            ]
-        ], 201);
-    } catch (\Throwable $th) {
-        DB::rollBack(); 
-
-        return response()->json([
-            'status' => 500,
-            'message' => $th->getMessage(),
-        ], 500);
     }
-}
 
 
-    public function updateCarTrip(Request $request, $id){
+    public function updateCarTrip(Request $request, $id)
+    {
         // Validate dữ liệu
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
@@ -193,6 +204,10 @@ class CarTripController extends Controller {
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
+            'driver_1' => 'nullable|string',
+            'driver_2' => 'nullable|string',
+            'assistant_1' => 'nullable|string',
+            'assistant_2' => 'nullable|string',
 
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
@@ -231,6 +246,10 @@ class CarTripController extends Controller {
                 'return_date' => $request->return_date,
                 'price' => $request->price,
                 'status' => $carTrip->status,
+                'driver_1' => $request->driver_1,
+                'driver_2' => $request->driver_1,
+                'assistant_1' => $request->assistant_1,
+                'assistant_2' => $request->assistant_2,
             ]);
 
             // Cập nhật điểm đón
@@ -312,7 +331,8 @@ class CarTripController extends Controller {
         }
     }
 
-    public function deleteCarTrip($id){
+    public function deleteCarTrip($id)
+    {
         $carTrip = CarTrip::find($id);
 
         if (!$carTrip) {
