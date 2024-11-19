@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\CarTrip;
+use App\Models\SeatCarTrip;
 use Illuminate\Support\Facades\Validator;
 
 class TicketController extends HelpController
@@ -12,7 +13,7 @@ class TicketController extends HelpController
     // 1. Hiển thị thông tin vé theo ID
     public function showTicket($id)
     {
-        $data = Ticket::with(['carTrip','car'])->find($id);
+        $data = Ticket::with(['carTrip','car','seatCarTrip'])->find($id);
     
         if (!$data) {
             return response()->json(['message' => 'Vé không tồn tại'], 404);
@@ -27,7 +28,7 @@ class TicketController extends HelpController
     // 2. Danh sách tất cả vé
     public function listTicket()
     {
-        $data = Ticket::with(['carTrip','car'])->paginate(10);
+        $data = Ticket::with(['carTrip','car','seatCarTrip'])->paginate(10);
        
 
         if ($data->isEmpty()) { //isEmpty kiểm tra data
@@ -52,6 +53,7 @@ class TicketController extends HelpController
             'car_trip_id' => 'nullable|exists:car_trips,id',
             'car_id' => 'nullable|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
+            'seat_car_trips_id' => 'nullable|exists:seat_car_trips,id',
         ]);
     
         if ($validator->fails()) {
@@ -65,6 +67,7 @@ class TicketController extends HelpController
             'car_trip_id' => $request->car_trip_id,
             'car_id' => $request->car_id,
             'car_route_id' => $request->car_route_id,
+            'seat_car_trips_id' => $request->seat_car_trips_id,
         ]);
     
         // Lấy thông tin của CarTrip nếu car_trip_id được cung cấp
