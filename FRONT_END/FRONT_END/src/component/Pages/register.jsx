@@ -104,7 +104,7 @@ export default function Register() {
                         <div className='login_icon'>
                             <img src='../../images/imageslogin/icons8-google-48.png' alt='' />
                             <p>
-                                Đăng nhập <strong>Google</strong>.
+                                Đăng nhập với <strong>Google</strong>.
                             </p>
                         </div>
                     </div>
