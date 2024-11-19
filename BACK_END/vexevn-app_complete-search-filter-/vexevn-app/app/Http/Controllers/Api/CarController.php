@@ -228,7 +228,9 @@ class CarController extends HelpController
     {
         $validateCarHouse = Validator::make($request->all(), [
             'name' => 'required|unique:car_houses,name',
-            'phone' => 'required|unique:car_houses,phone'
+            'phone' => 'required|unique:car_houses,phone',
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive,paused'
         ]);
 
         if ($validateCarHouse->fails()) {
@@ -244,6 +246,8 @@ class CarController extends HelpController
             $inputData = array(
                 'name' => $request->name,
                 'phone' => $request->phone,
+                'address' => $request->address,
+                'status' => $request->status ?? 'active'
             );
             $carHouse = CarHouse::create($inputData);
 
@@ -260,7 +264,7 @@ class CarController extends HelpController
         }
     }
 
-   
+
     public function updateCarHouse(Request $request, $idNX)
     {
         $carHouse = CarHouse::find($idNX);
@@ -274,7 +278,9 @@ class CarController extends HelpController
 
         $validateCarhouse = Validator::make($request->all(), [
             'name' => 'required|unique:car_houses,name,' . $idNX,
-            'phone' => 'required|unique:car_houses,phone,' . $idNX
+            'phone' => 'required|unique:car_houses,phone,' . $idNX,
+            'address' => 'nullable|string',
+            'status' => 'required|in:active,inactive,paused'
         ]);
 
         if ($validateCarhouse->fails()) {
@@ -289,6 +295,8 @@ class CarController extends HelpController
             // Cập nhật giá trị 
             $carHouse->name = $request->name;
             $carHouse->phone = $request->phone;
+            $carHouse->address = $request->address;
+            $carHouse->status = $request->status ?? $carHouse->status;
 
             $carHouse->save();
 
@@ -410,7 +418,7 @@ class CarController extends HelpController
                     $images[] = $imageName;
                 }
             }
-           
+
             return response()->json([
                 'status' => true,
                 'message' => 'A car added successfully',
@@ -420,7 +428,7 @@ class CarController extends HelpController
                 ]
             ], 201);
         } catch (\Throwable $th) {
-           
+
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
@@ -597,14 +605,14 @@ class CarController extends HelpController
     /* =====================================================================
                         PICK UP POINT 
 ===========================================================================*/
-public function showPickupPoint($carTripId)
-{
-    $data = CarTripPickupPoint::where('car_trip_id', $carTripId)->get();
-    if ($data->isEmpty()) {
-        return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+    public function showPickupPoint($carTripId)
+    {
+        $data = CarTripPickupPoint::where('car_trip_id', $carTripId)->get();
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
     }
-    return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
-}
 
     public function listPickupPoint()
     {
@@ -726,15 +734,15 @@ public function showPickupPoint($carTripId)
     /* =====================================================================
                         DROP OFF POINT 
 ===========================================================================*/
-public function showDropoffPoint($carTripId)
-{
-    $data = CarTripDropoffPoint::where('car_trip_id', $carTripId)->get();
+    public function showDropoffPoint($carTripId)
+    {
+        $data = CarTripDropoffPoint::where('car_trip_id', $carTripId)->get();
 
-    if ($data->isEmpty()) {
-        return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
     }
-    return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
-}
 
     public function listDropoffPoint()
     {
@@ -856,14 +864,14 @@ public function showDropoffPoint($carTripId)
     /* =====================================================================
                            CAR ROUTE POINT
 ===========================================================================*/
-public function showCarRoute($id)
-{
-    $data = CarRoute::find($id);
-    if (!$data) {
-        return $this->sendNotFoundResponse('Không tìm thấy Tuyến Đường!');
+    public function showCarRoute($id)
+    {
+        $data = CarRoute::find($id);
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy Tuyến Đường!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin tuyến đường thành công!', $data);
     }
-    return $this->sendResponse(200, 'Lấy thông tin tuyến đường thành công!', $data);
-}
 
     public function listCarRoute()
     {

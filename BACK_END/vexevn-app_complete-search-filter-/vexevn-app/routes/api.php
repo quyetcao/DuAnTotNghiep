@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\SeatController;
+use App\Http\Controllers\Api\TicketController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
