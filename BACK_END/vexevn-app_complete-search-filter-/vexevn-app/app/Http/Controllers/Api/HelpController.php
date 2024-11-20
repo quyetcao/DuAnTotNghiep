@@ -21,7 +21,7 @@ class HelpController extends Controller
             return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $this->sendResponse(500, 'Lỗi hệ thống', ['errror' => $th->getMessage()]);
+            return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $th->getMessage()]);
         }
     }
 
@@ -61,8 +61,12 @@ class HelpController extends Controller
         }
 
         return $this->handleDatabaseTransaction(function () use ($item, $message) {
-            $item->delete();
+            if (!$item->delete()) {
+            return $this->sendResponse(500, 'Không thể xóa dữ liệu');
+        }
             return $this->sendResponse(200, $message);
         });
     }
+
+
 }

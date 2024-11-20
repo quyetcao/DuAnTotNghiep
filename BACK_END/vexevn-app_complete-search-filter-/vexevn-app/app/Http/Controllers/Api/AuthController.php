@@ -26,35 +26,7 @@ class AuthController extends HelpController
     {
         return Socialite::driver('google')->redirect();
     }
-    // public function handleGoogleCallback () {
-    //     $googleUser = Socialite::driver('google')->user();
-    //     $findUser = User::where('google_id', $googleUser->id)->first();
-
-    //     try {
-    //         if (!$findUser) {
-    //             $findUser = User::updateOrCreate([
-    //                 'email' => $googleUser->email,
-    //             ], [
-    //                 'name' => $googleUser->name,
-    //                 'google_id' => $googleUser->id,
-    //                 'password' => encrypt('12345678'),
-    //             ]); 
-
-    //             return response()->json([
-    //                 'status' => 200,
-    //                 'message' => 'Đăng nhập thành công',
-    //                 'token' => $findUser->createToken('API TOKEN')->plainTextToken,
-    //                 'user' => $findUser, 
-    //             ], 200);
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return response()->json([
-    //             'status' => 500,
-    //             'message' => $th->getMessage(),
-    //         ], 500);
-    //     }
-    // }
-
+   
     public function handleGoogleCallback()
     {
         return $this->handleDatabaseTransaction(function () {
@@ -91,65 +63,49 @@ class AuthController extends HelpController
     public function signUp(Request $request)
     {
         $rules = [
-            'phone' => 'required|regex:/^[0-9]{10}$/',
+            'name' => 'required|string',
+            'phone' => 'required|unique:users,phone|regex:/^[0-9]{10}$/',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed'
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request) {
             $user = User::create([
+                'name' => $request->name,
                 'phone' => $request->phone,
-                'email' => $request->email,
+                'email' => $request->email, 
                 'password' => Hash::make($request->password)
             ]);
-
-            if (!$user) {
-                return $this->sendResponse(500, 'Không thể tạo người dùng');
-            }
-
             return $this->sendResponse(201, 'Người dùng tạo mới thành công!', $user);
         });
     }
 
-    public function login (Request $request) {
-        try {
-            $validateUser = Validator::make($request->all(), [        
-                'email' => 'required|email',
-                'password' => 'required|string'
-            ]);
+   public function login(Request $request)
+{
+    $rules = [
+        'email' => 'required|email',
+        'password' => 'required|string'
+    ];
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => 422,
-                    'message' => 'Lỗi xác thực!',
-                    'errors' => $validateUser->errors(),
-                ], 422);
-            }
-
-            if (!Auth::attempt($request->only(['email','password']))) {
-                return response()->json([
-                    'status' => 401,
-                    'message' => 'Email hoặc Password không đúng',
-                ], 401);
-            }
-
-            $user = User::where('email', $request->email)->first();
-            return response()->json([
-                'status' => 200,
-                'message' => 'Đăng nhập thành công!',
-                'token' => $user->createToken('API TOKEN')->plainTextToken
-            ], 200);
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
+    return $this->validateAndExecute($request, $rules, function () use ($request) {
+        if (!Auth::attempt($request->only(['email', 'password']))) {
+            return $this->sendResponse(401, 'Email hoặc Password không đúng');
         }
-    }
+
+        $user = User::where('email', $request->email)->first();
+        $token = $user->createToken('API TOKEN')->plainTextToken;
+
+        return $this->sendResponse(200, 'Đăng nhập thành công!', [
+            'token' => $token
+            // 'user' => $user
+        ]);
+    });
+}
+
 
     public function profile () {
         $user = Auth::user();
+        
         return response()->json([
             'status' => 200,
             'message' => 'Thông tin tài khoản',
@@ -162,7 +118,35 @@ class AuthController extends HelpController
         return response()->json([
             'status' => 200,
             'message' => 'Đăng xuất thành công',
-            'data' => []
+            // 'data' => []
         ], 200);
     }
 }
+ // public function handleGoogleCallback () {
+    //     $googleUser = Socialite::driver('google')->user();
+    //     $findUser = User::where('google_id', $googleUser->id)->first();
+
+    //     try {
+    //         if (!$findUser) {
+    //             $findUser = User::updateOrCreate([
+    //                 'email' => $googleUser->email,
+    //             ], [
+    //                 'name' => $googleUser->name,
+    //                 'google_id' => $googleUser->id,
+    //                 'password' => encrypt('12345678'),
+    //             ]); 
+
+    //             return response()->json([
+    //                 'status' => 200,
+    //                 'message' => 'Đăng nhập thành công',
+    //                 'token' => $findUser->createToken('API TOKEN')->plainTextToken,
+    //                 'user' => $findUser, 
+    //             ], 200);
+    //         }
+    //     } catch (\Throwable $th) {
+    //         return response()->json([
+    //             'status' => 500,
+    //             'message' => $th->getMessage(),
+    //         ], 500);
+    //     }
+    // }
