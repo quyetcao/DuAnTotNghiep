@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\EmployeeController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -203,3 +204,16 @@ Route::get('/comment', [CommentController::class, 'index']);
 Route::post('/comment', [CommentController::class, 'store']); 
 Route::post('/comment/{id}', [CommentController::class, 'update']); 
 Route::delete('/comment/{id}', [CommentController::class, 'destroy']); 
+
+
+
+
+// EMPLOYEE
+Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
+Route::get('/employee', [EmployeeController::class, 'listEmployee']);
+
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
+    Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
+    Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
+});

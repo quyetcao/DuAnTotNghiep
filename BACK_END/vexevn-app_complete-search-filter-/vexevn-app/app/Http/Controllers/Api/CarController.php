@@ -228,7 +228,7 @@ class CarController extends HelpController
     {
         $validateCarHouse = Validator::make($request->all(), [
             'name' => 'required|unique:car_houses,name',
-            'phone' => 'required|unique:car_houses,phone',
+            'phone' => 'required|unique:car_houses,phone|regex:/^[0-9]{10}$/',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive,paused'
         ]);
