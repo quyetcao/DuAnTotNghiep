@@ -198,8 +198,12 @@ Route::get('/seat', [SeatController::class, 'listSeat']);
 // });
 
 //Comment
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::get('/comment/{id}', [CommentController::class, 'show']); 
 Route::get('/comment', [CommentController::class, 'index']); 
+});
+Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('/comment', [CommentController::class, 'store']); 
 Route::post('/comment/{id}', [CommentController::class, 'update']); 
 Route::delete('/comment/{id}', [CommentController::class, 'destroy']); 
+});
