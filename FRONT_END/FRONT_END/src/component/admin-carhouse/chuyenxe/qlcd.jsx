@@ -1,4 +1,4 @@
-import '../css/quan-li-chien-dich.css';
+import '../../css/quan-li-chien-dich.css';
 
 // import mui icon
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
