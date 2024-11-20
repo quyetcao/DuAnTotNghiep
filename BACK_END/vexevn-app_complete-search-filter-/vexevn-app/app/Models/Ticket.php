@@ -5,28 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CarTrip extends Model
+class Ticket extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'car_id', 
-        'car_route_id', 
-        'departure_date', 
-        'arrival_date',
-        'return_date',
-        'price',
+        'name',
         'status',
-        'driver_1',
-        'driver_2',
-        'assistant_1',
-        'assistant_2'
+        'car_trip_id',
+        'car_id',
+        'car_route_id',
+        'seat_car_trips_id',
+        'pickup_points_id',
+        'dropoff_points_id',
     ];
-
-    public function seats() {
-    return $this->hasMany(Seat::class, 'car_id', 'car_id');
+    
+    public function carTrip()
+    {
+        return $this->belongsTo(CarTrip::class);
     }
-
     public function car() {
         return $this->belongsTo(Car::class);
     }
@@ -34,7 +30,6 @@ class CarTrip extends Model
     public function carRoute() {
         return $this->belongsTo(CarRoute::class);
     }
-
     public function pickupPoints() {
         return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
                     ->withPivot('pickup_time')
@@ -47,16 +42,9 @@ class CarTrip extends Model
                     ->withTimestamps();
         
     }
-
-    public function scopeNotStarted($query) {
-        return $query->where('status', 'not_started');
+    public function seatCarTrip()
+    {
+        return $this->belongsTo(SeatCarTrip::class);
     }
     
-    public function scopeRunning($query) {
-        return $query->where('status', 'running');
-    }
-
-    public function scopeCompleted($query) {
-        return $query->where('status', 'completed');
-    }
 }

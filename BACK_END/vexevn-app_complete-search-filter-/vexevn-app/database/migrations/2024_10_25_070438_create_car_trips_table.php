@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('car_id');
             $table->unsignedBigInteger('car_route_id')->nullable();
-            $table->date('departure_time');
             $table->date('departure_date');
             $table->date('arrival_date');
             $table->date('return_date')->nullable();

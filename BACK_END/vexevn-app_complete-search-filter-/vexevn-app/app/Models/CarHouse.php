@@ -9,7 +9,7 @@ class CarHouse extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone'];
+    protected $fillable = ['name', 'phone', 'status', 'address'];
 
     public function cars () {
         return $this->hasMany(Car::class);

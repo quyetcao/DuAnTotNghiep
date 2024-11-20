@@ -1,5 +1,5 @@
-import '../css/adminweb/addcarhouse.css'
-import { useForm } from "react-hook-form";
+import '../css/adminweb/addcarhouse.css';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { CallapiAddCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 
@@ -14,6 +14,7 @@ export default function AddCarHouse() {
         dispatch(CallapiAddCarHouse(data))
     }
 
+    // const navigate = useNavigate();
 
     // const navigate = useNavigate();
 

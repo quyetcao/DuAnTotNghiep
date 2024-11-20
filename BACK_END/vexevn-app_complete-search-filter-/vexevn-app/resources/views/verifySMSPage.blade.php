@@ -7,12 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="{{route('auth.google')}}">Google</a>
-    <form action="/login-register" method="POST">
+    <form action="/verify-otp" method="POST">
         @csrf
-        <label for="phone">Số điện thoại:</label>
-        <input type="text" id="phone" name="phone" required>
-        <button type="submit">Đăng nhập/Đăng ký</button>
+        <label for="otp">Mã OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="submit">Xác nhận OTP</button>
     </form>
 </body>
 </html>
