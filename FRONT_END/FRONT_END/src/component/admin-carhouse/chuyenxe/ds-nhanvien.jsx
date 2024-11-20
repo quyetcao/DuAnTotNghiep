@@ -1,4 +1,4 @@
-import '../css/ds-nhanvien.css';
+import '../../css/ds-nhanvien.css';
 
 // import mui icon
 import NotesOutlinedIcon from '@mui/icons-material/NotesOutlined';

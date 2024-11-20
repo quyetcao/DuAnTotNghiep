@@ -15,18 +15,22 @@ import ThanhToan from './component/thanhtoan/thanhtoan.jsx';
 import DonHangCuaToi from './component/info-use/don-hang-cua-toi.jsx';
 import ChiTietGiaoDich from './component/chi-tiet-giao-dich/chi-tiet-gd.jsx';
 import Dashboard from './component/dashboard/dashboard.jsx';
-import DSNhanVien from './component/ds-nhanvien/ds-nhanvien.jsx';
+import DSNhanVien from './component/admin-carhouse/chuyenxe/ds-nhanvien.jsx';
 import AppAdmin from './AdminApp.jsx';
 import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 // import AdminHandle from './component/admin-handle/admin-handle.jsx';
-import QuanLyDatVeXe from './component/quan_ly_dat_ve_xe/quanLyDatVeXe.jsx';
-import QuanLyChiendich from './component/quan-li-chien-dich/qlcd.jsx';
+
 import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
 import NoSearch from './component/viewpage/nosearch.jsx';
 import AppAdminQLWeb from './AdminWeb.jsx';
 import ShowDsCarHouse from './component/adminweb/admin-show-carhouse.jsx';
 import AddCarHouse from './component/adminweb/admin-add-carhouse.jsx';
-
+import AddEvent from './component/adminweb/post-event/admin-add-event.jsx';
+import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/addcxcarhouse.jsx';
+import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
+import QuanLyDatVeXe from './component/admin-carhouse/chuyenxe/quanLyDatVeXe.jsx'
+import AddCar from './component/admin-carhouse/car/addcar.jsx';
+import AddCarType from './component/admin-carhouse/car/addcartype.jsx';
 
 
 // Router giữa các trang 
@@ -77,8 +81,8 @@ const routes = createBrowserRouter([
       },
       /**router test thử các trang  */
       {
-        path:"/respon1",
-        element:<SelectSeatResponsive/>
+        path: "/respon1",
+        element: <SelectSeatResponsive />
       },
       {
         path: "/taikhoan",
@@ -98,11 +102,11 @@ const routes = createBrowserRouter([
     ]
   },
   {
-    path: "/admin",
+    path: "/admincarhouse",
     element: <AppAdmin />,
     children: [
       {
-        path: 'dashboard',
+        path: '',
         element: <Dashboard />
       },
       {
@@ -115,12 +119,23 @@ const routes = createBrowserRouter([
       },
       {
         path: "quanLyChienDich",
-        element: <QuanLyChiendich />
+        element: <Quanlychiendich />
       },
-      // {
-      //   path: "admin-handle",
-      //   element: <AdminHandle />
-      // },
+      //xe
+      {
+        path: 'addcar',
+        element: <AddCar/>
+      },
+      {
+        path: 'addcartype',
+        element: <AddCarType/>
+      },
+      // chuyến xe 
+      {
+        path: 'addchuyenxe',
+        element: <AddChuyenXebyCarHouse />
+      },
+
     ]
   },
 
@@ -136,7 +151,11 @@ const routes = createBrowserRouter([
         path: 'addcarhouse',
         element: <AddCarHouse />
       },
-    
+      // Event 
+      {
+        path: 'addEvent',
+        element: <AddEvent />
+      },
     ]
   },
 
