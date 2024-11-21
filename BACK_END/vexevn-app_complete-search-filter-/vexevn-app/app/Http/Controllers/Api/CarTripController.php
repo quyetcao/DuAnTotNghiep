@@ -23,6 +23,7 @@ use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
 use App\Models\Seat;
 use App\Models\SeatCarTrip;
+use App\Models\CarTripEmployee;
 
 class CarTripController extends Controller
 {
@@ -39,7 +40,7 @@ class CarTripController extends Controller
 
     public function showCarTrip($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])->find($id);
 
         if (!$data) {
             return response()->json([
@@ -60,14 +61,11 @@ class CarTripController extends Controller
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
-            'departure_date' => 'required|date',
+            'departure_date' => 'required|date|after_or_equal:today',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
-            'driver_1' => 'nullable|string',
-            'driver_2' => 'nullable|string',
-            'assistant_1' => 'nullable|string',
-            'assistant_2' => 'nullable|string',
+
 
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
@@ -78,6 +76,8 @@ class CarTripController extends Controller
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
 
             'car_type_id' => 'required|exists:car_types,id',
+            'employees' => 'required|array',  // Validate employees array
+            'employees.*' => 'exists:employees,id',  // Employee IDs phải tồn tại
         ]);
 
         if ($validateCT->fails()) {
@@ -100,10 +100,7 @@ class CarTripController extends Controller
                 'return_date' => $request->return_date,
                 'price' => $request->price,
                 'status' => 'not_started',
-                'driver_1' => $request->driver_1,
-                'driver_2' => $request->driver_1,
-                'assistant_1' => $request->assistant_1,
-                'assistant_2' => $request->assistant_2,
+
             ]);
 
             // Lưu điểm đón
@@ -172,6 +169,16 @@ class CarTripController extends Controller
                 ]);
             }
 
+            // Thêm nhân viên vào chuyến xe
+            $listEmployee = [];
+            foreach ($request->employees as $employeeId) {
+                CarTripEmployee::create([
+                    'car_trip_id' => $carTrip->id,
+                    'employee_id' => $employeeId
+                ]);
+                $listEmployee[] = $employeeId;
+            }
+
             DB::commit();
 
             return response()->json([
@@ -180,7 +187,8 @@ class CarTripController extends Controller
                 'data' => [
                     'carTrip' => $carTrip,
                     'listNewPickupPoints' => $listNewPUP,
-                    'listNewDropoffPoints' => $listNewDOP
+                    'listNewDropoffPoints' => $listNewDOP,
+                    'listEmployee' => $listEmployee
                 ]
             ], 201);
         } catch (\Throwable $th) {
@@ -204,10 +212,6 @@ class CarTripController extends Controller
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
-            'driver_1' => 'nullable|string',
-            'driver_2' => 'nullable|string',
-            'assistant_1' => 'nullable|string',
-            'assistant_2' => 'nullable|string',
 
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
@@ -216,6 +220,9 @@ class CarTripController extends Controller
             'dropoff_points' => 'required|array',
             'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
+
+            'employees' => 'required|array',  // Validate employees array
+            'employees.*' => 'exists:employees,id',  // Employee IDs phải tồn tại
         ]);
 
         if ($validateCT->fails()) {
@@ -246,10 +253,6 @@ class CarTripController extends Controller
                 'return_date' => $request->return_date,
                 'price' => $request->price,
                 'status' => $carTrip->status,
-                'driver_1' => $request->driver_1,
-                'driver_2' => $request->driver_1,
-                'assistant_1' => $request->assistant_1,
-                'assistant_2' => $request->assistant_2,
             ]);
 
             // Cập nhật điểm đón
@@ -310,6 +313,21 @@ class CarTripController extends Controller
                 $listNewDOP[] = $dropoffPoint;
             }
 
+
+            // Cập nhật tài xế và nhân viên thu vé
+            // Xóa tất cả nhân viên cũ liên kết với chuyến xe
+            CarTripEmployee::where('car_trip_id', $carTrip->id)->delete();
+
+            // Thêm nhân viên mới vào chuyến xe
+            $listEmployee = [];
+            foreach ($request->employees as $employeeId) {
+                CarTripEmployee::create([
+                    'car_trip_id' => $carTrip->id,
+                    'employee_id' => $employeeId,
+                ]);
+                $listEmployee[] = $employeeId;
+            }
+
             DB::commit();
 
             return response()->json([
@@ -318,7 +336,8 @@ class CarTripController extends Controller
                 'data' => [
                     'carTrip' => $carTrip,
                     'listNewPickupPoints' => $listNewPUP,
-                    'listNewDropoffPoints' => $listNewDOP
+                    'listNewDropoffPoints' => $listNewDOP,
+                    'listEmployee' => $listEmployee
                 ]
             ], 200);
         } catch (\Throwable $th) {

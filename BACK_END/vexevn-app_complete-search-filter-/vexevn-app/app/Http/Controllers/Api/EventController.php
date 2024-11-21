@@ -55,7 +55,7 @@ class EventController extends HelpController
             ]);
 
             // Trả về thông báo success
-            return $this->sendResponse(200, 'Sự kiện tạo mới thành công!', $event);
+            return $this->sendResponse(201, 'Sự kiện tạo mới thành công!', $event);
         });
     }
 
@@ -91,7 +91,7 @@ class EventController extends HelpController
 
     public function deleteEvent($id)
     {
-        return $this->handleDelete(Event::class, $id, 'Sự kiệnn đã được xóa thành công!');
+        return $this->handleDelete(Event::class, $id, 'Sự kiện đã được xóa thành công!');
     }
 
     // ==============ARTICLE=====================
