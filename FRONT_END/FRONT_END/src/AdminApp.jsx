@@ -42,7 +42,7 @@ function AppAdmin() {
                         <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
                             <ForumOutlinedIcon />
                         </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
+                        <a href='/admincarhouse/routercar' className='sidebar-icon'>
                             <BuildOutlinedIcon />
                         </a>
                     </div>

@@ -31,6 +31,9 @@ import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
 import QuanLyDatVeXe from './component/admin-carhouse/chuyenxe/quanLyDatVeXe.jsx'
 import AddCar from './component/admin-carhouse/car/addcar.jsx';
 import AddCarType from './component/admin-carhouse/car/addcartype.jsx';
+import Quanlyxe from './component/admin-carhouse/car/showlistcar.jsx';
+import RouterCar from './component/admin-carhouse/router-car.jsx';
+import Quanlyloaixe from './component/admin-carhouse/car/showlistloaixe.jsx';
 
 
 // Router giữa các trang 
@@ -123,12 +126,26 @@ const routes = createBrowserRouter([
       },
       //xe
       {
+        path: 'routercar',
+        element: <RouterCar />
+      },
+      {
+        path: 'listcar',
+        element: <Quanlyxe />
+      },
+      {
+        path:'listcartype',
+        element:<Quanlyloaixe/>
+
+      },
+
+      {
         path: 'addcar',
-        element: <AddCar/>
+        element: <AddCar />
       },
       {
         path: 'addcartype',
-        element: <AddCarType/>
+        element: <AddCarType />
       },
       // chuyến xe 
       {
