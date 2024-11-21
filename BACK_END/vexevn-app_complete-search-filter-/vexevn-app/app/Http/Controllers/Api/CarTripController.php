@@ -23,7 +23,7 @@ use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
 use App\Models\Seat;
 use App\Models\SeatCarTrip;
-
+use App\Models\CarTripEmployee;
 class CarTripController extends Controller
 {
     public function listCarTrip()
@@ -39,7 +39,8 @@ class CarTripController extends Controller
 
     public function showCarTrip($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])->find($id);
+
 
         if (!$data) {
             return response()->json([
@@ -60,7 +61,7 @@ class CarTripController extends Controller
         $validateCT = Validator::make($request->all(), [
             'car_id' => 'required|exists:cars,id',
             'car_route_id' => 'nullable|exists:car_routes,id',
-            'departure_date' => 'required|date',
+            'departure_date' => 'required|date|after_or_equal:today',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
@@ -76,7 +77,8 @@ class CarTripController extends Controller
             'dropoff_points' => 'required|array',
             'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
-
+            'employees' => 'required|array',  // Validate employees array
+            'employees.*' => 'exists:employees,id',  // Employee IDs phải tồn tại
             'car_type_id' => 'required|exists:car_types,id',
         ]);
 
@@ -171,6 +173,15 @@ class CarTripController extends Controller
                     'is_available' => true,
                 ]);
             }
+            // Thêm nhân viên vào chuyến xe
+            $listEmployee = [];
+            foreach ($request->employees as $employeeId) {
+                CarTripEmployee::create([
+                    'car_trip_id' => $carTrip->id,
+                    'employee_id' => $employeeId
+                ]);
+                $listEmployee[] = $employeeId;
+            }
 
             DB::commit();
 
@@ -180,7 +191,8 @@ class CarTripController extends Controller
                 'data' => [
                     'carTrip' => $carTrip,
                     'listNewPickupPoints' => $listNewPUP,
-                    'listNewDropoffPoints' => $listNewDOP
+                    'listNewDropoffPoints' => $listNewDOP,
+                    'listEmployee' => $listEmployee
                 ]
             ], 201);
         } catch (\Throwable $th) {
@@ -209,6 +221,8 @@ class CarTripController extends Controller
             'assistant_1' => 'nullable|string',
             'assistant_2' => 'nullable|string',
 
+            'employees' => 'required|array',  // Validate employees array
+            'employees.*' => 'exists:employees,id',  // Employee IDs phải tồn tại
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
             'pickup_points.*.pickup_time' => 'required|date_format:H:i',
@@ -300,7 +314,9 @@ class CarTripController extends Controller
                 CarTripDropoffPoint::updateOrCreate(
                     [
                         'car_trip_id' => $carTrip->id,
-                        'dropoff_point_id' => $dropoffPoint['id']
+                        'dropoff_point_id' => $dropoffPoint['id'],
+                        
+                        
                     ],
                     [
                         'dropoff_time' => $dropoffPoint['dropoff_time']
@@ -310,6 +326,19 @@ class CarTripController extends Controller
                 $listNewDOP[] = $dropoffPoint;
             }
 
+            // Cập nhật tài xế và nhân viên thu vé
+            // Xóa tất cả nhân viên cũ liên kết với chuyến xe
+            CarTripEmployee::where('car_trip_id', $carTrip->id)->delete();
+
+            // Thêm nhân viên mới vào chuyến xe
+            $listEmployee = [];
+            foreach ($request->employees as $employeeId) {
+                CarTripEmployee::create([
+                    'car_trip_id' => $carTrip->id,
+                    'employee_id' => $employeeId,
+                ]);
+                $listEmployee[] = $employeeId;
+            }
             DB::commit();
 
             return response()->json([
@@ -318,7 +347,8 @@ class CarTripController extends Controller
                 'data' => [
                     'carTrip' => $carTrip,
                     'listNewPickupPoints' => $listNewPUP,
-                    'listNewDropoffPoints' => $listNewDOP
+                    'listNewDropoffPoints' => $listNewDOP,
+                    'listEmployee' => $listEmployee
                 ]
             ], 200);
         } catch (\Throwable $th) {
