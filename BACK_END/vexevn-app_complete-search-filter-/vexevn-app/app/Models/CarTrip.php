@@ -16,7 +16,11 @@ class CarTrip extends Model
         'arrival_date',
         'return_date',
         'price',
-        'status'
+        'status',
+        'driver_1',
+        'driver_2',
+        'assistant_1',
+        'assistant_2'
     ];
 
     public function seats() {
@@ -42,12 +46,6 @@ class CarTrip extends Model
                     ->withPivot('dropoff_time')
                     ->withTimestamps();
         
-    }
-
-    public function employees()
-    {
-        return $this->belongsToMany(Employee::class, 'car_trip_employees', 'car_trip_id', 'employee_id')
-                    ->withTimestamps();
     }
 
     public function scopeNotStarted($query) {

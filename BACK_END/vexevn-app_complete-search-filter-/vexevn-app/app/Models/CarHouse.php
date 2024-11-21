@@ -15,10 +15,6 @@ class CarHouse extends Model
         return $this->hasMany(Car::class);
     }
 
-    public function employee() {
-        return $this->hasMany(Employee::class);
-    }
-
     public function pickupPoints () {
         return $this->hasMany(PickupPoint::class);
     }
