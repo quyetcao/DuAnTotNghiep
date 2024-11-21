@@ -3,41 +3,83 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Comment;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     // Lấy danh sách tất cả bình luận
     public function index()
     {
-        $comments = Comment::all();
-        return response()->json($comments, 200);
+        $data = Comment::all();
+    
+        if ($data->isEmpty()) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'đang trống!'
+            ], 404);
+        }
+    
+        return response()->json([
+            'status' => 200,
+            'message' => 'Hiển thị danh sách bình luận thành công',
+            'data' => $data
+        ], 200);
     }
-
-    // Lấy chi tiết một bình luận theo ID
+    
     public function show($id)
     {
-        $comment = Comment::find($id);
+        $comment = Comment::with('user')->find($id);
+    
         if (!$comment) {
             return response()->json(['message' => 'Bình luận không tồn tại'], 404);
         }
-        return response()->json($comment, 200);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Lấy thông tin bình luận thành công!',
+            'data' => [
+                'id' => $comment->id,
+                'content' => $comment->content,
+                'user' => $comment->user, 
+                'created_at' => $comment->created_at,
+                'updated_at' => $comment->updated_at,
+            ],
+        ], 200);
     }
+    
 
-    // Tạo mới một bình luận
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'content' => 'required|string',
-           'users_id' => 'required|exists:users,id',
+        // Validate dữ liệu
+        $validated = $request->validate([
+            'content' => 'required|string|max:500',
         ]);
 
-        $comment = Comment::create($validatedData);
-        return response()->json(['message' => 'Tạo bình luận thành công', 'comment' => $comment], 201);
-    }
+        // Tạo bình luận
+        $comment = Comment::create([
+            'content' => $validated['content'],
+            'users_id' => Auth::id(), 
+        ]);
 
-    // Cập nhật một bình luận theo ID
+        // Load thêm thông tin user để trả về
+        $comment->load('user');
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Bình luận đã được thêm thành công.',
+            'data' => [
+                'id' => $comment->id,
+                'content' => $comment->content,
+                'user' => [
+                    'id' => $comment->user->id,
+                    'name' => $comment->user->name, 
+                ],
+                'created_at' => $comment->created_at,
+            ]
+        ], 201);
+    }
     public function update(Request $request, $id)
     {
         $comment = Comment::find($id);
@@ -51,7 +93,21 @@ class CommentController extends Controller
         ]);
 
         $comment->update($validatedData);
-        return response()->json(['message' => 'Cập nhật bình luận thành công', 'comment' => $comment], 200);
+        $comment->load('user');
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Bình luận đã được cập nhật.',
+            'data' => [
+                'id' => $comment->id,
+                'content' => $comment->content,
+                'user' => [
+                    'id' => $comment->user->id,
+                    'name' => $comment->user->name, 
+                ],
+                'updated_at' => $comment->updated_at,
+            ]
+        ], 200);
     }
 
     // Xóa một bình luận theo ID

@@ -11,18 +11,12 @@ class Comment extends Model
 
     protected $fillable = [
         'content',
-        'user_id', 
-        // 'post_id'  // Nếu có quan hệ với bài viết hoặc một thực thể khác
+        'users_id'
     ];
 
-    // Ví dụ về các quan hệ
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'users_id');
     }
 
-    // public function post()
-    // {
-    //     return $this->belongsTo(Post::class); // Nếu comment liên quan đến bài viết
-    // }
 }
