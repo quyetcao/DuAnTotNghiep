@@ -28,8 +28,6 @@ class CreateSeatsTable extends Migration
     }
 
     /**
-     * Hoàn tác các migrations.
-     *
      * @return void
      */
     public function down()
