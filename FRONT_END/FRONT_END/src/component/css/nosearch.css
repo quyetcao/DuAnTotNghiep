@@ -1,0 +1,9 @@
+@media (max-width: 480px) {
+    .noSearch-title {
+        font-size: 16px;
+    }
+
+    .noSearch-text {
+        font-size: 14px;
+    }
+}

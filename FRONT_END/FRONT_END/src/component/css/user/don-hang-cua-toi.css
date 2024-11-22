@@ -23,6 +23,12 @@
     align-items:center ;
     justify-content: space-between;
 }
+
+.nd-cx-huy-top > p {
+    margin: 10px 0 6px;
+    color:rgba(0, 0, 0, .65);
+}
+
 .nd-cx-huy-top div{
     background-color: rgb(133, 133, 133);
     width: fit-content;
@@ -35,9 +41,10 @@
     padding: 0px 16px;
     font-size: 28px;
     font-weight: bold;
+    color:rgba(0, 0, 0, .65);
 }
 
-.nha-xe {
+.this-is-nha-xe {
     padding: 0px 16px;
     font-size: 14px;
     color:rgba(0, 0, 0, .65);
@@ -58,7 +65,12 @@
     color:rgba(0, 0, 0, .65);
 }
 
+.line-height {
+    line-height: 22px;
+}
+
 .btn-dat-lai {
+    font-size: 14px;
     border: none;
     border-top: 1px solid rgb(192, 192, 192);
     width: 100%;
@@ -66,4 +78,5 @@
     flex-direction: column;
     align-items: center;
     color: rgb(24, 144, 255);
+    cursor: pointer;
 }

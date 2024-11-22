@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
     --white-color: #fff;
@@ -9,10 +9,11 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Quicksand", sans-serif;
+    font-family: 'Mulish', sans-serif !important;
 }
 
 .thanh-thong-bao {
+    padding: 0 8px;
     text-align: center;
 }
 
@@ -58,7 +59,6 @@ body {
     align-items: center;
     justify-content: space-between;
 }
-
 
 .text-link {
     color: #2474e5;
@@ -217,13 +217,13 @@ a.text-link {
     margin-top: 6px;
 }
 
-
 /*card qldh */
 .cart-qldh {
     margin-top: 20px;
     padding: 20px;
     background-color: white;
     border-radius: 5px;
+    border: 1px solid rgb(224, 224, 224) !important;
 }
 
 .cart-kk-detail {
@@ -289,21 +289,21 @@ a.text-link {
     align-items: center;
 }
 
-.section-ticket-company-info {
+.section-ticket-content-info {
     width: 100%;
     padding: 10px 10px;
     margin: auto;
     display: flex;
-    flex-direction: row;
-    gap: 12px;
+    justify-content: space-between !important;
+    align-items: center;
+    /* flex-direction: row; */
+    /* gap: 12px; */
     border-bottom: 1px solid gray;
-
 }
 
 .section-ticket-license-plate {
     display: flex;
     flex-direction: column;
-
 }
 
 .base__Caption02-sc-1tvbuqk-33 {
@@ -314,11 +314,10 @@ a.text-link {
 
 .section-ticket-license-plate-detail1 {
     border: 2px solid rgb(20, 20, 20);
-    width:fit-content !important;
+    width: fit-content !important;
     border-radius: 4px;
-    height:30px;
+    height: 30px;
     padding: 0px 5px;
-
 }
 
 .base__Caption01Highlight-sc-1tvbuqk-17 {
@@ -327,7 +326,7 @@ a.text-link {
     font-size: 12px;
     white-space: nowrap;
 }
-.title-ttcx-bsx{
+.title-ttcx-bsx {
     margin-left: 15px;
 }
 
@@ -350,7 +349,7 @@ a.text-link {
 
 .section-ticket-company-info-name {
     align-items: center;
-    flex: 0 0 70%;
+    flex: 0 0 60%;
     width: 100%;
 }
 
@@ -368,8 +367,8 @@ a.text-link {
     margin-bottom: 0px;
 }
 
-.section-ticket-company-info div {
-    width: 30%;
+.section-ticket-content-info div {
+    /* width: 30%; */
 }
 
 .section-ticket-content {
@@ -380,9 +379,9 @@ a.text-link {
     border-bottom-right-radius: 5px;
 }
 /*code phần mảggin cho phân fthoong tin chuyến xe phần địa điểm giờ giấc*/
-.section-route-info{
-margin-top: 20px;
-margin-bottom: 20px;
+.section-route-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /*******/
@@ -528,9 +527,28 @@ margin-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 12px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .section-ticket-confirm-left {
     display: flex;
     gap: 5px;
+}
+
+/* responsive  */
+@media (max-width: 480px) {
+    .notification-heading {
+        padding: 0 12px;
+    }
+
+    .container-rentail-2 {
+        float: right;
+    }
+}
+
+@media (max-width: 1023px) {
+    .container-rentail-2 {
+        float: right;
+    }
 }

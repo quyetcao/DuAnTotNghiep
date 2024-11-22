@@ -9,18 +9,90 @@
     margin-top: 10px;
 }
 
-.group-input input {
-    margin-top: 10px;
-    height: 35px;
-    padding:15px;
-
+.input-thongtincanhan {
+    font-size: 14px;
+    height: 40px;
+    border-radius: 6px;
+    margin: 10px 0;
 }
-.luu-tk{
-    color:white;
+
+.group-input label {
+    margin-bottom: 0;
+}
+
+.group-gender {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.item-gender {
+    width: calc(100% / 3);
+    text-transform: none !important;
+}
+
+.luu-tk {
+    color: white;
     font-size: large;
     width: 100%;
     border: none;
-    height:35px;
+    height: 35px;
     border-radius: 3px;
-    background-color: rgb(22, 123, 255);
+    background-color: #2474e5;
+    transition: all 0.3s;
+}
+
+.luu-tk:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+}
+
+.group-input input:focus,
+.group-input input:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+}
+
+.hr-card {
+    margin: 16px 0;
+}
+
+/* responsive */
+@media (max-width: 820px) {
+    .layout-page-tk, 
+    .breadcrumbs-container {
+        display: none;
+    }
+
+    .layout-page-tk {
+        padding-left: 0% !important;
+    }
+
+    .thong-tin-ca-nhan {
+        width: 100%;
+        /* padding-right: 20px !important; */
+    }
+
+    .group-gender {
+        display: flex;
+        gap: 12px;
+        border-left: none;
+    }
+
+    .item-gender {
+        width: 24% !important;
+        padding: 8px 24px !important;
+        background-color: red;
+        border: 1px solid rgb(224, 224, 224) !important;
+        border-radius: 50px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .layout-page-tk {
+        padding-left: 24% !important;
+    }
+
+    .thong-tin-ca-nhan {
+        padding-right: 12%;
+    }
 }

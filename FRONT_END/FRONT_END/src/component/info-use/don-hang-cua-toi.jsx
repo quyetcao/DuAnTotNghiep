@@ -3,8 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import '../css/user/don-hang-cua-toi.css';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -73,18 +73,18 @@ export default function DonHangCuaToi() {
                         <div className='noidung-chuyen-xe-huy'>
                             <div className='nd-cx-huy-top'>
                                 <p>
-                                    <strong>T6,02/09/2024</strong>
+                                    <strong>T6, 02/09/2024</strong>
                                 </p>
                                 <div>Đã hủy</div>
                             </div>
                             <div className='thoigian-cx'>08:15</div>
-                            <div className='nha-xe'>Nam Quỳnh Anh</div>
-                            <div className='dia-diem-don-tra'>Hà Nội - Nghệ An</div>
-                            <div className='bien-so-xe'>
+                            <div className='line-height this-is-nha-xe'>NAM QUỲNH ANH</div>
+                            <div className='line-height dia-diem-don-tra'>Hà Nội - Nghệ An</div>
+                            <div className='line-height bien-so-xe'>
                                 Biển số xe: <strong>37B-087.74</strong>
                             </div>
                             <button className='btn-dat-lai'>
-                                <ConfirmationNumberIcon />
+                                <ConfirmationNumberOutlinedIcon fontSize='small'/>
                                 Đặt lại
                             </button>
                         </div>

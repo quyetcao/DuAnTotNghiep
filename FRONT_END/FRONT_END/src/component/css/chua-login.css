@@ -9,19 +9,42 @@
     width: 8%;
 }
 .no-login h2 {
+    font-size: 20px;
     margin: auto;
 }
 .no-login p {
     margin: auto;
+    font-size: 16px;
 }
 .btn-no-login {
     margin: auto;
-    width: 20%;
-    padding: 15px 40px;
-    color: white;
-    font-size: 18px;
+    width: 34%;
+    height: 40px;
+    color: aliceblue;
+    font-size: 16px;
     font-weight: 600;
-    background-color: rgb(42, 42, 124);
+    background-color: #2474e5;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin-top: 12px;
+}
+
+.btn-no-login:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 5px rgba(24, 144, 255, 0.2);
+}
+
+@media(max-width: 480px) {
+    .no-login h2 {
+        font-size: 18px;
+    }
+
+    .no-login p {
+        font-size: 14px;
+    }
+    
+    .btn-no-login {
+        font-size: 16px;
+    }
 }
