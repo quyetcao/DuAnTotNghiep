@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderHistory;
+use Illuminate\Support\Facades\DB;
 use App\Models\SeatCarTrip;
 use App\Models\CarTrip;
 use Illuminate\Http\Request;
@@ -83,30 +85,58 @@ class OrderController extends Controller
     }
 
     
-    public function cancelOrder($id){
-        $order = Order::find($id);
+    public function cancelOrder($orderId)
+    {
+        $order = Order::find($orderId);
 
         if (!$order) {
-            return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
+            return response()->json([
+                'status' => 404,
+                'message' => 'Không tìm thấy đơn hàng.',
+            ], 404);
         }
 
         if ($order->status === 'cancelled') {
-            return $this->sendResponse(400, 'Đơn hàng đã bị hủy trước đó.');
+            return response()->json([
+                'status' => 400,
+                'message' => 'Đơn hàng đã được hủy trước đó.',
+            ], 400);
         }
 
         try {
-            
-            $seatIds = json_decode($order->seat_ids);
-            SeatCarTrip::whereIn('id', $seatIds)->update(['is_available' => true]);
+            // Cập nhật trạng thái đơn hàng thành "cancelled"
+            $order->status = 'cancelled';
+            $order->save();
 
-            
-            $order->update(['status' => 'cancelled']);
+            // Lấy danh sách ghế từ đơn hàng
+            $seatIds = json_decode($order->seat_ids, true);
 
-            return $this->sendResponse(200, 'Hủy đơn hàng thành công.', $order);
+            // Cập nhật trạng thái `is_available` trong bảng `seat_car_trips`
+            DB::table('seat_car_trips')
+                ->whereIn('seat_id', $seatIds)
+                ->where('trip_id', $order->trip_id) // Điều kiện theo chuyến đi
+                ->update(['is_available' => true]); // Giải phóng ghế
+
+            // Ghi lịch sử đơn hàng
+            OrderHistory::create([
+                'order_id' => $order->id,
+                'user_id' => $order->user_id,
+                'status' => 'cancelled',
+                'description' => 'Đơn hàng bị hủy và ghế đã được giải phóng.',
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Đơn hàng đã được hủy thành công và ghế đã được giải phóng.',
+            ], 200);
         } catch (\Throwable $th) {
-            return $this->sendResponse(500, $th->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => 'Lỗi khi hủy đơn hàng: ' . $th->getMessage(),
+            ], 500);
         }
     }
+
 
 
     public function updateOrderStatus(Request $request, $id){

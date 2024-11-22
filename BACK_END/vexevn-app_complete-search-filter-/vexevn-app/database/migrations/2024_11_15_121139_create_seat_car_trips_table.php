@@ -13,16 +13,17 @@ class CreateSeatCarTripsTable extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id(); // ID đơn hàng
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Khách hàng đặt
-            $table->unsignedBigInteger('trip_id'); // ID chuyến xe
-            $table->json('seat_ids'); // Danh sách các ghế đặt, lưu dưới dạng JSON
-            $table->unsignedBigInteger('total_price'); // Tổng giá tiền của đơn hàng
-            $table->enum('status', ['pending', 'paid', 'cancelled'])->default('pending'); // Trạng thái đơn hàng
+        Schema::create('seat_car_trips', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('seat_id');
+            $table->unsignedBigInteger('car_id');
+            $table->unsignedBigInteger('trip_id');
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
-        
-            $table->foreign('trip_id')->references('id')->on('car_trips')->onDelete('cascade'); // Liên kết với car_trips
+
+            $table->foreign('seat_id')->references('id')->on('seats')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('trip_id')->references('id')->on('car_trips')->onDelete('cascade');
         });
     }
 

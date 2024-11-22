@@ -34,16 +34,19 @@ class Order extends Model
 
         
         static::updated(function ($order) {
-            if ($order->isDirty('status')) {
+            // Kiểm tra nếu trạng thái thay đổi và chuyển thành "cancelled"
+            if ($order->isDirty('status') && $order->status === 'cancelled') {
+                // Tạo lịch sử đơn hàng
                 OrderHistory::create([
                     'order_id' => $order->id,
                     'user_id' => $order->user_id,
-                    'status' => $order->status,
-                    'description' => 'Trạng thái thay đổi thành: ' . $order->status,
+                    'status' => 'cancelled',
+                    'description' => 'Đơn hàng bị hủy và ghế đã được giải phóng.',
                 ]);
             }
         });
     }
+
 
     /**
      */

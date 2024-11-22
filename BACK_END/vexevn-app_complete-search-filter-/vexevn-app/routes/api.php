@@ -215,11 +215,11 @@ Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
     Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
     Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
-});
+// });
 
 //ORDER
 
@@ -229,7 +229,7 @@ Route::get('/orders', [OrderController::class, 'listOrders']);
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/orders/create', [OrderController::class, 'createOrder']);
     Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
-    Route::delete('/orders/delete/{id}', [OrderController::class, 'cancelOrder']);
+    Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
 // });
 
 //ORDER HISTORY
