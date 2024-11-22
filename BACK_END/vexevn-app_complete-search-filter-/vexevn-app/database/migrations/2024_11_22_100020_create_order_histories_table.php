@@ -9,14 +9,14 @@ class CreateOrderHistoriesTable extends Migration
     public function up()
     {
         Schema::create('order_histories', function (Blueprint $table) {
-            $table->id(); // ID của lịch sử
-            $table->unsignedBigInteger('order_id'); // Liên kết đến đơn hàng
-            $table->unsignedBigInteger('user_id'); // Người thực hiện thay đổi
-            $table->string('status'); // Trạng thái đơn hàng (pending, paid, cancelled, etc.)
-            $table->text('description')->nullable(); // Mô tả thêm về thay đổi
+            $table->id(); 
+            $table->unsignedBigInteger('order_id'); 
+            $table->unsignedBigInteger('user_id'); 
+            $table->string('status'); 
+            $table->text('description')->nullable(); 
             $table->timestamps();
 
-            // Khóa ngoại
+            
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

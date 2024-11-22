@@ -29,25 +29,25 @@ class OrderController extends Controller
             'seat_ids.*' => 'exists:seat_car_trips,id',
         ]);
 
-        // Truy vấn các ghế và thông tin giá từ bảng seats
+        
         $seats = SeatCarTrip::whereIn('id', $validated['seat_ids'])
             ->where('trip_id', $validated['trip_id'])
             ->where('is_available', true)
-            ->with('seat') // Kết nối với bảng seats
+            ->with('seat') 
             ->get();
 
-        // Kiểm tra ghế có tồn tại và khả dụng
+        
         if ($seats->isEmpty() || $seats->count() !== count($validated['seat_ids'])) {
             return $this->sendResponse(400, 'Một hoặc nhiều ghế không khả dụng.');
         }
 
-        // Tính tổng giá từ cột price trong bảng seats
+        
         $totalPrice = $seats->sum(function ($seatCarTrip) {
             return $seatCarTrip->seat->price ?? 0;
         });
 
         try {
-            // Tạo đơn hàng
+            
             $order = Order::create([
                 'user_id' => $validated['user_id'],
                 'trip_id' => $validated['trip_id'],
@@ -56,7 +56,7 @@ class OrderController extends Controller
                 'status' => 'pending',
             ]);
 
-            // Cập nhật trạng thái ghế
+            
             SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
 
             return $this->sendResponse(201, 'Đặt vé thành công!', $order);
@@ -95,11 +95,11 @@ class OrderController extends Controller
         }
 
         try {
-            // Khôi phục trạng thái ghế
+            
             $seatIds = json_decode($order->seat_ids);
             SeatCarTrip::whereIn('id', $seatIds)->update(['is_available' => true]);
 
-            // Cập nhật trạng thái đơn hàng
+            
             $order->update(['status' => 'cancelled']);
 
             return $this->sendResponse(200, 'Hủy đơn hàng thành công.', $order);

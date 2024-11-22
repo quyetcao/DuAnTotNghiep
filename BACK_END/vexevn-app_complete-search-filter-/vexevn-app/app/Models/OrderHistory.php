@@ -17,7 +17,6 @@ class OrderHistory extends Model
     ];
 
     /**
-     * Quan hệ với bảng orders.
      */
     public function order()
     {

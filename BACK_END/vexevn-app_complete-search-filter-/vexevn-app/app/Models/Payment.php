@@ -19,7 +19,6 @@ class Payment extends Model
     ];
 
     /**
-     * Quan hệ với đơn hàng.
      */
     public function order()
     {
@@ -27,7 +26,6 @@ class Payment extends Model
     }
 
     /**
-     * Quan hệ với người dùng.
      */
     public function user()
     {
@@ -35,7 +33,6 @@ class Payment extends Model
     }
 
     /**
-     * Kiểm tra thanh toán thành công.
      */
     public function isCompleted()
     {

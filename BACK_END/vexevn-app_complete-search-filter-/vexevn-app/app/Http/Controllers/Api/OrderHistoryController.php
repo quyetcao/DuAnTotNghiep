@@ -18,7 +18,6 @@ class OrderHistoryController extends Controller
     }
 
     /**
-     * Lấy lịch sử của một đơn hàng.
      */
     public function getOrderHistory($orderId)
     {
@@ -42,7 +41,6 @@ class OrderHistoryController extends Controller
 
 
     /**
-     * Tạo mới lịch sử đơn hàng.
      */
     public function createOrderHistory(Request $request)
     {
@@ -75,7 +73,6 @@ class OrderHistoryController extends Controller
 
 
     /**
-     * Xoá lịch sử đơn hàng.
      */
     public function deleteOrderHistory($id)
     {

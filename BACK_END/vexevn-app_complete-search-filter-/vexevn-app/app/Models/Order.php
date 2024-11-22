@@ -19,11 +19,10 @@ class Order extends Model
     ];
 
     /**
-     * Boot method để thêm sự kiện khi đơn hàng được tạo mới.
      */
     protected static function booted()
     {
-        // Ghi lịch sử khi đơn hàng được tạo mới
+        
         static::created(function ($order) {
             OrderHistory::create([
                 'order_id' => $order->id,
@@ -33,7 +32,7 @@ class Order extends Model
             ]);
         });
 
-        // Ghi lịch sử khi trạng thái đơn hàng thay đổi
+        
         static::updated(function ($order) {
             if ($order->isDirty('status')) {
                 OrderHistory::create([
@@ -47,7 +46,6 @@ class Order extends Model
     }
 
     /**
-     * Quan hệ với bảng order_histories.
      */
     public function histories()
     {
