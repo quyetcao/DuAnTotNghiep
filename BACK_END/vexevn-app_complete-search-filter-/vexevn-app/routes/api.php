@@ -14,6 +14,9 @@ use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OrderHistoryController;
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -217,3 +220,26 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
     Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
 });
+
+//ORDER
+
+Route::get('/orders/{id}', [OrderController::class, 'showOrder']);
+Route::get('/orders', [OrderController::class, 'listOrders']);
+
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/orders/create', [OrderController::class, 'createOrder']);
+    Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
+    Route::delete('/orders/delete/{id}', [OrderController::class, 'cancelOrder']);
+// });
+
+//ORDER HISTORY
+Route::post('/order-histories', [OrderHistoryController::class, 'createOrderHistory']); 
+Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrderHistory']); 
+Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']); 
+
+//PAYMENT
+Route::post('/payments', [PaymentController::class, 'createPayment']); 
+Route::get('/payments/{id}', [PaymentController::class, 'showPayment']); 
+Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']); 
+Route::get('/payments', [PaymentController::class, 'listPayments']); 
+Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']); 

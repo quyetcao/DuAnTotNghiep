@@ -4,14 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeatCarTripsTable extends Migration
+return new class extends Migration
 {
     /**
-     * Chạy các migrations.
-     *
-     * @return void
+     * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); // ID đơn hàng
@@ -27,10 +25,10 @@ class CreateSeatCarTripsTable extends Migration
     }
 
     /**
-     * @return void
-     */ 
-    public function down()
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('seat_car_trips');
+        Schema::dropIfExists('orders');
     }
-}
+};
