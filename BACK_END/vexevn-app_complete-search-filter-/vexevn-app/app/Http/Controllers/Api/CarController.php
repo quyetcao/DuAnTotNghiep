@@ -58,7 +58,7 @@ class CarController extends HelpController
         $validateCarType = Validator::make($request->all(), [
             'name' => 'required|string|unique:car_types,name',
             'quantity_seat' => 'required|integer|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //max 2MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048', //max 2MB
         ]);
 
         if ($validateCarType->fails()) {

@@ -1,16 +1,19 @@
 import axios from "axios";
-import { getAllCarType } from "./createSlice-cartype"
+import { getAllCarType,showLoading, showPopupOkanhError } from "./createSlice-cartype";
+
 
 
 // call lấy tất cả xe 
 export function CallapiGetAllCar(){
+
     return async (dispatch) => {
       try {
-     
+       dispatch(showLoading(false));
         let res = await axios.get(`http://localhost:8000/api/cartypes`);
         console.log("all loại xe ",res);
       
        dispatch(getAllCarType(res.data.data))
+       dispatch(showLoading(true));
       } catch (error) {
         console.log(error);
       } 
@@ -27,6 +30,7 @@ export function CallapiGetAllCar(){
         console.log("all loại xe ",res);
       
        dispatch(getAllCarType(res.data.data))
+       dispatch(showPopupOkanhError(true));
       } catch (error) {
         console.log(error);
       } 

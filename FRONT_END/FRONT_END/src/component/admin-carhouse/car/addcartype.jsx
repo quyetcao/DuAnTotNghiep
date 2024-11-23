@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { CallapiPostCarType } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AddCarType(){
+    const notify = () => toast.success("Thêm Thành Công!", { theme: "colored" });
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm()
@@ -17,14 +19,22 @@ export default function AddCarType(){
         formData.append('quantity_seat', data.quantity_seat); 
         formData.append('image', imageFile); 
         dispatch(CallapiPostCarType(formData))
-            navigate('/admincarhouse/listcartype');
-        
-
     }
-
+    const isToast = useSelector((state) => state.Storecartype?.popupXacNhan);
+    if (isToast == true) {
+        notify();
+        setTimeout(()=>{
+            navigate('/admincarhouse/listcartype');
+        },2000)
+    }
+    
+    
+    
+    
     return (
+         
         <>
-        
+          <ToastContainer/>
         <h3 style={{textAlign:'center'}}>THÊM THÔNG TIN CỦA XE</h3>
             <div className="page-add-carhouse">
             <form id="busForm" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
