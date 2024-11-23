@@ -26,7 +26,7 @@ export default function Quanlychiendich() {
     return (
         <>
             <div className='container'>
-                <div className='sidebar'>
+                {/* <div className='sidebar'>
                     <a href='#' className='sidebar-icon'>
                         <DashboardOutlinedIcon />
                     </a>
@@ -48,10 +48,10 @@ export default function Quanlychiendich() {
                     <a href='#' className='sidebar-icon'>
                         <BuildOutlinedIcon />
                     </a>
-                </div>
+                </div> */}
                 <div className='dashboard'>
                     <div className='dashboard-container'>
-                        <div className='wrapper-top m-4'>
+                        {/* <div className='wrapper-top m-4'>
                             <div className='form-search'>
                                 <div className='search-container'>
                                     <SearchOutlinedIcon style={{ color: '#6e6e6e' }} />
@@ -85,7 +85,7 @@ export default function Quanlychiendich() {
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> */}
                         <div className='dashboard-body'>
                             <div className='body-content'>
                                 <div className='body-content-top'>

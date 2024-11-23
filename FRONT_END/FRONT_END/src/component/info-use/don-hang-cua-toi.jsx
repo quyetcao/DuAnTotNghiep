@@ -43,6 +43,9 @@ export default function DonHangCuaToi() {
     };
     return (
         <>
+            <div className='dhct-header'>
+                <span className='dhct-title'>Đơn hàng của tôi</span>
+            </div>
             <Box sx={{ width: '100%', marginTop: '40px' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '80%' }}>
                     <Tabs
@@ -84,7 +87,7 @@ export default function DonHangCuaToi() {
                                 Biển số xe: <strong>37B-087.74</strong>
                             </div>
                             <button className='btn-dat-lai'>
-                                <ConfirmationNumberOutlinedIcon fontSize='small'/>
+                                <ConfirmationNumberOutlinedIcon fontSize='small' />
                                 Đặt lại
                             </button>
                         </div>
