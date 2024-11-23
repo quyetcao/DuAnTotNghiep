@@ -552,10 +552,6 @@ a.text-link1 {
     justify-content: center;
 }
 
-.thanhtoan-btn {
-    background-color: ;
-}
-
 .payment-ft-content__title {
     font-weight: 700;
     margin-left: 8px;
@@ -888,10 +884,10 @@ a.text-link1 {
         border: none !important;
     }
 
-    .wrap-left,
+    /* .wrap-left,
     .wrap-right {
         min-width: 375px !important;
-    }
+    } */
 
     .wrap-top {
         width: 100%;

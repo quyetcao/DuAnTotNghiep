@@ -38,4 +38,27 @@ const initialState = {
     },
   });
   
+<<<<<<< HEAD
   export const {getAllCarType ,showLoading,showPopupOkanhError } = StoreCarType.actions;
+=======
+  export const {getAllCarType } = StoreCarType.actions;
+
+
+
+  export const StoreCar = createSlice({
+    name: "StoreCar",
+    initialState,
+    reducers: {
+      getAllListCar(state,action){
+        // console.log('dhdhdhdh',action.payload);
+        state.dataCar = action.payload;
+        // console.log('7384732847384748',state.dataCar);
+      },
+      
+     
+
+    },
+  });
+  
+  export const {getAllListCar } = StoreCar.actions;
+>>>>>>> b5b3a40b8f78b76b98d1de85afb840d6d3acbc3c

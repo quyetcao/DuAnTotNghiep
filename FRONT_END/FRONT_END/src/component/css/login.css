@@ -87,8 +87,8 @@
 .submit-login {
     margin-top: 20px;
     border: none;
-    /* width: 50%; */
-    /* height: 50px; */
+    width: 50%;
+    height: 44px;
     color: aliceblue;
     border-radius: 10px;
     background-color: #2474e5;

@@ -1,11 +1,11 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LoyaltyIcon from '@mui/icons-material/Loyalty';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
+import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import RedeemIcon from '@mui/icons-material/Redeem';
 import PaymentIcon from '@mui/icons-material/Payment';
-import RateReviewIcon from '@mui/icons-material/RateReview';
-// import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+// import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
 import '../css/user/layout-Page-tk.css';
 
 export default function LayoutPageTaiKhoan() {
@@ -15,15 +15,15 @@ export default function LayoutPageTaiKhoan() {
                 <div className='slider-bar'>
                     <ul>
                         <li>
-                            <AccountCircleIcon />
+                            <AccountCircleOutlinedIcon />
                             <p>Thông tin tài khoản</p>
                         </li>
                         <li>
-                            <LoyaltyIcon />
+                            <LoyaltyOutlinedIcon />
                             <p>Thành viên thường</p>
                         </li>
                         <li>
-                            <ConfirmationNumberIcon />
+                            <ConfirmationNumberOutlinedIcon />
                             <p>Đơn hàng của tôi</p>
                         </li>
                         <li>
@@ -35,7 +35,7 @@ export default function LayoutPageTaiKhoan() {
                             <p>Quản lý thẻ</p>
                         </li>
                         <li>
-                            <RateReviewIcon />
+                            <RateReviewOutlinedIcon />
                             <p>Nhận xét chuyến đi</p>
                         </li>
                         <li>

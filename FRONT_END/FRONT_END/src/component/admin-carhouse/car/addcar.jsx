@@ -16,7 +16,7 @@ export default function AddCar(){
     return (
         <>
         
-        <h3 style={{textAlign:'center'}}>THÊM XE </h3>
+        <h3 style={{textAlign:'center', marginTop:'40px'}}>THÊM XE </h3>
             <div className="page-add-carhouse">
             <form id="busForm" onSubmit={handleSubmit(onSubmit)}>
                 

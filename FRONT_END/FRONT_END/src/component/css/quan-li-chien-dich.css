@@ -78,11 +78,12 @@ body {
 
 .search-container input {
     border: none;
-    background-color: transparent;
+    /* background-color: transparent; */
     outline: none;
     flex-grow: 1;
     font-size: 14px;
     color: #333;
+    margin: 0;
 }
 
 .search-container i {
@@ -170,7 +171,7 @@ body {
     align-items: center;
     gap: 8px;
     border: 1px solid #ccc;
-    padding: 6px 32px;
+    padding: 6px 0 6px 12px;
     border-radius: 6px;
 }
 
@@ -178,6 +179,7 @@ body {
     border: none;
     outline: none;
     width: 100%;
+    margin: 0;
 }
 
 .qlcd-search input::placeholder {
@@ -280,9 +282,9 @@ tbody tr:nth-child(even) {
     margin: 4px;
 }
 
-.page-button {
+/* .page-button {
     margin: 200px 16px;
-}
+} */
 
 .page-list {
     display: flex;

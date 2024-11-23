@@ -17,10 +17,6 @@ class CarTrip extends Model
         'return_date',
         'price',
         'status'
-        // 'driver_1',
-        // 'driver_2',
-        // 'assistant_1',
-        //'assistant_2'
     ];
 
     public function seats() {

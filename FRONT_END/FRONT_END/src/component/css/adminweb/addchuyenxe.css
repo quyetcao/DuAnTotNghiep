@@ -24,9 +24,13 @@ input {
     transition: all 0.3s ease;
 }
 
-input:focus {
+#busForm > input:focus {
     border-color: #007bff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+#model {
+    margin-bottom: 20px;
 }
 
 .btnsb {
@@ -34,7 +38,9 @@ input:focus {
     background-color: #007bff;
     color: #ffffff;
     border: none;
+    font-size: 16px;
     padding: 12px;
+    margin-top: 24px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
