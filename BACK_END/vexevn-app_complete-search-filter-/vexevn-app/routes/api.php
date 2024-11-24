@@ -42,9 +42,9 @@ Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
 Route::get('/cartypes', [CarController::class, 'listCarType']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/cartypes/create', [CarController::class, 'createCarType']);
-    Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
-    Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
+Route::post('/cartypes/create', [CarController::class, 'createCarType']);
+Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
+Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
 //});
 
 
@@ -54,9 +54,9 @@ Route::get('/carhouse/{id}', [CarController::class, 'showCarHouse']);
 Route::get('/carhouse', [CarController::class, 'listCarHouse']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/carhouse/create', [CarController::class, 'createCarHouse']);
-    Route::post('/carhouse/update/{id}', [CarController::class, 'updateCarHouse']);
-    Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse']);
+Route::post('/carhouse/create', [CarController::class, 'createCarHouse']);
+Route::post('/carhouse/update/{id}', [CarController::class, 'updateCarHouse']);
+Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse']);
 //});
 
 
@@ -66,9 +66,9 @@ Route::get('/car/{id}', [CarController::class, 'showCar']);
 Route::get('/car', [CarController::class, 'listCar']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/car/create', [CarController::class, 'createCar']);
-    Route::post('/car/update/{id}', [CarController::class, 'updateCar']);
-    Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
+Route::post('/car/create', [CarController::class, 'createCar']);
+Route::post('/car/update/{id}', [CarController::class, 'updateCar']);
+Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
 //});
 
 
@@ -91,9 +91,9 @@ Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPoint']);
 Route::get('/pickuppoint', [CarController::class, 'listPickupPoint']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/pickuppoint/create', [CarController::class, 'createPickupPoint']);
-    Route::post('/pickuppoint/update/{id}', [CarController::class, 'updatePickupPoint']);
-    Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPoint']);
+Route::post('/pickuppoint/create', [CarController::class, 'createPickupPoint']);
+Route::post('/pickuppoint/update/{id}', [CarController::class, 'updatePickupPoint']);
+Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPoint']);
 //});
 
 
@@ -106,9 +106,9 @@ Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPoint']);
 Route::get('/dropoffpoint', [CarController::class, 'listDropoffPoint']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/dropoffpoint/create', [CarController::class, 'createDropoffPoint']);
-    Route::post('/dropoffpoint/update/{id}', [CarController::class, 'updateDropoffPoint']);
-    Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoffPoint']);
+Route::post('/dropoffpoint/create', [CarController::class, 'createDropoffPoint']);
+Route::post('/dropoffpoint/update/{id}', [CarController::class, 'updateDropoffPoint']);
+Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoffPoint']);
 //});
 
 // Route::get('')
@@ -122,9 +122,9 @@ Route::get('/carroute/{id}', [CarController::class, 'showCarRoute']);
 Route::get('/carroute', [CarController::class, 'listCarRoute']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/carroute/create', [CarController::class, 'createCarRoute']);
-    Route::post('/carroute/update/{id}', [CarController::class, 'updateCarRoute']);
-    Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute']);
+Route::post('/carroute/create', [CarController::class, 'createCarRoute']);
+Route::post('/carroute/update/{id}', [CarController::class, 'updateCarRoute']);
+Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute']);
 //});
 
 // CAR TRIP
@@ -134,9 +134,9 @@ Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
-    Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
-    Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
+Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
+Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
 //});
 
 
@@ -182,9 +182,9 @@ Route::get('/ticket/{id}', [TicketController::class, 'showTicket']);
 Route::get('/ticket', [TicketController::class, 'listTicket']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/ticket', [TicketController::class, 'createTicket']);
-    Route::post('/ticket/{id}', [TicketController::class, 'updateTicket']);
-    Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
+Route::post('/ticket', [TicketController::class, 'createTicket']);
+Route::post('/ticket/{id}', [TicketController::class, 'updateTicket']);
+Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 // });
 
 
@@ -194,20 +194,20 @@ Route::get('/seat/{id}', [SeatController::class, 'showSeat']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/seat', [SeatController::class, 'createSeat']);
-    Route::post('/seat/{id}', [SeatController::class, 'updateSeat']);
-    Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
+Route::post('/seat', [SeatController::class, 'createSeat']);
+Route::post('/seat/{id}', [SeatController::class, 'updateSeat']);
+Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
 // });
 
 //Comment
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-Route::get('/comment/{id}', [CommentController::class, 'show']); 
-Route::get('/comment', [CommentController::class, 'index']); 
+    Route::get('/comment/{id}', [CommentController::class, 'show']);
+    Route::get('/comment', [CommentController::class, 'index']);
 });
 Route::group(['middleware' => ['auth:sanctum']], function () {
-Route::post('/comment', [CommentController::class, 'store']); 
-Route::post('/comment/{id}', [CommentController::class, 'update']); 
-Route::delete('/comment/{id}', [CommentController::class, 'destroy']); 
+    Route::post('/comment', [CommentController::class, 'store']);
+    Route::post('/comment/{id}', [CommentController::class, 'update']);
+    Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 });
 
 // EMPLOYEE
@@ -218,6 +218,9 @@ Route::get('/employee', [EmployeeController::class, 'listEmployee']);
     Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
     Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
     Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
+<<<<<<< HEAD
+});
+=======
 // });
 
 //ORDER
@@ -242,3 +245,4 @@ Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
 Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']); 
 Route::get('/payments', [PaymentController::class, 'listPayments']); 
 Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']); 
+>>>>>>> b5b3a40b8f78b76b98d1de85afb840d6d3acbc3c
