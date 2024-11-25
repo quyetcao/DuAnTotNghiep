@@ -23,8 +23,11 @@ class User extends Authenticatable
         'name',
         'phone',
         'email',
+        'role',
+        'carhouse_id',
         'password',
-        'google_id'
+        'google_id',
+        'carhouse_id',
     ];
 
     /**
@@ -51,6 +54,10 @@ class User extends Authenticatable
     }
     public function comment() {
         return $this->hasMany(Comment::class);
+    }
+
+    public function carHouse() {
+        return $this->belongsTo(CarHouse::class);
     }
     
 }

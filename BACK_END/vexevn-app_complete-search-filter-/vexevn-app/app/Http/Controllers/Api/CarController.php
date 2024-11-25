@@ -58,7 +58,7 @@ class CarController extends HelpController
         $validateCarType = Validator::make($request->all(), [
             'name' => 'required|string|unique:car_types,name',
             'quantity_seat' => 'required|integer|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048', //max 2MB
+            'image' => 'required|image|mimes:jpeg,png,jpg', //max 2MB
         ]);
 
         if ($validateCarType->fails()) {
@@ -118,7 +118,7 @@ class CarController extends HelpController
         $validateCartype = Validator::make($request->all(), [
             'name' => 'required|unique:car_types,name,' . $id,
             'quantity_seat' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg,gif|max:2048',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
         ]);
 
         if ($validateCartype->fails()) {
@@ -212,7 +212,6 @@ class CarController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
     }
-
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();
@@ -223,7 +222,6 @@ class CarController extends HelpController
             'data' => $carHouse
         ], 200);
     }
-
     public function createCarHouse(Request $request)
     {
         $validateCarHouse = Validator::make($request->all(), [
@@ -263,8 +261,6 @@ class CarController extends HelpController
             ], 500);
         }
     }
-
-
     public function updateCarHouse(Request $request, $idNX)
     {
         $carHouse = CarHouse::find($idNX);
@@ -312,7 +308,6 @@ class CarController extends HelpController
             ], 500);
         }
     }
-
     public function deleteCarHouse($idNX)
     {
         $carHouse = CarHouse::find($idNX);
@@ -334,7 +329,7 @@ class CarController extends HelpController
     }
 
     /* =====================================================================
-                                    CAR 1
+                                    CAR 
 ===========================================================================*/
     public function showCar($id)
     {
@@ -446,6 +441,16 @@ class CarController extends HelpController
                 'message' => 'Car not found!'
             ], 404);
         }
+
+        // Kiểm tra quyền của người dùng
+        $user = Auth::user();
+        if ($user->carhouse_id != $car->car_house_id) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+            ], 403);
+        }
+
 
         $validateCar = Validator::make($request->all(), [
             'name' => 'required|string|unique:cars,name,' . $car->id,
@@ -559,6 +564,16 @@ class CarController extends HelpController
                 'status' => false,
                 'message' => 'Car not found!'
             ], 404);
+        }
+
+
+        // Kiểm tra quyền của người dùng
+        $user = Auth::user();
+        if ($user->carhouse_id != $car->car_house_id) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Bạn không có quyền xoá xe của nhà xe khác!'
+            ], 403);
         }
 
         try {
