@@ -97,7 +97,7 @@ class EventController extends HelpController
     // ==============ARTICLE=====================
     public function showArticle($id)
     {
-        $data = Article::find($id);
+        $data = Article::with('articleImages')->find($id);
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy bài viết!');
@@ -107,7 +107,7 @@ class EventController extends HelpController
     }
     public function listArticle()
     {
-        $data = Article::paginate(10);
+        $data = Article::with('articleImages')->paginate(10);
 
         return $this->sendResponse(200, 'Hiển thị danh sách bài viết thành công!', $data);
     }
@@ -120,7 +120,7 @@ class EventController extends HelpController
             'content' => 'required|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg', // Kiểm tra ảnh nếu có
             'status' => 'required|in:published,draft',
-            'publication_date' => 'nullable|date',
+            'publication_date' => 'nullable|date|after_or_equal:today',
         ];
 
         // Xử lý xác thực
@@ -139,16 +139,12 @@ class EventController extends HelpController
             if ($request->hasFile('images')) {
                 $images = [];
 
-                // Khởi tạo ImageManager 
-                $manager = new ImageManager(new Driver());
 
                 foreach ($request->file('images') as $image) {
                     // name img
                     $imageName = time() . '-' . $image->getClientOriginalName();
 
-                    $image = $manager->read($image);
-                    $image->resize(648, 345)->toPng()->save(storage_path('app/public/images/articles/' . $imageName));
-
+                    $image->move(public_path('images/articles'),$imageName);
                     // Save
                     ArticleImage::create([
                         'article_id' => $article->id,
@@ -183,7 +179,7 @@ class EventController extends HelpController
             'content' => 'required|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg', // Kiểm tra ảnh nếu có
             'status' => 'required|in:published,draft',
-            'publication_date' => 'nullable|date',
+            'publication_date' => 'nullable|date|after_or_equal:today',
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request, $rules, $article) {
@@ -209,7 +205,7 @@ class EventController extends HelpController
                         $imageDeleteName[] = $image->image;
 
                         // Delete path
-                        $image_path = storage_path('app/public/images/articles/' . $image->image);
+                        $image_path = public_path('images/articles/' . $image->image);
                         if (file_exists($image_path)) {
                             unlink($image_path);
                         }
@@ -229,9 +225,6 @@ class EventController extends HelpController
             // Ktr xem có ảnh nào mới không
             if ($request->hasFile('images')) {
 
-                // Khởi tạo ImageManager 
-                $manager = new ImageManager(new Driver());
-
                 foreach ($request->file('images') as $image) {
                     $imageNameOrg = $image->getClientOriginalName();
 
@@ -239,8 +232,7 @@ class EventController extends HelpController
                     if (!in_array($imageNameOrg, $existingImages)) {
                         $imageName = time() . '-' . $image->getClientOriginalName();
 
-                        $image = $manager->read($image);
-                        $image->resize(648, 345)->toPng()->save(storage_path('app/public/images/articles/' . $imageName));
+                        $image->move(public_path('images/articles'), $imageName);
 
                         // Save
                         ArticleImage::create([
@@ -279,7 +271,7 @@ class EventController extends HelpController
             $deleteImages = [];
             foreach ($articleImages as $image) {
                 // Truy tới đường dẫn ảnh
-                $imagePath = storage_path('app/public/images/articles/' . $image->image);
+                $imagePath = public_path('images/articles/' . $image->image);
 
                 // Kiểm tra nếu file tồn tại thì xóa
                 if (file_exists($imagePath)) {

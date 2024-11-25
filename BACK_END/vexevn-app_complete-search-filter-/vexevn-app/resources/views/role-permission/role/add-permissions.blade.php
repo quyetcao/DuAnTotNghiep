@@ -35,7 +35,7 @@
                             @enderror
 
                             <div class="mb-3">
-                                <label for="name">Permissions</label>
+                                <h6 for="name" class="mb-3">Permissions</h6>
 
                                 <div class="row">
                                     @foreach ($permissions as $permission)

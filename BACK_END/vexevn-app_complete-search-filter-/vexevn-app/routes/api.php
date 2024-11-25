@@ -215,12 +215,9 @@ Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
-    Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
-    Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
-<<<<<<< HEAD
-});
-=======
+Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
+Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
+Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
 // });
 
 //ORDER
@@ -229,20 +226,19 @@ Route::get('/orders/{id}', [OrderController::class, 'showOrder']);
 Route::get('/orders', [OrderController::class, 'listOrders']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/orders/create', [OrderController::class, 'createOrder']);
-    Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
-    Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
+Route::post('/orders/create', [OrderController::class, 'createOrder']);
+Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
+Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
 // });
 
 //ORDER HISTORY
-Route::post('/order-histories', [OrderHistoryController::class, 'createOrderHistory']); 
-Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrderHistory']); 
-Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']); 
+Route::post('/order-histories', [OrderHistoryController::class, 'createOrderHistory']);
+Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrderHistory']);
+Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']);
 
 //PAYMENT
-Route::post('/payments', [PaymentController::class, 'createPayment']); 
-Route::get('/payments/{id}', [PaymentController::class, 'showPayment']); 
-Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']); 
-Route::get('/payments', [PaymentController::class, 'listPayments']); 
-Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']); 
->>>>>>> b5b3a40b8f78b76b98d1de85afb840d6d3acbc3c
+Route::post('/payments', [PaymentController::class, 'createPayment']);
+Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
+Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']);
+Route::get('/payments', [PaymentController::class, 'listPayments']);
+Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']);
