@@ -644,7 +644,6 @@ class CarController extends HelpController
         $validatePUP = Validator::make($request->all(), [
             'name' => 'required|string|unique:pickup_points,name',
             'address' => 'nullable|string',
-            // 'city_id' => 'required|exists:cities,id',
             'car_house_id' => 'nullable|exists:car_houses,id',
             'is_public' => 'required|boolean'
         ]);
