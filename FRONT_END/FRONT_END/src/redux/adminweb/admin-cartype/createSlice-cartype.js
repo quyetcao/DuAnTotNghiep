@@ -7,7 +7,12 @@ const initialState = {
       dataCarType:[],
       isloading:false,
       popupXacNhan:false,
+      popupError:false,
       dataCar:[],
+
+  // lấy loại xe 
+  // lấy 1 loại xe 
+     dataOneCarType:[],
       
 
 
@@ -23,14 +28,22 @@ const initialState = {
         state.dataCarType = action.payload;
       },
       showLoading(state,action){
-        if(state.isloading==true){
-        state.isloading= action.payload
+        if(state.isloading == false){
+        state.isloading= true
         }else{
-          state.isloading=true;
+          state.isloading=false;
         }
       },
-      showPopupOkanhError(state,action){
-        state.popupXacNhan =action.payload;
+      showPopupOk(state,action){
+        state.popupXacNhan = action.payload;
+        console.log(">>>>>ok",state.popupXacNhan);
+      },
+      showPopupError(state,action){
+        state.popupError = action.payload;
+        console.log(">>>>>er",state.popupError);
+      },
+      getoneCarType(state,action){
+        state.dataOneCarType = action.payload;
       }
       
      
@@ -38,10 +51,7 @@ const initialState = {
     },
   });
   
-<<<<<<< HEAD
-  export const {getAllCarType ,showLoading,showPopupOkanhError } = StoreCarType.actions;
-=======
-  export const {getAllCarType } = StoreCarType.actions;
+  export const {getAllCarType ,showLoading,showPopupOk,showPopupError,getoneCarType } = StoreCarType.actions;
 
 
 
@@ -61,4 +71,3 @@ const initialState = {
   });
   
   export const {getAllListCar } = StoreCar.actions;
->>>>>>> b5b3a40b8f78b76b98d1de85afb840d6d3acbc3c

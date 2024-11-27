@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -23,9 +23,9 @@ import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
 import NoSearch from './component/viewpage/nosearch.jsx';
 import AppAdminQLWeb from './AdminWeb.jsx';
-import ShowDsCarHouse from './component/adminweb/admin-show-carhouse.jsx';
-import AddCarHouse from './component/adminweb/admin-add-carhouse.jsx';
-import AddEvent from './component/adminweb/post-event/admin-add-event.jsx';
+import ShowDsCarHouse from './component/view-adminweb/admin-show-carhouse.jsx';
+import AddCarHouse from './component/view-adminweb/admin-add-carhouse.jsx';
+
 import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/addcxcarhouse.jsx';
 import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
 import QuanLyDatVeXe from './component/admin-carhouse/chuyenxe/quanLyDatVeXe.jsx'
@@ -34,6 +34,13 @@ import AddCarType from './component/admin-carhouse/car/addcartype.jsx';
 import Quanlyxe from './component/admin-carhouse/car/showlistcar.jsx';
 import RouterCar from './component/admin-carhouse/router-car.jsx';
 import Quanlyloaixe from './component/admin-carhouse/car/showlistloaixe.jsx';
+import EditCarType from './component/admin-carhouse/car/editloaixe.jsx';
+import QuanlyEvent from './component/view-adminweb/post-event/admin-title-event.jsx/list-title.jsx';
+import AddEvent from './component/view-adminweb/post-event/admin-title-event.jsx/add-title.jsx';
+import EditEvent from './component/view-adminweb/post-event/admin-title-event.jsx/edit-title.jsx';
+import QuanlyPost from './component/view-adminweb/post-event/admin-post/list-post.jsx';
+import AddEArticles from './component/view-adminweb/post-event/admin-post/add-post.jsx';
+
 
 
 // Router giữa các trang 
@@ -147,6 +154,10 @@ const routes = createBrowserRouter([
         path: 'addcartype',
         element: <AddCarType />
       },
+      {
+        path:'editloaixe/:id',
+        element:<EditCarType/>
+      },
       // chuyến xe 
       {
         path: 'addchuyenxe',
@@ -170,9 +181,27 @@ const routes = createBrowserRouter([
       },
       // Event 
       {
+        path: 'listEvent',
+        element: <QuanlyEvent />
+      },
+      {
         path: 'addEvent',
         element: <AddEvent />
       },
+      {
+        path: 'editEvent/:id',
+        element: <EditEvent />
+      },
+
+      // post 
+      {
+        path:'listArticles',
+        element: <QuanlyPost/>
+      },
+      {
+        path:'add-articles',
+        element: <AddEArticles/>
+      }
     ]
   },
 

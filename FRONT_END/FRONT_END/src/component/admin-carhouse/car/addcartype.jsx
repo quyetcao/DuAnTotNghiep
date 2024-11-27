@@ -8,7 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function AddCarType(){
-    const notify = () => toast.success("Thêm Thành Công!", { theme: "colored" });
+    const notify = (event) => {
+        if(event == true){
+            toast.success("Thêm Thành Công!", { theme: "colored" });
+        }else if(event == false){
+            toast.error("Lỗi form nhập!", { theme: "colored" });
+        }
+    }
+   
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm()
@@ -20,12 +27,17 @@ export default function AddCarType(){
         formData.append('image', imageFile); 
         dispatch(CallapiPostCarType(formData))
     }
-    const isToast = useSelector((state) => state.Storecartype?.popupXacNhan);
-    if (isToast == true) {
-        notify();
-        setTimeout(()=>{
+    const isToastOk = useSelector((state) => state.Storecartype?.popupXacNhan);
+    const isToastError = useSelector((state) => state.Storecartype?.popupError);
+   
+    if (isToastOk === true) {
+        notify(true);
+        setTimeout(() => {
             navigate('/admincarhouse/listcartype');
-        },2000)
+        }, 2000);
+    } 
+    if(isToastError){
+        notify(false);
     }
     
     
