@@ -38,10 +38,7 @@ const initialState = {
     },
   });
   
-<<<<<<< HEAD
-  export const {getAllCarType ,showLoading,showPopupOkanhError } = StoreCarType.actions;
-=======
-  export const {getAllCarType } = StoreCarType.actions;
+  export const {getAllCarType, showLoading, showPopupOkanhError } = StoreCarType.actions;
 
 
 
@@ -61,4 +58,3 @@ const initialState = {
   });
   
   export const {getAllListCar } = StoreCar.actions;
->>>>>>> b5b3a40b8f78b76b98d1de85afb840d6d3acbc3c

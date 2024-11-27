@@ -11,30 +11,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CallapiGetAllCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
-
 export default function Quanlyloaixe() {
-
     const dispatch = useDispatch();
     useEffect(() => {
-
-        dispatch(CallapiGetAllCar())
-
-    }, [])
+        dispatch(CallapiGetAllCar());
+    }, []);
     const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
-    console.log("all car tyoe", allcartype);
+    console.log('all car tyoe', allcartype);
     const isload = useSelector((state) => state.Storecartype?.isloading);
-
-
 
     return (
         <>
-
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
                         <h3 className='content-top-heading'>Quản lý Loại Xe </h3>
-                        <Link to="/admincarhouse/addcartype"><button className='content-top-btn'>Tạo mới</button></Link>
+                        <Link to='/admincarhouse/addcartype'>
+                            <button className='content-top-btn'>Tạo mới</button>
+                        </Link>
                         <Link to='/admincarhouse/addcartype'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
@@ -51,7 +45,7 @@ export default function Quanlyloaixe() {
                         </div>
                     </div>
                     <div className='content-table'>
-                        {isload ? 
+                        {isload ? (
                             <table>
                                 <thead>
                                     <tr>
@@ -62,28 +56,35 @@ export default function Quanlyloaixe() {
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {allcartype && allcartype.map((itemcartype) => {
-                                    return <>  <tbody><tr>
-                                        <td>{itemcartype.id}</td>
-                                        <td>{itemcartype.name}</td>
-                                        <td>{itemcartype.quantity_seat}</td>
-                                        <td>{itemcartype.image}</td>
-                                        <td className='action-icons'>
-                                            <EditIcon />
-                                            <ListIcon />
-                                            <RemoveRedEyeIcon />
-                                            <FileCopyIcon />
-                                        </td>
-                                    </tr>
-
-                                    </tbody>
-                                    </>
-                                })}
-
-
-                            </table> : <div style={{transform:"translateX(50%)"}}><CircularProgress/></div> 
-                        }
-                        <table>
+                                {allcartype &&
+                                    allcartype.map((itemcartype) => {
+                                        return (
+                                            <>
+                                                {' '}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{itemcartype.id}</td>
+                                                        <td>{itemcartype.name}</td>
+                                                        <td>{itemcartype.quantity_seat}</td>
+                                                        <td>{itemcartype.image}</td>
+                                                        <td className='action-icons'>
+                                                            <EditIcon />
+                                                            <ListIcon />
+                                                            <RemoveRedEyeIcon />
+                                                            <FileCopyIcon />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </>
+                                        );
+                                    })}
+                            </table>
+                        ) : (
+                            <div style={{ transform: 'translateX(50%)' }}>
+                                <CircularProgress />
+                            </div>
+                        )}
+                        {/* <table>
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -114,7 +115,7 @@ export default function Quanlyloaixe() {
                                         );
                                     })}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                     <div className='page-button'>
                         <div className='page-list'>

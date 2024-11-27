@@ -7,8 +7,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllListCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';           
-
+import { CallapiGetAllListCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
 import { Link } from 'react-router-dom';
 
 export default function Quanlyxe() {
