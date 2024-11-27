@@ -5,26 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Auth, Validator};
 
-
-use App\Models\CarType;
-use App\Models\CarHouse;
-use App\Models\Car;
-use App\Models\CarImage;
-// use App\Models\City;
-use App\Models\PickupPoint;
-use App\Models\DropoffPoint;
-use App\Models\BusRoute;
-use App\Models\CarRoute;
-use App\Models\CarTripDropoffPoint;
-use App\Models\CarTripPickupPoint;
-use Illuminate\Support\Facades\DB;
-
-// use App\Models\CarTrip;
-
+use App\Models\{
+    CarType, 
+    CarHouse, 
+    Car, 
+    CarImage, 
+    PickupPoint, 
+    DropoffPoint, 
+    CarRoute, 
+    CarTripDropoffPoint, 
+    CarTripPickupPoint,
+};
 
 class CarController extends HelpController
 {
@@ -212,7 +205,7 @@ class CarController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
     }
-   
+
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();

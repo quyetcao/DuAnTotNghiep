@@ -26,7 +26,6 @@ class AuthController extends HelpController
     {
         return Socialite::driver('google')->redirect();
     }
-   
     public function handleGoogleCallback()
     {
         return $this->handleDatabaseTransaction(function () {
@@ -58,12 +57,10 @@ class AuthController extends HelpController
             }
         });
     }
-
     // Sign up
     public function signUp(Request $request)
     {
         $rules = [
-            'name' => 'required|string',
             'phone' => 'required|unique:users,phone|regex:/^[0-9]{10}$/',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed'
@@ -71,55 +68,45 @@ class AuthController extends HelpController
 
         return $this->validateAndExecute($request, $rules, function () use ($request) {
             $user = User::create([
-                'name' => $request->name,
                 'phone' => $request->phone,
-                'email' => $request->email, 
+                'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
+
+            $user = User::find($user->id);
             return $this->sendResponse(201, 'Người dùng tạo mới thành công!', $user);
         });
     }
+    public function login(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ];
 
-   public function login(Request $request)
-{
-    $rules = [
-        'email' => 'required|email',
-        'password' => 'required|string'
-    ];
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
+            if (!Auth::attempt($request->only(['email', 'password']))) {
+                return $this->sendResponse(401, 'Email hoặc Password không đúng');
+            }
 
-    return $this->validateAndExecute($request, $rules, function () use ($request) {
-        if (!Auth::attempt($request->only(['email', 'password']))) {
-            return $this->sendResponse(401, 'Email hoặc Password không đúng');
-        }
+            $user = User::where('email', $request->email)->first();
+            $token = $user->createToken('API TOKEN')->plainTextToken;
 
-        $user = User::where('email', $request->email)->first();
-        $token = $user->createToken('API TOKEN')->plainTextToken;
-
-        return $this->sendResponse(200, 'Đăng nhập thành công!', [
-            'token' => $token,
-            'user' => $user
-        ]);
-    });
-}
-
-
-    public function profile () {
-        $user = Auth::user();
-        
-        return response()->json([
-            'status' => 200,
-            'message' => 'Thông tin tài khoản',
-            'data' => $user
-        ], 200);
+            return $this->sendResponse(200, 'Đăng nhập thành công!', [
+                'token' => $token,
+                'user' => $user
+            ]);
+        });
     }
-
-    public function logout() {
+    public function profile()
+    {
+        $user = Auth::user();
+        return $this->sendResponse(200, 'Thông tin tài khoản', $user);
+    }
+    public function logout()
+    {
         auth()->user()->tokens()->delete();
-        return response()->json([
-            'status' => 200,
-            'message' => 'Đăng xuất thành công',
-            // 'data' => []
-        ], 200);
+        return $this->sendResponse(200, 'Đăng xuất thành công!');
     }
 }
  // public function handleGoogleCallback () {
