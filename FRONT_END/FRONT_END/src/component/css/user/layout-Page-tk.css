@@ -10,15 +10,35 @@
     border-radius: 6px;
     background-color: rgb(255, 255, 255);
 }
-.slider-bar ul li {
+
+.tk-list {
+    padding: 0 24px;
+}
+
+.tk-select-item {
     list-style-type: none;
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: all 0.15s ease-in-out;
 }
+
+.tk-select-item:hover,
+.tk-select-item:focus {
+    background-color: rgba(25, 118, 210, 0.08);
+}
+
 .slider-bar ul li p {
+    width: 100%;
+    margin: 0;
+    padding: 12px 0;
     font-size: 14px;
     color: #141414;
+}
+
+.slider-bar ul li p:hover,
+.slider-bar ul li p:focus {
+    color: #1976d2;
 }
 
 .slider-bar ul li svg {

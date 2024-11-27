@@ -24,6 +24,10 @@ class CarHouse extends Model
     public function dropoffPoints () {
         return $this->hasMany(DropoffPoint::class);
     }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 }
 
 

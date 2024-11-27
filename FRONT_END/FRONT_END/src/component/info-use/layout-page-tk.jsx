@@ -13,32 +13,32 @@ export default function LayoutPageTaiKhoan() {
         <>
             <div className='layout-page-tk'>
                 <div className='slider-bar'>
-                    <ul>
-                        <li>
+                    <ul className='tk-list'>
+                        <li className='tk-select-item'>
                             <AccountCircleOutlinedIcon />
                             <p>Thông tin tài khoản</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <LoyaltyOutlinedIcon />
                             <p>Thành viên thường</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <ConfirmationNumberOutlinedIcon />
                             <p>Đơn hàng của tôi</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <RedeemIcon />
                             <p>Ưu đãi</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <PaymentIcon />
                             <p>Quản lý thẻ</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <RateReviewOutlinedIcon />
                             <p>Nhận xét chuyến đi</p>
                         </li>
-                        <li>
+                        <li className='tk-select-item'>
                             <LogoutIcon />
                             <p>Đăng xuất</p>
                         </li>

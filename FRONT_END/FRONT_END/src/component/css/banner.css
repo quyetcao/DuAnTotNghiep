@@ -217,7 +217,7 @@
     height: auto;
     border: 0px;
     padding: 0px;
-    background-color: unset;
+    /* background-color: unset; */
     font-size: 15px;
     /* line-height: 16px; */
     color: rgb(20, 20, 20);
