@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Validator};
 
 use App\Models\{
-    CarType, 
-    CarHouse, 
-    Car, 
-    CarImage, 
-    PickupPoint, 
-    DropoffPoint, 
-    CarRoute, 
-    CarTripDropoffPoint, 
+    CarType,
+    CarHouse,
+    Car,
+    CarImage,
+    PickupPoint,
+    DropoffPoint,
+    CarRoute,
+    CarTripDropoffPoint,
     CarTripPickupPoint,
 };
 
@@ -29,14 +29,8 @@ class CarController extends HelpController
     public function listCarType()
     {
         $data = CarType::all();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Hiển thị danh sách Loại Xe thành công',
-            'data' => $data
-        ], 200);
+        return $this->sendResponse(200, 'Hiển thị danh sách loại xe thành công!', $data);
     }
-
     public function showCarType($id)
     {
         $data = CarType::find($id);
@@ -45,132 +39,85 @@ class CarController extends HelpController
         }
         return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
     }
-
     public function createCarType(Request $request)
     {
-        $validateCarType = Validator::make($request->all(), [
+        $rules = [
             'name' => 'required|string|unique:car_types,name',
             'quantity_seat' => 'required|integer|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg', //max 2MB
-        ]);
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+        ];
 
-        if ($validateCarType->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validateCarType->errors(),
-            ], 422);
-        }
-
-        // Xét ảnh
-        $imageName = null;
-        if ($request->hasFile('image')) {
-            // Tên id của kiểu xe
-            $carTypeID = $request->name;
-
-            // Tạo tên file 
-            $imageName = time() . '.' . $request->image->extension();
-
-            // Di chuyển ảnh từ tm tạm thời vào thư mục riêng của ảnh xe
-            $request->image->move(public_path('images/cartypes'), $imageName);
-        }
-
-        try {
-
-            $inputData = array(
-                'name' => $request->name,
-                'quantity_seat' => $request->quantity_seat,
-                'image' => $imageName,
-            );
-            $carType = CarType::create($inputData);
-
-            return response()->json([
-                'status' => 201,
-                'message' => 'Điểm đón đã được thêm thành công',
-                'data' => $carType,
-            ], 201);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function updateCarType(Request $request, $id)
-    {
-        $data = CarType::find($id);
-
-        if (!$data) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy loại xe!',
-            ], 404);
-        }
-
-        $validateCartype = Validator::make($request->all(), [
-            'name' => 'required|unique:car_types,name,' . $id,
-            'quantity_seat' => 'required|integer|min:1',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg',
-        ]);
-
-        if ($validateCartype->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validateCartype->errors(),
-            ], 422);
-        }
-
-        // Xét ảnh mới & Bỏ ảnh cũ
-        // $imageName = $request->image;
-        if ($request->hasfile('image')) {
-            // Xoá ảnh cũ
-            $old_img_path = public_path('images/cartypes/' . $data->image);
-            if (file_exists($old_img_path && is_file($old_img_path))) {
-                unlink($old_img_path);
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
+            // Xét ảnh
+            $imageName = null;
+            if ($request->hasFile('image')) {
+                // Tên id của kiểu xe
+                $carTypeID = $request->name;
+                // Tạo tên file 
+                $imageName = time() . '.' . $request->image->extension();
+                // Di chuyển ảnh từ tm tạm thời vào thư mục riêng của ảnh xe
+                $request->image->move(public_path('images/cartypes'), $imageName);
             }
 
-            // Nạp ảnh mới
-            $imageName = time() . '.' . $request->image->extension();
+            // Tạo bài viết mới
+            $carType = CarType::create([
+                'name' => $request->name,
+                'quantity_seat' => $request->quantity_seat,
+                'image' => $imageName
+            ]);
 
-            $request->image->move(public_path('images/cartypes'), $imageName);
-
-            // Cập nhật image
-            $data->image = $imageName;
-        }
-
-        try {
-            //    Cập nhật giá trị
-            $data->name = $request->name;
-            $data->quantity_seat = $request->quantity_seat;
-
-            $data->save();
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Loại xe đã được cập nhật thành công',
-                'data' => $data
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
+            return $this->sendResponse(201, 'Điểm đón đã được thêm thành công!', $carType);
+        });
     }
+    public function updateCarType(Request $request, $id)
+    {
+        $carType = CarType::find($id);
 
-    public function deleteCarType($idLX)
+        if (!$carType) {
+            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
+        }
+
+        $rules = [
+            'name' => 'required|unique:car_types,name,' . $id,
+            'quantity_seat' => 'required|integer|min:1',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+        ];
+
+        return $this->validateAndExecute($request, $rules, function () use ($request, $carType) {
+            // Xét ảnh mới & Bỏ ảnh cũ
+            // $imageName = $request->image;
+            if ($request->hasfile('image')) {
+                // Xoá ảnh cũ
+                $old_img_path = public_path('images/cartypes/' . $carType->image);
+                if (file_exists($old_img_path && is_file($old_img_path))) {
+                    unlink($old_img_path);
+                }
+
+                // Nạp ảnh mới
+                $imageName = time() . '.' . $request->image->extension();
+
+                $request->image->move(public_path('images/cartypes'), $imageName);
+
+                // Cập nhật image
+                $carType->image = $imageName;
+            }
+
+            $carType->update([
+                'name' => $request->name,
+                'quantity_seat' => $request->quantity_seat,
+                'image' => $imageName ?? $carType->image
+            ]);
+
+            return $this->sendResponse(200, 'Cập nhật loại xe thành công!', $carType);
+        });
+    }
+    public function deleteCarType($id)
     {
         // Tìm id 
-        $carType = CarType::find($idLX);
+        $carType = CarType::find($id);
 
-        // Neu tim ko thay
-        if (!$carType) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy loại xe',
-            ], 404);
+        if(!$carType) {
+            return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
         }
 
         // Xoa anh && xoa san pham
@@ -181,13 +128,8 @@ class CarController extends HelpController
                 unlink($imagePath);
             }
         }
-        $carType->delete();
+        return $this->handleDelete(CarType::class, $id, 'Loại xe đã được xóa thành công!');
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Loại xe đã được xoá thành công',
-            'delete_data' => $carType
-        ], 200);
     }
 
 
@@ -205,121 +147,68 @@ class CarController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
     }
-
     public function listCarHouse()
     {
-        $carHouse = CarHouse::all();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Hiển thị danh sách nhà xe thành công!',
-            'data' => $carHouse
-        ], 200);
+        $data = CarHouse::all();
+        return $this->sendResponse(200, 'Hiển thị danh sách nhà xe thành công!', $data);
     }
     public function createCarHouse(Request $request)
     {
-        $validateCarHouse = Validator::make($request->all(), [
+        $rules =  [
             'name' => 'required|unique:car_houses,name',
             'phone' => 'required|unique:car_houses,phone|regex:/^[0-9]{10}$/',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive,paused'
-        ]);
+        ];
 
-        if ($validateCarHouse->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validateCarHouse->errors()
-            ], 422);
-        }
-
-        try {
-
-            $inputData = array(
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
+            $carHouse = CarHouse::create([
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'address' => $request->address,
                 'status' => $request->status ?? 'active'
-            );
-            $carHouse = CarHouse::create($inputData);
+            ]);
 
-            return response()->json([
-                'status' => 201,
-                'message' => 'Nhà xe tạo mới thành công!',
-                'data' => $carHouse
-            ], 201);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
+            // Trả về thông báo success
+            return $this->sendResponse(201, 'Nhà xe tạo mới thành công!', $carHouse);
+        });
     }
-    public function updateCarHouse(Request $request, $idNX)
+    public function updateCarHouse(Request $request, $id)
     {
-        $carHouse = CarHouse::find($idNX);
+        $carHouse = CarHouse::find($id);
 
         if (!$carHouse) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy nhà xe!'
-            ], 404);
+            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
         }
 
-        $validateCarhouse = Validator::make($request->all(), [
-            'name' => 'required|unique:car_houses,name,' . $idNX,
-            'phone' => 'required|unique:car_houses,phone,' . $idNX,
+
+        $rules =  [
+            'name' => 'required|unique:car_houses,name,'.$id,
+            'phone' => 'required|unique:car_houses,phone,'.$id.'|regex:/^[0-9]{10}$/',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive,paused'
-        ]);
+        ];
 
-        if ($validateCarhouse->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validateCarhouse->errors()
-            ], 422);
-        }
+        return $this->validateAndExecute($request, $rules, function () use ($request, $carHouse) {
+            $carHouse->update([
+                'name' => $request->name ?? $carHouse->name,
+                'phone' => $request->phone ?? $carHouse->phone,
+                'address' => $request->address ?? $carHouse->address,
+                'status' => $request->status ?? $carHouse->status,
+            ]);
 
-        try {
-            // Cập nhật giá trị 
-            $carHouse->name = $request->name;
-            $carHouse->phone = $request->phone;
-            $carHouse->address = $request->address;
-            $carHouse->status = $request->status ?? $carHouse->status;
-
-            $carHouse->save();
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Cập nhật nhà xe thành công!',
-                'data' => $carHouse
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
+            // Trả về thông báo success
+            return $this->sendResponse(201, 'Nhà xe tạo mới thành công!', $carHouse);
+        });
     }
-    public function deleteCarHouse($idNX)
+    public function deleteCarHouse($id)
     {
-        $carHouse = CarHouse::find($idNX);
+        $carHouse = CarHouse::find($id);
 
         if (!$carHouse) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy nhà xe!',
-            ], 404);
+            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
         }
-
-        $carHouse->delete();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Nhà xe đã được xóa thành công!',
-            'delete_data' => $carHouse
-        ], 200);
+        return $this->handleDelete(CarHouse::class, $id, 'Nhà xe đã được xóa thành công!');
     }
 
     /* =====================================================================
