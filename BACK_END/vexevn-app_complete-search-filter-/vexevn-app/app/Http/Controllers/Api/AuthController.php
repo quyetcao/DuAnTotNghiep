@@ -96,8 +96,8 @@ class AuthController extends HelpController
         $token = $user->createToken('API TOKEN')->plainTextToken;
 
         return $this->sendResponse(200, 'Đăng nhập thành công!', [
-            'token' => $token
-            // 'user' => $user
+            'token' => $token,
+            'user' => $user
         ]);
     });
 }

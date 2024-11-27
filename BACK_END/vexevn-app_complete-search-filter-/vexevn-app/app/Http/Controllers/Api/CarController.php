@@ -212,6 +212,7 @@ class CarController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
     }
+   
     public function listCarHouse()
     {
         $carHouse = CarHouse::all();
@@ -644,7 +645,6 @@ class CarController extends HelpController
         $validatePUP = Validator::make($request->all(), [
             'name' => 'required|string|unique:pickup_points,name',
             'address' => 'nullable|string',
-            // 'city_id' => 'required|exists:cities,id',
             'car_house_id' => 'nullable|exists:car_houses,id',
             'is_public' => 'required|boolean'
         ]);

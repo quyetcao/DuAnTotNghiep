@@ -1,4 +1,4 @@
-export default function AddEvent() {
+export default function AddEvent1() {
     return (
         <>
             <h3 style={{ textAlign: 'center' }}>THÊM SỰ KIỆN MỚI</h3>

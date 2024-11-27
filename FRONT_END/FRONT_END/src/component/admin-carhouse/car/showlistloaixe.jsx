@@ -1,15 +1,14 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
-import ListIcon from '@mui/icons-material/List';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
+import { CallapiGetAllCar, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import CircularProgress from '@mui/material/CircularProgress';
+<<<<<<< HEAD
 
 export default function Quanlyloaixe() {
     const dispatch = useDispatch();
@@ -20,15 +19,48 @@ export default function Quanlyloaixe() {
     console.log('all car tyoe', allcartype);
     const isload = useSelector((state) => state.Storecartype?.isloading);
 
+=======
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+export default function Quanlyloaixe() {
+    const navigate = useNavigate();
+    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
+    console.log("all car type", Array.isArray(allcartype));
+    const isload = useSelector((state) => state.Storecartype?.isloading);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(CallapiGetAllCar())
+    }, [])
+
+    async function deletecartype(id) {
+        const isconfim = confirm('Bạn có muốn xóa không?')
+        if (isconfim) {
+            await dispatch(CallapiGetDeleteCar(id));
+            await dispatch(CallapiGetAllCar())
+        }
+
+    }
+
+    function navigateEdit(id){
+        navigate(`/admincarhouse/editloaixe/${id}`)
+
+    }
+
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
     return (
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
                         <h3 className='content-top-heading'>Quản lý Loại Xe </h3>
+<<<<<<< HEAD
                         <Link to='/admincarhouse/addcartype'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
+=======
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                         <Link to='/admincarhouse/addcartype'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
@@ -45,7 +77,11 @@ export default function Quanlyloaixe() {
                         </div>
                     </div>
                     <div className='content-table'>
+<<<<<<< HEAD
                         {isload ? (
+=======
+                        {isload ? <div style={{ transform: "translateX(50%)" }}><CircularProgress /></div> :
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                             <table>
                                 <thead>
                                     <tr>
@@ -56,6 +92,7 @@ export default function Quanlyloaixe() {
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
+<<<<<<< HEAD
                                 {allcartype &&
                                     allcartype.map((itemcartype) => {
                                         return (
@@ -116,6 +153,30 @@ export default function Quanlyloaixe() {
                                     })}
                             </tbody>
                         </table> */}
+=======
+                                {Array.isArray(allcartype) && allcartype?.map((itemcartype) => {
+                                    return <>  <tbody><tr>
+                                        <td>{itemcartype.id}</td>
+                                        <td>{itemcartype.name}</td>
+                                        <td>{itemcartype.quantity_seat}</td>
+                                        <td>{itemcartype.image}</td>
+                                        <td className='action-icons'>
+                                            <EditIcon onClick={() => { navigateEdit(itemcartype.id) }} />
+                                            <DeleteIcon onClick={() => { deletecartype(itemcartype.id) }} />
+                                            <FileCopyIcon />
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                    </>
+                                })}
+
+
+                            </table>
+                        }
+
+
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                     </div>
                     <div className='page-button'>
                         <div className='page-list'>
