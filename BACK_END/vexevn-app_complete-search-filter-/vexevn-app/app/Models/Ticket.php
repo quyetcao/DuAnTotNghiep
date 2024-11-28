@@ -2,26 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ticket extends Model
 {
     use HasFactory;
     protected $fillable = [
         'name',
-        'status',
+        'orders_id',
         'car_trip_id',
         'car_id',
         'car_route_id',
-        'seat_car_trips_id',
+        'seats_id',
         'pickup_points_id',
         'dropoff_points_id',
     ];
-    
     public function carTrip()
     {
         return $this->belongsTo(CarTrip::class);
+    }
+    public function orders()
+    {
+        return $this->belongsTo(Order::class);
     }
     public function car() {
         return $this->belongsTo(Car::class);
@@ -31,20 +34,18 @@ class Ticket extends Model
         return $this->belongsTo(CarRoute::class);
     }
     public function pickupPoints() {
-        return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
-                    ->withPivot('pickup_time')
-                    ->withTimestamps();
+        return $this->belongsTo(PickupPoint::class) ;
+                  
     }
 
     public function dropoffPoints() {
-        return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
-                    ->withPivot('dropoff_time')
-                    ->withTimestamps();
+        return $this->belongsTo(DropoffPoint::class) ;
+                  
         
     }
-    public function seatCarTrip()
+    public function seats()
     {
-        return $this->belongsTo(SeatCarTrip::class);
+        return $this->belongsTo(Seat::class);
     }
     
 }

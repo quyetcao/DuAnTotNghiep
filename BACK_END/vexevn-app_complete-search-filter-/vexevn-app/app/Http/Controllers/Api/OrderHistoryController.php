@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderHistory;
+use App\Models\Order;  // Nếu bạn cần lấy thông tin của Order
 use Illuminate\Http\Request;
 
 class OrderHistoryController extends Controller
@@ -38,8 +39,6 @@ class OrderHistoryController extends Controller
         ]);
     }
 
-
-
     /**
      */
     public function createOrderHistory(Request $request)
@@ -60,17 +59,18 @@ class OrderHistoryController extends Controller
         }
     }
 
+    /**
+     */
     public function getOrderWithHistory($orderId)
-{
-    $order = Order::with('histories')->find($orderId);
+    {
+        $order = Order::with('histories')->find($orderId);
 
-    if (!$order) {
-        return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
+        if (!$order) {
+            return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin đơn hàng và lịch sử thành công.', $order);
     }
-
-    return $this->sendResponse(200, 'Lấy thông tin đơn hàng và lịch sử thành công.', $order);
-}
-
 
     /**
      */
@@ -89,5 +89,18 @@ class OrderHistoryController extends Controller
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }
+    }
+
+    /**
+     */
+    public function getAllOrderHistories()
+    {
+        $orderHistories = OrderHistory::all();
+
+        if ($orderHistories->isEmpty()) {
+            return $this->sendResponse(404, 'Không có lịch sử đơn hàng nào.', null);
+        }
+
+        return $this->sendResponse(200, 'Lấy tất cả lịch sử đơn hàng thành công.', $orderHistories);
     }
 }
