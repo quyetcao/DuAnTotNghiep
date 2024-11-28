@@ -211,13 +211,14 @@ Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmploy
 Route::get('/orders/{id}', [OrderController::class, 'showOrder']);
 Route::get('/orders', [OrderController::class, 'listOrders']);
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+//Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/orders/create', [OrderController::class, 'createOrder']);
 Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
-Route::post('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
-});
+Route::delete('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
+//});
 
 //ORDER HISTORY
+Route::get('/orderhistories', [OrderHistoryController::class, 'getAllOrderHistories']);
 Route::post('/order-histories', [OrderHistoryController::class, 'createOrderHistory']);
 Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrderHistory']);
 Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']);
