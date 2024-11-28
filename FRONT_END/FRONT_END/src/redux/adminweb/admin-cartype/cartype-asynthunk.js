@@ -1,8 +1,22 @@
+<<<<<<< HEAD
+import axios from "axios";
+import { getAllCarType, getAllListCar ,showLoading, showPopupOkanhError } from "./createSlice-cartype";
+
+
+// call lấy tất cả xe
+// export function CallapiGetAllCar() {
+//     return async (dispatch) => {
+//         try {
+//             let res = await axios.get(`http://localhost:8000/api/cartypes`);
+//             console.log('all loại xe ', res);
+
+=======
 
 import axios from "axios";
 import { getAllCarType, showLoading, getAllListCar, showPopupOk, showPopupError, getoneCarType } from "./createSlice-cartype";
 
 
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
 // call lấy tất cả xe 
 export function CallapiGetAllCar() {
 
@@ -12,6 +26,24 @@ export function CallapiGetAllCar() {
       let res = await axios.get(`http://localhost:8000/api/cartypes`);
       console.log("all loại xe ", res.data.data);
 
+<<<<<<< HEAD
+  //post loai xe 
+  export function CallapiPostCarType(dataform){
+    return async (dispatch) => {
+      try {
+     
+        let res = await axios.post(`http://localhost:8000/api/cartypes/create`,dataform
+        );
+        console.log("all loại xe ",res);
+      
+       dispatch(getAllCarType(res.data.data))
+       dispatch(showPopupOkanhError(true));
+      } catch (error) {
+        console.log(error);
+      } 
+    };
+  }
+=======
       dispatch(getAllCarType(res.data.data))
       dispatch(showLoading(true));
     } catch (error) {
@@ -45,6 +77,7 @@ export function CallapiPostCarType(dataform) {
 }
 
 
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
 
 
 // lấy all xe
@@ -53,6 +86,14 @@ export function CallapiGetAllListCar() {
     try {
       let res = await axios.get(`http://localhost:8000/api/car`);
       console.log('all ds xe ', res.data.data.cars.data);
+<<<<<<< HEAD
+      dispatch(getAllListCar(res.data.data.cars.data));
+  } catch (error) {
+      console.log(error);
+  }
+};
+}
+=======
 
       dispatch(getAllListCar(res.data.data.cars.data));
     } catch (error) {
@@ -102,3 +143,4 @@ export function CallapiUpdateCarType(id,formdata) {
   };
 }
 
+>>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
