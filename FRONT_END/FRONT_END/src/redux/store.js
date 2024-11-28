@@ -4,6 +4,7 @@ import { Infodropoffpoint, InfoofBus, InfoofBusHouse, InfoofCarType, Infopickupp
 import { StoreCarHouse } from "./adminweb/admin-carhouse/createSlice-carhouse";
 import { StoreCarType, StoreCar } from "./adminweb/admin-cartype/createSlice-cartype";
 import { StoreArticles, StoreEventPost } from "./admin-vexere/event-post/event-post-createSlice";
+import { LoginLogOutRegister } from "./login-logout-register/login-lo-rg-createSlice";
 
 // Kết hợp các reducer
 const rootReducer = combineSlices( 
@@ -22,6 +23,11 @@ const rootReducer = combineSlices(
   //admin quản lý toàn bộ web vexere 
   StoreEventPost,
   StoreArticles,
+
+
+
+  //về tài khoản login , logout, register 
+  LoginLogOutRegister,
    );
 
 export const store = configureStore({
