@@ -5,6 +5,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { dangkytaikhoan } from '../../redux/login-logout-register/AsyncThunk-lg-lo-rg';
 
 export default function Register() {
     
@@ -40,16 +41,26 @@ export default function Register() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-            console.log('Đăng nhập thành công', { phone, email, password });
-            setErrors({});
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (validateForm()) {
+    //         console.log('Đăng nhập thành công', { phone, email, password });
+    //         setErrors({});
 
-            // Điều hướng đến trang chủ sau khi đăng nhập thành công
-            // navigate('/'); // Chuyển đến trang chủ (hoặc trang mong muốn)
+    //         // Điều hướng đến trang chủ sau khi đăng nhập thành công
+    //         // navigate('/'); // Chuyển đến trang chủ (hoặc trang mong muốn)
+    //     }
+    // };
+
+    const dispatch = useDispatch();
+    const { register, handleSubmit  } = useForm()
+    const onSubmit = (data) => {
+        if (validateForm()) {
+          setErrors({});
+        }else{
+            dispatch(dangkytaikhoan(data))
         }
-    };
+    }
 
     return (
         <>
@@ -60,7 +71,7 @@ export default function Register() {
                     <div className='form_login_left'>
                         <h1>ĐĂNG KÝ</h1>
                         <p>Chào mừng bạn đến với website Vexere.com</p>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className='form_group hhhu'>
                                 <input
                                     type='text'
@@ -68,6 +79,7 @@ export default function Register() {
                                     placeholder='Số điện thoại'
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
+                                    {...register('phone')}
                                 />
                                 {errors.phone && <p className='error'>{errors.phone}</p>}
                             </div>
@@ -78,6 +90,7 @@ export default function Register() {
                                     placeholder='Email'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    {...register('email')}
                                 />
                                 {errors.email && <p className='error'>{errors.email}</p>}
                             </div>
@@ -88,6 +101,7 @@ export default function Register() {
                                     placeholder='Password'
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    {...register('password')}
                                 />
                                 <span className='toggle-password' onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? <Visibility /> : <VisibilityOff />}

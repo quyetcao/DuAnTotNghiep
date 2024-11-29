@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
 export default function Login() {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -38,16 +39,26 @@ export default function Login() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-           dispatch()
-            setErrors({});
 
-            // Điều hướng đến trang chủ sau khi đăng nhập thành công
-            // navigate('/'); // Chuyển đến trang chủ (hoặc trang mong muốn)
+
+    const { register, handleSubmit,setValue  } = useForm()
+    const onSubmit = (data) => {
+        if (validateForm()) {
+          setErrors({});
+        }else{
+            dispatch(dangkytaikhoan)
         }
-    };
+    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     if (validateForm()) {
+    //        dispatch()
+    //         setErrors({});
+
+    //         // Điều hướng đến trang chủ sau khi đăng nhập thành công
+    //         // navigate('/'); // Chuyển đến trang chủ (hoặc trang mong muốn)
+    //     }
+    // };
 
     return (
         <>
@@ -58,7 +69,7 @@ export default function Login() {
                     <div className='form_login_left'>
                         <h1 className='form_login-title'>ĐĂNG NHẬP</h1>
                         <p>Chào mừng bạn đến với website Vexere.com</p>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className='form_group hhhu'>
                                 <input
                                     type='text'
