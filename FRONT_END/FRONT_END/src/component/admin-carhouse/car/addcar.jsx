@@ -8,7 +8,7 @@ export default function AddCar() {
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         console.log(data);
-        dispatch(CallapiAddCarHouse(data))
+        // dispatch(CallapiAddCarHouse(data))
     };
 
     return (
