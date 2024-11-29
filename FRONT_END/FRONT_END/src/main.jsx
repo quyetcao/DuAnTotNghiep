@@ -23,8 +23,8 @@ import BookingConfirmation from './component/payment/bookingConfirmation.jsx';
 import SelectSeatResponsive from './component/view-responsive/view-res-select-seat/view-res-select-seat.jsx';
 import NoSearch from './component/viewpage/nosearch.jsx';
 import AppAdminQLWeb from './AdminWeb.jsx';
-import ShowDsCarHouse from './component/view-adminweb/admin-show-carhouse.jsx';
-import AddCarHouse from './component/view-adminweb/admin-add-carhouse.jsx';
+
+
 
 import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/addcxcarhouse.jsx';
 import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
@@ -40,6 +40,8 @@ import AddEvent from './component/view-adminweb/post-event/admin-title-event.jsx
 import EditEvent from './component/view-adminweb/post-event/admin-title-event.jsx/edit-title.jsx';
 import QuanlyPost from './component/view-adminweb/post-event/admin-post/list-post.jsx';
 import AddEArticles from './component/view-adminweb/post-event/admin-post/add-post.jsx';
+import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
+import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
 
 
 

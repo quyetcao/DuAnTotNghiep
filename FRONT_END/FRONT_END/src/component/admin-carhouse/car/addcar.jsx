@@ -1,13 +1,14 @@
 import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { CallapiAddCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 
 export default function AddCar() {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         console.log(data);
-        // dispatch(CallapiAddCarHouse(data))
+        dispatch(CallapiAddCarHouse(data))
     };
 
     return (
