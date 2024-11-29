@@ -8,18 +8,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CallapiGetAllCar, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import CircularProgress from '@mui/material/CircularProgress';
-<<<<<<< HEAD
-
-export default function Quanlyloaixe() {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(CallapiGetAllCar());
-    }, []);
-    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
-    console.log('all car tyoe', allcartype);
-    const isload = useSelector((state) => state.Storecartype?.isloading);
-
-=======
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -48,19 +36,12 @@ export default function Quanlyloaixe() {
 
     }
 
->>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
     return (
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
                         <h3 className='content-top-heading'>Quản lý Loại Xe </h3>
-<<<<<<< HEAD
-                        <Link to='/admincarhouse/addcartype'>
-                            <button className='content-top-btn'>Tạo mới</button>
-                        </Link>
-=======
->>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                         <Link to='/admincarhouse/addcartype'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
@@ -77,11 +58,7 @@ export default function Quanlyloaixe() {
                         </div>
                     </div>
                     <div className='content-table'>
-<<<<<<< HEAD
-                        {isload ? (
-=======
                         {isload ? <div style={{ transform: "translateX(50%)" }}><CircularProgress /></div> :
->>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                             <table>
                                 <thead>
                                     <tr>
@@ -92,68 +69,6 @@ export default function Quanlyloaixe() {
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-<<<<<<< HEAD
-                                {allcartype &&
-                                    allcartype.map((itemcartype) => {
-                                        return (
-                                            <>
-                                                {' '}
-                                                <tbody>
-                                                    <tr>
-                                                        <td>{itemcartype.id}</td>
-                                                        <td>{itemcartype.name}</td>
-                                                        <td>{itemcartype.quantity_seat}</td>
-                                                        <td>{itemcartype.image}</td>
-                                                        <td className='action-icons'>
-                                                            <EditIcon />
-                                                            <ListIcon />
-                                                            <RemoveRedEyeIcon />
-                                                            <FileCopyIcon />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </>
-                                        );
-                                    })}
-                            </table>
-                        ) : (
-                            <div style={{ transform: 'translateX(50%)' }}>
-                                <CircularProgress />
-                            </div>
-                        )}
-                        {/* <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên loại xe </th>
-                                    <th>Số ghế</th>
-                                    <th>Ảnh</th>
-                                    <th>Thao Tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {allcartype &&
-                                    allcartype.map((itemcartype) => {
-                                        return (
-                                            <>
-                                                <tr>
-                                                    <td>{itemcartype.id}</td>
-                                                    <td>{itemcartype.name}</td>
-                                                    <td>{itemcartype.quantity_seat}</td>
-                                                    <td>{itemcartype.image}</td>
-                                                    <td className='action-icons'>
-                                                        <EditIcon />
-                                                        <ListIcon />
-                                                        <RemoveRedEyeIcon />
-                                                        <FileCopyIcon />
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        );
-                                    })}
-                            </tbody>
-                        </table> */}
-=======
                                 {Array.isArray(allcartype) && allcartype?.map((itemcartype) => {
                                     return <>  <tbody><tr>
                                         <td>{itemcartype.id}</td>
@@ -176,7 +91,6 @@ export default function Quanlyloaixe() {
                         }
 
 
->>>>>>> 1570958cbe7438dcd64be960beeea6f1a59284ee
                     </div>
                     <div className='page-button'>
                         <div className='page-list'>
