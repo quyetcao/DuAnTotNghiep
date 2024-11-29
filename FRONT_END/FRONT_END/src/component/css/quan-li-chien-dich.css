@@ -280,6 +280,7 @@ tbody tr:nth-child(even) {
     color: #007bff;
     font-size: 25px;
     margin: 4px;
+    cursor: pointer;
 }
 
 /* .page-button {
@@ -309,4 +310,8 @@ tbody tr:nth-child(even) {
     color: var(--color-primary);
     background-color: #e3f2fd;
     border: 1px solid #e3f2fd;
+}
+
+.btn-input-manage {
+    margin-right: 24px;
 }
