@@ -292,8 +292,9 @@ class EventController extends HelpController
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
+                'status' => 500,
+                'message' => 'Lỗi hệ thống!',
+                'error' => $th->getMessage()
             ], 500);
         }
     }

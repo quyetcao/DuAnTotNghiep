@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\{Auth, Validator};
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{Auth, Validator, DB};
 
 use App\Models\{
     CarType,
@@ -216,7 +216,7 @@ class CarController extends HelpController
 ===========================================================================*/
     public function showCar($id)
     {
-        $data = Car::find($id);
+        $data = Car::with('carImages', 'carHouse', 'carType')->find($id);
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy xe!');
@@ -226,45 +226,22 @@ class CarController extends HelpController
     }
     public function listCar()
     {
-        // Lấy all xe kèm ảnh liên quan của mỗi xe
-        $cars = Car::with('carImages')->paginate(10);
-
-        // // Lấy loại xe và nhà xe
-        // $carTypes = CarType::all();
-        // $carHouses = CarHouse::all();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Hiển thị danh sách xe thành công!',
-            'data' => [
-                'cars' => $cars,
-                // 'carTypes' => $carTypes,
-                // 'carHouses' => $carHouses,
-            ]
-        ], 200);
+        $data = Car::with('carImages', 'carHouse', 'carType')->paginate(10);
+        return $this->sendResponse(200, 'Hiển thị danh sách xe thành công!', $data);
     }
 
     public function createCar(Request $request)
     {
-        $validatorCar = Validator::make($request->all(), [
+        $rules = [
             'name' => 'required|string|unique:cars,name',
             'car_type_id' => 'required|exists:car_types,id',
             'car_house_id' => 'required|exists:car_houses,id',
             'license_plate' => 'required|string|unique:cars',
             'model' => 'nullable|string',
             'images.*' => 'required|image|mimes:jpeg,png,jpg'
-        ]);
+        ];
 
-        if ($validatorCar->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation error',
-                'data' => $validatorCar->errors()
-            ], 422);
-        }
-
-        try {
-            // Cars
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
             $car = Car::create([
                 'name' => $request->name,
                 'car_type_id' => $request->car_type_id,
@@ -272,10 +249,8 @@ class CarController extends HelpController
                 'license_plate' => $request->license_plate,
                 'model' => $request->model,
             ]);
-
-
+            
             // Xử lý ảnh
-
             if ($request->hasFile('images')) {
                 // Khởi tạo biến $images mặc định là array rỗng
                 $images = [];
@@ -296,23 +271,120 @@ class CarController extends HelpController
                     $images[] = $imageName;
                 }
             }
+            
+            // Gộp dữ liệu
+            $responseData = [
+                'car' => $car,
+                'images' => $images
+            ];
 
-            return response()->json([
-                'status' => true,
-                'message' => 'A car added successfully',
-                'data' => [
-                    'car' => $car,
-                    'images' => $images
-                ]
-            ], 201);
-        } catch (\Throwable $th) {
-
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
+            // Trả về kết quả thành công
+            return $this->sendResponse(201, 'Xe đã được tạo thành công!', $responseData);
+        });
     }
+
+    // public function updateCar(Request $request, $id)
+    // {
+    //     $car = Car::find($id);
+
+    //     if (!$car) {
+    //         return $this->sendNotFoundResponse('Không tìm thấy xe!');
+    //     }
+
+    //     // Kiểm tra quyền của người dùng
+    //     $user = Auth::user();
+    //     if ($user->carhouse_id != $car->car_house_id) {
+    //         return response()->json([
+    //             'status' => 403,
+    //             'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+    //         ], 403);
+    //     }
+
+    //     $rules = [
+    //         'name' => 'required|string|unique:cars,name,' . $id,
+    //         'car_type_id' => 'required|exists:car_types,id',
+    //         'car_house_id' => 'required|exists:car_houses,id',
+    //         'license_plate' => 'required|string|unique:cars,' . $id,
+    //         'model' => 'nullable|string',
+    //         'images.*' => 'required|image|mimes:jpeg,png,jpg'
+    //     ];
+
+    //     return $this->validateAndExecute($request, $rules, function () use ($request, $car) {
+    //         $car->update([
+    //             'name' => $request->name ?? $car->name,
+    //             'car_type_id' => $request->name ?? $car->name,
+    //             'car_house_id' => $request->name ?? $car->name,,
+    //             'license_plate' => $request->name ?? $car->name,
+    //             'model' => $request->name ?? $car->name,
+    //         ]);
+
+    //         // Xử lý ảnh
+    //         // 1. Xoá các ảnh được chọn
+
+    //         // Khởi tạo biến $imageDeleteName mặc định là array rỗng
+    //         $imageDeleteName = [];
+
+    //         if ($request->has('delete_images')) {
+    //             $deleteImages = $request->delete_images;
+
+    //             foreach ($deleteImages as $imageId) {
+    //                 // Tìm ảnh bằng id để xoá
+    //                 $image = CarImage::find($imageId);
+    //                 $imageDeleteName[] = $image->image;
+
+    //                 if ($image) {
+    //                     // Delete path
+    //                     $image_path = public_path('images/cars/' . $image->image);
+    //                     if (file_exists($image_path)) {
+    //                         unlink($image_path);
+    //                     }
+
+    //                     // delete img
+    //                     $image->delete();
+    //                 }
+    //             }
+    //         }
+
+    //         // 2. Thêm ảnh mới (nếu có)
+    //         // Khởi tạo biến $images mặc định là array rỗng
+    //         $images = [];
+    //         // lấy danh sách ảnh có trong DB    
+    //         $existingImages = $car->carImages->pluck('name')->toArray();
+
+    //         // Ktr xem có ảnh nào mới không
+    //         if ($request->hasFile('images')) {
+
+    //             foreach ($request->file('images') as $image) {
+    //                 $imageNameOrg = $image->getClientOriginalName();
+
+    //                 // Kiểm tra tên ảnh có trong DB hay chưa
+    //                 if (!in_array($imageNameOrg, $existingImages)) {
+    //                     $imageName = time() . '-' . $image->getClientOriginalName();
+
+    //                     // Chuyển ảnh từ tm tạm thời -> tm đích
+    //                     $image->move(public_path('images/cars'), $imageName);
+
+    //                     // Save
+    //                     CarImage::create([
+    //                         'car_id' => $car->id,
+    //                         'image' => $imageName
+    //                     ]);
+
+    //                     // Thêm tên ảnh vào array $images
+    //                     $images[] = $imageName;
+    //                 }
+    //             }
+    //         }
+
+    //         // Gộp dữ liệu
+    //         $responseData = [
+    //             'car' => $car,
+    //             'images' => $images
+    //         ];
+
+    //         return $this->sendResponse(200, 'Cập nhật xe thành công!', $responseData);
+    //     });
+    // }
 
     public function updateCar(Request $request, $idX)
     {
@@ -327,11 +399,13 @@ class CarController extends HelpController
 
         // Kiểm tra quyền của người dùng
         $user = Auth::user();
-        if ($user->carhouse_id != $car->car_house_id) {
-            return response()->json([
-                'status' => 403,
-                'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
-            ], 403);
+        if ($user->role != 'admin') {
+            if ($user->carhouse_id != $car->car_house_id) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+                ], 403);
+            }
         }
 
 
@@ -443,23 +517,22 @@ class CarController extends HelpController
         $car = Car::find($idX);
 
         if (!$car) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Car not found!'
-            ], 404);
+            return $this->sendNotFoundResponse('Không tìm thấy xe!');
         }
-
 
         // Kiểm tra quyền của người dùng
         $user = Auth::user();
-        if ($user->carhouse_id != $car->car_house_id) {
-            return response()->json([
-                'status' => 403,
-                'message' => 'Bạn không có quyền xoá xe của nhà xe khác!'
-            ], 403);
+        if ($user->role != 'admin') {
+            if ($user->carhouse_id != $car->car_house_id) {
+                return response()->json([
+                    'status' => 403,
+                    'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+                ], 403);
+            }
         }
 
         try {
+            DB::beginTransaction();
             // Xoá ảnh trước (vì nó sẽ còn car_id để nhận dạng)
             $carImages = $car->carImages;
 
@@ -482,20 +555,17 @@ class CarController extends HelpController
 
             // Xoá xe 
             $car->delete();
+            DB::commit();
 
+            // Trả về kết quả thành công
+            return $this->sendResponse(200, 'Xe đã được xóa thành công!');
 
-            return response()->json([
-                'status' => true,
-                'message' => 'test',
-                'delete_data' => [
-                    'car' => $car,
-                    // 'images' => $deleteImages
-                ]
-            ], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
+                'status' => 500,
+                'message' => 'Lỗi hệ thống!',
+                'error' => $th->getMessage()
             ], 500);
         }
     }
