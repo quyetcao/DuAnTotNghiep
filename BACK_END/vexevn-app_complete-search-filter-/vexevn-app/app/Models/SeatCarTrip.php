@@ -15,7 +15,7 @@ class SeatCarTrip extends Model
     protected $fillable = [
         'seat_id',
         'car_id',
-        'trip_id',
+        'car_trip_id',
         'is_available',
     ];
 

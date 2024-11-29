@@ -32,6 +32,17 @@ class PaymentController extends Controller
             return $this->sendResponse(400, 'Đơn hàng không ở trạng thái chờ thanh toán.');
         }
 
+        // Lấy danh sách các seat_ids từ đơn hàng (giả sử là mảng hoặc chuỗi)
+        $seatIds = json_decode($order->seat_ids);  // Giả sử seat_ids là chuỗi JSON hoặc mảng
+
+        // Tính tổng tiền của đơn hàng từ bảng seats
+        $calculatedAmount = $this->calculateOrderTotalAmount($seatIds);
+
+        // Kiểm tra nếu số tiền thanh toán nhập vào đúng với tổng tiền tính từ ghế
+        if ($validated['amount'] != $calculatedAmount) {
+            return $this->sendResponse(400, 'Số tiền thanh toán không đúng với tổng tiền của các ghế.');
+        }
+
         try {
             $paymentResult = $this->processPayment($validated);
 
@@ -45,6 +56,7 @@ class PaymentController extends Controller
                     'transaction_id' => $paymentResult['transaction_id'],
                 ]);
 
+                // Cập nhật trạng thái đơn hàng
                 $order->update(['status' => 'paid']);
 
                 return $this->sendResponse(201, 'Thanh toán đã được xử lý thành công.', $payment);
@@ -55,6 +67,17 @@ class PaymentController extends Controller
             return $this->sendResponse(500, $th->getMessage());
         }
     }
+
+private function calculateOrderTotalAmount($seatIds)
+    {
+        // Tính tổng tiền từ các ghế trong đơn hàng
+        $totalAmount = \DB::table('seats')
+            ->whereIn('id', $seatIds) // Lọc các ghế theo seat_ids
+            ->sum('price'); // Tính tổng giá trị của cột price trong bảng seats
+
+        return $totalAmount;
+    }
+
 
     private function processPayment($data)
     {

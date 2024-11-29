@@ -26,14 +26,14 @@ class OrderController extends Controller
     {
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'trip_id' => 'required|exists:car_trips,id',
+            'car_trip_id' => 'required|exists:car_trips,id',
             'seat_ids' => 'required|array|min:1',
             'seat_ids.*' => 'exists:seat_car_trips,id',
         ]);
 
         
         $seats = SeatCarTrip::whereIn('id', $validated['seat_ids'])
-            ->where('trip_id', $validated['trip_id'])
+            ->where('car_trip_id', $validated['car_trip_id'])
             ->where('is_available', true)
             ->with('seat') 
             ->get();
@@ -52,7 +52,7 @@ class OrderController extends Controller
             
             $order = Order::create([
                 'user_id' => $validated['user_id'],
-                'trip_id' => $validated['trip_id'],
+                'car_trip_id' => $validated['car_trip_id'],
                 'seat_ids' => json_encode($validated['seat_ids']),
                 'total_price' => $totalPrice,
                 'status' => 'pending',
@@ -114,7 +114,7 @@ class OrderController extends Controller
             // Cập nhật trạng thái `is_available` trong bảng `seat_car_trips`
             DB::table('seat_car_trips')
                 ->whereIn('seat_id', $seatIds)
-                ->where('trip_id', $order->trip_id) // Điều kiện theo chuyến đi
+                ->where('car_trip_id', $order->car_trip_id) // Điều kiện theo chuyến đi
                 ->update(['is_available' => true]); // Giải phóng ghế
 
             // Ghi lịch sử đơn hàng
