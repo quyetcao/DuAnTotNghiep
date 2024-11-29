@@ -61,7 +61,7 @@ select:hover, select:focus {
     padding: 30px;
 }
 
-::placeholder, option {
+::placeholder, option, input {
     font-family: 'Mulish', sans-serif;
 }
 

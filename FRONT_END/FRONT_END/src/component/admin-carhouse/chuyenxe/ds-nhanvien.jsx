@@ -46,7 +46,7 @@ export default function DSNhanVien() {
 
     return (
         <div className='ds-nhanvien'>
-            <div className='sidebar sidebar-border__right '>
+            {/* <div className='sidebar sidebar-border__right '>
                 <a href='#'>
                     <NotesOutlinedIcon />
                 </a>
@@ -74,11 +74,11 @@ export default function DSNhanVien() {
                 <a href='#'>
                     <SettingsIcon />
                 </a>
-            </div>
+            </div> */}
 
             <div className='header-staff'>
                 <div className='header-container'>
-                    <div className='wrapper-top m-4'>
+                    {/* <div className='wrapper-top m-4'>
                         <div className='form-search'>
                             <div className='search-container'>
                                 <SearchIcon style={{ color: '#6e6e6e' }} />
@@ -119,7 +119,7 @@ export default function DSNhanVien() {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='employee-list'>
                         <h2 className='empolyee-title'>Danh sách nhân viên</h2>
                         <div className='add-employee employee-background'>

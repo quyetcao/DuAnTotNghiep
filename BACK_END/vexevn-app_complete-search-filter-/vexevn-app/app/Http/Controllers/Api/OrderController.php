@@ -67,6 +67,30 @@ class OrderController extends Controller
         }
     }
 
+    // public function handleOrder($orderId)
+    // {
+    //     // Lấy đơn hàng từ DB
+    //     $order = Order::find($orderId);
+
+    //     // Kiểm tra nếu đơn hàng không tồn tại
+    //     if (!$order) {
+    //         return $this->sendResponse(404, 'Đơn hàng không tồn tại.');
+    //     }
+
+    //     // Lấy seat_ids, Laravel tự động chuyển từ JSON thành mảng
+    //     $seatIds = $order->seat_ids;
+
+    //     // Kiểm tra nếu seat_ids không phải là mảng hợp lệ
+    //     if (!is_array($seatIds)) {
+    //         return $this->sendResponse(400, 'Dữ liệu ghế không hợp lệ.');
+    //     }
+
+    //     // Tính tổng tiền từ seat_ids
+    //     $totalAmount = $this->calculateOrderTotalAmount($seatIds);
+
+    //     // Trả kết quả
+    //     return $this->sendResponse(200, 'Tính toán thành công.', ['totalAmount' => $totalAmount]);
+    // }
 
     public function showOrder($id){
         $order = Order::find($id);

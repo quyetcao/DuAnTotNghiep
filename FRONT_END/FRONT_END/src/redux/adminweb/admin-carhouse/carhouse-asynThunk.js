@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllCarHouse } from "./createSlice-carhouse";
+import { getAllCarHouse, getOneCarHouse } from "./createSlice-carhouse";
 
 
 
@@ -33,3 +33,18 @@ export function CallapiAddCarHouse(formcarhouse){
   };
 }
 
+// call api lấy  nhà xe 
+export function CallapiGetOneCarHouse(id){
+  return async (dispatch) => {
+    try {
+   
+      let res = await axios.get(
+        `http://localhost:8000/api/carhouse/${id}`);
+      console.log(res);
+      dispatch(getOneCarHouse(res.data.data))
+
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}

@@ -29,7 +29,7 @@ import AppAdminQLWeb from './AdminWeb.jsx';
 import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/addcxcarhouse.jsx';
 import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
 import QuanLyDatVeXe from './component/admin-carhouse/chuyenxe/quanLyDatVeXe.jsx'
-import AddCar from './component/admin-carhouse/car/addcar.jsx';
+// import AddCar from './component/admin-carhouse/car/addcar.jsx';
 import AddCarType from './component/admin-carhouse/car/addcartype.jsx';
 import Quanlyxe from './component/admin-carhouse/car/showlistcar.jsx';
 import RouterCar from './component/admin-carhouse/router-car.jsx';
@@ -42,6 +42,7 @@ import QuanlyPost from './component/view-adminweb/post-event/admin-post/list-pos
 import AddEArticles from './component/view-adminweb/post-event/admin-post/add-post.jsx';
 import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
 import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
+import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhouse';
 
 
 
@@ -148,10 +149,10 @@ const routes = createBrowserRouter([
 
       },
 
-      {
-        path: 'addcar',
-        element: <AddCar />
-      },
+      // {
+      //   path: 'addcar',
+      //   element: <AddCar />
+      // },
       {
         path: 'addcartype',
         element: <AddCarType />
@@ -181,6 +182,10 @@ const routes = createBrowserRouter([
         path: 'addcarhouse',
         element: <AddCarHouse />
       },
+      {
+        path: 'editcarhouse/:id',
+        element: <EditCarHouse />,
+       },
       // Event 
       {
         path: 'listEvent',
