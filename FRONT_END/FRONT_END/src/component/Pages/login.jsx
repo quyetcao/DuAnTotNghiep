@@ -110,9 +110,9 @@ export default function Login() {
                                 <span className='link-text-register'>Bạn chưa có tài khoản?</span>
                                 <Link to='/register'>Đăng ký</Link>
                             </div>
-                            <button type='submit' className='submit-login'>
+                            <input type='submit' className='submit-login' value="ĐĂNG NHẬP" />
                                 ĐĂNG NHẬP
-                            </button>
+                          
                         </form>
                         <div className='login_icon'>
                             <img src='../../images/imageslogin/icons8-google-48.png' alt='' />

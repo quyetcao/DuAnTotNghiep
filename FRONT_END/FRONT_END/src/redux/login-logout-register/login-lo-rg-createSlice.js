@@ -4,29 +4,31 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // đăng ký 
-  registerOK:false,
+  registerOK: false,
+  registerError:false,
+  //---------Đăng nhập-----
+  infoUser: [],
+  loginError: false,
+  loginOK: false,
+  //--------Xác thực-------
+  statusXacthuc: false,
+  usedaxacthuc: {},
 
 
-  
-  };
+};
 
-  
-  export const LoginLogOutRegister = createSlice({
-    name: "LoginLogOutRegister",
-    initialState,
-    reducers: {
+
+export const LoginLogOutRegister = createSlice({
+  name: "LoginLogOutRegister",
+  initialState,
+  reducers: {
 
     // đăng ký
     postRegister(state, action) {
-      console.log("action.payload", action.payload);
-      state.registerOK = true;
-
+      state.registerOK = action.payload;
     },
-    setStatusRegister(state, action) {
-      console.log("setStatusRegister", action.payload);
-      state.registerOK = false;
-      console.log("  state.registerOK", state.registerOK);
-
+    poststRegisterError(state, action) {
+      state.registerError = action.payload;
     },
     postRegisterpedding(state, action) {
       console.log("action.payload", action.payload);
@@ -59,14 +61,14 @@ const initialState = {
       state.loginError = true;
     },
     authorization(state, action) {
-      console.log("xacs thuwcnjnjdabcjbdjbsjdbcbsdbbabdad1",action.payload);
+      console.log("xacs thuwcnjnjdabcjbdjbsjdbcbsdbbabdad1", action.payload);
       state.usedaxacthuc = action.payload
       state.statusXacthuc = true;
     }
 
   },
 });
-  
-  export const {postRegister, postRegisterrejct, postRegisterpedding,
-    setStatusRegister, postLogin, postLoginError, setLoginOK,
-    setLoginError, authorization} = LoginLogOutRegister.actions;
+
+export const { postRegister,poststRegisterError, postRegisterrejct, postRegisterpedding,
+  setStatusRegister, postLogin, postLoginError, setLoginOK,
+  setLoginError, authorization } = LoginLogOutRegister.actions;

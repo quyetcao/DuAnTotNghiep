@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from 'react-hook-form';
@@ -8,62 +9,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dangkytaikhoan } from '../../redux/login-logout-register/AsyncThunk-lg-lo-rg';
 
 export default function Register() {
-    
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState({});
+
+    const notify = (event) => {
+        if (event == true) {
+            toast.success("Đăng Ký Thành Công!", { theme: "colored" });
+        } else if (event == false) {
+            toast.error("Đăng Ký Không Thành Công!", { theme: "colored" });
+        }
+    }
+
     const [showPassword, setShowPassword] = useState(false);
-    // const navigate = useNavigate();
-
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!phone) {
-            newErrors.phone = 'Vui lòng nhập thông tin';
-        } else if (!/^0\d{9}$/.test(phone)) {
-            newErrors.phone = 'Vui lòng nhập đúng định dạng số điện thoại (10 số, bắt đầu bằng 0)';
-        }
-
-        if (!email) {
-            newErrors.email = 'Vui lòng nhập thông tin';
-        } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            newErrors.email = 'Vui lòng nhập đúng định dạng email';
-        }
-
-        if (!password) {
-            newErrors.password = 'Vui lòng nhập thông tin';
-        } else if (password.length < 6) {
-            newErrors.password = 'Mật khẩu phải có ít nhất 6 ký tự';
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     if (validateForm()) {
-    //         console.log('Đăng nhập thành công', { phone, email, password });
-    //         setErrors({});
-
-    //         // Điều hướng đến trang chủ sau khi đăng nhập thành công
-    //         // navigate('/'); // Chuyển đến trang chủ (hoặc trang mong muốn)
-    //     }
-    // };
-
     const dispatch = useDispatch();
-    const { register, handleSubmit  } = useForm()
+    const navigate = useNavigate();
+
+    const { register, handleSubmit, formState: { errors },watch } = useForm();
+
     const onSubmit = (data) => {
-        if (validateForm()) {
-          setErrors({});
-        }else{
-            dispatch(dangkytaikhoan(data))
-        }
+        console.log("data mật khẩu ",data);
+        dispatch(dangkytaikhoan(data));
+    }
+
+    const isToastOk = useSelector((state) => state.LoginLogOutRegister?.registerOK);
+    const isToastError = useSelector((state) => state.LoginLogOutRegister?.registerError);
+
+    if (isToastOk === true) {
+        notify(true);
+        setTimeout(() => {
+            navigate('/login');
+        }, 2000);
+    }
+    if (isToastError) {
+        notify(false);
     }
 
     return (
         <>
+            <ToastContainer />
             <div className='login'>
                 <div className='css-trang-tri'></div>
                 <div className='css-trang-tri2'></div>
@@ -77,46 +58,71 @@ export default function Register() {
                                     type='text'
                                     name='sdt'
                                     placeholder='Số điện thoại'
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                    {...register('phone')}
+                                    {...register('phone', {
+                                        required: 'Vui lòng nhập thông tin',
+                                        pattern: {
+                                            value: /^0\d{9}$/,
+                                            message: 'Vui lòng nhập đúng định dạng số điện thoại (10 số, bắt đầu bằng 0)'
+                                        }
+                                    })}
                                 />
-                                {errors.phone && <p className='error'>{errors.phone}</p>}
+                                {errors.phone && <p className='error'>{errors.phone.message}</p>}
                             </div>
                             <div className='form_group hhhu'>
                                 <input
                                     type='text'
                                     name='email'
                                     placeholder='Email'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    {...register('email')}
+                                    {...register('email', {
+                                        required: 'Vui lòng nhập thông tin',
+                                        pattern: {
+                                            value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                            message: 'Vui lòng nhập đúng định dạng email'
+                                        }
+                                    })}
                                 />
-                                {errors.email && <p className='error'>{errors.email}</p>}
+                                {errors.email && <p className='error'>{errors.email.message}</p>}
                             </div>
                             <div className='form_group hhhu'>
                                 <input
                                     type={showPassword ? 'text' : 'password'}
                                     name='password'
                                     placeholder='Password'
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    {...register('password')}
+                                    {...register('password', {
+                                        required: 'Vui lòng nhập thông tin',
+                                        minLength: {
+                                            value: 6,
+                                            message: 'Mật khẩu phải có ít nhất 6 ký tự'
+                                        }
+                                    })}
                                 />
                                 <span className='toggle-password' onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? <Visibility /> : <VisibilityOff />}
                                 </span>
-                                {errors.password && <p className='error'>{errors.password}</p>}
+                                {errors.password && <p className='error'>{errors.password.message}</p>}
+                            </div>
+                            <div className='form_group hhhu'>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name='password_confirmation'
+                                    placeholder='Nhập lại mật khẩu'
+                                    {...register('password_confirmation', {
+                                        required: 'Vui lòng nhập lại mật khẩu',
+                                        validate: value =>
+                                            value === watch('password') || 'Mật khẩu và xác nhận mật khẩu không khớp'
+                                    })}
+                                />
+                                <span className='toggle-password' onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                </span>
+                                {errors.confirmPassword && <p className='error'>{errors.confirmPassword.message}</p>}
                             </div>
                             <div className='link-register'>
                                 <span className='link-text-register'>Bạn đã có tài khoản?</span>
                                 <Link to='/login'>Đăng nhập</Link>
                             </div>
-                            <input className='submit-login' type='submit'>
-                                ĐĂNG KÝ
-                            </input>
+                            <input className='submit-login' type='submit' value="ĐĂNG KÝ" />
                         </form>
-                        {/* <p><strong>Login</strong> with other</p> */}
                         <div className='login_icon'>
                             <img src='../../images/imageslogin/icons8-google-48.png' alt='' />
                             <p>
