@@ -40,7 +40,7 @@ class SeatCarTripController extends Controller
         $validated = $request->validate([
             'seat_id' => 'required|exists:seats,id',
             'car_id' => 'required|exists:cars,id',
-            'trip_id' => 'required|exists:trips,id',
+            'car_trip_id' => 'required|exists:trips,id',
             'is_available' => 'boolean',
         ]);
 
@@ -64,7 +64,7 @@ class SeatCarTripController extends Controller
         $validateSeatCarTrip = Validator::make($request->all(), [
             'seat_id' => 'required|exists:seats,id',
             'car_id' => 'required|exists:cars,id',
-            'trip_id' => 'required|exists:trips,id',
+            'car_trip_id' => 'required|exists:trips,id',
             'is_available' => 'boolean',
         ]);
 
@@ -75,7 +75,7 @@ class SeatCarTripController extends Controller
         try {
             $seatCarTrip->seat_id = $request->seat_id;
             $seatCarTrip->car_id = $request->car_id;
-            $seatCarTrip->trip_id = $request->trip_id;
+            $seatCarTrip->car_trip_id = $request->car_trip_id;
             $seatCarTrip->is_available = $request->is_available;
             $seatCarTrip->save();
 

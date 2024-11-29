@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id(); 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); 
-            $table->unsignedBigInteger('trip_id'); 
+            $table->unsignedBigInteger('car_trip_id'); 
             $table->json('seat_ids'); 
             $table->unsignedBigInteger('total_price'); 
             $table->enum('status', ['pending', 'paid', 'cancelled'])->default('pending'); 
             $table->timestamps();
         
-            $table->foreign('trip_id')->references('id')->on('car_trips')->onDelete('cascade'); 
+            $table->foreign('car_trip_id')->references('id')->on('car_trips')->onDelete('cascade'); 
         });
     }
 
