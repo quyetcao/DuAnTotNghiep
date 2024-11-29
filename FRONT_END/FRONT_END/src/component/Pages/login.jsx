@@ -41,7 +41,7 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log('Đăng nhập thành công', { phone, email, password });
+           dispatch()
             setErrors({});
 
             // Điều hướng đến trang chủ sau khi đăng nhập thành công

@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Register() {
     
@@ -96,9 +98,9 @@ export default function Register() {
                                 <span className='link-text-register'>Bạn đã có tài khoản?</span>
                                 <Link to='/login'>Đăng nhập</Link>
                             </div>
-                            <button className='submit-login' type='submit'>
+                            <input className='submit-login' type='submit'>
                                 ĐĂNG KÝ
-                            </button>
+                            </input>
                         </form>
                         {/* <p><strong>Login</strong> with other</p> */}
                         <div className='login_icon'>
