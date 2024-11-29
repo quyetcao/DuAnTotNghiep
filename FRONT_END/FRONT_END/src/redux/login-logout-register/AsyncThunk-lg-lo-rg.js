@@ -1,54 +1,40 @@
 import axios from "axios";
+import { postRegister } from "./login-lo-rg-createSlice";
 
 
 
 
-// export function getAllDataCategory() {
-//     return async (dispatch) => {
-//       try {
-//       //   dispatch(loading(true));
-//         let res = await axios.get(
-//           "http://localhost:3000/categorys"
-//         );
-//         let data = res.data.data;
-//         console.log("asyncthunk",data);
-//         dispatch(getAllChuyenXeTheoTuyen(data));
-//       //   dispatch(loadDataErr(""));
-//       } catch (error) {
-//       //   dispatch(loadDataErr(error.message));
-//       } finally {
-//       //   dispatch(loading(false));
-//       }
-//     };
-//   }
-
-
-// call api khi nhận form từ người dùng gủiư lên như nơi đi nới đến và ngày đi
-export function callApiRegiter(formdata){
+export function dangkytaikhoan(body) {
   return async (dispatch) => {
     try {
-      dispatch(changeIsLoadcx(true))
-      dispatch(reDataCx())
-      let res = await axios.get(
-        "http://localhost:8000/api/cartrip/search?",{
-        params: {
-          city_from: formSearch.city_from,
-          city_to:formSearch.city_to,
-          departure_date: formSearch.departure_date,
-          return_date: formSearch.return_date
-        }
-      }
-
+      let res = await axios.post(
+        `http://localhost:3000/api/auth/signup`, body
       );
-      let data = res.data.data;
-      console.log("asyncthunk", data);
-      dispatch(getAllChuyenXeSearch(data));
+      console.log("ket qua dang ky ", res);
+      dispatch(postRegister(res));
 
     } catch (error) {
-      dispatch(getAllChuyenXeSearch([]));
-      console.log(error);
-    } finally{
-      dispatch(changeIsLoadcx(false))
+      dispatch(postRegisterrejct(error));
+    } finally {
+      //   dispatch(loading(false));
+    }
+  };
+}
+
+export function dangnhap(body) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(
+        `http://localhost:3000/users/login`, body
+      );
+      localStorage.setItem('access_token',res.data.accesToken)
+      console.log("ket qua dang nhap", res);
+      dispatch(postLogin(res.data));
+
+    } catch (error) {
+      dispatch(postLoginError(error));
+    } finally {
+      //   dispatch(loading(false));
     }
   };
 }
