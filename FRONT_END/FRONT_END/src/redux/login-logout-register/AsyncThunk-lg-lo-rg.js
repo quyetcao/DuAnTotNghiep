@@ -1,5 +1,5 @@
 import axios from "axios";
-import { postRegister, poststRegisterError } from "./login-lo-rg-createSlice";
+import { postLogin, postRegister, poststRegisterError, setLoginError, setLoginOK } from "./login-lo-rg-createSlice";
 
 
 
@@ -24,20 +24,25 @@ export function dangkytaikhoan(body) {
   };
 }
 
-// export function dangnhap(body) {
-//   return async (dispatch) => {
-//     try {
-//       let res = await axios.post(
-//         `http://localhost:3000/users/login`, body
-//       );
-//       localStorage.setItem('access_token',res.data.accesToken)
-//       console.log("ket qua dang nhap", res);
-//       dispatch(postLogin(res.data));
+export function dangnhap(body) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(
+        `http://localhost:8000/api/auth/login/`, body
+      );
+      localStorage.setItem('access_token',res.data.data.token)
+      console.log("ket qua dang nhap", res);
+      dispatch(postLogin(res.data.data.user))
+      dispatch(setLoginOK(true));
 
-//     } catch (error) {
-//       dispatch(postLoginError(error));
-//     } finally {
-//       //   dispatch(loading(false));
-//     }
-//   };
-// }
+    } catch (error) {
+      console.log("error login",error);
+      dispatch(setLoginError(true));
+    } finally {
+      setTimeout(() => {
+        dispatch(setLoginOK(false));
+        dispatch(setLoginError(false));
+      }, 3000);
+    }
+  };
+}

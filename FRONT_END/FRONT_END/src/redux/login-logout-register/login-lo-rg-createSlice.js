@@ -42,23 +42,21 @@ export const LoginLogOutRegister = createSlice({
     //------------------------------đăng nhập-------------------------------------------
 
     postLogin(state, action) {
-      console.log("action.payload.loginok", action.payload);
       state.infoUser = action.payload;
-      console.log("infouse", state.infoUser);
-      state.loginOK = true;
+      console.log("infoUser",state.infoUser);
     },
 
 
     setLoginOK(state, action) {
-      console.log("action.payload.setLoginOK", action.payload);
-      state.loginOK = false;
+
+      state.loginOK = action.payload;
     },
     setLoginError(state, action) {
-      console.log("action.payload.setLoginError", action.payload);
-      state.loginError = false;
+
+      state.loginError = action.payload;
     },
-    postLoginError(state) {
-      state.loginError = true;
+    postLoginError(state,action) {
+      state.loginError =action.payload;
     },
     authorization(state, action) {
       console.log("xacs thuwcnjnjdabcjbdjbsjdbcbsdbbabdad1", action.payload);

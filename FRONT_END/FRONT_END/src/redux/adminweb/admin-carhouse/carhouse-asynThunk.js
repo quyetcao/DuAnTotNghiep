@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getAllCarHouse, getOneCarHouse } from "./createSlice-carhouse";
-
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
 
 
 // call  lấy tất cả  nhà xe 
