@@ -190,7 +190,7 @@ export default function DSNhanVien() {
                     </div>
 
                     <div className='page-button'>
-                        <div className='page-list'>
+                        <div className='page-list nothing'>
                             <div className='page-list__item'>
                                 <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
                             </div>

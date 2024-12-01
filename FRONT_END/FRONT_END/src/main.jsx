@@ -43,6 +43,9 @@ import AddEArticles from './component/view-adminweb/post-event/admin-post/add-po
 import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
 import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
 import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhouse';
+import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
+import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
+import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
 
 
 
@@ -208,7 +211,19 @@ const routes = createBrowserRouter([
       {
         path:'add-articles',
         element: <AddEArticles/>
-      }
+      },
+      {
+        path:'listbanner',
+        element: <ListBanner/>
+      },
+      {
+        path: 'addbanner',
+        element: <AddBanner />
+      },
+      {
+        path:'editbanner/:id',
+        element:<EditBanner/>
+      },
     ]
   },
 

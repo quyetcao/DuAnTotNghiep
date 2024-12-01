@@ -330,10 +330,10 @@ export default function Banner() {
                                                                 <MobileDatePicker sx={{
                                                                     // Tùy chỉnh kích thước input
                                                                     '& input': {
-                                                                        height: '5px', // Kích thước chiều cao
+                                                                        height: '25px', // Kích thước chiều cao
                                                                         fontSize: '14px',
                                                                         padding: '8px',
-                                                                        marginLeft: '-10px'// Kích thước font chữ
+                                                                        marginLeft: '-10px'
                                                                     },
                                                                     // Loại bỏ outline
                                                                     '& .MuiOutlinedInput-root': {

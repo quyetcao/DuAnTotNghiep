@@ -4,6 +4,8 @@ const initialState = {
     // Tất cả nhà xe
     dataCarHouse: [],
     datacarhouseone: [],
+    dataBanner: [],
+
 };
 
 export const StoreCarHouse = createSlice({
@@ -16,7 +18,11 @@ export const StoreCarHouse = createSlice({
         getOneCarHouse(state, action) {
             state.datacarhouseone = action.payload;
         },
+
+        getAllBanner(state, action) {
+            state.dataBanner = action.payload;
+        },
     },
 });
 
-export const { getAllCarHouse, getOneCarHouse } = StoreCarHouse.actions;
+export const { getAllCarHouse, getOneCarHouse, getAllBanner } = StoreCarHouse.actions;

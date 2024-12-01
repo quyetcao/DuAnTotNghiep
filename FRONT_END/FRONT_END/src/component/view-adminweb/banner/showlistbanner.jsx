@@ -1,48 +1,54 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllCar, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
-import CircularProgress from '@mui/material/CircularProgress';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function Quanlyloaixe() {
+import { useDispatch, useSelector } from 'react-redux';
+import CircularProgress from '@mui/material/CircularProgress';
+import { CallapiGetAllBanner, CallapiGetDeleteBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
+
+export default function QuanlyBanner() {
     const navigate = useNavigate();
-    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
-    console.log('all car type', Array.isArray(allcartype));
-    const isload = useSelector((state) => state.Storecartype?.isloading);
+    const allbanner = useSelector((state) => state.Storebanner?.dataBanner);
+    console.log('list banner 000000000000000000', allbanner);
+    const isload = useSelector((state) => state.Storebanner?.isloading);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllCar());
+        dispatch(CallapiGetAllBanner());
     }, []);
 
-    async function deletecartype(id) {
+    async function deletebanner(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
-            await dispatch(CallapiGetDeleteCar(id));
-            await dispatch(CallapiGetAllCar());
+            await dispatch(CallapiGetDeleteBanner(id));
+            await dispatch(CallapiGetAllBanner());
         }
+    }
+    function chuyendentrangadd() {
+        console.log('hello');
+        navigate('/adminweb/addbanner');
     }
 
     function navigateEdit(id) {
-        navigate(`/admincarhouse/editloaixe/${id}`);
+        navigate(`/adminweb/editbanner/${id}`);
     }
-
+    // /admincarhouse/addcartype
     return (
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản lý Loại Xe </h3>
-                        <Link to='/admincarhouse/addcartype'>
-                            <button className='content-top-btn'>Tạo mới</button>
-                        </Link>
+                        <h3 className='content-top-heading'>Quản lý Banner </h3>
+                        <button className='content-top-btn' onClick={chuyendentrangadd}>
+                            Tạo mới
+                        </button>
                     </div>
                     <div className='content-handle'>
                         <div className='qlcd-search'>
@@ -65,32 +71,35 @@ export default function Quanlyloaixe() {
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Tên loại xe </th>
-                                        <th>Số ghế</th>
-                                        <th>Ảnh</th>
+                                        <th>Hình ảnh </th>
+                                        <th>Alt text</th>
+                                        {/* <th>Ảnh</th> */}
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(allcartype) &&
-                                    allcartype?.map((itemcartype) => {
+                                {Array.isArray(allbanner) &&
+                                    allbanner?.map((itembanner) => {
                                         return (
                                             <>
                                                 {' '}
                                                 <tbody>
                                                     <tr>
-                                                        <td>{itemcartype.id}</td>
-                                                        <td>{itemcartype.name}</td>
-                                                        <td>{itemcartype.quantity_seat}</td>
-                                                        <td>{itemcartype.image}</td>
+                                                        <td>{itembanner?.id}</td>
+                                                        <td>
+                                                            <img src='../../../../../../BACK_END/vexevn-app_complete-search-filter-/vexevn-app/public/images/banners/1731297492.jpg' />
+                                                            {itembanner?.image}
+                                                        </td>
+                                                        <td>{itembanner?.alt_text}</td>
+                                                        {/* <td>{itembanner?.image}</td> */}
                                                         <td className='action-icons'>
                                                             <EditIcon
                                                                 onClick={() => {
-                                                                    navigateEdit(itemcartype.id);
+                                                                    navigateEdit(itembanner.id);
                                                                 }}
                                                             />
                                                             <DeleteIcon
                                                                 onClick={() => {
-                                                                    deletecartype(itemcartype.id);
+                                                                    deletebanner(itembanner.id);
                                                                 }}
                                                             />
                                                             <FileCopyIcon />

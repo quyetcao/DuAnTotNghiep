@@ -23,6 +23,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+
 // import { CallapiGetAllCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { CallapiGetAllCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { useNavigate } from 'react-router-dom';
@@ -103,19 +106,32 @@ export default function ShowDsCarHouse() {
                             </tbody>
                         </table>
                     </div>
-                    <div className='page-button'>
-                        <div className='page-list'>
-                            <div className='page-list__item'>
-                                <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
-                            </div>
-                            <div className='page-list__item'>1</div>
-                            <div className='page-list__item'>2</div>
-                            <div className='page-list__item'>3</div>
-                            <div className='page-list__item'>...</div>
-                            <div className='page-list__item'>9</div>
-                            <div className='page-list__item'>10</div>
-                            <div className='page-list__item'>
-                                <ChevronRightIcon style={{ color: '#6e6e6e' }} />
+                    <div className='box-footer-admin'>
+                        <div className='left-admin-select'>
+                            <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
+                                <Button variant='contained'>Quản Lý Xe</Button>
+                            </Link>
+                            <Link to='/adminweb/listbanner' className='btn-input-manage'>
+                                <Button variant='contained'>Quản Lý Banner</Button>
+                            </Link>
+                            <Link to='/admincarhouse/listcartype'>
+                                <Button variant='contained'>Quản Lý Loại Xe</Button>
+                            </Link>
+                        </div>
+                        <div className='page-button'>
+                            <div className='page-list'>
+                                <div className='page-list__item'>
+                                    <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
+                                </div>
+                                <div className='page-list__item'>1</div>
+                                <div className='page-list__item'>2</div>
+                                <div className='page-list__item'>3</div>
+                                <div className='page-list__item'>...</div>
+                                <div className='page-list__item'>9</div>
+                                <div className='page-list__item'>10</div>
+                                <div className='page-list__item'>
+                                    <ChevronRightIcon style={{ color: '#6e6e6e' }} />
+                                </div>
                             </div>
                         </div>
                     </div>

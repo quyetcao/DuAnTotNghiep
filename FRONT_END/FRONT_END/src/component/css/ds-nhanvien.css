@@ -354,6 +354,12 @@ td {
     border-bottom: 1px solid #e1e1e1;
 }
 
+.box-footer-admin {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
 .page-button {
     margin-bottom: 20px;
 }
@@ -382,4 +388,8 @@ td {
     color: var(--color-primary);
     background-color: #e3f2fd;
     border: 1px solid #e3f2fd;
+}
+
+.nothing {
+    margin-right: 16px;
 }

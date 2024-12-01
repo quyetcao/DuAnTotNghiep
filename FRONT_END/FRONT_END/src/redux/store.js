@@ -5,6 +5,8 @@ import { StoreCarHouse } from "./adminweb/admin-carhouse/createSlice-carhouse";
 import { StoreCarType, StoreCar } from "./adminweb/admin-cartype/createSlice-cartype";
 import { StoreArticles, StoreEventPost } from "./admin-vexere/event-post/event-post-createSlice";
 import { LoginLogOutRegister } from "./login-logout-register/login-lo-rg-createSlice";
+import { StoreBanner } from "./admin-vexere/banner/createSlice-banner";
+
 
 // Kết hợp các reducer
 const rootReducer = combineSlices( 
@@ -18,12 +20,13 @@ const rootReducer = combineSlices(
   StoreCarHouse,
   StoreCarType,
   StoreCar,
+  
 
 
   //admin quản lý toàn bộ web vexere 
   StoreEventPost,
   StoreArticles,
-
+  StoreBanner,
 
 
   //về tài khoản login , logout, register 
