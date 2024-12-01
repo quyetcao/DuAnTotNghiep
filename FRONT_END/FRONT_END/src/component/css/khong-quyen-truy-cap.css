@@ -1,0 +1,10 @@
+.no-quyentruy-cap{
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.no-quyentruy-cap img{
+    width: 40%;
+}

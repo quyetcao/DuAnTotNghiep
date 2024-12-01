@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   // đăng ký 
   registerOK: false,
-  registerError:false,
+  registerError: false,
   //---------Đăng nhập-----
   infoUser: [],
   loginError: false,
@@ -13,6 +13,8 @@ const initialState = {
   //--------Xác thực-------
   statusXacthuc: false,
   usedaxacthuc: {},
+  //----------đã đăng nhập-----
+  isAuthentication: false,
 
 
 };
@@ -43,20 +45,19 @@ export const LoginLogOutRegister = createSlice({
 
     postLogin(state, action) {
       state.infoUser = action.payload;
-      console.log("infoUser",state.infoUser);
+      console.log("infoUser>>>>>>>", state.infoUser);
     },
 
 
     setLoginOK(state, action) {
-
       state.loginOK = action.payload;
+      state.isAuthentication = action.payload;
     },
     setLoginError(state, action) {
-
       state.loginError = action.payload;
     },
-    postLoginError(state,action) {
-      state.loginError =action.payload;
+    postLoginError(state, action) {
+      state.loginError = action.payload;
     },
     authorization(state, action) {
       console.log("xacs thuwcnjnjdabcjbdjbsjdbcbsdbbabdad1", action.payload);
@@ -67,6 +68,6 @@ export const LoginLogOutRegister = createSlice({
   },
 });
 
-export const { postRegister,poststRegisterError, postRegisterrejct, postRegisterpedding,
+export const { postRegister, poststRegisterError, postRegisterrejct, postRegisterpedding,
   setStatusRegister, postLogin, postLoginError, setLoginOK,
   setLoginError, authorization } = LoginLogOutRegister.actions;

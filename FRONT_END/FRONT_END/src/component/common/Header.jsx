@@ -1,4 +1,6 @@
 
+// import Avatar from '@mui/material/Avatar';
+
 // import icon
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -6,16 +8,28 @@ import PhoneIcon from '@mui/icons-material/Phone';
 
 import '../css/header.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import AccountMenu from './iconuserheader';
+
 
 export default function Header() {
+   
+    const isAuthentication = useSelector((state) => state.LoginLogOutRegister?.isAuthentication);
+    console.log("isAuthentication",isAuthentication);
+    // const infoUser=useSelector((state) => state.LoginLogOutRegister?.infoUser);
+
+  
+
     return (
         <div className='header'>
             <div className='header-left'>
                 <div className='logo'>
+                    <Link to="/">
                     <img
                         src='https://storage.googleapis.com/fe-production/svgIcon/icon_vxr_full_2.svg'
                         alt='Vexere Logo'
                     />
+                    </Link>
                 </div>
                 <a
                     href='https://vexere.com/vi-VN/nhung-cau-hoi-thuong-gap.html'
@@ -53,11 +67,17 @@ export default function Header() {
                         <PhoneIcon fontSize='small' />
                         Hotline 24/7
                     </div>
-                    <Link to='/login'>
-                        <div className='login btn-menu'>Đăng nhập</div>
-                    </Link>
+                    {isAuthentication === true ?
+                       <AccountMenu/>
+                        : <Link to='/login'>
+                            <div className='login btn-menu'>Đăng nhập</div>
+                        </Link>}
+
                 </div>
             </div>
         </div>
+
+
+
     );
 }

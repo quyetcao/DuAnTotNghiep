@@ -41,11 +41,11 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
 Route::get('/cartypes', [CarController::class, 'listCarType']);
 
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
     Route::post('/cartypes/create', [CarController::class, 'createCarType']);
     Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
     Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
-// });
+});
 
 
 

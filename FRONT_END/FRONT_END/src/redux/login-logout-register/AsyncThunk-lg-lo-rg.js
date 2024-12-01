@@ -40,7 +40,6 @@ export function dangnhap(body) {
       dispatch(setLoginError(true));
     } finally {
       setTimeout(() => {
-        dispatch(setLoginOK(false));
         dispatch(setLoginError(false));
       }, 3000);
     }
