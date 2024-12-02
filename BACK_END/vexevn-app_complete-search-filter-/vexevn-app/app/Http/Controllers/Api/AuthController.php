@@ -77,7 +77,7 @@ class AuthController extends HelpController
             return $this->sendResponse(201, 'Người dùng tạo mới thành công!', $user);
         });
     }
-    public function login(Request $request)
+    public function  login(Request $request)
     {
         $rules = [
             'email' => 'required|email',

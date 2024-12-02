@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { store } from '../src/redux/store';
 // import component
 import Home from './component/Pages/home.jsx';
 import ViewChuyenxe from './component/viewpage/viewchuyenxe.jsx'
@@ -43,9 +44,16 @@ import AddEArticles from './component/view-adminweb/post-event/admin-post/add-po
 import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
 import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
 import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhouse';
+<<<<<<< HEAD
 import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
 import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
+=======
+import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
+import { Provider } from 'react-redux';
+import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
+import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
+>>>>>>> ccbd90dc6e7d526485e17d5439346613bf9ffcda
 
 
 
@@ -84,6 +92,10 @@ const routes = createBrowserRouter([
         element: <NoLogin />
       },
       {
+        path:"/khong-quyen-truy-cap",
+        element:<Insufficientaccess/>
+      },
+      {
         path: "/thanhtoan",
         element: <ThanhToan />
       },
@@ -119,7 +131,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element: <AppAdmin />,
+    element:<PrivateRouterAdminCarHouse> <AppAdmin /> </PrivateRouterAdminCarHouse>,
     children: [
       {
         path: '',
@@ -175,7 +187,7 @@ const routes = createBrowserRouter([
 
   {
     path: "/adminweb",
-    element: <AppAdminQLWeb />,
+    element: <PrivateRousterAdminWeb><AppAdminQLWeb /></PrivateRousterAdminWeb> ,
     children: [
       {
         path: 'show-ds-carhouse',
@@ -233,6 +245,8 @@ const routes = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
+  <Provider store={store}>
     <RouterProvider router={routes} />
+    </Provider>
   // </StrictMode>,
 )
