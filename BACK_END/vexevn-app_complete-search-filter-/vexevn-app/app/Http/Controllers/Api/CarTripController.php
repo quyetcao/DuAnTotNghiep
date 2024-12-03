@@ -153,7 +153,6 @@ class CarTripController extends Controller
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
-                // Tạo ghế
                 $seat = Seat::create([
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
@@ -161,11 +160,11 @@ class CarTripController extends Controller
                     'price' => $i <= 5 ? 300 : 150,
                     'car_type_id' => $request->car_type_id,
                 ]);
-
+            
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
-                    'car_trip_id' => $carTrip->id,
+                    'car_trip_id' => $carTrip->id,  
                     'is_available' => true,
                 ]);
             }
