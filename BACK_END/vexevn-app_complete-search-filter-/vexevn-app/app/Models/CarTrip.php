@@ -27,6 +27,11 @@ class CarTrip extends Model
         return $this->belongsTo(Car::class);
     }
 
+    public function seatCarTrips()
+    {
+        return $this->hasMany(SeatCarTrip::class, 'car_trip_id');
+    }
+    
     public function carRoute() {
         return $this->belongsTo(CarRoute::class);
     }
