@@ -165,7 +165,7 @@ class CarTripController extends Controller
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
-                    'trip_id' => $carTrip->id,
+                    'car_trip_id' => $carTrip->id,
                     'is_available' => true,
                 ]);
             }
