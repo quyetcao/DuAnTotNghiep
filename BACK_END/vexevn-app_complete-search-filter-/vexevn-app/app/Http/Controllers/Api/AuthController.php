@@ -90,6 +90,7 @@ class AuthController extends HelpController
             }
 
             $user = User::where('email', $request->email)->first();
+           
             $token = $user->createToken('API TOKEN')->plainTextToken;
 
             return $this->sendResponse(200, 'Đăng nhập thành công!', [
@@ -98,11 +99,34 @@ class AuthController extends HelpController
             ]);
         });
     }
-    public function profile()
+    public function profile(Request $request)
     {
         $user = Auth::user();
+        if (!$user) {
+            return $this->sendResponse(401, 'Token đã hết hạn hoặc không hợp lệ');
+        }
+    
         return $this->sendResponse(200, 'Thông tin tài khoản', $user);
     }
+    public function refreshToken(Request $request)
+{
+    // Lấy lại user từ token cũ
+    $user = Auth::user();
+
+    // Xóa các token cũ
+    $user->tokens->each(function ($token) {
+        $token->delete();
+    });
+
+    // Tạo token mới
+    $newToken = $user->createToken('API TOKEN')->plainTextToken;
+
+    return $this->sendResponse(200, 'Token mới được cấp', [
+        'token' => $newToken,
+        'user' => $user
+    ]);
+}
+
     public function logout()
     {
         auth()->user()->tokens()->delete();

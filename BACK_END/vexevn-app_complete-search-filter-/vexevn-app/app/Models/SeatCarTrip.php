@@ -29,8 +29,8 @@ class SeatCarTrip extends Model
         return $this->belongsTo(Car::class);
     }
 
-    public function trip()
+    public function carTrip()
     {
-        return $this->belongsTo(Trip::class);
+        return $this->belongsTo(CarTrip::class, 'car_trip_id');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\Order;
+use App\Models\Seat;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -28,27 +29,27 @@ class PaymentController extends Controller
             'amount' => 'required|numeric|min:0',
             'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal',
         ]);
-
+    
         // Lấy đơn hàng
         $order = Order::find($validated['order_id']);
         if ($order->status !== 'pending') {
             return $this->sendResponse(400, 'Đơn hàng không ở trạng thái chờ thanh toán.');
         }
-
+    
         // Lấy danh sách các seat_ids từ đơn hàng
         $seatIds = json_decode($order->seat_ids);  // Giả sử seat_ids là chuỗi JSON hoặc mảng
-
+    
         // Tính tổng tiền của đơn hàng từ bảng seats
         $calculatedAmount = $this->calculateOrderTotalAmount($seatIds);
-
+    
         // Kiểm tra nếu số tiền thanh toán nhập vào đúng với tổng tiền tính từ ghế
         if ($validated['amount'] != $calculatedAmount) {
             return $this->sendResponse(400, 'Số tiền thanh toán không đúng với tổng tiền của các ghế.');
         }
-
+    
         try {
             $paymentResult = $this->processPayment($validated);
-
+    
             if ($paymentResult['status'] === 'completed') {
                 // Tạo thanh toán
                 $payment = Payment::create([
@@ -59,14 +60,18 @@ class PaymentController extends Controller
                     'status' => 'completed',
                     'transaction_id' => $paymentResult['transaction_id'],
                 ]);
-
+    
                 // Cập nhật trạng thái đơn hàng
                 $order->update(['status' => 'paid']);
-
+    
                 // Lấy thông tin về chuyến xe và các ghế đã chọn
-                $carTrip = $order->carTrip;  // Giả sử mối quan hệ đã được thiết lập
-                $seats = \DB::table('seats')->whereIn('id', $seatIds)->get(); // Truy vấn ghế từ bảng seats dựa trên seatIds
-
+                $carTrip = $order->carTrip;
+                $seats = Seat::whereIn('id', $seatIds)->get(); // Truy vấn ghế từ bảng seats dựa trên seatIds
+    
+                // Kiểm tra lại các điểm đón và điểm trả
+                $pickupPoints = $carTrip->pickupPoints;
+                $dropoffPoints = $carTrip->dropoffPoints;
+    
                 // Tạo vé cho khách hàng
                 foreach ($seats as $seat) {
                     Ticket::create([
@@ -76,11 +81,11 @@ class PaymentController extends Controller
                         'car_id' => $carTrip->car_id,
                         'car_route_id' => $carTrip->car_route_id,
                         'seats_id' => $seat->id,
-                        'pickup_points_id' => $carTrip->pickup_point_id,
-                        'dropoff_points_id' => $carTrip->dropoff_point_id,
+                        'pickup_points_id' => $pickupPoints->first()->id, // Lấy điểm đón đầu tiên
+                        'dropoff_points_id' => $dropoffPoints->first()->id, // Lấy điểm trả đầu tiên
                     ]);
                 }
-
+    
                 return $this->sendResponse(201, 'Thanh toán và tạo vé đã được xử lý thành công.', $payment);
             } else {
                 return $this->sendResponse(400, 'Thanh toán thất bại. Vui lòng thử lại.');
@@ -89,6 +94,7 @@ class PaymentController extends Controller
             return $this->sendResponse(500, $th->getMessage());
         }
     }
+    
     
     private function calculateOrderTotalAmount($seatIds)
     {
