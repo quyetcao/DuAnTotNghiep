@@ -44,16 +44,13 @@ import AddEArticles from './component/view-adminweb/post-event/admin-post/add-po
 import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
 import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
 import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhouse';
-<<<<<<< HEAD
 import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
 import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
-=======
 import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
 import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
->>>>>>> ccbd90dc6e7d526485e17d5439346613bf9ffcda
 
 
 
@@ -131,7 +128,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element:<PrivateRouterAdminCarHouse> <AppAdmin /> </PrivateRouterAdminCarHouse>,
+    element:<AppAdmin />,
     children: [
       {
         path: '',
@@ -187,7 +184,7 @@ const routes = createBrowserRouter([
 
   {
     path: "/adminweb",
-    element: <PrivateRousterAdminWeb><AppAdminQLWeb /></PrivateRousterAdminWeb> ,
+    element:<AppAdminQLWeb /> ,
     children: [
       {
         path: 'show-ds-carhouse',

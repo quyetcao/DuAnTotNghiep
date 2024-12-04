@@ -7,9 +7,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ChooseLocation from './choose-location';
 import ChooseSeat from './choose-seat';
+import { callApiSeat } from '../../redux/info-bus/infobus-asynThunk';
+import { useDispatch } from 'react-redux';
 
 
-export default function HorizontalLinearStepper(){
+export default function HorizontalLinearStepper({index,car_id}){
+  // console.log("car-idddddd",car_id);
+
+  const dispatch = useDispatch();
+
+
+  React.useEffect(() => {
+      dispatch(callApiSeat(car_id));
+  },[])
     const steps = ['Chỗ mong muốn', 'Điểm đón trả'];
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -89,7 +99,7 @@ export default function HorizontalLinearStepper(){
 
           
           <Typography sx={{ mt: 2, mb: 1 }}>
-          {activeStep + 1 === 1 ? <ChooseSeat/> : <ChooseLocation/> }
+          {activeStep + 1 === 1 ? <ChooseSeat seat_car_id={car_id} /> : <ChooseLocation/> }
 
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

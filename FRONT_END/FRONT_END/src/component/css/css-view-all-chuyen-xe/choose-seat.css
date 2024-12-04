@@ -99,6 +99,8 @@
     border-radius: 25px 25px 5px 5px;
     
 }
+
+
 /*hang-ghe -giuwa*/
 .hang-ghe-giua{
     display: flex;
@@ -109,7 +111,7 @@
     flex: 0 0 50%;
     margin-top:3px;
    display: flex;
-   justify-content: center; /* Căn giữa theo chiều ngang */
+   justify-content: center; 
   align-items: center;
 }
 .vo-lang{
@@ -124,3 +126,5 @@
     padding-left: 20px;
     margin-bottom: 20px;
 }
+
+/*ghế*/

@@ -17,6 +17,7 @@ class Seat extends Model
         'car_type_id',
         'seat_number',
         'seat_type',
+        'location_seat',
         'price',
     ];
 

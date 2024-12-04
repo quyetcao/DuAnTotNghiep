@@ -109,8 +109,8 @@ export default function Banner() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     function onSubmit(data) {
-        data.city_from = tpfrom;
-        data.city_to = tpTo,
+        data.city_from = 'Thành phố Hồ Chí Minh';
+        data.city_to = 'Tỉnh Khánh Hòa',
             data.departure_date = departuredate;
         data.arrival_date = returndate;
         console.log("datainform them cphn", data);

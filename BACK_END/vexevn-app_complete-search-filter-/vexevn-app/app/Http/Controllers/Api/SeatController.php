@@ -20,16 +20,30 @@ class SeatController extends Controller
         ], $statusCode);
     }
 
-    public function showSeat($id)
-    {
-        $data = Seat::find($id);
+    // public function showSeat($id)
+    // {
+    //     $data = Seat::find($id);
 
-        if (!$data) {
-            return $this->sendResponse(404, 'Không tìm thấy seat!');
-        }
+    //     if (!$data) {
+    //         return $this->sendResponse(404, 'Không tìm thấy seat!');
+    //     }
 
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết seat thành công!', $data);
+    //     return $this->sendResponse(200, 'Lấy thông tin chi tiết seat thành công!', $data);
+    // }
+
+    public function showSeatsByCarId($car_id)
+{
+    // Lấy tất cả ghế theo car_id
+    $data = Seat::where('car_id', $car_id)->get();
+
+    // Kiểm tra nếu không tìm thấy ghế nào
+    if ($data->isEmpty()) {
+        return $this->sendResponse(404, 'Không tìm thấy ghế nào cho xe này!');
     }
+
+    // Trả về danh sách ghế
+    return $this->sendResponse(200, 'Lấy danh sách ghế thành công!', $data);
+}
 
     public function listSeat()
     {
