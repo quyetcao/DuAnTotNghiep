@@ -66,7 +66,6 @@ class CarTripController extends Controller
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
 
-
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
             'pickup_points.*.pickup_time' => 'required|date_format:H:i',
@@ -101,7 +100,6 @@ class CarTripController extends Controller
                 'return_date' => $request->return_date,
                 'price' => $request->price,
                 'status' => 'not_started',
-
             ]);
 
             // Lưu điểm đón
@@ -153,14 +151,23 @@ class CarTripController extends Controller
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
+                if ($i == 1 || $i == 2) {
+                    $locationSeat = 0;  
+                } elseif ($i == $numberOfSeats || $i == $numberOfSeats - 1) {
+                    $locationSeat = 2;  
+                } else {
+                    $locationSeat = 1; 
+                }
+
                 $seat = Seat::create([
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
                     'seat_type' => $i <= 5 ? 'vip' : 'standard',
                     'price' => $i <= 5 ? 300 : 150,
                     'car_type_id' => $request->car_type_id,
+                    'location_seat' => (string) $locationSeat,
                 ]);
-            
+
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
@@ -168,7 +175,7 @@ class CarTripController extends Controller
                     'is_available' => true,
                 ]);
             }
-            // Thêm nhân viên vào chuyến xe
+
             $listEmployee = [];
             foreach ($request->employees as $employeeId) {
                 CarTripEmployee::create([
@@ -199,6 +206,7 @@ class CarTripController extends Controller
             ], 500);
         }
     }
+
 
 
     public function updateCarTrip(Request $request, $id)

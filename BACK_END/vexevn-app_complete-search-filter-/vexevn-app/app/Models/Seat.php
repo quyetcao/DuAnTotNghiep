@@ -19,6 +19,7 @@ class Seat extends Model
         'seat_type',
         'location_seat',
         'price',
+        'location_seat',
     ];
 
     public function car()
