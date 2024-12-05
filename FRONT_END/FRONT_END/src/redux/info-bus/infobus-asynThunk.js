@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong } from "./createSlice-infobus";
+import { getallseatcarid, getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong } from "./createSlice-infobus";
 
 
 
@@ -98,7 +98,7 @@ export function callApiTuyenDuong(car_route_id){
       let res = await axios.get(
         `http://localhost:8000/api/carroute/${car_route_id}`);
       let data = res.data.data;
-      console.log("áuncthunktuyenduong",data);
+      // console.log("áuncthunktuyenduong",data);
       dispatch(getinfoTuyenDuong({data}));
 
     } catch (error) {
@@ -106,3 +106,22 @@ export function callApiTuyenDuong(car_route_id){
     } 
   };
 }
+
+
+
+///////Phần ghế 
+export function callApiSeat(car_id){
+  return async (dispatch) => {
+    try {
+   
+      let res = await axios.get(
+        `http://localhost:8000/api/seat/${car_id}`);
+      let data = res.data.data;
+      // console.log("all ghế theo carid",data);
+      dispatch(getallseatcarid({car_id,data}));
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}
+

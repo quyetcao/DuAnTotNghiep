@@ -176,7 +176,7 @@ Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 
 //Seat
 
-Route::get('/seat/{id}', [SeatController::class, 'showSeat']);
+Route::get('/seat/{car_id}', [SeatController::class, 'showSeatsByCarId']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {

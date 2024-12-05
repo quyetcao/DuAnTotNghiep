@@ -543,7 +543,7 @@
 }
 
 .kERmQy .from-to .from-to-content1 .to {
-    width: 400px;
+    width: 300px;
     position: absolute;
     bottom: 2px;
     display: flex;
@@ -569,6 +569,7 @@
 }
 
 .content-to-info1 {
+    width:50%;
     display: flex;
     align-items: center;
 }
@@ -1131,6 +1132,16 @@
 .ds-cx-tablet{
     display: none;
 }
+.set-chair{
+    display: block;
+}
+
+
+
+.TicketPC__RightBody-sc-1mxgwjh-3{
+    width: 100%;
+}
+
 /* ds-cx-desktop */
 /* ds-cx-tablet */
 /***Responsive**/
