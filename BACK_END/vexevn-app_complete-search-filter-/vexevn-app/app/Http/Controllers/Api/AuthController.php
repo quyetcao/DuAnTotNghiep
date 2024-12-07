@@ -9,16 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Str;
-
-
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
-
 use App\Models\User;
-
-
 
 class AuthController extends HelpController
 {
@@ -124,7 +118,6 @@ class AuthController extends HelpController
         // Nếu không có dữ liệu cập nhật, trả về thông tin tài khoản
         return $this->sendResponse(200, 'Thông tin tài khoản', $user);
     }
-    
     public function refreshToken(Request $request)
     {
         // Lấy lại user từ token cũ
@@ -143,34 +136,37 @@ class AuthController extends HelpController
             'user' => $user
         ]);
     }
+    public function showAllUsers(Request $request)
+    {
+        // if (!$request->user() || $request->user()->role !== 'admin') {
+        //     return $this->sendResponse(403, 'Bạn không có quyền truy cập vào danh sách người dùng');
+        // }
+        $users = User::all();
+        return $this->sendResponse(200, 'Danh sách tất cả người dùng', $users);
+    }
     public function updateRole(Request $request, $id)
     {
-        // Tìm người dùng theo ID
-        $user = User::findOrFail($id);  // findOrFail không tìm thấy sẽ trả về lỗi 404
-    
+        if ($request->user()->role !== 'admin') {
+            return $this->sendResponse(403, 'Chỉ admin mới có quyền thay đổi role của người dùng khác.');
+        }
+        $user = User::findOrFail($id);  // findOrFail sẽ trả về lỗi 404 
         // Xác thực role mới được gửi trong request
-        $roles = ['admin', 'user', 'carhouse'];  // Các role hợp lệ
+        $roles = ['admin', 'user', 'carhouse'];  
         $newRole = $request->input('role');
-    
-        // Kiểm tra xem role có hợp lệ không
+        // Kiểm tra xem role 
         if (!in_array($newRole, $roles)) {
             return $this->sendResponse(422, 'Role không hợp lệ.');
         }
-    
-        // Cập nhật role cho người dùng
         $user->role = $newRole;
         $user->save();
-    
         return $this->sendResponse(200, 'Cập nhật role người dùng thành công!', $user);
     }
-
     public function deleteUser(Request $request, $id)
     {
         $user = User::findOrFail($id);  // findOrFail nếu không tìm thấy sẽ trả lỗi 404
         $user->delete();
         return $this->sendResponse(200, 'Xóa tài khoản thành công!');
     }
-
     public function logout()
     {
         auth()->user()->tokens()->delete();

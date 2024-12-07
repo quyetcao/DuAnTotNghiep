@@ -32,6 +32,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 });
 
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/auth/all-users', [AuthController::class, 'showAllUsers']);
+    Route::put('/auth/update-role/{id}', [AuthController::class, 'updateRole']);
+    Route::delete('/auth/delete/{id}', [AuthController::class, 'deleteUser']);
+});
 /* =====================================================================
                             CAR SYSTEM 
 ===========================================================================*/
