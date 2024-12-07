@@ -27,10 +27,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/signup', [AuthController::class, 'signUp']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/profile', [AuthController::class, 'profile']);
     Route::get('/auth/logout', [AuthController::class, 'logout']);
-// });
+});
 
 /* =====================================================================
                             CAR SYSTEM 
