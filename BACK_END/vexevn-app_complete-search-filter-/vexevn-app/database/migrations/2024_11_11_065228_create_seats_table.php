@@ -20,7 +20,7 @@ class CreateSeatsTable extends Migration
             $table->string('seat_number');
             $table->enum('seat_type', ['vip', 'standard']);
             $table->unsignedBigInteger('price');
-            // $table->enum('location_seat', ['0', '1', '2'])->default('1')->after('price')->comment('0: Ghế đầu, 1: Ghế giữa, 2: Ghế cuối');
+            $table->enum('location_seat', ['0', '1', '2'])->default(1)->comment('0: Ghế đầu, 1: Ghế giữa, 2: Ghế cuối');
             $table->timestamps();
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             $table->foreign('car_type_id')->references('id')->on('car_types')->onDelete('cascade'); 
