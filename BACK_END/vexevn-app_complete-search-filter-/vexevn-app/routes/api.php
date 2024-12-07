@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
+use App\Http\Controllers\Api\DiscountCodeController;
 
 
 
@@ -234,3 +235,10 @@ Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
 Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']);
 Route::get('/payments', [PaymentController::class, 'listPayments']);
 Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']);
+
+//DISCOUNTCODE
+Route::post('/discount-codes', [DiscountCodeController::class, 'createDiscountCode']);
+Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes']);
+Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscountCode']);
+Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
+Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);

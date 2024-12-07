@@ -16,10 +16,12 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_method'); 
             $table->enum('status', ['pending', 'completed', 'failed'])->default('pending'); 
             $table->string('transaction_id')->nullable(); 
+            $table->unsignedBigInteger('discount_code_id')->nullable();
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('discount_code_id')->references('id')->on('discount_codes')->onDelete('set null');
         });
     }
 
