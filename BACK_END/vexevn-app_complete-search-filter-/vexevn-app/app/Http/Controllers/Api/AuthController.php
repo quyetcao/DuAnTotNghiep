@@ -9,16 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Str;
-
-
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Log;
-
 use App\Models\User;
-
-
 
 class AuthController extends HelpController
 {
@@ -57,7 +51,6 @@ class AuthController extends HelpController
             }
         });
     }
-    // Sign up
     public function signUp(Request $request)
     {
         $rules = [
@@ -91,7 +84,9 @@ class AuthController extends HelpController
 
             $user = User::where('email', $request->email)->first();
            
-            $token = $user->createToken('API TOKEN')->plainTextToken;
+           $token = $user->createToken('API TOKEN')->plainTextToken;
+            //[*] giới hạn các quyền truy cập
+            //$token = $user->createToken('API TOKEN', ['*'])->plainTextToken;
 
             return $this->sendResponse(200, 'Đăng nhập thành công!', [
                 'token' => $token,
@@ -106,58 +101,75 @@ class AuthController extends HelpController
             return $this->sendResponse(401, 'Token đã hết hạn hoặc không hợp lệ');
         }
     
+        // Nếu có yêu cầu cập nhật
+        if ($request->has('name') || $request->has('password')) {
+            // Xác thực đầu vào 
+            $data = $request->only('name', 'password');
+    
+            // Nếu có thay đổi, băm mật khẩu mới
+            if (isset($data['password'])) {
+                $data['password'] = Hash::make($data['password']);
+            }
+    
+            $user->update($data);
+            return $this->sendResponse(200, 'Thông tin tài khoản đã được cập nhật thành công', $user);
+        }
+    
+        // Nếu không có dữ liệu cập nhật, trả về thông tin tài khoản
         return $this->sendResponse(200, 'Thông tin tài khoản', $user);
     }
     public function refreshToken(Request $request)
-{
-    // Lấy lại user từ token cũ
-    $user = Auth::user();
+    {
+        // Lấy lại user từ token cũ
+        $user = Auth::user();
 
-    // Xóa các token cũ
-    $user->tokens->each(function ($token) {
-        $token->delete();
-    });
+        // Xóa các token cũ
+        $user->token->each(function ($token) {
+            $token->delete();
+        });
 
-    // Tạo token mới
-    $newToken = $user->createToken('API TOKEN')->plainTextToken;
+        // Tạo token mới
+        $newToken = $user->createToken('API TOKEN')->plainTextToken;
 
-    return $this->sendResponse(200, 'Token mới được cấp', [
-        'token' => $newToken,
-        'user' => $user
-    ]);
-}
-
+        return $this->sendResponse(200, 'Token mới được cấp', [
+            'token' => $newToken,
+            'user' => $user
+        ]);
+    }
+    public function showAllUsers(Request $request)
+    {
+        // if (!$request->user() || $request->user()->role !== 'admin') {
+        //     return $this->sendResponse(403, 'Bạn không có quyền truy cập vào danh sách người dùng');
+        // }
+        $users = User::all();
+        return $this->sendResponse(200, 'Danh sách tất cả người dùng', $users);
+    }
+    public function updateRole(Request $request, $id)
+    {
+        if ($request->user()->role !== 'admin') {
+            return $this->sendResponse(403, 'Chỉ admin mới có quyền thay đổi role của người dùng khác.');
+        }
+        $user = User::findOrFail($id);  // findOrFail sẽ trả về lỗi 404 
+        // Xác thực role mới được gửi trong request
+        $roles = ['admin', 'user', 'carhouse'];  
+        $newRole = $request->input('role');
+        // Kiểm tra xem role 
+        if (!in_array($newRole, $roles)) {
+            return $this->sendResponse(422, 'Role không hợp lệ.');
+        }
+        $user->role = $newRole;
+        $user->save();
+        return $this->sendResponse(200, 'Cập nhật role người dùng thành công!', $user);
+    }
+    public function deleteUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);  // findOrFail nếu không tìm thấy sẽ trả lỗi 404
+        $user->delete();
+        return $this->sendResponse(200, 'Xóa tài khoản thành công!');
+    }
     public function logout()
     {
         auth()->user()->tokens()->delete();
         return $this->sendResponse(200, 'Đăng xuất thành công!');
     }
 }
- // public function handleGoogleCallback () {
-    //     $googleUser = Socialite::driver('google')->user();
-    //     $findUser = User::where('google_id', $googleUser->id)->first();
-
-    //     try {
-    //         if (!$findUser) {
-    //             $findUser = User::updateOrCreate([
-    //                 'email' => $googleUser->email,
-    //             ], [
-    //                 'name' => $googleUser->name,
-    //                 'google_id' => $googleUser->id,
-    //                 'password' => encrypt('12345678'),
-    //             ]); 
-
-    //             return response()->json([
-    //                 'status' => 200,
-    //                 'message' => 'Đăng nhập thành công',
-    //                 'token' => $findUser->createToken('API TOKEN')->plainTextToken,
-    //                 'user' => $findUser, 
-    //             ], 200);
-    //         }
-    //     } catch (\Throwable $th) {
-    //         return response()->json([
-    //             'status' => 500,
-    //             'message' => $th->getMessage(),
-    //         ], 500);
-    //     }
-    // }

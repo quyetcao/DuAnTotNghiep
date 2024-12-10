@@ -16,29 +16,34 @@ class Payment extends Model
         'payment_method',
         'status',
         'transaction_id',
+        'discount_code_id',
     ];
 
-    /**
-     * Quan hệ với đơn hàng
-     */
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
 
-    /**
-     * Quan hệ với người dùng
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Kiểm tra nếu thanh toán đã hoàn tất
-     */
     public function isCompleted()
     {
         return $this->status === 'completed';
     }
+
+    public function discountCode()
+    {
+        return $this->belongsTo(DiscountCode::class);
+    }
+
+    public function updateUsageLimit()
+    {
+        if ($this->discountCode) {
+            $this->discountCode->decrement('usage_limit');
+        }
+    }
+
 }

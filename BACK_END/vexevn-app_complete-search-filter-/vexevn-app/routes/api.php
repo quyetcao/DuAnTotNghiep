@@ -18,6 +18,9 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\DiscountCodeController;
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -26,11 +29,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/signup', [AuthController::class, 'signUp']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/profile', [AuthController::class, 'profile']);
     Route::get('/auth/logout', [AuthController::class, 'logout']);
-// });
+});
 
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/auth/all-users', [AuthController::class, 'showAllUsers']);
+    Route::put('/auth/update-role/{id}', [AuthController::class, 'updateRole']);
+    Route::delete('/auth/delete/{id}', [AuthController::class, 'deleteUser']);
+});
 /* =====================================================================
                             CAR SYSTEM 
 ===========================================================================*/
@@ -242,3 +250,9 @@ Route::get('/user', [UserController::class, 'listUser']);
     Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
     Route::delete('/user/delete/{id}', [UserController::class, 'deleteBanner']);
 // });
+//DISCOUNTCODE
+Route::post('/discount-codes', [DiscountCodeController::class, 'createDiscountCode']);
+Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes']);
+Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscountCode']);
+Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
+Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);

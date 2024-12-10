@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Seat;
 use App\Models\Ticket;
+use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -28,21 +29,38 @@ class PaymentController extends Controller
             'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:0',
             'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal',
+            'discount_code' => 'nullable|string', // Thêm vào điều kiện cho mã giảm giá
         ]);
-    
-        // Lấy đơn hàng
+        
         $order = Order::find($validated['order_id']);
         if ($order->status !== 'pending') {
             return $this->sendResponse(400, 'Đơn hàng không ở trạng thái chờ thanh toán.');
         }
     
-        // Lấy danh sách các seat_ids từ đơn hàng
-        $seatIds = json_decode($order->seat_ids);  // Giả sử seat_ids là chuỗi JSON hoặc mảng
+        $discountCode = null;
+        if ($validated['discount_code']) {
+            $discountCode = DiscountCode::where('code', $validated['discount_code'])->first();
     
-        // Tính tổng tiền của đơn hàng từ bảng seats
+            if (!$discountCode) {
+                return $this->sendResponse(400, 'Mã giảm giá không tồn tại.');
+            }
+    
+            if ($discountCode->usage_limit <= 0) {
+                return $this->sendResponse(400, 'Mã giảm giá đã hết lượt sử dụng.');
+            }
+    
+            if (!$discountCode->isValid()) {
+                return $this->sendResponse(400, 'Mã giảm giá không hợp lệ.');
+            }
+        }
+    
+        $seatIds = json_decode($order->seat_ids);
         $calculatedAmount = $this->calculateOrderTotalAmount($seatIds);
     
-        // Kiểm tra nếu số tiền thanh toán nhập vào đúng với tổng tiền tính từ ghế
+        if ($discountCode) {
+            $calculatedAmount = $discountCode->applyDiscount($calculatedAmount);
+        }
+    
         if ($validated['amount'] != $calculatedAmount) {
             return $this->sendResponse(400, 'Số tiền thanh toán không đúng với tổng tiền của các ghế.');
         }
@@ -51,7 +69,6 @@ class PaymentController extends Controller
             $paymentResult = $this->processPayment($validated);
     
             if ($paymentResult['status'] === 'completed') {
-                // Tạo thanh toán
                 $payment = Payment::create([
                     'order_id' => $validated['order_id'],
                     'user_id' => $validated['user_id'],
@@ -59,33 +76,34 @@ class PaymentController extends Controller
                     'payment_method' => $validated['payment_method'],
                     'status' => 'completed',
                     'transaction_id' => $paymentResult['transaction_id'],
+                    'usage_limit' => $discountCode ? $discountCode->usage_limit : 0, 
                 ]);
-    
-                // Cập nhật trạng thái đơn hàng
+
+                if ($discountCode) {
+                    $payment->updateUsageLimit();
+                }
+
                 $order->update(['status' => 'paid']);
-    
-                // Lấy thông tin về chuyến xe và các ghế đã chọn
+
                 $carTrip = $order->carTrip;
-                $seats = Seat::whereIn('id', $seatIds)->get(); // Truy vấn ghế từ bảng seats dựa trên seatIds
-    
-                // Kiểm tra lại các điểm đón và điểm trả
+                $seats = Seat::whereIn('id', $seatIds)->get(); 
+
                 $pickupPoints = $carTrip->pickupPoints;
                 $dropoffPoints = $carTrip->dropoffPoints;
-    
-                // Tạo vé cho khách hàng
+
                 foreach ($seats as $seat) {
                     Ticket::create([
-                        'name' => Str::random(10),  // Tạo tên vé ngẫu nhiên
+                        'name' => Str::random(10),
                         'orders_id' => $validated['order_id'],
                         'car_trip_id' => $carTrip->id,
                         'car_id' => $carTrip->car_id,
                         'car_route_id' => $carTrip->car_route_id,
                         'seats_id' => $seat->id,
-                        'pickup_points_id' => $pickupPoints->first()->id, // Lấy điểm đón đầu tiên
-                        'dropoff_points_id' => $dropoffPoints->first()->id, // Lấy điểm trả đầu tiên
+                        'pickup_points_id' => $pickupPoints->first()->id, 
+                        'dropoff_points_id' => $dropoffPoints->first()->id, 
                     ]);
                 }
-    
+
                 return $this->sendResponse(201, 'Thanh toán và tạo vé đã được xử lý thành công.', $payment);
             } else {
                 return $this->sendResponse(400, 'Thanh toán thất bại. Vui lòng thử lại.');
@@ -94,19 +112,19 @@ class PaymentController extends Controller
             return $this->sendResponse(500, $th->getMessage());
         }
     }
+
     
     
     private function calculateOrderTotalAmount($seatIds)
     {
         if (empty($seatIds) || !is_array($seatIds)) {
-            // Nếu seatIds là null hoặc không phải là mảng, trả về 0
+
             return 0;
         }
-    
-        // Tính tổng tiền từ các ghế trong đơn hàng
+
         $totalAmount = \DB::table('seats')
-            ->whereIn('id', $seatIds) // Lọc các ghế theo seat_ids
-            ->sum('price'); // Tính tổng giá trị của cột price trong bảng seats
+            ->whereIn('id', $seatIds) 
+            ->sum('price'); 
     
         return $totalAmount;
     }
