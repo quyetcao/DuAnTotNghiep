@@ -22,15 +22,15 @@ export default function AddBanner() {
     const onSubmit = (data) => {
         const imageFile = data.image[0];
         const formData = new FormData();
+        formData.append('alt_text', data.alt_text);
         formData.append('image', imageFile);
         console.log(data);
-        dispatch(CallapiPostBanner(data));
+        dispatch(CallapiPostBanner(formData));
     };
 
     const isToastOk = useSelector((state) => state.Storebanner?.popupXacNhan);
     const isToastError = useSelector((state) => state.Storebanner?.popupError);
 
-    // Sử dụng useEffect để xử lý logic điều hướng và hiển thị thông báo
     useEffect(() => {
         if (isToastOk) {
             notify(true);
@@ -38,13 +38,13 @@ export default function AddBanner() {
                 navigate('/adminweb/listbanner');
             }, 2000);
         }
-    }, [isToastOk, navigate]); // Chỉ chạy khi isToastOk hoặc navigate thay đổi
+    }, [isToastOk, navigate]); 
 
     useEffect(() => {
         if (isToastError) {
             notify(false);
         }
-    }, [isToastError]); // Chỉ chạy khi isToastError thay đổi
+    }, [isToastError]); 
 
     return (
         <>
@@ -54,6 +54,8 @@ export default function AddBanner() {
                 <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
                     <label htmlFor='imgbanner'>Thêm Ảnh </label>
                     <input type='file' id='imgbanner' {...register('image')} />
+                    <label htmlFor="">Alt-text</label>
+                    <input type="text" {...register('alt_text')}  />
                     <input type='submit' className='btnsb' value='Thêm Banner' />
                 </form>
             </div>

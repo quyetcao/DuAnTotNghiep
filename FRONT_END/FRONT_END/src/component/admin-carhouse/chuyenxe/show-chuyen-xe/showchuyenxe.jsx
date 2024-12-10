@@ -8,7 +8,7 @@ import { CallapiGetAllListCar, CallapiGetDeleteCarofCarHouse } from '../../../re
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function Quanlyxe() {
+export default function Quanlychuyenxe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {

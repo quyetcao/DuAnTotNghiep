@@ -6,6 +6,8 @@ import { StoreCarType, StoreCar } from "./adminweb/admin-cartype/createSlice-car
 import { StoreArticles, StoreEventPost } from "./admin-vexere/event-post/event-post-createSlice";
 import { LoginLogOutRegister } from "./login-logout-register/login-lo-rg-createSlice";
 import { StoreBanner } from "./admin-vexere/banner/createSlice-banner";
+import { StoreUser } from "./admin-vexere/user/createSlice-use";
+import { StoreDiemDonCarHouse, StoreDiemTraCarHouse } from "./adminweb/admin-diem-don-tra/creat-Slice-diem-don-tra";
 
 
 // Kết hợp các reducer
@@ -33,6 +35,11 @@ const rootReducer = combineSlices(
 
   //về tài khoản login , logout, register 
   LoginLogOutRegister,
+  StoreUser,
+
+  //Diểmd đón trả của từng nhà xe 
+  StoreDiemDonCarHouse,
+  StoreDiemTraCarHouse,
    );
 
 export const store = configureStore({

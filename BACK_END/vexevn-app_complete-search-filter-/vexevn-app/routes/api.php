@@ -17,8 +17,7 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
-
-
+use App\Http\Controllers\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -72,9 +71,12 @@ Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
 // });
 
 // PICK UP POINT
+Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPointById']);
+Route::get('/pickuppoint/car_trip/{car_trip_id}', [CarController::class, 'getPickupPointByCarTrip']);
+Route::get('/pickuppoint/car_house/{car_house_id}', [CarController::class, 'getPickupPointByCarHouse']);
+Route::get('/pickuppoints', [CarController::class, 'getAllPickupPoints']); // Plural for all
 
-Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPoint']);
-Route::get('/pickuppoint', [CarController::class, 'listPickupPoint']);
+
 
 // Route::middleware(['auth:sanctum', 'admin,carhouse'])->group(function () {
 Route::post('/pickuppoint/create', [CarController::class, 'createPickupPoint']);
@@ -87,8 +89,9 @@ Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPo
 
 
 // DROP OFF POINT
-
-Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPoint']);
+Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPointById']);
+Route::get('/dropoffpoint/car_trip/{car_trip_id}', [CarController::class, 'showDropoffPointByCarTrip']);
+Route::get('/dropoffpoint/car_house/{car_house_id}', [CarController::class, 'getDropoffpointByCarHouse']);
 Route::get('/dropoffpoint', [CarController::class, 'listDropoffPoint']);
 
 // Route::middleware(['auth:sanctum', 'admin,carhouse'])->group(function () {
@@ -229,3 +232,13 @@ Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
 Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']);
 Route::get('/payments', [PaymentController::class, 'listPayments']);
 Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']);
+
+
+//User
+Route::get('/user/{id}', [UserController::class, 'listUser']);
+Route::get('/user', [UserController::class, 'listUser']);
+
+// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
+    Route::delete('/user/delete/{id}', [UserController::class, 'deleteBanner']);
+// });

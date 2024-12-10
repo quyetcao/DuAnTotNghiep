@@ -5,7 +5,8 @@ export default function RouterCar(){
         <>
          <Link to="/admincarhouse/listcar"><Button variant="contained">Quản Lý Xe</Button></Link> 
          <Link to="/admincarhouse/listcartype"><Button variant="contained">Quản Lý Loại Xe</Button></Link>
-          <Button variant="contained">Hello</Button>
+         <Link to="/admincarhouse/diem-don"><Button variant="contained">Quản Lí điểm đón</Button></Link>
+         <Link to="/admincarhouse/diem-tra"><Button variant="contained">Quản Lí điểm Trả</Button></Link>
           <Button variant="contained">Contained</Button>
           <Button variant="contained">Contained</Button>
           <Button variant="contained">Contained</Button>

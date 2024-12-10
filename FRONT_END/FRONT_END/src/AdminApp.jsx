@@ -16,7 +16,7 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-
+import NoCrashIcon from '@mui/icons-material/NoCrash';
 function AppAdmin() {
     return (
         <>
@@ -45,6 +45,10 @@ function AppAdmin() {
                         <a href='/admincarhouse/routercar' className='sidebar-icon'>
                             <BuildOutlinedIcon />
                         </a>
+                        <a href='/admincarhouse/' className='sidebar-icon'>
+                            <NoCrashIcon />
+                        </a>
+                   
                     </div>
                     <div className='dashboard'>
                         <div className='dashboard-container'>

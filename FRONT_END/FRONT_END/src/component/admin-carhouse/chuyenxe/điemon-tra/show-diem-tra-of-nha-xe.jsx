@@ -1,33 +1,33 @@
-import '../../css/quan-li-chien-dich.css';
+
 import EditIcon from '@mui/icons-material/Edit';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllListCar, CallapiGetDeleteCarofCarHouse } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
+import { useDispatch, useSelector } from 'react-redux'; 
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-export default function Quanlyxe() {
+import {  CallapiGetAllDiemTraByCarHouse, CallapiGetDeleteDiemTra } from '../../../../redux/adminweb/admin-diem-don-tra/asynthunk-diem-don-tra';
+import CircularProgress from '@mui/material/CircularProgress';
+export default function QuanlyDiemTra() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        dispatch(CallapiGetAllListCar());
+        dispatch(CallapiGetAllDiemTraByCarHouse(1));
     }, []);
-    const allcar = useSelector((state) => state.StoreCar?.dataCar);
-    console.log('all car ', allcar);
+    const datadiemtraofcarhouse = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
 
 
+const isload = useSelector((state) => state.StoreDiemTraCarHouse?.isloading);
     //edit 
-    function EditCarofCarHouse(id) {
-        navigate(`/admincarhouse/editcar/${id}`);
+    function EditDiemTraofCarHouse(id) {
+        navigate(`/admincarhouse/edit-diem-tra/${id}`);
     }
     // delete
-    async function deleteCarofCarHouse(id) {
+    async function DeleteDiemTraofCarHouse(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
-            await dispatch(CallapiGetDeleteCarofCarHouse(id));
-            await dispatch(CallapiGetAllListCar());
+            await dispatch(CallapiGetDeleteDiemTra(id));
+            await dispatch(CallapiGetAllDiemTraByCarHouse(1));
         }
     }
 
@@ -36,8 +36,8 @@ export default function Quanlyxe() {
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản lý Xe</h3>
-                        <Link to='/admincarhouse/addCar'>
+                        <h3 className='content-top-heading'>Quản lý Điểm Trả</h3>
+                        <Link to='/admincarhouse/add-diem-tra'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
@@ -53,39 +53,39 @@ export default function Quanlyxe() {
                         </div>
                     </div>
                     <div className='content-table'>
+                    {isload ? (
+                            <div style={{ transform: 'translateX(50%)' }}>
+                                <CircularProgress />
+                            </div>
+                        ) : (
                         <table>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Tên xe</th>
-                                    <th>Loại Xe</th>
-                                    <th>Biển số</th>
-                                    <th>Hãng</th>
-                                    <th>Ảnh</th>
+                                    <th>Tên điểm đón</th>
+                                    <th>Địa chỉ điểm đón</th>
+                                    <th>Công Khai</th>
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {allcar &&
-                                    allcar.map((itemlistcar) => {
+                                {datadiemtraofcarhouse &&
+                                    datadiemtraofcarhouse.map((item) => {
                                         return (
                                             <>
                                                 <tr>
-                                                    <td>{itemlistcar?.id}</td>
-                                                    <td>{itemlistcar?.name}</td>
-                                                    <td>TIENTO01</td>
-                                                    <td>{itemlistcar?.license_plate}</td>
-                                                    <td>{itemlistcar?.model}</td>
-                                                    <td>{itemlistcar.car_images && itemlistcar.car_images.map((itemimg)=>{
-                                            return <> <img src={`http://127.0.0.1:8000/images/cars/${itemimg?.image}`} width="50px" /></>
-                                        }) } </td>
+                                                    <td>{item?.id}</td>
+                                                    <td>{item?.name}</td> 
+                                                    <td>{item?.address}</td>
+                                                    <td>{item?.is_public === 0 ? <p>Không Công khai</p> :<p>Công Khai</p>}</td>
+                                                  
                                                     <td className='action-icons'>
                                                         <EditIcon   onClick={() => {
-                                                                    EditCarofCarHouse(itemlistcar?.id);
+                                                                    EditDiemTraofCarHouse(item?.id);
                                                                 }} />
                                                         <DeleteIcon
                                                                 onClick={() => {
-                                                                    deleteCarofCarHouse(itemlistcar?.id);
+                                                                    DeleteDiemTraofCarHouse(item?.id);
                                                                 }}
                                                             />
                                                     </td>
@@ -95,6 +95,7 @@ export default function Quanlyxe() {
                                     })}
                             </tbody>
                         </table>
+                               )}
                     </div>
                     <div className='page-button'>
                         <div className='page-list'>

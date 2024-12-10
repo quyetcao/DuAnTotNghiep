@@ -58,7 +58,7 @@ export default function EditEvent(){
          
         <>
           <ToastContainer/>
-        <h3 style={{textAlign:'center'}}>THÊM SỰ KIỆN</h3>
+        <h3 style={{textAlign:'center'}}>CHỈNH SỬA SỰ KIỆN</h3>
             <div className="page-add-carhouse">
             <form id="busForm" onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="title">Tiêu Đề Sự Kiện</label>
@@ -74,7 +74,7 @@ export default function EditEvent(){
                     <option value="active">Hoạt Động</option>
                     <option value="inactive">Nháp</option>
                 </select>
-                <input type="submit" className='btnsb' value='Thêm Sự Kiện' />
+                <input type="submit" className='btnsb' value='ĐIỀU CHỈNH' />
             </form>
             </div>
         

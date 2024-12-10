@@ -116,7 +116,7 @@ class CarController extends HelpController
         // Tìm id 
         $carType = CarType::find($id);
 
-        if(!$carType) {
+        if (!$carType) {
             return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
         }
 
@@ -129,7 +129,6 @@ class CarController extends HelpController
             }
         }
         return $this->handleDelete(CarType::class, $id, 'Loại xe đã được xóa thành công!');
-
     }
 
 
@@ -183,8 +182,8 @@ class CarController extends HelpController
 
 
         $rules =  [
-            'name' => 'required|unique:car_houses,name,'.$id,
-            'phone' => 'required|unique:car_houses,phone,'.$id.'|regex:/^[0-9]{10}$/',
+            'name' => 'required|unique:car_houses,name,' . $id,
+            'phone' => 'required|unique:car_houses,phone,' . $id . '|regex:/^[0-9]{10}$/',
             'address' => 'nullable|string',
             'status' => 'required|in:active,inactive,paused'
         ];
@@ -249,7 +248,7 @@ class CarController extends HelpController
                 'license_plate' => $request->license_plate,
                 'model' => $request->model,
             ]);
-            
+
             // Xử lý ảnh
             if ($request->hasFile('images')) {
                 // Khởi tạo biến $images mặc định là array rỗng
@@ -271,7 +270,7 @@ class CarController extends HelpController
                     $images[] = $imageName;
                 }
             }
-            
+
             // Gộp dữ liệu
             $responseData = [
                 'car' => $car,
@@ -398,15 +397,15 @@ class CarController extends HelpController
         }
 
         // Kiểm tra quyền của người dùng
-        $user = Auth::user();
-        if ($user->role != 'admin') {
-            if ($user->carhouse_id != $car->car_house_id) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
-                ], 403);
-            }
-        }
+        // $user = Auth::user();
+        // if ($user->role != 'admin') {
+        //     if ($user->carhouse_id != $car->car_house_id) {
+        //         return response()->json([
+        //             'status' => 403,
+        //             'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+        //         ], 403);
+        //     }
+        // }
 
 
         $validateCar = Validator::make($request->all(), [
@@ -521,15 +520,15 @@ class CarController extends HelpController
         }
 
         // Kiểm tra quyền của người dùng
-        $user = Auth::user();
-        if ($user->role != 'admin') {
-            if ($user->carhouse_id != $car->car_house_id) {
-                return response()->json([
-                    'status' => 403,
-                    'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
-                ], 403);
-            }
-        }
+        // $user = Auth::user();
+        // if ($user->role != 'admin') {
+        //     if ($user->carhouse_id != $car->car_house_id) {
+        //         return response()->json([
+        //             'status' => 403,
+        //             'message' => 'Bạn không có quyền sửa xe của nhà xe khác!'
+        //         ], 403);
+        //     }
+        // }
 
         try {
             DB::beginTransaction();
@@ -559,7 +558,6 @@ class CarController extends HelpController
 
             // Trả về kết quả thành công
             return $this->sendResponse(200, 'Xe đã được xóa thành công!');
-
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -573,14 +571,39 @@ class CarController extends HelpController
     /* =====================================================================
                         PICK UP POINT 
 ===========================================================================*/
+    public function showPickupPointById($id)
+    {
+
+        $data = PickupPoint::find($id);
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
+    }
+
+
+
     public function showPickupPoint($carTripId)
     {
         $data = CarTripPickupPoint::where('car_trip_id', $carTripId)->get();
         if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
         }
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
     }
+
+
+
+    public function getPickupPointByCarHouse($carHouseId)
+    {
+
+        $data = PickupPoint::where('car_house_id', $carHouseId)->get();
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
+    }
+
 
     public function listPickupPoint()
     {
@@ -644,7 +667,6 @@ class CarController extends HelpController
         $validatePUP = Validator::make($request->all(), [
             'name' => 'required|string|unique:pickup_points,name,' . $id,
             'address' => 'nullable|string',
-            // 'city_id' => 'required|exists:cities,id',
             'car_house_id' => 'nullable|exists:car_houses,id',
             'is_public' => 'required|boolean'
         ]);
@@ -680,8 +702,7 @@ class CarController extends HelpController
     }
     public function deletePickupPoint($id)
     {
-        $data = PickupPoint::findAll($id);
-
+        $data = PickupPoint::find($id); 
         if (!$data) {
             return response()->json([
                 'status' => 404,
@@ -701,7 +722,16 @@ class CarController extends HelpController
     /* =====================================================================
                         DROP OFF POINT 
 ===========================================================================*/
-    public function showDropoffPoint($carTripId)
+public function showDropoffPointById($id)
+    {
+        $data = DropoffPoint::find($id);
+        if (!$data) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
+    }
+
+    public function showDropoffPointByCarTrip($carTripId)
     {
         $data = CarTripDropoffPoint::where('car_trip_id', $carTripId)->get();
 
@@ -709,6 +739,16 @@ class CarController extends HelpController
             return $this->sendNotFoundResponse('Không tìm thấy điểm trả!');
         }
         return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm trả thành công!', $data);
+    }
+    
+    public function getDropoffpointByCarHouse($carHouseId)
+    {
+
+        $data = DropoffPoint::where('car_house_id', $carHouseId)->get();
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
     }
 
     public function listDropoffPoint()

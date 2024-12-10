@@ -1,10 +1,104 @@
 
 import axios from "axios";
-import { getAllCarType, showLoading, getAllListCar, showPopupOk, showPopupError, getoneCarType } from "./createSlice-cartype";
+import { getAllCarType, showLoading, getAllListCar, showPopupOk, showPopupError, getoneCarType, getoneCarofCarHouse, showPopupOk1, showPopupError1 } from "./createSlice-cartype";
+
+////////////////////////////// lấy all xe of nhà xe XE CỦA NHÀ XE 
+export function CallapiGetAllListCar() {
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(`http://localhost:8000/api/car`);
+      console.log('all ds xe ', res);
+
+      dispatch(getAllListCar(res.data.data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function CallapiPostCarofCarHouse(dataform) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(`http://localhost:8000/api/car/create`, dataform
+      );
+      console.log("all loại xe ", res);
+
+      dispatch(showPopupOk1(true));
+    } catch (error) {
+      console.log("erooor", error);
+      dispatch(showPopupError1(true));
+    } finally {
+      setTimeout(() => {
+        dispatch(showPopupError1(false));
+        dispatch(showPopupOk1(false));
+      }, 3000);
+
+    }
+  };
+}
+
+export function CallapiGetDeleteCarofCarHouse(id) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.delete(`http://localhost:8000/api/car/delete/${id}`);
+      console.log('deletecar', res);
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function CallapiGetOneCarOfCarHouse(id) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(`http://localhost:8000/api/car/${id}`);
+      dispatch(getoneCarofCarHouse(res.data.data))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 
+export function CallapiUpdateCarofCarHouse(id,formdata) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(`http://localhost:8000/api/car/update/${id}`,formdata);
+      dispatch(showPopupOk1(true));
+    } catch (error) {
+      dispatch(showPopupError1(true));
+      console.log(error);
+    }finally{
+      setTimeout(() => {
+        dispatch(showPopupError1(false));
+        dispatch(showPopupOk1(false));
+      }, 3000);
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////// LOẠI XE CARTYPE
 // call lấy tất cả xe 
-export function CallapiGetAllCar() {
+export function CallapiGetAllCarType() {
 
   return async (dispatch) => {
     try {
@@ -45,23 +139,7 @@ export function CallapiPostCarType(dataform) {
 }
 
 
-
-
-// lấy all xe
-export function CallapiGetAllListCar() {
-  return async (dispatch) => {
-    try {
-      let res = await axios.get(`http://localhost:8000/api/car`);
-      console.log('all ds xe ', res.data.data.cars.data);
-
-      dispatch(getAllListCar(res.data.data.cars.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-//delete loại xe 
+////////////////////////delete loại xe 
 export function CallapiGetDeleteCar(id) {
   return async (dispatch) => {
     try {
@@ -85,6 +163,7 @@ export function CallapiGetOneCarType(id) {
     }
   };
 }
+
 export function CallapiUpdateCarType(id,formdata) {
   return async (dispatch) => {
     try {

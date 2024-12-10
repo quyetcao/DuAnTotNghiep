@@ -4,51 +4,49 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-import { CallapiGetAllBanner, CallapiGetDeleteBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
+// import { CallapiGetAllBanner, CallapiGetDeleteBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
+import { CallapiGetAllUser } from '../../../redux/admin-vexere/user/asynThunk-user';
 
-export default function QuanlyBanner() {
-    const navigate = useNavigate();
-    const allbanner = useSelector((state) => state.Storebanner?.dataBanner);
-    console.log('list banner 000000000000000000', allbanner);
-    const isload = useSelector((state) => state.Storebanner?.isloading);
+export default function QuanlyUser() {
+    // const navigate = useNavigate();
+    const allUser = useSelector((state) => state.StoreUser?.dataUser);
+    console.log('list banner 000000000000000000', allUser);
+    const isload = useSelector((state) => state.StoreUser?.isloading);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllBanner());
+        dispatch(CallapiGetAllUser());
     }, []);
 
-    async function deletebanner(id) {
-        const isconfim = confirm('Bạn có muốn xóa không?');
-        if (isconfim) {
-            await dispatch(CallapiGetDeleteBanner(id));
-            await dispatch(CallapiGetAllBanner());
-        }
-    }
-    function chuyendentrangadd() {
-        console.log('hello');
-        navigate('/adminweb/addbanner');
-    }
+    // async function deletebanner(id) {
+    //     const isconfim = confirm('Bạn có muốn xóa không?');
+    //     if (isconfim) {
+    //         await dispatch(CallapiGetDeleteBanner(id));
+    //         await dispatch(CallapiGetAllBanner());
+    //     }
+    // }
+    // function chuyendentrangadd() {
+    //     console.log('hello');
+    //     navigate('/adminweb/addbanner');
+    // }
 
-    function navigateEdit(id) {
-        navigate(`/adminweb/editbanner/${id}`);
-    }
-    // /admincarhouse/addcartype
+    // function navigateEdit(id) {
+    //     navigate(`/adminweb/editbanner/${id}`);
+    // }
+    
     return (
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản lý Banner </h3>
-                        <button className='content-top-btn' onClick={chuyendentrangadd}>
-                            Tạo mới
-                        </button>
+                        <h3 className='content-top-heading'>Quản lý User </h3>
                     </div>
                     <div className='content-handle'>
                         <div className='qlcd-search'>
@@ -71,35 +69,26 @@ export default function QuanlyBanner() {
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Hình ảnh </th>
-                                        <th>Alt text</th>
-                                        {/* <th>Ảnh</th> */}
+                                        <th>Tên KH </th>
+                                        <th>Email</th>
+                                        <th>Số Điện Thoại</th>
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(allbanner) &&
-                                    allbanner?.map((itembanner) => {
+                                {Array.isArray(allUser) &&
+                                    allUser?.map((itemUser) => {
                                         return (
                                             <>
                                                 {' '}
                                                 <tbody>
                                                     <tr>
-                                                        <td>{itembanner?.id}</td>
-                                                        <td>
-                                                        <img src={`http://127.0.0.1:8000/images/banners/${itembanner?.image}`} width="50px" />
-                                                        </td>
-                                                        <td>{itembanner?.alt_text}</td>
+                                                        <td>{itemUser?.id}</td>
+                                                        <td>{itemUser?.name}</td>
+                                                        <td>{itemUser?.email}</td>
+                                                        <td>{itemUser?.phone}</td>
                                                         <td className='action-icons'>
-                                                            <EditIcon
-                                                                onClick={() => {
-                                                                    navigateEdit(itembanner.id);
-                                                                }}
-                                                            />
-                                                            <DeleteIcon
-                                                                onClick={() => {
-                                                                    deletebanner(itembanner.id);
-                                                                }}
-                                                            />
+                                                            <EditIcon/>
+                                                            <DeleteIcon/>
                                                             <FileCopyIcon />
                                                         </td>
                                                     </tr>

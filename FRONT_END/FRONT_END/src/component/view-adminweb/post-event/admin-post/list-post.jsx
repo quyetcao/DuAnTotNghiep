@@ -33,7 +33,7 @@ export default function QuanlyPost() {
     }
 
     function navigateEdit(id){
-        navigate(`/adminweb/editEvent/${id}`)
+        navigate(`/adminweb/editArticles/${id}`)
 
     }
 
@@ -77,7 +77,10 @@ export default function QuanlyPost() {
                                         <td>{item.title}</td>
                                         <td>{item.content}</td>
                                         <td>{item.publication_date}</td>
-                                        <td>none</td>
+                                       
+                                        <td>{item.article_images && item.article_images.map((itemimg)=>{
+                                            return <> <img src={`http://127.0.0.1:8000/images/articles/${itemimg?.image}`} width="50px" /></>
+                                        }) } </td>
                                         <td>{item.status}</td>
                                         <td className='action-icons'>
                                             <EditIcon onClick={() => { navigateEdit(item.id) }} />

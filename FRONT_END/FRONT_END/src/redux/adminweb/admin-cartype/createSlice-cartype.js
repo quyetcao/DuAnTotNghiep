@@ -4,15 +4,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // Tất cả xe
-      dataCarType:[],
+    
       isloading:false,
       popupXacNhan:false,
       popupError:false,
       dataCar:[],
+      dataoneCarofCarHouse:[],
 
   // lấy loại xe 
   // lấy 1 loại xe 
      dataOneCarType:[],
+     dataCarType:[],
       
 
 
@@ -54,20 +56,28 @@ const initialState = {
   export const {getAllCarType ,showLoading,showPopupOk,showPopupError,getoneCarType } = StoreCarType.actions;
 
 
-
+//// Xe của nhà xe 
   export const StoreCar = createSlice({
     name: "StoreCar",
     initialState,
     reducers: {
       getAllListCar(state,action){
-        // console.log('dhdhdhdh',action.payload);
         state.dataCar = action.payload;
-        // console.log('7384732847384748',state.dataCar);
       },
-      
+      getoneCarofCarHouse(state,action){
+        state.dataoneCarofCarHouse = action.payload;
+      },
+      showPopupOk1(state,action){
+        state.popupXacNhan = action.payload;
+        console.log(">>>>>ok",state.popupXacNhan);
+      },
+      showPopupError1(state,action){
+        state.popupError = action.payload;
+        console.log(">>>>>er",state.popupError);
+      },
      
 
     },
   });
   
-  export const {getAllListCar } = StoreCar.actions;
+  export const {getAllListCar ,getoneCarofCarHouse,showPopupOk1,showPopupError1} = StoreCar.actions;

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { getAllArticles, getAllTitleEvent, getoneEvent, showLoading, showLoading1, showPopupError, showPopupError1, showPopupOk, showPopupOk1 } from "./event-post-createSlice";
+import { getAllArticles, getAllTitleEvent, getOneArticles, getoneEvent, showLoading, showLoading1, showPopupError, showPopupError1, showPopupOk, showPopupOk1 } from "./event-post-createSlice";
 
 
 // call lấy tất cả xe 
@@ -27,9 +27,6 @@ export function CallapiPostEvent(dataform) {
 
       let res = await axios.post(`http://localhost:8000/api/event/create`, dataform
       );
-      // console.log("all loại xe ", res);
-
-      // dispatch(getAllCarType(res.data.data))
       dispatch(showPopupOk(true));
     } catch (error) {
       console.log("erooor", error.response.data.message);
@@ -141,12 +138,12 @@ export function CallapiGetDeleteArticles(id) {
   };
 }
 
-// lấy 1 loại xe để sửa 
+// lấy 1 post xe để sửa 
 export function CallapiGetOneArticles(id) {
   return async (dispatch) => {
     try {
       let res = await axios.get(`http://localhost:8000/api/article/${id}`);
-      dispatch(getoneEvent(res.data.data))
+      dispatch(getOneArticles(res.data.data))
     } catch (error) {
       console.log(error);
     }

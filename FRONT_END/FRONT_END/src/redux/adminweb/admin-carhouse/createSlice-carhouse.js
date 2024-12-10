@@ -4,7 +4,8 @@ const initialState = {
     // Tất cả nhà xe
     dataCarHouse: [],
     datacarhouseone: [],
-    dataBanner: [],
+    showPopupOk:false,
+    showPopupError:false,
 
 };
 
@@ -18,11 +19,15 @@ export const StoreCarHouse = createSlice({
         getOneCarHouse(state, action) {
             state.datacarhouseone = action.payload;
         },
-
-        getAllBanner(state, action) {
-            state.dataBanner = action.payload;
-        },
+        showPopupOk(state,action){
+            state.showPopupOk = action.payload;
+          
+          },
+        showPopupError(state,action){
+            state.showPopupError = action.payload;
+          },
+       
     },
 });
 
-export const { getAllCarHouse, getOneCarHouse, getAllBanner } = StoreCarHouse.actions;
+export const { getAllCarHouse, getOneCarHouse,showPopupOk,showPopupError } = StoreCarHouse.actions;

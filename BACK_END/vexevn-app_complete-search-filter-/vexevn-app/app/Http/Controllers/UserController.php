@@ -65,19 +65,44 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
+     public function listUser()
+     {
+         $data = User::all();
+ 
+         return response()->json([
+             'status' => 200,
+             'message' => 'Hiển thị danh sách User thành công',
+             'data' => $data
+         ], 200);
+     }
+   
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
-
+    // public function updateUserByAdmin(Request $request, $id)
+    // {
+    //     $user = User::find($id);
+    
+    //     if (!$user) {
+    //         return $this->sendNotFoundResponse('Không tìm thấy người dùng!');
+    //     }
+    
+    //     $rules = [
+    //         'role' => 'required|in:admin,user,manager', // Các giá trị hợp lệ của role
+    //         'carhouse_id' => 'nullable|integer|exists:carhouses,id', // Kiểm tra carhouse_id tồn tại trong bảng carhouses
+    //     ];
+    
+    //     return $this->validateAndExecute($request, $rules, function () use ($request, $user) {
+    //         $user->update([
+    //             'role' => $request->role ?? $user->role,
+    //             'carhouse_id' => $request->carhouse_id,
+    //         ]);
+    
+    //         return $this->sendResponse(200, 'Cập nhật người dùng thành công!', $user);
+    //     });
+    // }
+    
     /**
      * Update the specified resource in storage.
      */

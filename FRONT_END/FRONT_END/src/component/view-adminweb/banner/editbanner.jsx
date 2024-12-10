@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { CallapiGetOneBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
+import { CallapiGetOneBanner, CallapiUpdateBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
 export default function EditCarType(){
     const { id } = useParams();
     console.log("id",id);
@@ -21,7 +21,7 @@ export default function EditCarType(){
     }, [])
 
     const dataoneBanner = useSelector((state) => state.Storebanner?.dataOneBanner);
-    console.log("dataonecartype",dataonBanner);
+    console.log("dataonecartype",dataoneBanner);
     
     const isToastOk = useSelector((state) => state.Storebanner?.popupXacNhan);
     const isToastError = useSelector((state) => state.Storebanner?.popupError);
@@ -40,13 +40,12 @@ export default function EditCarType(){
         const imageFile = data.image[0];
         const formData = new FormData();
         formData.append('image', imageFile); 
-        // formData.append('name', data.name); 
-        // formData.append('quantity_seat', data.quantity_seat); 
-        // dispatch(CallapiUpdateCarType(id,formData))
+        formData.append('alt_text', data.alt_text); 
+
+        dispatch(CallapiUpdateBanner(id,formData))
     }
-    // setValue('name', dataoneBanner?.name);
-    // setValue('quantity_seat', dataoneBanner?.quantity_seat);
     setValue('image', dataoneBanner?.image);
+    setValue('alt_text', dataoneBanner?.alt_text);
    
     if (isToastOk === true) {
         notify(true);
@@ -67,15 +66,14 @@ export default function EditCarType(){
           <ToastContainer/>
         <h3 style={{textAlign:'center'}}>CHỈNH SỬA BANNER</h3>
             <div className="page-add-carhouse">
+                <div className="img-old">
+            <img src={`http://127.0.0.1:8000/images/banners/${dataoneBanner?.image}`} width="80px" />
+                </div>
             <form id="busForm" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-                {/* <label htmlFor="loaixe">Loại xe</label>
-                <input type="text" id="loaixe"    {...register('name', { required: true })} placeholder="Limousine 44 chỗ ngồi "  />
-                <label htmlFor="soghe">Số ghế</label>
-                <input type="number" id="soghe"   {...register('quantity_seat')} placeholder="Nhập số ghế" /> */}
                 <label htmlFor="imgxe">Ảnh </label>
-              
                 <input type="file"  id="imgxe"  {...register('image')} />
-                 
+                <label htmlFor="">Alt-text</label>
+                <input type="text" {...register('alt_text')}  />
                 <input type="submit" className='btnsb' value='Sửa' />
             </form>
 

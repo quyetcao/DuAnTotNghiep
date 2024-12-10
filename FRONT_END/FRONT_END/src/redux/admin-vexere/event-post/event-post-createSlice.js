@@ -44,11 +44,14 @@ export const StoreEventPost = createSlice({
           },
           getoneEvent(state,action){
             state.dataoneEvent = action.payload;
-          }
+          },
+          getOneArticles(state,action){
+            state.dataoneArticles = action.payload;
+          },
     },
 });
 
-export const { getAllTitleEvent,showLoading,showPopupOk,showPopupError,getoneEvent } = StoreEventPost.actions;
+export const { getAllTitleEvent,showLoading,showPopupOk,showPopupError,getoneEvent,getOneArticles } = StoreEventPost.actions;
 
 
 
