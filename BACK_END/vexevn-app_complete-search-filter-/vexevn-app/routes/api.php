@@ -134,6 +134,7 @@ Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
 Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
 Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
 // });
 
 

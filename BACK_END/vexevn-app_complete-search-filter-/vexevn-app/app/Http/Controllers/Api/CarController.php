@@ -39,6 +39,7 @@ class CarController extends HelpController
         }
         return $this->sendResponse(200, 'Lấy thông tin chi tiết loại xe thành công!', $data);
     }
+    
     public function createCarType(Request $request)
     {
         $rules = [
