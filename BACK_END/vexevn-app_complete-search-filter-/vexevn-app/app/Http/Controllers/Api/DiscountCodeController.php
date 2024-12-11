@@ -19,7 +19,17 @@ class DiscountCodeController extends Controller
             'end_date' => 'required|date|after:start_date',
             'is_active' => 'required|boolean',
             'usage_limit' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
+
+        $imageName = null;
+        if ($request->hasFile('image')) {
+        $carTypeID = $request->name;
+        $imageName = time() . uniqid() . '.' . $request->image->extension();
+        $request->image->move(public_path('images/discount_codes'), $imageName); 
+        }
+        
+        $validated['image'] = $imageName; 
 
         $discountCode = DiscountCode::create($validated);
 
@@ -70,6 +80,7 @@ class DiscountCodeController extends Controller
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'nullable|boolean',
             'usage_limit' => 'nullable|integer|min:0',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         $discountCode = DiscountCode::find($id);

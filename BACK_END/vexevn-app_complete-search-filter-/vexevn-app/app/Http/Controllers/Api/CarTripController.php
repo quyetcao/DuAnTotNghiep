@@ -358,6 +358,19 @@ class CarTripController extends Controller
         }
     }
 
+    public function getTripsByCarHouse($carHouseId)
+    {
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])
+                        ->where('car_house_id', $carHouseId)
+                        ->paginate(5);
+
+            if (!$data) {
+                return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc nhà xe này!');
+            }
+
+        return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo nhà xe thành công!', $data);
+    }
+
     public function deleteCarTrip($id)
     {
         $carTrip = CarTrip::find($id);
@@ -400,3 +413,4 @@ class CarTripController extends Controller
         }
     }
 }
+
