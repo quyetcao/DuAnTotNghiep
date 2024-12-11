@@ -1,19 +1,19 @@
 import '../../css/ds-nhanvien.css';
 
 // import mui icon
-import NotesOutlinedIcon from '@mui/icons-material/NotesOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
-import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import SettingsIcon from '@mui/icons-material/Settings';
-import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import StarIcon from '@mui/icons-material/Star';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import PhoneIcon from '@mui/icons-material/Phone';
+// import NotesOutlinedIcon from '@mui/icons-material/NotesOutlined';
+// import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+// import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+// import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
+// import PersonIcon from '@mui/icons-material/Person';
+// import ReviewsIcon from '@mui/icons-material/Reviews';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import SearchIcon from '@mui/icons-material/Search';
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+// import StarIcon from '@mui/icons-material/Star';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+// import PhoneIcon from '@mui/icons-material/Phone';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -138,7 +138,7 @@ export default function DSNhanVien() {
                     </div>
                     <div className='input-search'>
                         <div className='search-form'>
-                            <SearchIcon style={{ color: '#6e6e6e' }} />
+                            {/* <SearchIcon style={{ color: '#6e6e6e' }} /> */}
                             <input type='text' placeholder='Tìm kiếm tên, số điện thoại' />
                         </div>
                     </div>
