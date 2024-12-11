@@ -62,6 +62,7 @@ import EditDiemDon from './component/admin-carhouse/chuyenxe/điemon-tra/edit-di
 import QuanlyDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/show-diem-tra-of-nha-xe.jsx';
 import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem-tra.jsx';
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
+import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 
 
 
@@ -287,6 +288,10 @@ const routes = createBrowserRouter([
         element:<EditBanner/>
       },
       //Giảm giá 
+      {
+        path:'giam-gia',
+        element:<QuanlyGiamGia/>
+      },
       //User
       {
         path:'listuse',
