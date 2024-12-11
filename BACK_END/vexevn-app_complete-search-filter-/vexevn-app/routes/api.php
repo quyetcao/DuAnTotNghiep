@@ -251,6 +251,7 @@ Route::get('/user', [UserController::class, 'listUser']);
     Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
     Route::delete('/user/delete/{id}', [UserController::class, 'deleteBanner']);
 // });
+
 //DISCOUNTCODE
 Route::post('/discount-codes', [DiscountCodeController::class, 'createDiscountCode']);
 Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes']);

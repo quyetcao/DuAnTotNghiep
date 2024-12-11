@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\DiscountCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class DiscountCodeController extends Controller
 {
@@ -17,39 +18,36 @@ class DiscountCodeController extends Controller
             'discount_type' => 'required|string|in:percentage,flat',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'is_active' => 'required|boolean',
+            'is_active' => 'required',
             'usage_limit' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
-
+    
+        $validated['is_active'] = filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN);
+    
         $imageName = null;
         if ($request->hasFile('image')) {
-        $carTypeID = $request->name;
-        $imageName = time() . uniqid() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/discount_codes'), $imageName); 
+            $directory = public_path('images/discount_codes');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+    
+            $imageName = uniqid() . '.' . $request->image->extension();
+            $request->image->move($directory, $imageName);
         }
-        
-        $validated['image'] = $imageName; 
-
+    
+        $validated['image'] = $imageName;
+    
         $discountCode = DiscountCode::create($validated);
-
+    
         return response()->json([
             'status' => 201,
             'message' => 'Mã giảm giá đã được tạo thành công.',
             'data' => $discountCode
         ]);
     }
+    
 
-    public function listDiscountCodes()
-    {
-        $discountCodes = DiscountCode::all();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Danh sách mã giảm giá.',
-            'data' => $discountCodes
-        ]);
-    }
 
     public function showDiscountCode($id)
     {
@@ -66,6 +64,17 @@ class DiscountCodeController extends Controller
             'status' => 200,
             'message' => 'Thông tin mã giảm giá.',
             'data' => $discountCode
+        ]);
+    }
+
+    public function listDiscountCodes()
+    {
+        $discountCodes = DiscountCode::all();
+    
+        return response()->json([
+            'status' => 200,
+            'message' => 'Danh sách mã giảm giá.',
+            'data' => $discountCodes
         ]);
     }
 
