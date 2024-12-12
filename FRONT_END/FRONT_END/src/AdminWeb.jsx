@@ -32,7 +32,7 @@ function AppAdminQLWeb() {
                         <a href='' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
                         </a>
-                        <a href='#' className='sidebar-icon'>
+                        <a href='/adminweb/giam-gia' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
                         </a>
                         <a href='/adminweb/listEvent' className='sidebar-icon'>

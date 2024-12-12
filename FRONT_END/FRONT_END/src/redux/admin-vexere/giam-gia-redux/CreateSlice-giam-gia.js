@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    dataAllgiamgia: [],
+    dataAllgiamgia:[],
     isloading: false,
     showPopupOk:false,
     showPopupError:false,

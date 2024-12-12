@@ -63,6 +63,7 @@ import QuanlyDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/show-
 import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem-tra.jsx';
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
+import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
 
 
 
@@ -291,6 +292,14 @@ const routes = createBrowserRouter([
       {
         path:'giam-gia',
         element:<QuanlyGiamGia/>
+      },
+      {
+        path:'add-giam-gia',
+        element:<AddGiamGia/>
+      },
+      {
+        path:'edit-giam-gia/:id',
+        element:<EditGiamGia/>
       },
       //User
       {

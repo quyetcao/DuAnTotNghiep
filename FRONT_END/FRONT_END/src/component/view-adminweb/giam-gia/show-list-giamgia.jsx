@@ -8,26 +8,26 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { CallapiGetAllArticles,  CallapiGetDeleteArticles } from '../../../../redux/admin-vexere/event-post/event-post-AsyncThunk';
+import { CallapiGetAllGiamGia, CallapiGetDeleteGiamGia } from '../../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
+
 
 
 export default function QuanlyGiamGia() {
     const navigate = useNavigate();
-    const dataAllArticles = useSelector((state) => state.StoreArticles?.dataAllArticles);
-    // console.log("all list", Array.isArray(dataAllArticles));
-    const isload = useSelector((state) => state.StoreArticles?.isloading);
+  
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllArticles())
- 
+        dispatch(CallapiGetAllGiamGia())
     }, [])
-
-    async function deleteArticles(id) {
+    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+    console.log("all list>>>>>>", dataAllgiamgia);
+    const isload = useSelector((state) => state.StoreGiamGia?.isloading);
+    async function deleteMaGiamGia(id) {
         const isconfim = confirm('Bạn có chắc chắn muốn xóa không?')
         if (isconfim) {
-            await dispatch(CallapiGetDeleteArticles(id));
-            await dispatch(CallapiGetAllArticles())
+            await dispatch(CallapiGetDeleteGiamGia(id));
+            await dispatch(CallapiGetAllGiamGia())
         }
 
     }
@@ -43,8 +43,8 @@ export default function QuanlyGiamGia() {
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản Lý Bài Viết </h3>
-                        <Link to='/adminweb/add-articles'>
+                        <h3 className='content-top-heading'>Quản Lý Mã Giảm Giá </h3>
+                        <Link to='/adminweb/add-giam-gia'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
@@ -61,31 +61,33 @@ export default function QuanlyGiamGia() {
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Thuộc Sự Kiện</th>
-                                        <th>Tên Bài Viết</th>
-                                        <th>Nội Dung Bài Viết</th>
-                                        <th>Ngày Xuất Bản</th>
-                                        <th>Ảnh</th>
+                                        <th>Mã Giảm Giá</th>
+                                        <th>Mô Tả Giảm Giá</th>
+                                        <th>Số Tiền Giảm (% hoặc tiền)</th>
+                                        <th>Loại Giảm Giá</th>
+                                        <th>Ngày Bắt Đầu</th>
+                                        <th>Ngày Kết Thúc</th>
+                                        <th>Giới Hạn Số Lần</th>
                                         <th>Trạng Thái</th>
-                                        <th>Thao Tác</th>
+                                        <th>Ảnh</th>
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(dataAllArticles) && dataAllArticles?.map((item) => {
-                                    return <>  <tbody><tr>
-                                        <td>{item.id}</td>
-                                        <td>{item.event_id}</td>
-                                        <td>{item.title}</td>
-                                        <td>{item.content}</td>
-                                        <td>{item.publication_date}</td>
-                                       
-                                        <td>{item.article_images && item.article_images.map((itemimg)=>{
-                                            return <> <img src={`http://127.0.0.1:8000/images/articles/${itemimg?.image}`} width="50px" /></>
-                                        }) } </td>
-                                        <td>{item.status}</td>
+                                {dataAllgiamgia && dataAllgiamgia?.map((item) => {
+                                    return <> <tbody><tr key={item?.id}>
+                                        <td>{item?.id}</td>
+                                        <td>{item?.code}</td>
+                                        <td>{item?.description}</td>
+                                        <td>{item?.discount_amount}</td>
+                                        <td>{item?.discount_type}</td>
+                                        <td>{item?.start_date}</td>
+                                        <td>{item?.end_date}</td>
+                                        <td>{item?.usage_limit}</td>
+                                        <td>{item?.is_active}</td>
+                                        <td><img src={`http://127.0.0.1:8000/images/discount_code/${item?.image}`} width="50px" /></td>
                                         <td className='action-icons'>
                                             <EditIcon onClick={() => { navigateEdit(item.id) }} />
-                                            <DeleteIcon onClick={() => { deleteArticles(item.id) }} />
-                                            <FileCopyIcon />
+                                            <DeleteIcon onClick={() => { deleteMaGiamGia(item.id) }} />
                                         </td>
                                     </tr>
 

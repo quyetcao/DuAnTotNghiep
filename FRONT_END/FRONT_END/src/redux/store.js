@@ -8,6 +8,7 @@ import { LoginLogOutRegister } from "./login-logout-register/login-lo-rg-createS
 import { StoreBanner } from "./admin-vexere/banner/createSlice-banner";
 import { StoreUser } from "./admin-vexere/user/createSlice-use";
 import { StoreDiemDonCarHouse, StoreDiemTraCarHouse } from "./adminweb/admin-diem-don-tra/creat-Slice-diem-don-tra";
+import { StoreGiamGia } from "./admin-vexere/giam-gia-redux/CreateSlice-giam-gia";
 
 
 // Kết hợp các reducer
@@ -31,6 +32,7 @@ const rootReducer = combineSlices(
   StoreEventPost,
   StoreArticles,
   StoreBanner,
+  StoreGiamGia,
 
 
   //về tài khoản login , logout, register 

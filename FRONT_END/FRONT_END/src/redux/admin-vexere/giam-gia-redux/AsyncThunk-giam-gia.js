@@ -5,13 +5,12 @@ import { getAllgiamgia, getOnegiamgia, showLoading, showPopupError, showPopupOk 
 
 // call lấy tất cả xe 
 export function CallapiGetAllGiamGia() {
-
   return async (dispatch) => {
     try {
       dispatch(showLoading(false));
       let res = await axios.get(`http://localhost:8000/api/discount-codes/`);
-      console.log("all list ", res.data.data.data);
-      dispatch(getAllgiamgia(res.data.data.data))
+      console.log("all list ", res.data.data);
+      dispatch(getAllgiamgia(res.data.data))
       dispatch(showLoading(true));
     } catch (error) {
       console.log(error);
