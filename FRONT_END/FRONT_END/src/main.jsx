@@ -304,7 +304,7 @@ const routes = createBrowserRouter([
       },
       {
         path:'edit-giam-gia/:id',
-        element:<EditGiamGia/>
+        // element:<EditGiamGia/>
       },
       //User
       {
