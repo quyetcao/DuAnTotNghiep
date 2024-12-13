@@ -44,16 +44,14 @@ import AddEArticles from './component/view-adminweb/post-event/admin-post/add-po
 import ShowDsCarHouse from './component/view-adminweb/car-house/admin-show-carhouse.jsx';
 import AddCarHouse from './component/view-adminweb/car-house/admin-add-carhouse.jsx';
 import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhouse';
-<<<<<<< HEAD
 import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
 import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
-=======
 import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
 import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
->>>>>>> ccbd90dc6e7d526485e17d5439346613bf9ffcda
+import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
 
 
 
@@ -102,6 +100,10 @@ const routes = createBrowserRouter([
       {
         path: "/booking1",
         element: <BookingConfirmation />
+      },
+      {
+        path: "/baiviet",
+        element: <Baiviet />
       },
       {
         path: "/chi-tiet-giao-dich",

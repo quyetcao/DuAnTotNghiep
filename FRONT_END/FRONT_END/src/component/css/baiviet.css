@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Mulish', sans-serif !important;
+}
+
+.bv-header {
+    width: 980px;
+    padding: 12px 0;
+    margin: 0 auto;
+}
+
+.bv-header__page {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 3px 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+.bv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bv-group__right {
+    width: 90%;
+}
+
+.list-baiviet {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+}
+
+.baiviet-item__link {
+    padding: 12px 24px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.bv-language {
+    width: 28px;
+    height: 28px;
+    margin-bottom: -2px;
+}
+
+.baiviet-item__border {
+    border: 1px solid rgb(224, 224, 224);
+    border-radius: 6px;
+}
+
+/*  */
+.bv-center-page {
+    align-items: center;
+    display: flex;
+    flex: 1 1 0%;
+    justify-content: center;
+    padding-top: 12px;
+}
+
+.baiviet-content {
+    max-width: 688px;
+}
+
+.bv-vexere {
+    color: rgb(36, 116, 229);
+    font-size: 16px;
+}
+
+.bv-post-title > p {
+    margin: 0;
+}
+
+.title-p {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    letter-spacing: 0px;
+    padding: 6px 0;
+}
+
+.bv-post-banner {
+    width: 100%;
+    height: 345px;
+    margin-top: 16px;
+}
+
+.bv-post-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: justify;
+}
+
+.box-post-list {
+    color: rgb(20, 20, 20) !important;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0 12px;
+}
+
+.baiviet-box-icon {
+    display: flex;
+    align-items: center;
+}
+
+.hihih img {
+    width: 688px;
+    height: auto;
+}
+
+.baiviet-child {
+    display: flex;
+    gap: 18px;
+    width: 100%;
+}
+
+.item-child {
+    width: 50%;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px -4px 16px;
+}
+
+.item-child img {
+    width: 100%;
+    height: 146px;
+    border-radius: 8px 8px 0 0;
+}
+
+.item-content-child-title {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+h2, h3 {
+    margin: 12px 0 !important;
+}
+
+.baiviet-lienquan p {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0px;
+    color: #484848;
+    margin-top: 24px;
+}
+
+.icon-backarrow {
+    display: none;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+    .icon-and-title, .bv-post-content, .baiviet-lienquan  {
+        padding: 0 18px;
+    }
+
+    .bv-vexere {
+        display: none;
+    }
+
+    .title-p {
+        margin-left: 20px !important;
+        line-height: normal;
+    }
+
+    .bv-post-banner {
+        height: 178px;
+        margin-bottom: 16px;
+    }
+
+    .box-post-list > h2 {
+        font-size: 20px;
+    }
+
+    
+}
+
+@media (max-width: 768px) {
+    .bv-vexere {
+        display: none;
+    }
+
+    .icon-and-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon-backarrow {
+        display: block;
+    }
+
+    .icon-backarrow svg {
+        margin-top: 5px;
+    }
+
+    .title-p {
+        font-size: 18px;
+        margin-left: 140px;
+    }
+
+    .hihih {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hihih img {
+        width: 30% !important;
+    }
+}
+
+@media (max-width: 690px) {
+    .icon-and-title, .bv-post-content, .baiviet-lienquan  {
+        padding: 0 18px;
+    }
+
+    .bv-vexere {
+        display: none;
+    }
+
+    .icon-and-title {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon-backarrow {
+        display: block;
+    }
+
+    .icon-backarrow svg {
+        margin-top: 5px;
+    }
+
+    .title-p {
+        font-size: 18px;
+        margin-left: 40px !important;
+    }
+
+    .bv-post-banner {
+        height: 170px;
+        margin-bottom: 16px;
+        margin-top: 0 !important;
+    }
+
+    .hihih {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hihih img {
+        width: 20% !important;
+    }
+}
+
+/* @media (max-width: 690px) {
+
+} */
