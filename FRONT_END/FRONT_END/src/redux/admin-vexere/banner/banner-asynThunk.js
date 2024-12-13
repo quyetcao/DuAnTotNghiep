@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getAllBanner, getoneBanner, showLoading, showPopupOk, showPopupError } from './createSlice-banner';
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
+// axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
 
 // banner
 // call  lấy tất cả banner
@@ -9,8 +9,6 @@ export function CallapiGetAllBanner() {
         try {
             dispatch(showLoading(false));
             let res = await axios.get(`http://localhost:8000/api/banner/`);
-            console.log('list banner jvhdfjghfdjkghfdsjkg ', res.data.data);
-
             dispatch(getAllBanner(res.data.data));
             dispatch(showLoading(true));
         } catch (error) {
@@ -54,14 +52,29 @@ export function CallapiGetOneBanner(id) {
         }
     };
 }
-
+// sua banner 
+export function CallapiUpdateBanner(id,image) {
+    return async (dispatch) => {
+      try {
+        let res = await axios.post(`http://localhost:8000/api/banner/update/${id}`,image);
+        dispatch(showPopupOk(true));
+      } catch (error) {
+        dispatch(showPopupError(true));
+        console.log(error);
+      }finally{
+        setTimeout(() => {
+          dispatch(showPopupError(false));
+          dispatch(showPopupOk(false));
+        }, 3000);
+      }
+    };
+  }
+  
 //post banner
 export function CallapiPostBanner(dataform) {
     return async (dispatch) => {
         try {
             let res = await axios.post(`http://localhost:8000/api/banner/create`, dataform);
-            console.log('all loại xe ', res);
-
             dispatch(getAllBanner(res.data.data));
             dispatch(showPopupOk(true));
         } catch (error) {

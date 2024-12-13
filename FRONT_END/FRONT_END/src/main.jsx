@@ -52,6 +52,19 @@ import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
 import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
 import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
+import HomePageWebAdmin from './component/view-adminweb/dashboardadminweb.jsx/homepageadminweb.jsx';
+import QuanlyUser from './component/view-adminweb/listuser/show-list-user.jsx';
+import EditArticles from './component/view-adminweb/post-event/admin-post/edit-post.jsx';
+import EditCarOfCarHouse from './component/admin-carhouse/car/editcarofcarhouse.jsx';
+import AddCar from './component/admin-carhouse/car/addcar.jsx';
+import QuanlyDiemDon from './component/admin-carhouse/chuyenxe/điemon-tra/show-diem-don-tra-of-nha-xe.jsx';
+import AddDiemDon from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem-don.jsx';
+import EditDiemDon from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-don.jsx';
+import QuanlyDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/show-diem-tra-of-nha-xe.jsx';
+import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem-tra.jsx';
+import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
+import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
+import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
 
 
 
@@ -133,7 +146,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element:<PrivateRouterAdminCarHouse> <AppAdmin /> </PrivateRouterAdminCarHouse>,
+    element:<AppAdmin />,
     children: [
       {
         path: '',
@@ -161,15 +174,20 @@ const routes = createBrowserRouter([
         element: <Quanlyxe />
       },
       {
+        path: 'addcar',
+        element: <AddCar />
+      },
+      {
+        path: 'editcar/:id',
+        element: <EditCarOfCarHouse />
+      },
+      //loại xe
+      {
         path:'listcartype',
         element:<Quanlyloaixe/>
 
       },
 
-      // {
-      //   path: 'addcar',
-      //   element: <AddCar />
-      // },
       {
         path: 'addcartype',
         element: <AddCarType />
@@ -184,13 +202,43 @@ const routes = createBrowserRouter([
         element: <AddChuyenXebyCarHouse />
       },
 
+      // điểm đón trả
+      {
+        path:'diem-don',
+        element:<QuanlyDiemDon/>
+      },
+      {
+        path:'add-diem-don',
+        element:<AddDiemDon/>
+      },
+      {
+        path:'edit-diem-don/:id',
+        element:<EditDiemDon />
+      },
+      {
+        path:'diem-tra',
+        element:<QuanlyDiemTra/>
+      },
+      {
+        path:'add-diem-tra',
+        element:<AddDiemTra/>
+      },
+      {
+        path:'edit-diem-tra/:id',
+        element:<EditDiemTra />
+      }
+
     ]
   },
 
   {
     path: "/adminweb",
-    element: <PrivateRousterAdminWeb><AppAdminQLWeb /></PrivateRousterAdminWeb> ,
+    element:<AppAdminQLWeb /> ,
     children: [
+      {
+        path: '',
+        element: <HomePageWebAdmin />
+      },
       {
         path: 'show-ds-carhouse',
         element: <ShowDsCarHouse />
@@ -227,6 +275,13 @@ const routes = createBrowserRouter([
         element: <AddEArticles/>
       },
       {
+        path:'editArticles/:id',
+        element: <EditArticles/>
+      },
+
+      //Banner
+
+      {
         path:'listbanner',
         element: <ListBanner/>
       },
@@ -238,6 +293,25 @@ const routes = createBrowserRouter([
         path:'editbanner/:id',
         element:<EditBanner/>
       },
+      //Giảm giá 
+      {
+        path:'giam-gia',
+        element:<QuanlyGiamGia/>
+      },
+      {
+        path:'add-giam-gia',
+        element:<AddGiamGia/>
+      },
+      {
+        path:'edit-giam-gia/:id',
+        element:<EditGiamGia/>
+      },
+      //User
+      {
+        path:'listuse',
+        element:<QuanlyUser/>
+      },
+
     ]
   },
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str; //string ramdom
+use Illuminate\Support\Facades\DB;
 class TicketController extends HelpController
 {
     // 1. Hiển thị thông tin vé theo ID
@@ -37,8 +38,8 @@ class TicketController extends HelpController
             'orders', 
             'carTrip', 
             'carTrip.car', 
-            'carTrip.pickupPoints', 
-            'carTrip.dropoffPoints', 
+            'dropoffPoints', 
+            'pickupPoints', 
             'carTrip.seats'
         ])->paginate(10);
     
@@ -58,10 +59,11 @@ class TicketController extends HelpController
     // 3. Tạo vé mới
     public function createTicket(Request $request)
     {
-        //name tạo ngẫu nhiên
+        // Tên tạo ngẫu nhiên
         $name = $request->has('name') ? $request->name : Str::random(10);
         
-          $validator = Validator::make($request->all(), [
+        // Validate dữ liệu
+        $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|unique:ticket,name,' . $name,
             'orders_id' => 'nullable|exists:orders,id',
             'car_trip_id' => 'nullable|exists:car_trips,id',
@@ -70,32 +72,51 @@ class TicketController extends HelpController
             'seats_id' => 'nullable|exists:seats,id',
             'pickup_points_id' => 'nullable|exists:pickup_points,id',
             'dropoff_points_id' => 'nullable|exists:dropoff_points,id',
-            ]);
-           
+        ]);
+        
+        // Kiểm tra lỗi validation
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
     
-        // Tạo vé mới
-        $ticket = Ticket::create([
-            'name' => $name,
-            'orders_id' => $request->orders_id,
-            'car_trip_id' => $request->car_trip_id,
-            'car_id' => $request->car_id,
-            'car_route_id' => $request->car_route_id,
-            'seats_id' => $request->seats_id,
-            'pickup_points_id' => $request->pickup_points_id, 
-            'dropoff_points_id' => $request->dropoff_points_id, 
-        ]);
-
-        //load data các bảng
-        $ticket->load(['orders', 'carTrip', 'pickupPoints', 'dropoffPoints','car','carRoute','seats']);
-
+        // Bắt đầu transaction
+        DB::beginTransaction();
     
-        return response()->json([
-            'message' => 'Tạo vé thành công',
-            'ticket' => $ticket,
-        ], 201);
+        try {
+            // Tạo vé mới
+            $ticket = Ticket::create([
+                'name' => $name,
+                'orders_id' => $request->orders_id,
+                'car_trip_id' => $request->car_trip_id,
+                'car_id' => $request->car_id,
+                'car_route_id' => $request->car_route_id,
+                'seats_id' => $request->seats_id,
+                'pickup_points_id' => $request->pickup_points_id,
+                'dropoff_points_id' => $request->dropoff_points_id,
+            ]);
+    
+            // Load dữ liệu liên quan từ các bảng khác
+            $ticket->load(['orders', 'pickupPoints', 'dropoffPoints','car','carRoute','seats']);
+    
+            // Commit transaction nếu không có lỗi
+            DB::commit();
+    
+            // Trả về response thành công
+            return response()->json([
+                'message' => 'Tạo vé thành công',
+                'ticket' => $ticket,
+            ], 201);
+    
+        } catch (\Exception $e) {
+            // Rollback transaction nếu có lỗi
+            DB::rollBack();
+    
+            // Trả về lỗi
+            return response()->json([
+                'message' => 'Lỗi khi tạo vé',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
     
     

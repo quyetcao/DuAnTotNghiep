@@ -66,7 +66,6 @@ class CarTripController extends Controller
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
 
-
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
             'pickup_points.*.pickup_time' => 'required|date_format:H:i',
@@ -101,7 +100,6 @@ class CarTripController extends Controller
                 'return_date' => $request->return_date,
                 'price' => $request->price,
                 'status' => 'not_started',
-
             ]);
 
             // Lưu điểm đón
@@ -153,23 +151,31 @@ class CarTripController extends Controller
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
-                // Tạo ghế
+                if ($i == 1 || $i == 2) {
+                    $locationSeat = 0;  
+                } elseif ($i == $numberOfSeats || $i == $numberOfSeats - 1) {
+                    $locationSeat = 2;  
+                } else {
+                    $locationSeat = 1; 
+                }
+
                 $seat = Seat::create([
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
                     'seat_type' => $i <= 5 ? 'vip' : 'standard',
                     'price' => $i <= 5 ? 300 : 150,
                     'car_type_id' => $request->car_type_id,
+                    'location_seat' => (string) $locationSeat,
                 ]);
 
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
-                    'trip_id' => $carTrip->id,
+                    'car_trip_id' => $carTrip->id,  
                     'is_available' => true,
                 ]);
             }
-            // Thêm nhân viên vào chuyến xe
+
             $listEmployee = [];
             foreach ($request->employees as $employeeId) {
                 CarTripEmployee::create([
@@ -200,6 +206,7 @@ class CarTripController extends Controller
             ], 500);
         }
     }
+
 
 
     public function updateCarTrip(Request $request, $id)
@@ -351,6 +358,19 @@ class CarTripController extends Controller
         }
     }
 
+    public function getTripsByCarHouse($carHouseId)
+    {
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])
+                        ->where('car_house_id', $carHouseId)
+                        ->paginate(5);
+
+            if (!$data) {
+                return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc nhà xe này!');
+            }
+
+        return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo nhà xe thành công!', $data);
+    }
+
     public function deleteCarTrip($id)
     {
         $carTrip = CarTrip::find($id);
@@ -393,3 +413,4 @@ class CarTripController extends Controller
         }
     }
 }
+

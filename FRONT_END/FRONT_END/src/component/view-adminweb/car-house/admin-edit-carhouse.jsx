@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 // import { CallapiGetOneCar } from '../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 // import { CallapiGetOneCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
-import { CallapiGetOneCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
+import { CallapiEditCarHouse, CallapiGetOneCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 
 
 
@@ -27,40 +27,37 @@ export default function EditCarHouse() {
     const dataoneCarHouse  = useSelector((state) => state.Storecarhouse?.datacarhouseone);
     console.log('dataoneCarHouse', dataoneCarHouse);
 
-    // const isToastOk = useSelector((state) => state.StoreCar?.popupXacNhan);
-    // const isToastError = useSelector((state) => state.StoreCar?.popupError);
+    const isToastOk = useSelector((state) => state.Storecarhouse?.showPopupOk);
+    const isToastError = useSelector((state) => state.Storecarhouse?.showPopupError);
 
-    // const notify = (event) => {
-    //     if (event == true) {
-    //         toast.success('Sửa Thành Công!', { theme: 'colored' });
-    //     } else if (event == false) {
-    //         toast.error('Lỗi form nhập!', { theme: 'colored' });
-    //     }
-    // };
+    const notify = (event) => {
+        if (event == true) {
+            toast.success('Sửa Thành Công!', { theme: 'colored' });
+        } else if (event == false) {
+            toast.error('Lỗi form nhập!', { theme: 'colored' });
+        }
+    };
 
     const navigate = useNavigate();
     const { register, handleSubmit, setValue } = useForm();
-    const onSubmit = (data) => {
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('license_plate', data.license_plate);
-        formData.append('model', data.model);
-        // dispatch(CallapiUpdateCarType(id,formData))
+    const onSubmit = (formData) => {
+        console.log("dataaaaaa",formData);
+        dispatch(CallapiEditCarHouse(id,formData))
     };
     setValue('name', dataoneCarHouse?.name);
     setValue('phone', dataoneCarHouse?.phone);
     setValue('status', dataoneCarHouse?.status);
     setValue('address', dataoneCarHouse?.address);
 
-    // if (isToastOk === true) {
-    //     notify(true);
-    //     setTimeout(() => {
-    //         navigate('/admincarhouse/listcar');
-    //     }, 2000);
-    // }
-    // if (isToastError) {
-    //     notify(false);
-    // }
+    if (isToastOk === true) {
+        notify(true);
+        setTimeout(() => {
+            navigate('/adminweb/show-ds-carhouse');
+        }, 2000);
+    }
+    if (isToastError) {
+        notify(false);
+    }
 
     return (
         <>
@@ -85,31 +82,18 @@ export default function EditCarHouse() {
                         placeholder='Số điện thoại'
                     />
                     <label htmlFor='status'> Status </label>
-                    <input
-                        className='addcar-input'
-                        type='number'
-                        id='status'
-                        {...register('status')}
-                    />
-                    {/* <select type='number' id='status' {...register('status')} placeholder='Hãng xe'>
-                        <option value=''>HonDa </option>
-                        <option value=''>ThaCo </option>
-                        <option value=''>Mẹc </option>
-                        <option value=''>Alo</option>
-                    </select> */}
+                    <select type='number' id='status' {...register('status')} placeholder='Trạng Thái'>
+                        <option value='active'>Hoạt Động </option>
+                        <option value='inactive'>Không Hoạt Động </option>
+                        <option value='paused'>Tạm Dừng </option>
+                    </select>
                     <label htmlFor='address'>Address </label>
                     <input
                         className='addcar-input'
-                        type='number'
+                        type='text'
                         id='address'
                         {...register('address')}
                     />
-                    {/* <select type='number' id='address' {...register('address')} placeholder='Chọn loại xe'>
-                        <option value=''>HonDa </option>
-                        <option value=''>ThaCo </option>
-                        <option value=''>Mẹc </option>
-                        <option value=''>Alo</option>
-                    </select> */}
 
                     <input type='hidden' name='nhà xe' />
 

@@ -14,13 +14,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
-import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
+import PanoramaIcon from '@mui/icons-material/Panorama';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 
-
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 function AppAdminQLWeb() {
     return (
         <>
@@ -29,26 +29,30 @@ function AppAdminQLWeb() {
 
                 <div className='container'>
                     <div className='sidebar'>
-                        <a href='#' className='sidebar-icon'>
+                        <a href='' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
                         </a>
-                        <a href='#' className='sidebar-icon'>
+                        <a href='/adminweb/giam-gia' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
                         </a>
-                        <a href='#' className='sidebar-icon'>
-                            <SignalCellularAltOutlinedIcon />
+                        <a href='/adminweb/listEvent' className='sidebar-icon'>
+                            <EmojiEventsIcon />
                         </a>
-                        <a href='#' className='sidebar-icon'>
+                        <a href='/adminweb/listuse' className='sidebar-icon'>
                             <GroupsOutlinedIcon />
                         </a>
-                        <a href='#' className='active sidebar-icon'>
+                        <a href='/adminweb/listArticles' className='active sidebar-icon'>
+                            <PostAddIcon />
+                        </a>
+                 
+                        <a href='/adminweb/show-ds-carhouse' className='active sidebar-icon'>
                             <DirectionsBusFilledOutlinedIcon />
                         </a>
                         <a href='#' className='sidebar-icon'>
                             <ForumOutlinedIcon />
                         </a>
-                        <a href='#' className='sidebar-icon'>
-                            <BuildOutlinedIcon />
+                        <a href='/adminweb/listbanner' className='sidebar-icon'>
+                            <PanoramaIcon />
                         </a>
                     </div>
                     <div className='dashboard'>
@@ -89,6 +93,7 @@ function AppAdminQLWeb() {
                                 </div>
                             </div>
                         </div>
+                        
                         <Outlet></Outlet>
                     </div>
                 </div>

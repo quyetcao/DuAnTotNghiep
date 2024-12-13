@@ -86,11 +86,9 @@ export default function QuanlyBanner() {
                                                     <tr>
                                                         <td>{itembanner?.id}</td>
                                                         <td>
-                                                            <img src='../../../../../../BACK_END/vexevn-app_complete-search-filter-/vexevn-app/public/images/banners/1731297492.jpg' />
-                                                            {itembanner?.image}
+                                                        <img src={`http://127.0.0.1:8000/images/banners/${itembanner?.image}`} width="50px" />
                                                         </td>
                                                         <td>{itembanner?.alt_text}</td>
-                                                        {/* <td>{itembanner?.image}</td> */}
                                                         <td className='action-icons'>
                                                             <EditIcon
                                                                 onClick={() => {

@@ -33,16 +33,20 @@ class Ticket extends Model
     public function carRoute() {
         return $this->belongsTo(CarRoute::class);
     }
+
     public function pickupPoints() {
-        return $this->belongsTo(PickupPoint::class) ;
-                  
+        return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
+                    ->withPivot('pickup_time')
+                    ->withTimestamps();
     }
 
     public function dropoffPoints() {
-        return $this->belongsTo(DropoffPoint::class) ;
-                  
+        return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
+                    ->withPivot('dropoff_time')
+                    ->withTimestamps();
         
     }
+
     public function seats()
     {
         return $this->belongsTo(Seat::class);

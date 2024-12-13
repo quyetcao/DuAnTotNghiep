@@ -19,10 +19,10 @@ class Order extends Model
     ];
 
     /**
+     * Khởi tạo sự kiện khi tạo và cập nhật đơn hàng
      */
     protected static function booted()
     {
-        
         static::created(function ($order) {
             OrderHistory::create([
                 'order_id' => $order->id,
@@ -32,11 +32,9 @@ class Order extends Model
             ]);
         });
 
-        
         static::updated(function ($order) {
             // Kiểm tra nếu trạng thái thay đổi và chuyển thành "cancelled"
             if ($order->isDirty('status') && $order->status === 'cancelled') {
-                // Tạo lịch sử đơn hàng
                 OrderHistory::create([
                     'order_id' => $order->id,
                     'user_id' => $order->user_id,
@@ -47,42 +45,59 @@ class Order extends Model
         });
     }
 
-
     /**
+     * Quan hệ với lịch sử đơn hàng
      */
     public function histories()
     {
         return $this->hasMany(OrderHistory::class);
     }
 
+    /**
+     * Quan hệ với ghế trong đơn hàng (có thể sửa lại theo cấu trúc dữ liệu)
+     */
     public function seats()
     {
-        return $this->hasMany(Seat::class);
+        return $this->hasManyThrough(Seat::class, SeatCarTrip::class, 'car_trip_id', 'id', 'car_trip_id', 'seat_id');
     }
 
+    /**
+     * Quan hệ với chuyến xe
+     */
     public function carTrip()
     {
         return $this->belongsTo(CarTrip::class);
     }
 
-    public function car() {
+    /**
+     * Quan hệ với xe
+     */
+    public function car()
+    {
         return $this->belongsTo(Car::class);
     }
 
-    public function carRoute() {
+    /**
+     * Quan hệ với tuyến xe
+     */
+    public function carRoute()
+    {
         return $this->belongsTo(CarRoute::class);
     }
 
-    public function pickupPoints() {
-        return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
-                    ->withPivot('pickup_time')
-                    ->withTimestamps();
+    /**
+     * Quan hệ với điểm đón
+     */
+    public function pickupPoints()
+    {
+        return $this->carTrip->pickupPoints();
     }
 
-    public function dropoffPoints() {
-        return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
-                    ->withPivot('dropoff_time')
-                    ->withTimestamps();
-        
+    /**
+     * Quan hệ với điểm trả
+     */
+    public function dropoffPoints()
+    {
+        return $this->carTrip->dropoffPoints();
     }
 }

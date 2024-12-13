@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllCar, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
+import {  CallapiGetAllCarType, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -19,14 +19,14 @@ export default function Quanlyloaixe() {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllCar());
+        dispatch(CallapiGetAllCarType());
     }, []);
 
     async function deletecartype(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
             await dispatch(CallapiGetDeleteCar(id));
-            await dispatch(CallapiGetAllCar());
+            await dispatch(CallapiGetAllCarType());
         }
     }
 

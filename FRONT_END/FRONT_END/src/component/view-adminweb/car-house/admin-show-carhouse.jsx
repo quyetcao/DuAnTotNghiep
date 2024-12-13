@@ -16,9 +16,7 @@ import '../../css/quan-li-chien-dich.css';
 
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EditIcon from '@mui/icons-material/Edit';
-import ListIcon from '@mui/icons-material/List';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +25,7 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 // import { CallapiGetAllCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
-import { CallapiGetAllCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
+import { CallapiGetAllCarHouse, CallapiGetDeleteCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { useNavigate } from 'react-router-dom';
 
 export default function ShowDsCarHouse() {
@@ -46,6 +44,13 @@ export default function ShowDsCarHouse() {
     }
     function editcarhouse(id) {
         navigate(`/adminweb/editcarhouse/${id}`);
+    }
+    async function deleteCarHouse(id) {
+        const isconfim = confirm('Bạn có muốn xóa không?');
+        if (isconfim) {
+            await dispatch(CallapiGetDeleteCarHouse(id));
+            await dispatch(CallapiGetAllCarHouse());
+        }
     }
 
     return (
@@ -77,7 +82,9 @@ export default function ShowDsCarHouse() {
                                     <th>Tên Nhà Xe</th>
                                     <th>Phone</th>
                                     <th>Ngày Hợp Tác</th>
+                                    <th>Địa Chỉ</th>
                                     <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,15 +96,20 @@ export default function ShowDsCarHouse() {
                                                 <td>{item?.name}</td>
                                                 <td>{item?.phone}</td>
                                                 <td>{item?.created_at}</td>
+                                                <td>{item?.address}</td>
+                                                <td>{item?.status}</td>
                                                 <td className='action-icons'>
                                                     <EditIcon
                                                         onClick={() => {
                                                             editcarhouse(item?.id);
                                                         }}
                                                     />
-                                                    <ListIcon />
-                                                    <RemoveRedEyeIcon />
-                                                    <FileCopyIcon />
+                                                  
+                                                  <DeleteIcon
+                                                                onClick={() => {
+                                                                    deleteCarHouse(item?.id);
+                                                                }}
+                                                            />
                                                 </td>
                                             </tr>
                                         </>

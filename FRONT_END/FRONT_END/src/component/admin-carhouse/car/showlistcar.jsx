@@ -1,22 +1,36 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
-import ListIcon from '@mui/icons-material/List';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllListCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
-import { Link } from 'react-router-dom';
+import { CallapiGetAllListCar, CallapiGetDeleteCarofCarHouse } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
+import { Link, useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Quanlyxe() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(CallapiGetAllListCar());
     }, []);
     const allcar = useSelector((state) => state.StoreCar?.dataCar);
     console.log('all car ', allcar);
+
+
+    //edit 
+    function EditCarofCarHouse(id) {
+        navigate(`/admincarhouse/editcar/${id}`);
+    }
+    // delete
+    async function deleteCarofCarHouse(id) {
+        const isconfim = confirm('Bạn có muốn xóa không?');
+        if (isconfim) {
+            await dispatch(CallapiGetDeleteCarofCarHouse(id));
+            await dispatch(CallapiGetAllListCar());
+        }
+    }
+
     return (
         <>
             <div className='dashboard-body'>
@@ -47,6 +61,7 @@ export default function Quanlyxe() {
                                     <th>Loại Xe</th>
                                     <th>Biển số</th>
                                     <th>Hãng</th>
+                                    <th>Ảnh</th>
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
@@ -61,11 +76,18 @@ export default function Quanlyxe() {
                                                     <td>TIENTO01</td>
                                                     <td>{itemlistcar?.license_plate}</td>
                                                     <td>{itemlistcar?.model}</td>
+                                                    <td>{itemlistcar.car_images && itemlistcar.car_images.map((itemimg)=>{
+                                            return <> <img src={`http://127.0.0.1:8000/images/cars/${itemimg?.image}`} width="50px" /></>
+                                        }) } </td>
                                                     <td className='action-icons'>
-                                                        <EditIcon />
-                                                        <ListIcon />
-                                                        <RemoveRedEyeIcon />
-                                                        <FileCopyIcon />
+                                                        <EditIcon   onClick={() => {
+                                                                    EditCarofCarHouse(itemlistcar?.id);
+                                                                }} />
+                                                        <DeleteIcon
+                                                                onClick={() => {
+                                                                    deleteCarofCarHouse(itemlistcar?.id);
+                                                                }}
+                                                            />
                                                     </td>
                                                 </tr>
                                             </>

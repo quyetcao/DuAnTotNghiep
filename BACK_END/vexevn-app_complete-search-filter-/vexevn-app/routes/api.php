@@ -17,6 +17,8 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\DiscountCodeController;
 
 
 
@@ -27,11 +29,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/signup', [AuthController::class, 'signUp']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/profile', [AuthController::class, 'profile']);
     Route::get('/auth/logout', [AuthController::class, 'logout']);
-// });
+});
 
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/auth/all-users', [AuthController::class, 'showAllUsers']);
+    Route::put('/auth/update-role/{id}', [AuthController::class, 'updateRole']);
+    Route::delete('/auth/delete/{id}', [AuthController::class, 'deleteUser']);
+});
 /* =====================================================================
                             CAR SYSTEM 
 ===========================================================================*/
@@ -41,11 +48,11 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
 Route::get('/cartypes', [CarController::class, 'listCarType']);
 
-Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
+// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
     Route::post('/cartypes/create', [CarController::class, 'createCarType']);
     Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
     Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
-});
+// });
 
 
 
@@ -72,9 +79,12 @@ Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
 // });
 
 // PICK UP POINT
+Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPointById']);
+Route::get('/pickuppoint/car_trip/{car_trip_id}', [CarController::class, 'getPickupPointByCarTrip']);
+Route::get('/pickuppoint/car_house/{car_house_id}', [CarController::class, 'getPickupPointByCarHouse']);
+Route::get('/pickuppoints', [CarController::class, 'getAllPickupPoints']); // Plural for all
 
-Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPoint']);
-Route::get('/pickuppoint', [CarController::class, 'listPickupPoint']);
+
 
 // Route::middleware(['auth:sanctum', 'admin,carhouse'])->group(function () {
 Route::post('/pickuppoint/create', [CarController::class, 'createPickupPoint']);
@@ -87,8 +97,9 @@ Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPo
 
 
 // DROP OFF POINT
-
-Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPoint']);
+Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPointById']);
+Route::get('/dropoffpoint/car_trip/{car_trip_id}', [CarController::class, 'showDropoffPointByCarTrip']);
+Route::get('/dropoffpoint/car_house/{car_house_id}', [CarController::class, 'getDropoffpointByCarHouse']);
 Route::get('/dropoffpoint', [CarController::class, 'listDropoffPoint']);
 
 // Route::middleware(['auth:sanctum', 'admin,carhouse'])->group(function () {
@@ -123,6 +134,7 @@ Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
 Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
 Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
 // });
 
 
@@ -176,7 +188,7 @@ Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 
 //Seat
 
-Route::get('/seat/{id}', [SeatController::class, 'showSeat']);
+Route::get('/seat/{car_id}', [SeatController::class, 'showSeatsByCarId']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
@@ -229,3 +241,20 @@ Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
 Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']);
 Route::get('/payments', [PaymentController::class, 'listPayments']);
 Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']);
+
+
+//User
+Route::get('/user/{id}', [UserController::class, 'listUser']);
+Route::get('/user', [UserController::class, 'listUser']);
+
+// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
+    Route::delete('/user/delete/{id}', [UserController::class, 'deleteBanner']);
+// });
+
+//DISCOUNTCODE
+Route::post('/discount-codes', [DiscountCodeController::class, 'createDiscountCode']);
+Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes']);
+Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscountCode']);
+Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
+Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);
