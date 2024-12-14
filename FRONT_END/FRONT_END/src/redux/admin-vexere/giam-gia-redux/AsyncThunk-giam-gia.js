@@ -27,7 +27,7 @@ export function CallapiPostGiamGia(dataform) {
       );
       dispatch(showPopupOk(true));
     } catch (error) {
-      console.log("erooor", error.response.data.message);
+      console.log("erooor", error);
       dispatch(showPopupError(true));
     } finally {
       setTimeout(() => {
@@ -54,7 +54,7 @@ export function CallapiGetDeleteGiamGia(id) {
 }
 
 // lấy 1 loại xe để sửa 
-export function CallapiGetOneEvent(id) {
+export function CallapiGetOneGiamGia(id) {
   return async (dispatch) => {
     try {
       let res = await axios.get(`http://localhost:8000/api/discount-codes/${id}`);
@@ -65,7 +65,7 @@ export function CallapiGetOneEvent(id) {
   };
 }
 
-export function CallapiUpdateEvent(id,formdata) {
+export function CallapiUpdateGiamGia(id,formdata) {
   return async (dispatch) => {
     try {
       let res = await axios.post(`http://localhost:8000/api/discount-codes/${id}`,formdata);

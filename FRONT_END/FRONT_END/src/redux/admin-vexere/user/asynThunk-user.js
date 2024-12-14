@@ -10,12 +10,13 @@ export function CallapiGetAllUser() {
     try {
       dispatch(showLoading(false));
       let res = await axios.get(`http://localhost:8000/api/user/`);
-      console.log("all list ", res.data.data.data);
+      console.log("all list ", res.data.data);
 
-      dispatch(getAllUser(res.data.data.data))
+      dispatch(getAllUser(res.data.data))
       dispatch(showLoading(true));
     } catch (error) {
       console.log(error);
     }
   };
 }
+

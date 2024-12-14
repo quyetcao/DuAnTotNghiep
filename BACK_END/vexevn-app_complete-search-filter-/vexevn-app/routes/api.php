@@ -249,7 +249,7 @@ Route::get('/user', [UserController::class, 'listUser']);
 
 // Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
-    Route::delete('/user/delete/{id}', [UserController::class, 'deleteBanner']);
+    Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser']);
 // });
 
 //DISCOUNTCODE

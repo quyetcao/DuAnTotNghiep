@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -19,12 +20,14 @@ use App\Models\PickupPoint;
 use App\Models\DropoffPoint;
 use App\Models\BusRoute;
 use App\Models\CarTrip;
+use App\Models\CarRoute;
 use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
 use App\Models\Seat;
 use App\Models\SeatCarTrip;
 use App\Models\CarTripEmployee;
-class CarTripController extends Controller
+
+class CarTripController extends HelpController
 {
     public function listCarTrip()
     {
@@ -360,16 +363,20 @@ class CarTripController extends Controller
 
     public function getTripsByCarHouse($carHouseId)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])
+        // Lấy danh sách chuyến xe của nhà xe
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
                         ->where('car_house_id', $carHouseId)
                         ->paginate(5);
-
-            if (!$data) {
-                return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc nhà xe này!');
-            }
-
+    
+        // Kiểm tra nếu không có chuyến xe nào
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc nhà xe này!');
+        }
+    
+        // Trả về danh sách chuyến xe
         return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo nhà xe thành công!', $data);
     }
+    
 
     public function deleteCarTrip($id)
     {

@@ -1,32 +1,34 @@
-import '../../css/quan-li-chien-dich.css';
+
 import EditIcon from '@mui/icons-material/Edit';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllListCar, CallapiGetDeleteCarofCarHouse } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { CallapiGetAllcxofCarHouse, CallapiGetDeleteCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
+import Pagination from '../../../pagination/pagination';
+
 
 export default function Quanlychuyenxe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        dispatch(CallapiGetAllListCar());
+        dispatch(CallapiGetAllcxofCarHouse(1,1));
     }, []);
-    const allcar = useSelector((state) => state.StoreCar?.dataCar);
-    console.log('all car ', allcar);
+    const allcx = useSelector((state) => state.ChuyenxeofCarHouse?.AllChuyenXecarhouse);
+    console.log('all car ', allcx);
 
 
-    //edit 
-    function EditCarofCarHouse(id) {
-        navigate(`/admincarhouse/editcar/${id}`);
-    }
+    // //edit 
+    // function EditCarofCarHouse(id) {
+    //     navigate(`/admincarhouse/editcar/${id}`);
+    // }
     // delete
-    async function deleteCarofCarHouse(id) {
+    async function deleteCxcarhouse(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
-            await dispatch(CallapiGetDeleteCarofCarHouse(id));
+            await dispatch(CallapiGetDeleteCxCarHouse(id));
             await dispatch(CallapiGetAllListCar());
         }
     }
@@ -36,7 +38,7 @@ export default function Quanlychuyenxe() {
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản lý Xe</h3>
+                        <h3 className='content-top-heading'>Quản lý Chuyến Xe</h3>
                         <Link to='/admincarhouse/addCar'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
@@ -58,34 +60,32 @@ export default function Quanlychuyenxe() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Tên xe</th>
-                                    <th>Loại Xe</th>
-                                    <th>Biển số</th>
-                                    <th>Hãng</th>
-                                    <th>Ảnh</th>
+                                    <th>Tuyến Đường</th>
+                                    <th>Ngày đi - Ngày về</th>
+                                    <th>Giá</th>
+                                    <th>Trạng Thái</th>
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {allcar &&
-                                    allcar.map((itemlistcar) => {
+                                { Array.isArray(allcx.data) &&
+                                    allcx.data.map((itemlist) => {
                                         return (
                                             <>
                                                 <tr>
-                                                    <td>{itemlistcar?.id}</td>
-                                                    <td>{itemlistcar?.name}</td>
-                                                    <td>TIENTO01</td>
-                                                    <td>{itemlistcar?.license_plate}</td>
-                                                    <td>{itemlistcar?.model}</td>
-                                                    <td>{itemlistcar.car_images && itemlistcar.car_images.map((itemimg)=>{
-                                            return <> <img src={`http://127.0.0.1:8000/images/cars/${itemimg?.image}`} width="50px" /></>
-                                        }) } </td>
+                                                    <td>{itemlist?.id}</td>
+                                                    <td>{itemlist?.car?.name}</td>
+                                                    <td>{itemlist?.car_route?.city_from}-{itemlist?.car_route?.city_to}</td>
+                                                    <td>{itemlist?.departure_date} . {itemlist?.arrival_date}</td>
+                                                    <td>{itemlist?.price}</td>
+                                                    <td>{itemlist?.status}</td>
                                                     <td className='action-icons'>
                                                         <EditIcon   onClick={() => {
-                                                                    EditCarofCarHouse(itemlistcar?.id);
+                                                                    // EditCarofCarHouse(itemlist?.id);
                                                                 }} />
                                                         <DeleteIcon
                                                                 onClick={() => {
-                                                                    deleteCarofCarHouse(itemlistcar?.id);
+                                                                    deleteCxcarhouse(itemlist?.id);
                                                                 }}
                                                             />
                                                     </td>
@@ -96,22 +96,7 @@ export default function Quanlychuyenxe() {
                             </tbody>
                         </table>
                     </div>
-                    <div className='page-button'>
-                        <div className='page-list'>
-                            <div className='page-list__item'>
-                                <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
-                            </div>
-                            <div className='page-list__item'>1</div>
-                            <div className='page-list__item'>2</div>
-                            <div className='page-list__item'>3</div>
-                            <div className='page-list__item'>...</div>
-                            <div className='page-list__item'>9</div>
-                            <div className='page-list__item'>10</div>
-                            <div className='page-list__item'>
-                                <ChevronRightIcon style={{ color: '#6e6e6e' }} />
-                            </div>
-                        </div>
-                    </div>
+                    <Pagination links={allcx.links}/>
                 </div>
             </div>
         </>

@@ -1,4 +1,3 @@
-import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -11,35 +10,33 @@ import Button from '@mui/material/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-// import { CallapiGetAllBanner, CallapiGetDeleteBanner } from '../../../redux/admin-vexere/banner/banner-asynThunk';
-import { CallapiGetAllUser } from '../../../redux/admin-vexere/user/asynThunk-user';
+import { CallapiGetAllUser } from '../../../../redux/admin-vexere/user/asynThunk-user';
 
 export default function QuanlyUser() {
     // const navigate = useNavigate();
-    const allUser = useSelector((state) => state.StoreUser?.dataUser);
-    console.log('list banner 000000000000000000', allUser);
-    const isload = useSelector((state) => state.StoreUser?.isloading);
+
 
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(CallapiGetAllUser());
     }, []);
+    const allUser = useSelector((state) => state.StoreUser?.dataUser);
+    console.log(">>>",allUser);
+    const isload = useSelector((state) => state.StoreUser?.isloading);
 
-    // async function deletebanner(id) {
-    //     const isconfim = confirm('Bạn có muốn xóa không?');
-    //     if (isconfim) {
-    //         await dispatch(CallapiGetDeleteBanner(id));
-    //         await dispatch(CallapiGetAllBanner());
-    //     }
-    // }
-    // function chuyendentrangadd() {
-    //     console.log('hello');
-    //     navigate('/adminweb/addbanner');
-    // }
 
-    // function navigateEdit(id) {
-    //     navigate(`/adminweb/editbanner/${id}`);
-    // }
+    const dataUser= allUser.filter((item)=> item.carhouse_id == null)
+ 
+
+   
+    function deleteUser(id) {
+        const isconfim = confirm('Bạn có muốn xóa không?');
+        if (isconfim) {
+        //   dispatch(CallapiGetDeleteUser(id));
+          
+        }
+    }
+   
     
     return (
         <>
@@ -75,8 +72,8 @@ export default function QuanlyUser() {
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(allUser) &&
-                                    allUser?.map((itemUser) => {
+                                {Array.isArray(dataUser) &&
+                                    dataUser?.map((itemUser ) => {
                                         return (
                                             <>
                                                 {' '}
@@ -87,9 +84,7 @@ export default function QuanlyUser() {
                                                         <td>{itemUser?.email}</td>
                                                         <td>{itemUser?.phone}</td>
                                                         <td className='action-icons'>
-                                                            <EditIcon/>
-                                                            <DeleteIcon/>
-                                                            <FileCopyIcon />
+                                                            <DeleteIcon onClick={()=>{deleteUser(itemUser?.id)}}/>                                
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -102,13 +97,10 @@ export default function QuanlyUser() {
                     <div className='box-footer-admin'>
                         <div className='left-admin-select'>
                             <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Xe</Button>
+                                <Button variant='contained'>Quản Lý Tài Khoản Nhà Xe</Button>
                             </Link>
                             <Link to='/adminweb/listbanner' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Banner</Button>
-                            </Link>
-                            <Link to='/admincarhouse/listcartype'>
-                                <Button variant='contained'>Quản Lý Loại Xe</Button>
+                                <Button variant='contained'>Quản Lý Tài Khoản Quản Trị Web</Button>
                             </Link>
                         </div>
                         <div className='page-button'>

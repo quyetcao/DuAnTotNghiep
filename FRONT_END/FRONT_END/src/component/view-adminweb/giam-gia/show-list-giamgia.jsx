@@ -33,7 +33,7 @@ export default function QuanlyGiamGia() {
     }
 
     function navigateEdit(id){
-        navigate(`/adminweb/editArticles/${id}`)
+        navigate(`/adminweb/edit-giam-gia/${id}`)
 
     }
 
@@ -84,7 +84,7 @@ export default function QuanlyGiamGia() {
                                         <td>{item?.end_date}</td>
                                         <td>{item?.usage_limit}</td>
                                         <td>{item?.is_active}</td>
-                                        <td><img src={`http://127.0.0.1:8000/images/discount_code/${item?.image}`} width="50px" /></td>
+                                        <td><img src={`http://127.0.0.1:8000/images/discount_codes/${item?.image}`} width="50px" /></td>
                                         <td className='action-icons'>
                                             <EditIcon onClick={() => { navigateEdit(item.id) }} />
                                             <DeleteIcon onClick={() => { deleteMaGiamGia(item.id) }} />

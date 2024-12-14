@@ -23,7 +23,7 @@ export default function AddGiamGia() {
 
     const { register, handleSubmit } = useForm()
     const onSubmit = (data) => {
-        const imageFiles = data.images[0];
+        const imageFiles = data.image[0];
         const formData = new FormData();
         formData.append('code', data.code); 
         formData.append('description', data.description); 
@@ -33,12 +33,12 @@ export default function AddGiamGia() {
         formData.append('end_date', data.end_date);
         formData.append('usage_limit', data.usage_limit);
         formData.append('is_active', data.is_active);
-        formData.append('images', imageFiles);
+        formData.append('image', imageFiles);
 
         dispatch(CallapiPostGiamGia(formData))
     }
-    const isToastOk = useSelector((state) => state.StoreArticles?.popupXacNhan);
-    const isToastError = useSelector((state) => state.StoreArticles?.popupError);
+    const isToastOk = useSelector((state) => state.StoreGiamGia?.popupXacNhan);
+    const isToastError = useSelector((state) => state.StoreGiamGia?.popupError);
 
     if (isToastOk === true) {
         notify(true);
@@ -72,16 +72,16 @@ export default function AddGiamGia() {
                     <input type="number" id="discount_amount"    {...register('discount_amount', { required: true })} />
 
                     <label htmlFor="start_date">Ngày Bắt Đầu</label>
-                    <input type="date" id="start_date"    {...register('start_date', { required: true })} />
+                    <input type="datetime-local" id="start_date"    {...register('start_date', { required: true })} />
                     <label htmlFor="end_date">Ngày Kết Thúc</label>
-                    <input type="date" id="end_date"    {...register('end_date', { required: true })} />
+                    <input type="datetime-local" id="end_date"    {...register('end_date', { required: true })} />
                     <label htmlFor="usage_limit">Giới Hạn</label>
-                    <input type="date" id="usage_limit"    {...register('usage_limit', { required: true })} />
+                    <input type="number" id="usage_limit"    {...register('usage_limit', { required: true })} />
                     <label htmlFor="is_active">Trạng Thái</label>
-                    <input type="date" id="is_active"    {...register('is_active', { required: true })} />
+                    <input type="number" id="is_active"    {...register('is_active', { required: true })} />
                     <label htmlFor="image">Ảnh</label>
                     <input type="file" id="image"    {...register('image', { required: true })} />
-                        <input type="submit" className='btnsb' value='Thêm Sự Kiện' />
+                        <input type="submit" className='btnsb' value='Thêm Mã giảm' />
                 </form>
             </div>
 

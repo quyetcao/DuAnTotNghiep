@@ -27,7 +27,7 @@ import AppAdminQLWeb from './AdminWeb.jsx';
 
 
 
-import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/addcxcarhouse.jsx';
+// import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/addcxcarhouse.jsx';
 import Quanlychiendich from './component/admin-carhouse/chuyenxe/qlcd.jsx';
 import QuanLyDatVeXe from './component/admin-carhouse/chuyenxe/quanLyDatVeXe.jsx'
 // import AddCar from './component/admin-carhouse/car/addcar.jsx';
@@ -47,12 +47,12 @@ import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhous
 import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
 import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
-import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
+// import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
-import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
+// import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
 import HomePageWebAdmin from './component/view-adminweb/dashboardadminweb.jsx/homepageadminweb.jsx';
-import QuanlyUser from './component/view-adminweb/listuser/show-list-user.jsx';
+import QuanlyUser from './component/view-adminweb/listuser/quanlitkuser/show-list-user.jsx';
 import EditArticles from './component/view-adminweb/post-event/admin-post/edit-post.jsx';
 import EditCarOfCarHouse from './component/admin-carhouse/car/editcarofcarhouse.jsx';
 import AddCar from './component/admin-carhouse/car/addcar.jsx';
@@ -64,6 +64,8 @@ import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
+import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
+import Quanlychuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-xe/showchuyenxe.jsx';
 
 
 
@@ -192,9 +194,14 @@ const routes = createBrowserRouter([
         element:<EditCarType/>
       },
       // chuyến xe 
+      // {
+      //   path: 'addchuyenxe',
+      //   element: <AddChuyenXebyCarHouse />
+      // },
       {
-        path: 'addchuyenxe',
-        element: <AddChuyenXebyCarHouse />
+        path:'quan-li-chuyen-xe',
+        element:<Quanlychuyenxe/>
+
       },
 
       // điểm đón trả
