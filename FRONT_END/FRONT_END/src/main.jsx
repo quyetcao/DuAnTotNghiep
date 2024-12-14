@@ -65,6 +65,7 @@ import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
+import ThanhToanLanMot from './component/thanhtoan/thanhtoanlan1.jsx';
 
 
 
@@ -105,6 +106,10 @@ const routes = createBrowserRouter([
       {
         path:"/khong-quyen-truy-cap",
         element:<Insufficientaccess/>
+      },
+      {
+        path: "/thanhtoanlanmot",
+        element: <ThanhToanLanMot />
       },
       {
         path: "/thanhtoan",

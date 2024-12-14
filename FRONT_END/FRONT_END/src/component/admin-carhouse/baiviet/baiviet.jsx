@@ -95,35 +95,35 @@ export default function Baiviet() {
                                 <table border='1' cellPadding='1' cellSpacing='1'>
                                     <tbody>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Hạng thành viên</strong>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Điểm tối thiểu</strong>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Điểm tích được trên mỗi 10K</strong>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Thành viên</td>
-                                            <td style={{ textAlign: 'justify' }}>0</td>
-                                            <td style={{ textAlign: 'justify' }}>10k = 2 điểm</td>
+                                            <td >Thành viên</td>
+                                            <td >0</td>
+                                            <td >10k = 2 điểm</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Bạc&nbsp;</td>
-                                            <td style={{ textAlign: 'justify' }}>150</td>
-                                            <td style={{ textAlign: 'justify' }}>10k = 2 điểm</td>
+                                            <td >Bạc&nbsp;</td>
+                                            <td >150</td>
+                                            <td >10k = 2 điểm</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Vàng&nbsp;</td>
-                                            <td style={{ textAlign: 'justify' }}>450</td>
-                                            <td style={{ textAlign: 'justify' }}>10k = 3 điểm</td>
+                                            <td >Vàng&nbsp;</td>
+                                            <td >450</td>
+                                            <td >10k = 3 điểm</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Bạch Kim</td>
-                                            <td style={{ textAlign: 'justify' }}>1350</td>
-                                            <td style={{ textAlign: 'justify' }}>10k = 4 điểm</td>
+                                            <td >Bạch Kim</td>
+                                            <td >1350</td>
+                                            <td >10k = 4 điểm</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -133,16 +133,16 @@ export default function Baiviet() {
                                     của quý tương ứng ở năm kế tiếp.
                                 </p>
                                 <ul>
-                                    <li style={{ textAlign: 'justify' }}>
+                                    <li >
                                         Điểm tích lũy từ 1/1 - 31/3 năm nay hết hạn vào 31/3 năm sau.
                                     </li>
-                                    <li style={{ textAlign: 'justify' }}>
+                                    <li >
                                         Điểm tích lũy từ 1/4 - 30/6 năm nay hết hạn vào 30/6 năm sau.
                                     </li>
-                                    <li style={{ textAlign: 'justify' }}>
+                                    <li >
                                         Điểm tích lũy từ 1/7 - 30/9 năm nay hết hạn vào 30/9 năm sau.
                                     </li>
-                                    <li style={{ textAlign: 'justify' }}>
+                                    <li >
                                         Điểm tích lũy từ 1/10 - 31/12 năm nay hết hạn vào 31/12 năm sau.
                                     </li>
                                 </ul>
@@ -157,7 +157,7 @@ export default function Baiviet() {
                                     Nhận ngay điểm thưởng nhân ngày sinh nhật - Dành riêng cho các thành viên hạng Vàng
                                     và Bạch Kim
                                 </h3>
-                                <p style={{ textAlign: 'justify' }}>
+                                <p >
                                     <em>
                                         <strong>*Lưu ý: </strong>Khách hàng chỉ được tặng điểm sinh nhật 1 lần/năm.
                                         Trong trường hợp khách hàng đã nhận được điểm thưởng trong năm nay, sau đó thay
@@ -168,20 +168,20 @@ export default function Baiviet() {
                                 <table border='1' cellPadding='1' cellSpacing='1'>
                                     <tbody>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Hạng thành viên</strong>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Điểm tặng sinh nhật</strong>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Vàng</td>
-                                            <td style={{ textAlign: 'justify' }}>3 điểm</td>
+                                            <td >Vàng</td>
+                                            <td >3 điểm</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>Bạch Kim</td>
-                                            <td style={{ textAlign: 'justify' }}>6 điểm</td>
+                                            <td >Bạch Kim</td>
+                                            <td >6 điểm</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -189,57 +189,57 @@ export default function Baiviet() {
                                 <table border='1' cellPadding='1' cellSpacing='1'>
                                     <tbody>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Hoạt động</strong>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <strong>Điểm được nhận</strong>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <ul>
                                                     <li>Đánh giá nhà xe</li>
                                                 </ul>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>1 điểm&nbsp;</td>
+                                            <td >1 điểm&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <ul>
                                                     <li>Đánh giá nhà xe, và;</li>
                                                     <li>Nhận xét về nhà xe, trải nghiệm khi di chuyển,...</li>
                                                 </ul>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>2 điểm&nbsp;</td>
+                                            <td >2 điểm&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <ul>
                                                     <li>Đánh giá nhà xe, và;</li>
                                                     <li>Hình ảnh xe, hình ảnh chuyến đi,...</li>
                                                 </ul>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>2 điểm&nbsp;</td>
+                                            <td >2 điểm&nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td style={{ textAlign: 'justify' }}>
+                                            <td >
                                                 <ul>
                                                     <li>Đánh giá nhà xe, và;</li>
                                                     <li>Nhận xét về nhà xe, trải nghiệm khi di chuyển,...,và;</li>
                                                     <li>Hình ảnh xe, hình ảnh chuyến đi,...</li>
                                                 </ul>
                                             </td>
-                                            <td style={{ textAlign: 'justify' }}>3 điểm&nbsp;</td>
+                                            <td >3 điểm&nbsp;</td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <h2>Cách sử dụng điểm thưởng</h2>
                                 <p>
                                     Bạn có thể dùng điểm thưởng để nhận được mã giảm giá cho giao dịch đặt dịch vụ lần
-                                    sau. Hoặc đổi voucher mua sắm, du lịch,… của các đối tác khác trong mục
+                                    sau. Hoặc đổi voucher mua sắm, du lịch,… của các đối tác khác trong mục 
                                     <span style={{ color: '#d35400' }}>
-                                        <strong>Ưu đãi</strong>
+                                        <strong> Ưu đãi</strong>
                                     </span>{' '}
                                     tại ứng dụng Vexere.
                                 </p>

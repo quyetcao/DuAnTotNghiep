@@ -105,7 +105,7 @@ body {
     color: rgb(20, 20, 20) !important;
 }
 
-p {
+.bv-center-page > p {
     margin: 0;
     margin-bottom: 1em;
 }
@@ -198,6 +198,9 @@ h2, h3 {
         font-size: 20px;
     }
 
+    .baiviet-lienquan {
+        display: none;
+    }
     
 }
 
@@ -231,6 +234,10 @@ h2, h3 {
 
     .hihih img {
         width: 30% !important;
+    }
+
+    .baiviet-lienquan {
+        display: none;
     }
 }
 
