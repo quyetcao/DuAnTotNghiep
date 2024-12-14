@@ -64,8 +64,10 @@ import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
-import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
+// import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
 import Quanlychuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-xe/showchuyenxe.jsx';
+import ThanhToanLanMot from './component/thanhtoan/thanhtoanlan1.jsx';
+import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
 
 
 
@@ -108,12 +110,20 @@ const routes = createBrowserRouter([
         element:<Insufficientaccess/>
       },
       {
+        path: "/thanhtoanlanmot",
+        element: <ThanhToanLanMot />
+      },
+      {
         path: "/thanhtoan",
         element: <ThanhToan />
       },
       {
         path: "/booking1",
         element: <BookingConfirmation />
+      },
+      {
+        path: "/baiviet",
+        element: <Baiviet />
       },
       {
         path: "/chi-tiet-giao-dich",
@@ -306,7 +316,7 @@ const routes = createBrowserRouter([
       },
       {
         path:'edit-giam-gia/:id',
-        element:<EditGiamGia/>
+        // element:<EditGiamGia/>
       },
       //User
       {

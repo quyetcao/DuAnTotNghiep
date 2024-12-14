@@ -504,7 +504,7 @@ a.text-link1 {
 }
 
 .payment-footer {
-    position: fixed;       /* Cố định vị trí */
+    /* position: fixed;       Cố định vị trí */
     bottom: 0;             /* Căn sát đáy */
     left: 0;               /* Căn lề trái */
     width: 100%;    

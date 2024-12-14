@@ -8,3 +8,10 @@
 .no-quyentruy-cap img{
     width: 40%;
 }
+
+@media (max-width: 480px) {
+    .no-quyentruy-cap {
+        font-size: 14px;
+        text-align: center;
+    }
+}
