@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
 import ErrorIcon from '@mui/icons-material/Error';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
-import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -11,6 +8,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import WarningIcon from '@mui/icons-material/Warning';
 import '../css/thanhtoanlan1.css';
 
@@ -20,49 +19,51 @@ export default function ThanhToanLanMot() {
             <div className='body-container'>
                 <div className='payment'>
                     <div className='payment-page'>
-                        <div className='wrap-top'>
-                            <div className='wrap-top1'>
-                                <div className='wrap-top__icon'>
-                                    <ArrowBackIcon />
-                                </div>
-                                <div className='wrap-top__left'>
-                                    <div className='left-box'>
-                                        <div className='left-box__title'>Cửa Ông Limousine</div>
-                                        <span className='left-box__text'>
-                                            <strong>11:00</strong>
-                                            <span className='wrap-top__left-icon'>
-                                                <FiberManualRecordIcon />
-                                            </span>
-                                            Tue, 02/11/2024
-                                        </span>
+                        <div className='wrap-top-header'>
+                            <div className='wrap-top-page'>
+                                <div className='top-page__header'>
+                                    <div className='wrap-top__icon1'>
+                                        <ArrowBackIcon />
                                     </div>
-                                </div>
-                                <div className='wrap-top__right'>
-                                    <a href=''>Chi tiết</a>
+                                    <div className='wrap-top-header-w'>
+                                        <div className='top__left-header'>
+                                            <span>Ha Noi</span>
+                                            <ArrowRightAltIcon />
+                                            <span>Khanh hoa</span>
+                                        </div>
+                                        <div className='top__left-ft'>
+                                            <span>
+                                                <strong>11:00</strong>
+                                                <FiberManualRecordIcon />
+                                                CN, 15/12/2024
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className='wrap-top2'>
-                                <div className='wrap-top2__left'>
-                                    <div className='wrap-top2__span'>
-                                        <CheckCircleOutlineOutlinedIcon />
-                                    </div>
-                                    <div className='wrap-top2__text'>Xác nhận hành trình</div>
+                                <div className='wrap-top2-child1'>
+                                    <CheckCircleIcon />
+                                    <span className='wrap-top2-child1-title'>Chọn điểm trả</span>
                                 </div>
-                                <div className='wrap-top2__right'>
-                                    <div className='wrap-top2__border'></div>
-                                    <div className='wrap-top2__circle'>10</div>
-                                    <div className='wrap-top2__text'>Thanh toán</div>
+                                <div className='wrap-top2__left'>
+                                    <div className='wrap-top2__right'>
+                                        <div className='wrap-top2__border'></div>
+                                        <div className='wrap-top2__circle'>5</div>
+                                        <div className='wrap-top2-child1-title'>Nhập thông tin</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className='payments-security'>
-                            <span className='payments-security__icon'>
-                                <GppGoodOutlinedIcon fontSize='small' />
-                            </span>
-                            <span className='payments-security__title'>Nhiều cách thanh toán, bảo mật tuyệt đối</span>
-                        </div>
+
                         <div className='wrap-left'>
                             <div className='payment-method'>
+                                <div className='quydinh dblock'>
+                                    <div className='payments-security__title'>Quy định cần lưu ý khi lên xe</div>
+                                    <div className='quydinh-link'>
+                                        <a href=''>Xem chi tiết</a>
+                                    </div>
+                                </div>
                                 <p className='method-heading'>Thông tin liên hệ</p>
                                 <div className='group-payment'>
                                     <div className='payment-item border-bottom'>
@@ -148,7 +149,7 @@ export default function ThanhToanLanMot() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='payment-item'>
+                                    <div className='payment-item haohao'>
                                         <div className='thuexe'>
                                             <div className='thuexe-header'>
                                                 <div className='thuexe-left'>
@@ -322,7 +323,7 @@ export default function ThanhToanLanMot() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='cart-item'>
+                                <div className='cart-item an-thuexe'>
                                     <div className='cart-detail'>
                                         <p className='cart-text'>Giá thuê xe máy dự kiến</p>
                                         <div className='cart-info'>
@@ -487,23 +488,37 @@ export default function ThanhToanLanMot() {
                     <div className='ft1-content'>
                         <div className='box-content-left-ft'>
                             <div className='box-2-btn'>
-                                <div className='ft-content-no-select ft-content-btn'>
+                                <div className='ft-content-no-select ft-content-btn an-btn'>
                                     <span className='ft-content__title'>Tiếp tục đặt vé một chiều</span>
                                 </div>
-                                <div className='ft-content-select ft-content-btn'>
+                                <div className='ft-content-select ft-content-btn an-btn'>
                                     <span className='ft-content__title'>Đặt thêm chiều về</span>
                                 </div>
+                                <div className='ft-content-select ft-content-btn ft-content-btn-tt'>
+                                    <span className='ft-content__title'>Tiếp tục</span>
+                                </div>
                             </div>
-                            <span className='dongy-chinhsach'>Bằng việc tiếp tục, bạn đồng ý với <a href='' className='chinhsach-link-lan1'>Chính sách bảo mật thanh toán</a> và <a href='' className='chinhsach-link-lan1'>Quy chế</a></span>
+                            <span className='dongy-chinhsach'>
+                                Bằng việc tiếp tục, bạn đồng ý với{' '}
+                                <a href='' className='chinhsach-link-lan1'>
+                                    Chính sách bảo mật thanh toán
+                                </a>{' '}
+                                và{' '}
+                                <a href='' className='chinhsach-link-lan1'>
+                                    Quy chế
+                                </a>
+                            </span>
                         </div>
                         <div className='box-content-right-ft'>
                             <div className='xinchao'>
                                 <h4 className='content-right-heading'>Đặt thêm chiều về, giảm ngay 10%!</h4>
                                 <span className='ft-right-text'>
-                                    Áp dụng khi đặt cùng nhà xe Long Vân Limousine (dùng mã giảm giá khứ hồi ở bước thanh
-                                    toán).
+                                    Áp dụng khi đặt cùng nhà xe Long Vân Limousine (dùng mã giảm giá khứ hồi ở bước
+                                    thanh toán).
                                 </span>
-                                <a href='' className='chinhsach-link-lan1'>Chi tiết</a>
+                                <a href='' className='chinhsach-link-lan1'>
+                                    Chi tiết
+                                </a>
                             </div>
                         </div>
                     </div>

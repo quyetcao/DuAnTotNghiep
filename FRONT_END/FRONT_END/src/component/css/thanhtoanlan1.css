@@ -20,7 +20,7 @@
 .border-message {
     border-radius: 8px;
     border: 1px solid rgb(39, 174, 96);
-    background-color: rgb(238, 251, 244)
+    background-color: rgb(238, 251, 244);
 }
 
 .message-content {
@@ -35,11 +35,10 @@
 .message-svg svg {
     font-size: 20px;
     color: rgb(39, 174, 96);
-
 }
 
 /* tien ich */
-.extension{
+.extension {
     padding: 0 6px;
 }
 
@@ -56,7 +55,7 @@
 .extension-text {
     font-size: 12px;
     font-weight: 300;
-    color: rgb(133, 133, 133) !important;;
+    color: rgb(133, 133, 133) !important;
 }
 
 .extension-text-img {
@@ -102,7 +101,7 @@
 .footer-baohiem {
     display: flex;
     justify-content: space-between;
-    background-color: rgb(39, 174, 96);;
+    background-color: rgb(39, 174, 96);
     padding: 6px 12px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -202,7 +201,7 @@
     width: 25%;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid rgb(224, 224, 224);;
+    border: 1px solid rgb(224, 224, 224);
 }
 
 .thuexe-itemxe h5 p {
@@ -248,12 +247,12 @@
     width: 32px;
     height: 32px;
     border-radius: 50px;
-    border: 2px solid rgb(224, 224, 224);;
+    border: 2px solid rgb(224, 224, 224);
 }
 
 .border-icon-bike svg {
     margin-top: 3px;
-    color: rgb(224, 224, 224);;
+    color: rgb(224, 224, 224);
     /* color: rgb(36, 116, 229); */
 }
 
@@ -390,7 +389,6 @@ p {
     margin-bottom: 20px;
 }
 
-
 /* footer */
 .thanhtoanlan1-ft {
     width: 100%;
@@ -413,7 +411,6 @@ p {
     display: flex;
     justify-content: center;
     gap: 16px;
-    
 }
 
 .ft-content-btn {
@@ -434,7 +431,7 @@ p {
 }
 
 .ft-content-select {
-    background-color: rgb(255, 211, 51);;
+    background-color: rgb(255, 211, 51);
 }
 
 .dongy-chinhsach {
@@ -468,4 +465,220 @@ p {
     margin-bottom: 0px;
     text-decoration: underline;
     color: rgb(36, 116, 229);
+}
+
+.quydinh,
+.ft-content-btn-tt {
+    display: none;
+}
+
+.wrap-top-header {
+    display: none;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+    .top-page__header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 4px 12px;
+    }
+
+    .top__left-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .top__left-header {
+        font-size: 14px;
+    }
+
+    .top__left-header svg {
+        padding: 0 4px;
+    }
+
+    .top__left-ft {
+        margin-top: -4px;
+        margin-bottom: 4px;
+    }
+
+    .top__left-ft svg {
+        font-size: 6px;
+        margin: 2px 4px 0;
+    }
+
+    .top__left-ft span {
+        font-size: 12px;
+    }
+
+    .wrap-top2-child1 {
+        display: flex;
+        align-items: center;
+    }
+
+    .wrap-top2-child1 svg {
+        font-size: 16px;
+        margin-right: 4px;
+    }
+
+    .wrap-top2-child1-title {
+        font-size: 12px;
+    }
+
+    .wrap-top2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+    }
+
+    .wrap-top2__number {
+        border-radius: 50px;
+    }
+
+    .quydinh {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 60px;
+        border-radius: 6px;
+        padding: 8px 30px;
+        margin-top: 16px;
+        border: 1px solid rgb(47, 128, 237);
+        background-color: rgb(236, 244, 253);
+    }
+
+    .quydinh-link a {
+        color: rgb(36, 116, 229);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .haohao,
+    .an-thuexe,
+    .box-content-right-ft,
+    .dongy-chinhsach,
+    .an-btn {
+        display: none;
+    }
+
+    .wrap-top-header {
+        width: 100%;
+        padding-bottom: 8px;
+        /* height: 3.5%; */
+        display: block;
+        color: var(--white-color);
+        background-color: rgb(36, 116, 229);
+    }
+
+    .ft-content-btn-tt {
+        display: block;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 650px) {
+    .top-page__header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 4px 12px;
+    }
+
+    .top__left-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .top__left-header {
+        font-size: 14px;
+    }
+
+    .top__left-header svg {
+        padding: 0 4px;
+    }
+
+    .top__left-ft {
+        margin-top: -4px;
+        margin-bottom: 4px;
+    }
+
+    .top__left-ft svg {
+        font-size: 6px;
+        margin: 2px 4px 0;
+    }
+
+    .top__left-ft span {
+        font-size: 12px;
+    }
+
+    .wrap-top2-child1 {
+        display: flex;
+        align-items: center;
+    }
+
+    .wrap-top2-child1 svg {
+        font-size: 16px;
+        margin-right: 4px;
+    }
+
+    .wrap-top2-child1-title {
+        font-size: 12px;
+    }
+
+    .wrap-top2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+    }
+
+    .wrap-top2__number {
+        border-radius: 50px;
+    }
+
+    .quydinh {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 60px;
+        border-radius: 6px;
+        padding: 8px 30px;
+        margin-top: 16px;
+        border: 1px solid rgb(47, 128, 237);
+        background-color: rgb(236, 244, 253);
+    }
+
+    .quydinh-link a {
+        color: rgb(36, 116, 229);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .haohao,
+    .an-thuexe,
+    .box-content-right-ft,
+    .dongy-chinhsach,
+    .an-btn {
+        display: none;
+    }
+
+    .wrap-top-header {
+        width: 100%;
+        padding-bottom: 8px;
+        /* height: 3.5%; */
+        display: block;
+        color: var(--white-color);
+        background-color: rgb(36, 116, 229);
+    }
+
+    .ft-content-btn-tt {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .box-content-right-ft {
+        display: none;
+    }
 }
