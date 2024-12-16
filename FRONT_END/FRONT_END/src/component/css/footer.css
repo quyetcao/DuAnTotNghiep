@@ -1,9 +1,15 @@
 .footer {
+    /* padding-left: 160px;
+    padding-right: 160px;
+    background-color: rgb(242, 242, 242); */
+    opacity: 1;
+    margin-top: 80px;
+}
+
+.box2-footer {
     padding-left: 160px;
     padding-right: 160px;
     background-color: rgb(242, 242, 242);
-    opacity: 1;
-    margin-top: 80px;
 }
 
 .footer-top {

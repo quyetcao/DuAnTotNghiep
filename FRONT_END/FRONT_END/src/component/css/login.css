@@ -3,6 +3,10 @@
     position: relative;
 }
 
+.login + .footer {
+    display: none;
+}
+
 .form_login {
     background-color: transparent;
     display: flex;

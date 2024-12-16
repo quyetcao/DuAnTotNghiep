@@ -5,8 +5,16 @@
     color: #141414;
 }
 
+
 .group-input {
     margin-top: 10px;
+    width: 100%;
+}
+
+.group-input input {
+    width: 100%;
+    border: 1px solid #7d7d7d;
+    padding-left: 12px;
 }
 
 .input-thongtincanhan {
@@ -48,6 +56,7 @@
 
 .group-input input:focus,
 .group-input input:hover {
+    outline: none;
     border-color: #40a9ff;
     box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
 }

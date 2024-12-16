@@ -256,7 +256,7 @@ export default function ThanhToanLanMot() {
                                                         <label>Điểm nhận xe (tùy chọn)</label>
                                                         <input
                                                             type='text'
-                                                            value='110 Tôn Đức Thắng, Hòa Khánh, Đà Nẵng'
+                                                            placeholder='110 Tôn Đức Thắng, Hòa Khánh, Đà Nẵng'
                                                         />
                                                     </div>
                                                     <span className='form-info_title'>

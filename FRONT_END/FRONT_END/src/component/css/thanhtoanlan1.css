@@ -364,10 +364,14 @@ p {
     display: flex;
     align-items: end;
     margin: 0;
+    text-align: end;
+    display: block;
 }
 
 .thanhtoan-nhanxe {
     margin: 0;
+    display: block;
+    text-align: right;
 }
 
 .mota-songaythue {
@@ -422,6 +426,7 @@ p {
     line-height: 24px;
     padding: 12px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .ft-content-no-select {
