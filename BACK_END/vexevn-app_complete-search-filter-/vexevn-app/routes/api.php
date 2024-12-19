@@ -44,9 +44,10 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 ===========================================================================*/
 
 // CAR TYPE
-
+Route::get('/cartypes/nopt/', [CarController::class, 'listCarTypenopt']);
 Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
 Route::get('/cartypes', [CarController::class, 'listCarType']);
+
 
 // Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
     Route::post('/cartypes/create', [CarController::class, 'createCarType']);

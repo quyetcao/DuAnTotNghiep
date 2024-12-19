@@ -1,26 +1,28 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import {  CallapiGetAllCarType, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
+import { CallapiGetAllCarType, CallapiGetDeleteCar } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import CircularProgress from '@mui/material/CircularProgress';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Pagination from '../../pagination/pagination';
 
 export default function Quanlyloaixe() {
     const navigate = useNavigate();
-    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
-    console.log('all car type', Array.isArray(allcartype));
+    const [currentPage, setCurrentPage] = useState(1);
+
     const isload = useSelector((state) => state.Storecartype?.isloading);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllCarType());
-    }, []);
+        dispatch(CallapiGetAllCarType(currentPage));
+    }, [currentPage]);
+
+    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
+    console.log('all car type', allcartype.data);
 
     async function deletecartype(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
@@ -33,6 +35,10 @@ export default function Quanlyloaixe() {
     function navigateEdit(id) {
         navigate(`/admincarhouse/editloaixe/${id}`);
     }
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber); // Cập nhật trang
+    };
 
     return (
         <>
@@ -71,12 +77,10 @@ export default function Quanlyloaixe() {
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(allcartype) &&
-                                    allcartype?.map((itemcartype) => {
+                                {allcartype?.data?.map((itemcartype) => {
                                         return (
                                             <>
-                                                {' '}
-                                                <tbody>
+                                                <tbody key={itemcartype.id}>
                                                     <tr>
                                                         <td>{itemcartype.id}</td>
                                                         <td>{itemcartype.name}</td>
@@ -115,22 +119,7 @@ export default function Quanlyloaixe() {
                                 <Button variant='contained'>Quản Lý Loại Xe</Button>
                             </Link>
                         </div>
-                        <div className='page-button'>
-                            <div className='page-list'>
-                                <div className='page-list__item'>
-                                    <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
-                                </div>
-                                <div className='page-list__item'>1</div>
-                                <div className='page-list__item'>2</div>
-                                <div className='page-list__item'>3</div>
-                                <div className='page-list__item'>...</div>
-                                <div className='page-list__item'>9</div>
-                                <div className='page-list__item'>10</div>
-                                <div className='page-list__item'>
-                                    <ChevronRightIcon style={{ color: '#6e6e6e' }} />
-                                </div>
-                            </div>
-                        </div>
+                        <Pagination links={allcartype?.links} onPageChange={handlePageChange} />
                     </div>
                 </div>
             </div>

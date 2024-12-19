@@ -16,6 +16,7 @@ const initialState = {
   // lấy 1 loại xe 
      dataOneCarType:[],
      dataCarType:[],
+     dataCarTypenopt:[],
       
 
 
@@ -29,6 +30,9 @@ const initialState = {
     reducers: {
       getAllCarType(state,action){
         state.dataCarType = action.payload;
+      },
+      getAllCarTypenopt(state,action){
+        state.dataCarTypenopt = action.payload;
       },
       showLoading(state,action){
         if(state.isloading == false){
@@ -54,7 +58,7 @@ const initialState = {
     },
   });
   
-  export const {getAllCarType ,showLoading,showPopupOk,showPopupError,getoneCarType } = StoreCarType.actions;
+  export const {getAllCarType ,showLoading,showPopupOk,showPopupError,getoneCarType,getAllCarTypenopt } = StoreCarType.actions;
 
 
 //// Xe của nhà xe 

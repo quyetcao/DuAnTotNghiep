@@ -102,7 +102,7 @@ export default function AddCar() {
                     <label htmlFor='loaixe'>Loại Xe</label>
                     <select name='loaixe' id='loaixe' {...register('car_type_id')}>
                         {allcartype &&
-                            allcartype.map((item) => {
+                            allcartype?.data?.map((item) => {
                                 return (
                                     <>
                                         <option value={item.id}>

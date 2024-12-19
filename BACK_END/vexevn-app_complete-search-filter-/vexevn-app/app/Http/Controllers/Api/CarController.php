@@ -28,9 +28,16 @@ class CarController extends HelpController
 
     public function listCarType()
     {
+        // $data = CarType::all()->paginate(10);
+        $data = CarType::paginate(5); // Lấy danh sách với phân trang
+        return $this->sendResponse(200, 'Hiển thị danh sách loại xe thành công!', $data);
+    }
+    public function listCarTypenopt()
+    {
         $data = CarType::all();
         return $this->sendResponse(200, 'Hiển thị danh sách loại xe thành công!', $data);
     }
+    
     public function showCarType($id)
     {
         $data = CarType::find($id);
