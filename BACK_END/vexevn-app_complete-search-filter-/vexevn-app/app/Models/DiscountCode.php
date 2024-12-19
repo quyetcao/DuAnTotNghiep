@@ -33,24 +33,41 @@ class DiscountCode extends Model
     public function isValid()
     {
         $now = now();
-        $isWithinDateRange = $this->start_date <= $now && $this->end_date >= $now;
-        $isActive = $this->is_active;
-        $isUsageLimitReached = $this->usage_limit > 0 && $this->used_count >= $this->usage_limit;
 
+        $isWithinDateRange = (!$this->start_date || $this->start_date <= $now) &&
+                            (!$this->end_date || $this->end_date >= $now);
+        $isActive = $this->is_active;
+
+        $isUsageLimitReached = $this->usage_limit > 0 && $this->used_count >= $this->usage_limit;
         return $isActive && $isWithinDateRange && !$isUsageLimitReached;
     }
+
 
     public function applyDiscount($amount)
     {
         if ($this->discount_type == self::DISCOUNT_TYPE_PERCENTAGE) {
-            return max(0, $amount - ($amount * $this->discount_amount / 100));
+            $discountedAmount = $amount * ($this->discount_amount / 100);
+            return max(0, $amount - $discountedAmount);
         }
 
+        // Giảm giá cố định
         return max(0, $amount - $this->discount_amount);
     }
+
 
     public function payments()
     {
         return $this->hasMany(Payment::class, 'discount_code_id');
     }
+    public function hasReachedUsageLimit()
+    {
+        return $this->usage_limit > 0 && $this->used_count >= $this->usage_limit;
+    }
+
+    public function hasExpired()
+    {
+        $now = now();
+        return ($this->end_date && $this->end_date < $now);
+    }
+
 }
