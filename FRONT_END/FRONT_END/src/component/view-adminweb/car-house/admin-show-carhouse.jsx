@@ -17,8 +17,6 @@ import '../../css/quan-li-chien-dich.css';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
@@ -39,6 +37,7 @@ export default function ShowDsCarHouse() {
     useEffect(() => {
         dispatch(CallapiGetAllCarHouse(currentPage));
     }, [currentPage]);
+
     const allcarHouse = useSelector((state) => state.Storecarhouse?.dataCarHouse);
     console.log('cx search', allcarHouse);
 
@@ -99,7 +98,7 @@ export default function ShowDsCarHouse() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allcarHouse?.data.map((item) => {
+                                {allcarHouse?.data?.map((item) => {
                                     return (
                                         <>
                                             <tr key={item?.id}>

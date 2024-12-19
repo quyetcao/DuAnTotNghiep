@@ -15,10 +15,7 @@ export function CallapiGetAllCarHouse(page) {
     return async (dispatch) => {
         try {
             dispatch(showLoading(false));
-
             let res = await axios.get(`http://localhost:8000/api/carhouse?page=${page}`);
-            console.log('all nhà xe ', res);
-
             dispatch(getAllCarHouse(res.data.data));
             dispatch(showLoading(true));
         } catch (error) {
@@ -32,7 +29,6 @@ export function CallapiAddCarHouse(formcarhouse) {
     return async (dispatch) => {
         try {
             let res = await axios.post(`http://localhost:8000/api/carhouse/create/`, formcarhouse);
-            console.log('all nha xe ', res);
 
             dispatch(showPopupOk2(true));
         } catch (error) {
