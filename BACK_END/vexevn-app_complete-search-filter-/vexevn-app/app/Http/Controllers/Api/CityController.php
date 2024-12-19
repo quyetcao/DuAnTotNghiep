@@ -17,6 +17,8 @@ class CityController extends HelpController
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'province' => 'required|string|max:255'
+
         ]);
 
         $city = City::create($validatedData);
@@ -50,6 +52,7 @@ class CityController extends HelpController
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
         ]);
 
         $city->update($validatedData);
