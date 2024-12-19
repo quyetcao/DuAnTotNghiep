@@ -46,80 +46,8 @@ export default function DSNhanVien() {
 
     return (
         <div className='ds-nhanvien'>
-            {/* <div className='sidebar sidebar-border__right '>
-                <a href='#'>
-                    <NotesOutlinedIcon />
-                </a>
-
-                <a href='#'>
-                    <DashboardOutlinedIcon />
-                </a>
-
-                <a href='#'>
-                    <BadgeOutlinedIcon />
-                </a>
-
-                <a href='#'>
-                    <DirectionsBusFilledOutlinedIcon />
-                </a>
-
-                <a href='#' className='active'>
-                    <PersonIcon />
-                </a>
-
-                <a href='#'>
-                    <ReviewsIcon />
-                </a>
-
-                <a href='#'>
-                    <SettingsIcon />
-                </a>
-            </div> */}
-
             <div className='header-staff'>
                 <div className='header-container'>
-                    {/* <div className='wrapper-top m-4'>
-                        <div className='form-search'>
-                            <div className='search-container'>
-                                <SearchIcon style={{ color: '#6e6e6e' }} />
-                                <input type='text' placeholder='Tìm kiếm Số điện thoại, Mã vé' />
-                            </div>
-                        </div>
-                        <div className='form-info'>
-                            <ul className='info-list'>
-                                <li className='info-item'>
-                                    <p className='heading-title'>Phần mền nhà xe</p>
-                                    <KeyboardArrowDownIcon />
-                                </li>
-                                <li className='info-item'>
-                                    <p className='heading-title'>VIPBUS</p>
-                                    <KeyboardArrowDownIcon />
-                                </li>
-
-                                <li className='info-item border-item'>
-                                    <p className='heading-title heading-title__bold'>4.5</p>
-                                    <StarIcon style={{ color: '#FFD43B' }} />
-                                </li>
-
-                                <li className='info-item'>
-                                    <span className='border-right'></span>
-                                </li>
-                                <li className='info-item'>
-                                    <p className='heading-title'>Duy Anh</p>
-                                </li>
-                                <li className='info-item info-item__background'>
-                                    <NotificationsIcon fontSize='small' style={{ color: '#202020' }} />
-                                    <span className='info-item__notification'></span>
-                                </li>
-                                <li className='info-item info-item__background-select'>
-                                    <ArrowDropDownIcon fontSize='small' style={{ color: '#202020' }} />
-                                </li>
-                                <li className='info-item info-item__background'>
-                                    <PhoneIcon fontSize='small' style={{ color: '#202020' }} />
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
                     <div className='employee-list'>
                         <h2 className='empolyee-title'>Danh sách nhân viên</h2>
                         <div className='add-employee employee-background'>

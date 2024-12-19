@@ -25,7 +25,10 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
 // import { CallapiGetAllCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
-import { CallapiGetAllCarHouse, CallapiGetDeleteCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
+import {
+    CallapiGetAllCarHouse,
+    CallapiGetDeleteCarHouse,
+} from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { useNavigate } from 'react-router-dom';
 
 export default function ShowDsCarHouse() {
@@ -39,7 +42,7 @@ export default function ShowDsCarHouse() {
     console.log('cx search', allcarHouse);
     const navigate = useNavigate();
     function chuyendentrangadd() {
-        console.log('hello');
+        console.log('trang them nha xe');
         navigate('/adminweb/addcarhouse');
     }
     function editcarhouse(id) {
@@ -92,24 +95,24 @@ export default function ShowDsCarHouse() {
                                     return (
                                         <>
                                             <tr>
-                                                <td>{item?.id}</td>
-                                                <td>{item?.name}</td>
-                                                <td>{item?.phone}</td>
-                                                <td>{item?.created_at}</td>
-                                                <td>{item?.address}</td>
-                                                <td>{item?.status}</td>
+                                                <td>{item.id}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.phone}</td>
+                                                <td>{item.created_at}</td>
+                                                <td>{item.address}</td>
+                                                <td>{item.status}</td>
                                                 <td className='action-icons'>
                                                     <EditIcon
                                                         onClick={() => {
                                                             editcarhouse(item?.id);
                                                         }}
                                                     />
-                                                  
-                                                  <DeleteIcon
-                                                                onClick={() => {
-                                                                    deleteCarHouse(item?.id);
-                                                                }}
-                                                            />
+
+                                                    <DeleteIcon
+                                                        onClick={() => {
+                                                            deleteCarHouse(item?.id);
+                                                        }}
+                                                    />
                                                 </td>
                                             </tr>
                                         </>

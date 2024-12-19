@@ -78,3 +78,12 @@ option {
     transition: all 0.3s ease-in-out;
 } */
 
+
+.add-error {
+    text-align: left !important;
+    color: red;
+    font-size: 14px;
+    margin: 0;
+    margin-top: -15px;
+    padding: 0 0 12px;
+}
