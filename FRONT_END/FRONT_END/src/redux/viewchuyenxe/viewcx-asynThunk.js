@@ -1,5 +1,5 @@
 import axios from "axios";
-import { changeIsLoadcx, getAllChuyenXeSearch, reDataCx } from "./createSlice";
+import { cartriptheoid, changeIsLoadcx, getAllChuyenXeSearch, reDataCx } from "./createSlice";
 
 
 
@@ -49,6 +49,21 @@ export function getSearchChuyenxe(formSearch){
       console.log(error);
     } finally{
       dispatch(changeIsLoadcx(false))
+    }
+  };
+}
+
+
+export function getChuyenxebyid(id_car_trip){
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(
+        `http://localhost:8000/api/cartrip/${id_car_trip}`);
+      let data = res.data.data;
+      dispatch(cartriptheoid(data));
+
+    } catch (error) {
+      console.log(error);
     }
   };
 }

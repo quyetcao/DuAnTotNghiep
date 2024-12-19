@@ -10,6 +10,7 @@ import { StoreUser } from "./admin-vexere/user/createSlice-use";
 import { StoreDiemDonCarHouse, StoreDiemTraCarHouse } from "./adminweb/admin-diem-don-tra/creat-Slice-diem-don-tra";
 import { StoreGiamGia } from "./admin-vexere/giam-gia-redux/CreateSlice-giam-gia";
 import { ChuyenxeofCarHouse } from "./adminweb/admin-cx-carhouse/createSlice-cx-carhouse";
+import { StorEmmployee } from "./adminweb/nhanvienlaixe/createSlice-nvlx";
 
 
 // Kết hợp các reducer
@@ -37,6 +38,8 @@ const rootReducer = combineSlices(
 
   //admin nhà xe 
   ChuyenxeofCarHouse,
+  StorEmmployee,
+  SeatofCarid,
 
 
   //về tài khoản login , logout, register 

@@ -120,7 +120,8 @@ class SearchController extends Controller
 
         // Lấy kết quả chuyến xe
         // $trips = $tripsQuery->with('pickupPoints')->get();
-        $trips = $tripsQuery->with('pickupPoints')->get();
+        $trips = $tripsQuery->with(['pickupPoints', 'dropoffPoints'])->get();
+
 
         if ($trips->isEmpty()) {
             return response()->json([

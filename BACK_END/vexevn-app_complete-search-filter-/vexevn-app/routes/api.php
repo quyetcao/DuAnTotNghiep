@@ -71,6 +71,7 @@ Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse'])
 
 Route::get('/car/{id}', [CarController::class, 'showCar']);
 Route::get('/car', [CarController::class, 'listCar']);
+Route::get('/car/car_house_id/{car_house_id}', [CarController::class, 'showCarByCarHouseId']);
 
 // Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
 Route::post('/car/create', [CarController::class, 'createCar']);
@@ -188,7 +189,7 @@ Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 
 //Seat
 
-Route::get('/seat/{car_id}', [SeatController::class, 'showSeatsByCarId']);
+Route::get('/seat/{car_id}', [SeatController::class, 'showSeatbycarid']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
@@ -211,6 +212,7 @@ Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
 // EMPLOYEE
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
+Route::get('/employee/car_house_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);

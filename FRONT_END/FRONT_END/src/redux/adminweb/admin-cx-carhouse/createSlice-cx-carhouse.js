@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   // Tất cả chuyến xe search theo thời gian, search theo tuyến đường
   AllChuyenXecarhouse:[],
+  dataOneCx:[],
   isloading: false,
   showPopupOk:false,
   showPopupError:false,
@@ -21,6 +22,10 @@ const initialState = {
       getAllChuyenXeofCarHouse(state, action){
         console.log("action.payloadviewchuyenxesearch", action.payload);
         state.AllChuyenXecarhouse = action.payload  ;
+       
+      },
+      getoneChuyenXeofCarHouse(state, action){
+        state.dataOneCx = action.payload  ;
        
       },
       showLoading(state, action) {
@@ -43,4 +48,4 @@ const initialState = {
     },
   });
   
-  export const {getAllChuyenXeofCarHouse,showLoading,showPopupOk ,showPopupError} = ChuyenxeofCarHouse.actions;
+  export const {getAllChuyenXeofCarHouse,showLoading,showPopupOk ,showPopupError,getoneChuyenXeofCarHouse} = ChuyenxeofCarHouse.actions;

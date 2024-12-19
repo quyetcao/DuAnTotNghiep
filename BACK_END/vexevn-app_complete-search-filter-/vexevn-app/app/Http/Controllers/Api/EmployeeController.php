@@ -18,6 +18,15 @@ class EmployeeController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết nhân viên thành công!', $data);
     }
+    public function getEmployeeByCarHouse($carHouseId)
+    {
+
+        $data = Employee::where('car_house_id', $carHouseId)->get();
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy nhân viên lái xe !');
+        }
+        return $this->sendResponse(200, 'Lấy thông tin nhân viên lái xe !', $data);
+    }
     public function listEmployee() {
         $data = Employee::paginate(10);
 

@@ -9,6 +9,7 @@ const initialState = {
       popupXacNhan:false,
       popupError:false,
       dataCar:[],
+      dataCarofcarhouseid:[],
       dataoneCarofCarHouse:[],
 
   // lấy loại xe 
@@ -64,6 +65,9 @@ const initialState = {
       getAllListCar(state,action){
         state.dataCar = action.payload;
       },
+      getAllListCarbyCarHouseID(state,action){
+        state.dataCarofcarhouseid=action.payload;
+      },
       getoneCarofCarHouse(state,action){
         state.dataoneCarofCarHouse = action.payload;
       },
@@ -80,4 +84,4 @@ const initialState = {
     },
   });
   
-  export const {getAllListCar ,getoneCarofCarHouse,showPopupOk1,showPopupError1} = StoreCar.actions;
+  export const {getAllListCar ,getoneCarofCarHouse,showPopupOk1,showPopupError1,getAllListCarbyCarHouseID} = StoreCar.actions;

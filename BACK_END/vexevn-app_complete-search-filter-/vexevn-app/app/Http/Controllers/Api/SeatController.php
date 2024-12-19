@@ -19,7 +19,18 @@ class SeatController extends Controller
             'data' => $data,
         ], $statusCode);
     }
-
+    public function showSeatByCarId($car_id)
+    {
+        // Tìm tất cả các ghế theo car_id
+        $data = Seat::where('car_id', $car_id)->get();
+    
+        if ($data->isEmpty()) {
+            return $this->sendResponse(404, 'Không tìm thấy ghế nào thuộc xe này!');
+        }
+    
+        return $this->sendResponse(200, 'Lấy danh sách ghế thành công!', $data);
+    }
+    
     public function showSeat($id)
     {
         $data = Seat::find($id);
