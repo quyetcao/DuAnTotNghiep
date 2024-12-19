@@ -1,12 +1,14 @@
 <?php
 
 namespace Database\Seeders;
-use GuzzleHttp\Client;
-use Illuminate\Database\Seeder;
-use App\Models\Province;
 
-class ProvinceSeeder extends Seeder
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use App\Models\City;
+
+class CitySeeder extends Seeder
 {
+   
     public function run()
     {
         $provinces = [
@@ -71,7 +73,6 @@ class ProvinceSeeder extends Seeder
             ['name' => 'Thành Phố Sa Đéc', 'province' => 'Đồng Tháp'],
             ['name' => 'Thành Phố Hồng Ngự', 'province' => 'Đồng Tháp'],
             ['name' => 'Thành Phố Bắc Kạn', 'province' => 'Bắc Kạn'],
-            ['name' => 'Thành Phố Lạng Sơn', 'province' => 'Lạng Sơn'],
             ['name' => 'Thành Phố Móng Cái', 'province' => 'Quảng Ninh'],
             ['name' => 'Thành Phố Sầm Sơn', 'province' => 'Thanh Hóa'],
             ['name' => 'Thành Phố Cẩm Phả', 'province' => 'Quảng Ninh'],
@@ -83,7 +84,7 @@ class ProvinceSeeder extends Seeder
         ];
         //lưu vào db 
         foreach ($provinces as $province) {
-            Province::create($province);
+            City::create($province);
         }
     }
 

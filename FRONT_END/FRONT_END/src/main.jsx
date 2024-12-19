@@ -65,6 +65,7 @@ import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-di
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
 import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
+// import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
 import Quanlychuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-xe/showchuyenxe.jsx';
 import ThanhToanLanMot from './component/thanhtoan/thanhtoanlan1.jsx';
 import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';

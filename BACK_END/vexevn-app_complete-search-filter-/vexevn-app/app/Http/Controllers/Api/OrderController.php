@@ -10,6 +10,7 @@ use App\Models\SeatCarTrip;
 use App\Models\CarTrip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -22,46 +23,71 @@ class OrderController extends Controller
         ], $statusCode);
     }
 
+
     public function createOrder(Request $request)
     {
+        // Validate dữ liệu đầu vào
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'car_trip_id' => 'required|exists:car_trips,id',
             'seat_ids' => 'required|array|min:1',
             'seat_ids.*' => 'exists:seat_car_trips,id',
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:15',
+            'email' => 'nullable|email|max:255',
         ]);
 
-        
+        // Lấy thông tin người dùng từ user_id
+        $user = \App\Models\User::find($validated['user_id']);
+
+        if (!$user) {
+            return $this->sendResponse(400, 'Người dùng không tồn tại.');
+        }
+
+        // Gán giá trị mặc định cho các trường
+        $name = $validated['name'] ?? $user->name ?? 'Default Name';
+        $phone = $validated['phone'] ?? $user->phone ?? '0000000000';
+        $email = $validated['email'] ?? $user->email ?? 'default@example.com';
+
+        // Kiểm tra khả dụng của ghế
         $seats = SeatCarTrip::whereIn('id', $validated['seat_ids'])
             ->where('car_trip_id', $validated['car_trip_id'])
             ->where('is_available', true)
-            ->with('seat') 
+            ->with('seat')
             ->get();
 
-        
         if ($seats->isEmpty() || $seats->count() !== count($validated['seat_ids'])) {
             return $this->sendResponse(400, 'Một hoặc nhiều ghế không khả dụng.');
         }
 
-        
+        // Tính tổng giá tiền
         $totalPrice = $seats->sum(function ($seatCarTrip) {
             return $seatCarTrip->seat->price ?? 0;
         });
 
         try {
-            
+            // Tạo đơn hàng
             $order = Order::create([
                 'user_id' => $validated['user_id'],
                 'car_trip_id' => $validated['car_trip_id'],
                 'seat_ids' => json_encode($validated['seat_ids']),
                 'total_price' => $totalPrice,
                 'status' => 'pending',
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
             ]);
 
-            
+            // Cập nhật trạng thái ghế
             SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
 
-            return $this->sendResponse(201, 'Đặt vé thành công!', $order);
+            // Trả về đầy đủ dữ liệu đơn hàng
+            return $this->sendResponse(201, 'Đặt vé thành công!', [
+                'order' => $order,
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
+            ]);
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }

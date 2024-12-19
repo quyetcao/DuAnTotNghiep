@@ -14,6 +14,9 @@ class OrderHistory extends Model
         'user_id',
         'status',
         'description',
+        'name', // Tên người dùng
+        'phone', // Số điện thoại
+        'email', // Email
     ];
 
     /**

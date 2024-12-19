@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { callApiGetCar, callApiGetCarHouse, callApiGetCarType, callApiTuyenDuong, callAsbydropoffpoint, callAsbypickuppoint } from '../../redux/info-bus/infobus-asynThunk';
 import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
-export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onToggle,onclick}) {
+export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onToggle, onClick}) {
 
     const infobus = useSelector((state) => state.InfoofBus?.infoBus[item?.car_id]);
     // console.log("infobuss", infobus);
@@ -58,7 +58,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
 
     function SplitChu(diadiem) {
         if (diadiem) {
-            if (diadiem.startsWith('Thành phố')) {
+            if (diadiem.startsWith('Thành Phố')) {
                 return diadiem.substring(10);
             } else if (diadiem.startsWith('Tỉnh')) {
                 return diadiem.substring(4);
@@ -191,7 +191,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
                                         <button
                                             data-tracking-event='selected_route'
                                             type='button'
-                                            onClick={onclick}
+                                            onClick={onClick}
                                             className='ant-btn btn-booking '
                                         >
                                             {isActive1 ? <span>Ẩn chuyến</span> : <span>Chọn chuyến</span>}

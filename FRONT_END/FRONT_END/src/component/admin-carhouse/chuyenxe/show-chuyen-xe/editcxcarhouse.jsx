@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CallapiGetAllDiemDonByCarHouse, CallapiGetAllDiemTraByCarHouse } from '../../../../redux/adminweb/admin-diem-don-tra/asynthunk-diem-don-tra';
 import { CallapiGetAllListCarofcarhouseid } from '../../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { callApiListTuyenDuongAll } from '../../../../redux/info-bus/infobus-asynThunk';
-import { CallapiGetOneCxCarHouse, CallapiPostCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
+import { CallapiGetOneCxCarHouse, CallapiUpdateCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
 import { CallapiGetAllListnvlxcarhouseid } from '../../../../redux/adminweb/nhanvienlaixe/AsynThunk-nclx';
 
 
@@ -27,24 +27,13 @@ export default function EditChuyenXebyCarHouse() {
     const alldiemdon = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
     const alldiemtra = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
     const allCar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
-    // console.log("allcarr",allCar );
+    console.log("allcarr",allCar );
     const allTuyenDuong = useSelector((state) => state.InfoofBus?.allTuyenDuong);
     const allNv= useSelector((state) => state.StorEmmployee?.datanvlxcarhouseid);
-    // const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
-    // const isToastError = useSelector((state) => state.ChuyenxeofCarHouse?.popupError);
+    const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
+    const isToastError = useSelector((state) => state.ChuyenxeofCarHouse?.popupError);
     
  
-
-
-
-    // const notify = (event) => {
-    //     if (event == true) {
-    //         toast.success("Thêm Xe Thành Công!", { theme: "colored" });
-    //     } else if (event == false) {
-    //         toast.error("Lỗi form nhập!", { theme: "colored" });
-    //     }
-    // }
-
     // phan tao picup piont , drroff point 
     const [pickupPoints, setPickupPoints] = useState([]);
     const [dropoffPoints, setDropoffPoints] = useState([]);
@@ -56,7 +45,7 @@ export default function EditChuyenXebyCarHouse() {
         const selectedCarId = event.target.value;
         setCarType(selectedCarId);
     };
-    console.log(">>",allCar[cartype]?.car_type?.id);
+    console.log(">>",dataonecx?.car_id);
     ///phan thao tac form 
 
     const { register, handleSubmit,setValue } = useForm();
@@ -85,12 +74,7 @@ export default function EditChuyenXebyCarHouse() {
             formData.append(`dropoff_points[${index}][id]`, point.id);
             formData.append(`dropoff_points[${index}][dropoff_time]`, point.dropoff_time);
         });
-    
-
-        for (let pair of formData.entries()) {
-            console.log(`${pair[0]}: ${pair[1]}`);
-        }
-        dispatch(CallapiPostCxCarHouse(formData));
+        dispatch(CallapiUpdateCxCarHouse(dataonecx.id,formData));
     };
     setValue('car_id', dataonecx?.car_id);
     setValue('car_route_id', dataonecx?.car_route_id);
@@ -130,20 +114,33 @@ export default function EditChuyenXebyCarHouse() {
             setDropoff({ id: "", dropoff_time: "" });
         }
     };
-    // if (isToastOk === true) {
-    //     notify(true);
-    //     setTimeout(() => {
-    //         navigate('/admincarhouse/quan-li-chuyen-xe');
-    //     }, 2000);
-    // }
-    // if (isToastError) {
-    //     notify(false);
-    // }
+
+
+
+    
+
+    const notify = (event) => {
+        if (event == true) {
+            toast.success("Thêm Xe Thành Công!", { theme: "colored" });
+        } else if (event == false) {
+            toast.error("Lỗi form nhập!", { theme: "colored" });
+        }
+    }
+
+    if (isToastOk === true) {
+        notify(true);
+        setTimeout(() => {
+            navigate('/admincarhouse/quan-li-chuyen-xe');
+        }, 2000);
+    }
+    if (isToastError) {
+        notify(false);
+    }
    
     
     return (
         <>  <ToastContainer />
-            <h3 style={{ textAlign: 'center', marginTop: '40px' }}>THÊM CHUYẾN XE </h3>
+            <h3 style={{ textAlign: 'center', marginTop: '40px' }}>CHỈNH SỬA CHUYẾN XE </h3>
             <div className='page-add-carhouse'>
                 <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <label htmlFor='carName'>Tên xe</label>
@@ -222,7 +219,6 @@ export default function EditChuyenXebyCarHouse() {
 
                             <p onClick={addPickup}>Add Pickup Point</p>
                         </div>
-
                         <ul>
                             {pickupPoints.map((point, index) => (
                                 <li key={index}>
@@ -261,7 +257,7 @@ export default function EditChuyenXebyCarHouse() {
                     <input type='hidden' name='nhà xe'  {...register('car_house_id')} value={1} />
                     <input type='hidden' name='loại xe '  {...register('car_type_id')}  />
 
-                    <input type='submit' className='btnsb' value='Thêm Xe' />
+                    <input type='submit' className='btnsb' value='Xác Nhận' />
                 </form >
             </div >
         </>

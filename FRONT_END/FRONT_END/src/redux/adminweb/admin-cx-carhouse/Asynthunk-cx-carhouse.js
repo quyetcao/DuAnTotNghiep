@@ -32,6 +32,26 @@ export function CallapiGetAllcxofCarHouse(id,page) {
     };
   }
 
+
+  export function CallapiUpdateCxCarHouse(cx_id,dataform) {
+    return async (dispatch) => {
+      try {
+        let res = await axios.post(`http://localhost:8000/api/cartrip/update/${cx_id}`,dataform);
+        dispatch(showPopupOk(true));
+
+      } catch (error) {
+        console.log("erooor", error);
+        dispatch(showPopupError(true));
+      } finally {
+        setTimeout(() => {
+          dispatch(showPopupError(false));
+          dispatch(showPopupOk(false));
+        }, 3000);
+  
+      }
+    };
+  }
+
   export function CallapiPostCxCarHouse(dataform) {
     return async (dispatch) => {
       try {

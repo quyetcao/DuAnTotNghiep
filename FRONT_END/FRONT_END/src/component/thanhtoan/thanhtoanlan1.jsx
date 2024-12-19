@@ -54,13 +54,7 @@ export default function ThanhToanLanMot() {
 
 
 
-    // navigate('/payment', {
-    //     infoallticker: {
-    //         bookingId: "12345",
-    //         price: 500000,
-    //         customerName: "Nguyen Van A"
-    //     }
-    // });
+
 
     return (
         <>
@@ -120,13 +114,13 @@ export default function ThanhToanLanMot() {
                                                         <input type='text' placeholder='Tên người đi'  {...register('name', { required: true })}  />
                                                     </div>
                                                     <div className='box-lan1 zzzz'>
-                                                        <input type='text' placeholder='Số điện thoại'  {...register('name', { required: true })} />
+                                                        <input type='text' placeholder='Số điện thoại'  {...register('phone', { required: true })} />
                                                     </div>
                                                     <div className='box-lan1 zzzz'>
                                                         <input
                                                             type='email'
                                                             placeholder='Email để nhận thông tin đặt chỗ'
-                                                            {...register('name', { required: true })}
+                                                            {...register('email', { required: true })}
                                                         />
                                                         <input type="text"  {...register('name', { required: true })}/>
                                                         <input type="text"  {...register('name', { required: true })}/>

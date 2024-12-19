@@ -75,6 +75,7 @@ export default function EditCarOfCarHouse() {
     setValue('model', dataoneCarofCH?.model);
     setValue('images[]', dataoneCarofCH?.car_images);
 
+
     if (isToastOk === true) {
         notify(true);
         setTimeout(() => {
