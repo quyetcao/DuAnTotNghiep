@@ -12,6 +12,7 @@ import { StoreGiamGia } from "./admin-vexere/giam-gia-redux/CreateSlice-giam-gia
 import { ChuyenxeofCarHouse } from "./adminweb/admin-cx-carhouse/createSlice-cx-carhouse";
 import { StorEmmployee } from "./adminweb/nhanvienlaixe/createSlice-nvlx";
 import { StoreCity } from "./city/CreateSlice_city";
+import { StoreThanhToan } from "./thanhtoan/createSlice_thanhtoan";
 
 
 // Kết hợp các reducer
@@ -51,6 +52,10 @@ const rootReducer = combineSlices(
   //Diểmd đón trả của từng nhà xe 
   StoreDiemDonCarHouse,
   StoreDiemTraCarHouse,
+
+
+  //Thanh toán 
+  StoreThanhToan,
    );
 
 export const store = configureStore({

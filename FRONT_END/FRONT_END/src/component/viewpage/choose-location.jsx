@@ -1,6 +1,6 @@
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import '../css/css-view-all-chuyen-xe/choose-location.css';
-export default function ChooseLocation({ car_id, itemallthongtincx }) {
+export default function ChooseLocation({car_id,itemallthongtincx}) {
 
     console.log("itemallthongtincx", itemallthongtincx);
 
@@ -17,10 +17,10 @@ export default function ChooseLocation({ car_id, itemallthongtincx }) {
                         <div className="ddxe diemdon ">
                             <div>Điểm đón</div>
                         </div>
-                        {itemallthongtincx && itemallthongtincx.pickup_points.map((itemdiemdon) => {
-                            return <div className="form-check">
+                        {itemallthongtincx && itemallthongtincx?.pickup_points?.map((itemdiemdon) => {
+                            return <div className="form-check" key={itemdiemdon.id}>
                                 <label className="form-check-label" >
-                                    <input type="radio" className="form-check-input" name="" id="" value="checkedValue" />
+                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
                                     <li style={{ fontWeight: '500' }}>
                                         {itemdiemdon.pivot.pickup_time}
                                         <ul>
@@ -41,8 +41,8 @@ export default function ChooseLocation({ car_id, itemallthongtincx }) {
                         <div className="ddxe diemtra">
                             <div>Điểm trả</div>
                         </div>
-                        {itemallthongtincx && itemallthongtincx.dropoff_points.map((itemdiemdon) => {
-                            return <div className="form-check">
+                        {itemallthongtincx && itemallthongtincx?.dropoff_points?.map((itemdiemdon) => {
+                            return <div className="form-check" key={itemdiemdon.id}>
                                 <label className="form-check-label" >
                                     <input type="radio" className="form-check-input" name="" id="" value="checkedValue" />
                                     <li style={{ fontWeight: '500' }}>
