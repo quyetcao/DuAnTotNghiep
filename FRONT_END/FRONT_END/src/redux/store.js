@@ -11,10 +11,12 @@ import { StoreDiemDonCarHouse, StoreDiemTraCarHouse } from "./adminweb/admin-die
 import { StoreGiamGia } from "./admin-vexere/giam-gia-redux/CreateSlice-giam-gia";
 import { ChuyenxeofCarHouse } from "./adminweb/admin-cx-carhouse/createSlice-cx-carhouse";
 import { StorEmmployee } from "./adminweb/nhanvienlaixe/createSlice-nvlx";
+import { StoreCity } from "./city/CreateSlice_city";
 
 
 // Kết hợp các reducer
 const rootReducer = combineSlices( 
+  StoreCity,
   ViewUserSearchChuyenxe,
   InfoofBus,
   InfoofBusHouse,

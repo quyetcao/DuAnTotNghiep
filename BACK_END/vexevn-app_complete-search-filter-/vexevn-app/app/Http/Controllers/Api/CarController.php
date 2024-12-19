@@ -140,6 +140,8 @@ class CarController extends HelpController
     public function showCarHouse($id)
     {
         $data = CarHouse::find($id);
+        // $data = CarHouse::with('carImages', 'carHouse', 'carType')
+
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
@@ -149,7 +151,9 @@ class CarController extends HelpController
     }
     public function listCarHouse()
     {
-        $data = CarHouse::all();
+        // $data = CarHouse::all();
+        $data = CarHouse::paginate(5);
+
         return $this->sendResponse(200, 'Hiển thị danh sách nhà xe thành công!', $data);
     }
     public function createCarHouse(Request $request)
@@ -229,7 +233,7 @@ class CarController extends HelpController
     // Tìm các xe thuộc car_house_id
     $data = Car::with('carImages', 'carHouse', 'carType')
                ->where('car_house_id', $carHouseId)
-               ->get();
+               ->paginate(5);
 
     // Kiểm tra nếu không có xe nào
     if ($data->isEmpty()) {
@@ -243,7 +247,7 @@ class CarController extends HelpController
 
     public function listCar()
     {
-        $data = Car::with('carImages', 'carHouse', 'carType')->paginate(10);
+        $data = Car::with('carImages', 'carHouse', 'carType')->paginate(5);
         return $this->sendResponse(200, 'Hiển thị danh sách xe thành công!', $data);
     }
 

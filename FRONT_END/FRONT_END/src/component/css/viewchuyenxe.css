@@ -1,6 +1,7 @@
 .container_viewchuyenxe {
     width: 75%;
     margin: auto;
+    margin-bottom: 48px;
 }
 
 .ant-tabs-nav-scroll {
@@ -1215,4 +1216,13 @@
 
 
 
+}
+
+
+.TVXtN .action .btn-booking:hover  {
+color:#FFFFFF;
+}
+
+.viewchuyenxe + .footer {
+    display: none;
 }

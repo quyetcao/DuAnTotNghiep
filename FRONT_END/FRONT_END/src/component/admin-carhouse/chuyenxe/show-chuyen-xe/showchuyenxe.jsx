@@ -18,7 +18,7 @@ export default function Quanlychuyenxe() {
         dispatch(CallapiGetAllcxofCarHouse(1,currentPage));
     }, [currentPage]);
     const allcx = useSelector((state) => state.ChuyenxeofCarHouse?.AllChuyenXecarhouse);
-    console.log('all car ', allcx);
+    console.log('all cx car ', allcx);
 
 
     // //edit 

@@ -29,35 +29,23 @@ export const StoreCarHouse = createSlice({
         showPopupError(state,action){
             state.showPopupError = action.payload;
           },
-       
+          showPopupOk2(state,action){
+            state.popupXacNhan = action.payload;
+            console.log(">>>>>ok",state.popupXacNhan);
+          },
+          showPopupError2(state,action){
+            state.popupError = action.payload;
+            console.log(">>>>>hhhhh",state.popupError);
+          },
+          showLoading(state, action) {
+            if (state.isloading == false) {
+                state.isloading = true
+            } else {
+                state.isloading = false;
+            }
+        },
     },
 });
 
-export const { getAllCarHouse, getOneCarHouse,showPopupOk,showPopupError } = StoreCarHouse.actions;
+export const { getAllCarHouse, showLoading, getOneCarHouse,showPopupOk,showPopupError,showPopupOk2,showPopupError2 } = StoreCarHouse.actions;
 
-
-export const StoreAddCarHouse = createSlice({
-    name: "StoreCar",
-    initialState,
-    reducers: {
-    //   getAllCarHouse(state,action){
-    //     state.dataCar = action.payload;
-    //   },
-    //   getoneCarofCarHouse(state,action){
-    //     state.dataoneCarofCarHouse = action.payload;
-    //   },
-      showPopupOk2(state,action){
-        state.popupXacNhan = action.payload;
-        console.log(">>>>>ok",state.popupXacNhan);
-      },
-      showPopupError2(state,action){
-        state.popupError = action.payload;
-        console.log(">>>>>hhhhh",state.popupError);
-      },
-     
-
-    },
-  });
-
-    export const {showPopupOk2,showPopupError2} = StoreAddCarHouse.actions;
-  

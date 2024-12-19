@@ -240,12 +240,12 @@ Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrd
 Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']);
 
 //PAYMENT
-Route::post('/payments', [PaymentController::class, 'createPayment']);
-Route::get('/payments/{id}', [PaymentController::class, 'showPayment']);
-Route::get('/users/{id}/payments', [PaymentController::class, 'userPayments']);
-Route::get('/payments', [PaymentController::class, 'listPayments']);
-Route::delete('/payments/{id}', [PaymentController::class, 'deletePayment']);
-
+Route::post('/payment/create', [PaymentController::class, 'createPayment']);
+Route::post('/payment/complete-momo', [PaymentController::class, 'completeMoMoPayment']);
+Route::get('/payment/{id}', [PaymentController::class, 'showPayment']);
+Route::get('/payment/user/{userId}', [PaymentController::class, 'userPayments']);
+Route::get('/payment', [PaymentController::class, 'listPayments']);
+Route::delete('/payment/delete/{id}', [PaymentController::class, 'deletePayment']);
 
 //User
 Route::get('/user/{id}', [UserController::class, 'listUser']);
