@@ -1,35 +1,19 @@
-// import Axios;
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-
-// import css
-import '../css/banner.css';
-
-// import icon
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useEffect, useRef, useState } from "react";
+import { callApiGetCity } from "../../redux/city/Asynthunk_city";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { getSearchChuyenxe } from "../../redux/viewchuyenxe/viewcx-asynThunk";
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import FlightIcon from '@mui/icons-material/Flight';
 import TrainIcon from '@mui/icons-material/Train';
-import AddIcon from '@mui/icons-material/Add';
-// import { Link } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
-
-import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-// import viLocale from 'date-fns/locale/vi/index.js';
-
-//import react hook form
-import { useForm } from 'react-hook-form';
-import { MobileDatePicker } from '@mui/x-date-pickers';
-import { getSearchChuyenxe } from '../../redux/viewchuyenxe/viewcx-asynThunk';
-import { useNavigate } from 'react-router-dom';
+import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import '../css/banner.css';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
-import { callApiGetCity } from '../../redux/city/Asynthunk_city';
-
-export default function Banner() {
-    //useState
-    // const [datatp, setDatatp] = useState([]);
+import AddIcon from '@mui/icons-material/Add';
+export default function Search(){
     const [tpTo, settpTo] = useState('');
     const [tpfrom, settpfrom] = useState('');
     const [departuredate, setdeparturedate] = useState('');
@@ -108,26 +92,9 @@ export default function Banner() {
     }
     const isLoadBtnSearch = useSelector((state) => state.ViewChuyenXeSearch?.isLoadcx);
     console.log('', isLoadBtnSearch);
-
-    /// gửi dispath dữ liệu lên serve dữ liệu gomò form gồm các thành phần như 101->107
-
     return (
-        <div className='homepage'>
-            <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
-            <div className='homepage-body'>
-                <div className='homepage-content'>
-                    <a href='' className='content-link'>
-                        <p className='content-heading'>
-                            Vexere - Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
-                        </p>
-                        <div className='content-icon'>
-                            <p className='heading-link'>(*)</p>
-                            <div className='link-icon__info'>
-                                <InfoOutlinedIcon style={{ color: 'yellow' }} />
-                            </div>
-                        </div>
-                    </a>
-                    <div className='search'>
+        <>
+               <div className='search'>
                         <div className='search-content'>
                             <div className='search-top'>
                                 <div className='search-list'>
@@ -163,6 +130,7 @@ export default function Banner() {
                                     </div>
                                 </div>
                             </div>
+                            
                             <div className='search-bottom'>
                                 <form action='' onSubmit={handleSubmit(handleSubmitSearch)}>
                                     <div className='search-wrapper'>
@@ -379,42 +347,6 @@ export default function Banner() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className='pod-container'>
-                <div className='pod-item'>
-                    <img
-                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/verified_yellow.svg'
-                        alt=''
-                        className='icon-pod'
-                    />
-                    <p className='pod-title'>Chắc chắn có chỗ</p>
-                </div>
-                <div className='pod-item'>
-                    <img
-                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/headset_mic_yellow.svg'
-                        alt=''
-                        className='icon-pod'
-                    />
-                    <p className='pod-title'>Hỗ trợ 24/7</p>
-                </div>
-                <div className='pod-item'>
-                    <img
-                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/discount_yellow.svg'
-                        alt=''
-                        className='icon-pod'
-                    />
-                    <p className='pod-title'>Nhiều ưu đãi</p>
-                </div>
-                <div className='pod-item'>
-                    <img
-                        src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/monetization_on_yellow.svg'
-                        alt=''
-                        className='icon-pod'
-                    />
-                    <p className='pod-title'>Thanh toán đa dạng</p>
-                </div>
-            </div>
-        </div>
-    );
+        </>
+    )
 }
