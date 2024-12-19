@@ -13,10 +13,10 @@ export default function AddCarHouse() {
     // useEffect(() => {
     //     dispatch(CallapiGetAllCarHouse());
     // }, []);
-    
+
     // const addcarhouse = useSelector((state) => state.StoreCarHouse?.dataCarHouse);
-    const isToastOk = useSelector((state) => state.StoreCarHouse?.popupXacNhan2);
-    const isToastError = useSelector((state) => state.StoreCarHouse?.popupError2);
+    const isToastOk = useSelector((state) => state.Storecarhouse?.popupXacNhan);
+    const isToastError = useSelector((state) => state.Storecarhouse?.popupError);
 
     const notify = (event) => {
         if (event == true) {
@@ -26,14 +26,18 @@ export default function AddCarHouse() {
         }
     };
 
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('phone', data.phone);
         formData.append('status', data.status);
         formData.append('address', data.address);
-        
+
         console.log('form thêm nhà xe', data);
         dispatch(CallapiAddCarHouse(formData));
     };
@@ -42,7 +46,6 @@ export default function AddCarHouse() {
         notify(true);
         setTimeout(() => {
             navigate('/adminweb/show-ds-carhouse');
-            console.log('hien thi o day: ', isToastOk);
         }, 2000);
     }
     if (isToastError) {
@@ -59,9 +62,10 @@ export default function AddCarHouse() {
                     <input
                         type='text'
                         id='busName'
-                        {...register('name', { required: true })}
+                        {...register('name', { required: 'Vui lòng nhập thông tin' })}
                         placeholder='Nhập tên nhà xe...'
                     />
+                    {errors.name && <p className='add-error'>{errors.name.message}</p>}
 
                     {/* <label htmlFor="address">Địa Chỉ</label>
                         <input type="text" id="address"    {...register('diachi', { required: true })}  placeholder="Nhập địa chỉ..." /> */}
@@ -70,10 +74,15 @@ export default function AddCarHouse() {
                     <input
                         type='tel'
                         id='phone'
-                        {...register('phone')}
-                        placeholder='Nhập số điện thoại...'
-                        // pattern='[0-9]{10}'
+                        {...register('phone', {
+                            required: 'Vui lòng nhập thông tin',
+                            pattern: {
+                                value: /^0\d{9}$/,
+                                message: 'Vui lòng nhập đúng định dạng số điện thoại (10 số, bắt đầu bằng 0)',
+                            },
+                        })}
                     />
+                    {errors.phone && <p className='add-error'>{errors.phone.message}</p>}
                     <label htmlFor='status'>Trạng Thái</label>
                     <select type='number' id='status' {...register('status')} placeholder='Trạng Thái'>
                         <option value='active'>Hoạt Động </option>
@@ -87,6 +96,7 @@ export default function AddCarHouse() {
                     /> */}
                     <label htmlFor='phone'>Địa Chỉ</label>
                     <input type='text' id='address' {...register('address')} placeholder='Nhập địa chỉ...' />
+                    {errors.phone && <p className='add-error'>{errors.phone.message}</p>}
 
                     <input type='submit' className='btnsb' value='Thêm nhà xe' />
                 </form>

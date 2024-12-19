@@ -1,24 +1,27 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllListCar, CallapiGetDeleteCarofCarHouse } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';  
+import {
+    CallapiGetAllListCar,
+    CallapiGetDeleteCarofCarHouse,
+} from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Pagination from '../../pagination/pagination';
 
 export default function Quanlyxe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
-        dispatch(CallapiGetAllListCar());
-    }, []);
+        dispatch(CallapiGetAllListCar(1, currentPage));
+    }, [currentPage]);
     const allcar = useSelector((state) => state.StoreCar?.dataCar);
     console.log('all car ', allcar);
 
-
-    //edit 
+    //edit
     function EditCarofCarHouse(id) {
         navigate(`/admincarhouse/editcar/${id}`);
     }
@@ -27,9 +30,13 @@ export default function Quanlyxe() {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
             await dispatch(CallapiGetDeleteCarofCarHouse(id));
-            await dispatch(CallapiGetAllListCar());
+            await dispatch(CallapiGetAllListCar(1, currentPage));
         }
     }
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber); // Cập nhật trang
+    };
 
     return (
         <>
@@ -67,7 +74,7 @@ export default function Quanlyxe() {
                             </thead>
                             <tbody>
                                 {allcar &&
-                                    allcar.map((itemlistcar) => {
+                                    allcar?.data?.map((itemlistcar) => {
                                         return (
                                             <>
                                                 <tr>
@@ -76,18 +83,31 @@ export default function Quanlyxe() {
                                                     <td>TIENTO01</td>
                                                     <td>{itemlistcar?.license_plate}</td>
                                                     <td>{itemlistcar?.model}</td>
-                                                    <td>{itemlistcar.car_images && itemlistcar.car_images.map((itemimg)=>{
-                                            return <> <img src={`http://127.0.0.1:8000/images/cars/${itemimg?.image}`} width="50px" /></>
-                                        }) } </td>
+                                                    <td>
+                                                        {itemlistcar.car_images &&
+                                                            itemlistcar.car_images.map((itemimg) => {
+                                                                return (
+                                                                    <>
+                                                                        {' '}
+                                                                        <img
+                                                                            src={`http://127.0.0.1:8000/images/cars/${itemimg?.image}`}
+                                                                            width='50px'
+                                                                        />
+                                                                    </>
+                                                                );
+                                                            })}{' '}
+                                                    </td>
                                                     <td className='action-icons'>
-                                                        <EditIcon   onClick={() => {
-                                                                    EditCarofCarHouse(itemlistcar?.id);
-                                                                }} />
+                                                        <EditIcon
+                                                            onClick={() => {
+                                                                EditCarofCarHouse(itemlistcar?.id);
+                                                            }}
+                                                        />
                                                         <DeleteIcon
-                                                                onClick={() => {
-                                                                    deleteCarofCarHouse(itemlistcar?.id);
-                                                                }}
-                                                            />
+                                                            onClick={() => {
+                                                                deleteCarofCarHouse(itemlistcar?.id);
+                                                            }}
+                                                        />
                                                     </td>
                                                 </tr>
                                             </>
@@ -96,7 +116,10 @@ export default function Quanlyxe() {
                             </tbody>
                         </table>
                     </div>
-                    <div className='page-button'>
+                    <Pagination links={allcar?.links} onPageChange={handlePageChange} />
+                    
+
+                    {/* <div className='page-button'>
                         <div className='page-list'>
                             <div className='page-list__item'>
                                 <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
@@ -111,7 +134,7 @@ export default function Quanlyxe() {
                                 <ChevronRightIcon style={{ color: '#6e6e6e' }} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

@@ -20,7 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
@@ -30,16 +30,20 @@ import {
     CallapiGetDeleteCarHouse,
 } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../../pagination/pagination';
 
 export default function ShowDsCarHouse() {
     const dispatch = useDispatch();
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(CallapiGetAllCarHouse());
-    }, []);
-
+        dispatch(CallapiGetAllCarHouse(currentPage));
+    }, [currentPage]);
     const allcarHouse = useSelector((state) => state.Storecarhouse?.dataCarHouse);
     console.log('cx search', allcarHouse);
+
+    // const allcarHouse = useSelector((state) => state.Storecarhouse?.dataCarHouse);
+    // console.log('cx search', allcarHouse);
     const navigate = useNavigate();
     function chuyendentrangadd() {
         console.log('trang them nha xe');
@@ -52,9 +56,13 @@ export default function ShowDsCarHouse() {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
             await dispatch(CallapiGetDeleteCarHouse(id));
-            await dispatch(CallapiGetAllCarHouse());
+            await dispatch(CallapiGetAllCarHouse(currentPage));
         }
     }
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber); // Cập nhật trang
+    };
 
     return (
         <>
@@ -91,16 +99,16 @@ export default function ShowDsCarHouse() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allcarHouse.map((item) => {
+                                {allcarHouse?.data.map((item) => {
                                     return (
                                         <>
-                                            <tr>
-                                                <td>{item.id}</td>
-                                                <td>{item.name}</td>
-                                                <td>{item.phone}</td>
-                                                <td>{item.created_at}</td>
-                                                <td>{item.address}</td>
-                                                <td>{item.status}</td>
+                                            <tr key={item?.id}>
+                                                <td>{item?.id}</td>
+                                                <td>{item?.name}</td>
+                                                <td>{item?.phone}</td>
+                                                <td>{item?.created_at}</td>
+                                                <td>{item?.address}</td>
+                                                <td>{item?.status}</td>
                                                 <td className='action-icons'>
                                                     <EditIcon
                                                         onClick={() => {
@@ -121,10 +129,11 @@ export default function ShowDsCarHouse() {
                             </tbody>
                         </table>
                     </div>
+
                     <div className='box-footer-admin'>
                         <div className='left-admin-select'>
                             <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Xe</Button>
+                                <Button variant='contained'>Quản Lý Nhà Xe</Button>
                             </Link>
                             <Link to='/adminweb/listbanner' className='btn-input-manage'>
                                 <Button variant='contained'>Quản Lý Banner</Button>
@@ -133,22 +142,7 @@ export default function ShowDsCarHouse() {
                                 <Button variant='contained'>Quản Lý Loại Xe</Button>
                             </Link>
                         </div>
-                        <div className='page-button'>
-                            <div className='page-list'>
-                                <div className='page-list__item'>
-                                    <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
-                                </div>
-                                <div className='page-list__item'>1</div>
-                                <div className='page-list__item'>2</div>
-                                <div className='page-list__item'>3</div>
-                                <div className='page-list__item'>...</div>
-                                <div className='page-list__item'>9</div>
-                                <div className='page-list__item'>10</div>
-                                <div className='page-list__item'>
-                                    <ChevronRightIcon style={{ color: '#6e6e6e' }} />
-                                </div>
-                            </div>
-                        </div>
+                        <Pagination links={allcarHouse?.links} onPageChange={handlePageChange} />
                     </div>
                 </div>
             </div>

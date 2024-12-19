@@ -106,7 +106,7 @@ export default function Quanlyloaixe() {
                     <div className='box-footer-admin'>
                         <div className='left-admin-select'>
                             <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Xe</Button>
+                                <Button variant='contained'>Quản Lý Nhà Xe</Button>
                             </Link>
                             <Link to='/adminweb/listbanner' className='btn-input-manage'>
                                 <Button variant='contained'>Quản Lý Banner</Button>

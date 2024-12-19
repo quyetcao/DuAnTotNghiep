@@ -115,7 +115,7 @@ export default function Register() {
                                 <span className='toggle-password' onClick={() => setShowPassword(!showPassword)}>
                                     {showPassword ? <Visibility /> : <VisibilityOff />}
                                 </span>
-                                {errors.confirmPassword && <p className='error'>{errors.confirmPassword.message}</p>}
+                                {errors.password_confirmation && <p className='error'>{errors.password_confirmation.message}</p>}
                             </div>
                             <div className='link-register'>
                                 <span className='link-text-register'>Bạn đã có tài khoản?</span>

@@ -65,9 +65,9 @@ select:hover, select:focus {
     font-family: 'Mulish', sans-serif;
 }
 
-option {
+/* option {
     height: 400px;
-}
+} */
 
 /* select {
     width: 100%;

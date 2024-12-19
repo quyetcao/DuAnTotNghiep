@@ -52,7 +52,7 @@ export default function EditCarOfCarHouse() {
     }
 
     const navigate = useNavigate();
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors }, } = useForm()
     const onSubmit = (data) => {
         const imageFile = data.images;
         const formData = new FormData();
@@ -73,6 +73,7 @@ export default function EditCarOfCarHouse() {
     setValue('car_type_id', dataoneCarofCH?.car_type_id);
     setValue('license_plate', dataoneCarofCH?.license_plate);
     setValue('model', dataoneCarofCH?.model);
+    setValue('images[]', dataoneCarofCH?.car_images);
 
     if (isToastOk === true) {
         notify(true);
@@ -96,7 +97,8 @@ export default function EditCarOfCarHouse() {
                 <form id="busForm" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
 
                     <label htmlFor="tenxe">Tên xe</label>
-                    <input type="text" id="tenxe"   {...register('name')} />
+                    <input type="text" id="tenxe"   {...register('name', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.name && <p className='add-error'>{errors.name.message}</p>}
                     <label htmlFor="loaixe">Loại Xe</label>
                     <select name="loaixe" id="loaixe"  {...register('car_type_id')}>
                         {allcartype && allcartype.map(item => {
@@ -105,7 +107,8 @@ export default function EditCarOfCarHouse() {
                         }
                     </select>
                     <label htmlFor="license_plate">Biển Số Xe</label>
-                    <input type="text" id="license_plate"   {...register('license_plate')} />
+                    <input type="text" id="license_plate"   {...register('license_plate', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.license_plate && <p className='add-error'>{errors.license_plate.message}</p>}
                     <label htmlFor="model">Hãng xe</label>
                     <input type="text" id="model"   {...register('model')} />
                     <input type="number" id="car_house_id"   {...register('car_house_id')} />

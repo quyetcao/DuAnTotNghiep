@@ -17,7 +17,11 @@ export default function AddCarType() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const onSubmit = (data) => {
         const imageFile = data.image[0];
         const formData = new FormData();
@@ -49,11 +53,19 @@ export default function AddCarType() {
                     <input
                         type='text'
                         id='loaixe'
-                        {...register('name', { required: true })}
+                        {...register('name', { required: 'Vui lòng nhập thông tin!' })}
                         placeholder='Limousine 44 chỗ ngồi '
                     />
+                    {errors.name && <p className='add-error'>{errors.name.message}</p>}
+
                     <label htmlFor='soghe'>Số ghế</label>
-                    <input type='number' id='soghe' {...register('quantity_seat')} placeholder='Nhập số ghế' />
+                    <input
+                        type='number'
+                        id='soghe'
+                        {...register('quantity_seat', { required: 'Vui lòng nhập thông tin!' })}
+                        placeholder='Nhập số ghế'
+                    />
+                    {errors.quantity_seat && <p className='add-error'>{errors.quantity_seat.message}</p>}
                     <label htmlFor='imgxe'>Ảnh </label>
                     <input type='file' id='imgxe' {...register('image')} />
                     <input type='submit' className='btnsb' value='Thêm Chuyến Xe' />

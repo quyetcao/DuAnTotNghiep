@@ -87,16 +87,16 @@ export default function AddCar() {
                     {errors.license_plate && <p className='add-error'>{errors.license_plate.message}</p>}
                     <label htmlFor='model'> Hãng xe </label>
                     <select type='number' id='model' {...register('model')} placeholder='Hãng xe'>
-                        <option value='HonDa'>HonDa </option>
-                        <option value='ThaCo'>ThaCo </option>
-                        <option value='Suzuki'>Suzuki </option>
-                        <option value='Mitsubishi'>Mitsubishi</option>
+                        <option value='HonDa'>HonDa</option>
+                        <option value='ThaCo'>ThaCo</option>
+                        <option value='Mitsubishi'>VinFast</option>
                         <option value='Hyundai'>Hyundai</option>
                         <option value='Nissan'>Nissan</option>
-                        <option value='Nissan'>Nissan</option>
+                        <option value='Nissan'>Audi</option>
                         <option value='Volvo Buses'>Volvo Buses</option>
-                        <option value=''>Mitsubishi</option>
-                        <option value=''>Mitsubishi</option>
+                        <option value=''>Mecerdes</option>
+                        <option value=''>Tesla</option>
+                        <option value='Suzuki'>Suzuki</option>
                         <option value=''>Mitsubishi</option>
                     </select>
                     <label htmlFor='loaixe'>Loại Xe</label>
