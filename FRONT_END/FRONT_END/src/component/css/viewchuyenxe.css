@@ -422,7 +422,7 @@
 .bus-info {
     display: flex;
     gap: 8rem;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .bus-info div {

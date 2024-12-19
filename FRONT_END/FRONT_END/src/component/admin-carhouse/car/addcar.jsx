@@ -2,30 +2,32 @@ import { useEffect } from 'react';
 import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { CallapiGetAllCarType, CallapiPostCarofCarHouse } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
+import {
+    CallapiGetAllCarType,
+    CallapiPostCarofCarHouse,
+} from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
 
 export default function AddCar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllCarType())
-    }, [])
+        dispatch(CallapiGetAllCarType());
+    }, []);
     const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
     const isToastOk = useSelector((state) => state.StoreCar?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreCar?.popupError);
 
     const notify = (event) => {
         if (event == true) {
-            toast.success("Thêm Xe Thành Công!", { theme: "colored" });
+            toast.success('Thêm Xe Thành Công!', { theme: 'colored' });
         } else if (event == false) {
-            toast.error("Lỗi form nhập!", { theme: "colored" });
+            toast.error('Lỗi form nhập!', { theme: 'colored' });
         }
-    }
+    };
 
-    const { register, handleSubmit } = useForm();
+    // const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         const imageFile = data.images;
         const formData = new FormData();
@@ -37,7 +39,7 @@ export default function AddCar() {
         for (let i = 0; i < imageFile.length; i++) {
             formData.append('images[]', imageFile[i]);
         }
-        console.log("form thêm xe",data);
+        console.log('form thêm xe', data);
         dispatch(CallapiPostCarofCarHouse(formData));
     };
 
@@ -51,22 +53,38 @@ export default function AddCar() {
         notify(false);
     }
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
     return (
-        <>  <ToastContainer />
+        <>
+            {' '}
+            <ToastContainer />
             <h3 style={{ textAlign: 'center', marginTop: '40px' }}>THÊM XE </h3>
             <div className='page-add-carhouse'>
-                <form id='busForm' onSubmit={handleSubmit(onSubmit)}  encType="multipart/form-data">
+                <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
                     <label htmlFor='carName'>Tên xe</label>
                     <input
                         className='addcar-input'
                         type='text'
                         id='carName'
-                        {...register('name', { required: true })}
+                        {...register('name', { required: 'Vui lòng nhập thông tin!' })}
                         placeholder='Nhập tên xe'
                     />
+                    {errors.name && <p className='add-error'>{errors.name.message}</p>}
+
                     <label htmlFor='bsx'>Biển số xe </label>
-                    <input className='addcar-input' type='text' id='bsx' {...register('license_plate')} placeholder='Biển số xe' />
+                    <input
+                        className='addcar-input'
+                        type='text'
+                        id='bsx'
+                        {...register('license_plate', { required: 'Vui lòng nhập thông tin!' })}
+                        placeholder='Biển số xe'
+                    />
+                    {errors.license_plate && <p className='add-error'>{errors.license_plate.message}</p>}
                     <label htmlFor='model'> Hãng xe </label>
                     <select type='number' id='model' {...register('model')} placeholder='Hãng xe'>
                         <option value='HonDa'>HonDa </option>
@@ -80,19 +98,31 @@ export default function AddCar() {
                         <option value=''>Mitsubishi</option>
                         <option value=''>Mitsubishi</option>
                         <option value=''>Mitsubishi</option>
-
                     </select>
-                    <label htmlFor="loaixe">Loại Xe</label>
-                    <select name="loaixe" id="loaixe"  {...register('car_type_id')}>
-                        {allcartype && allcartype.map(item => {
-                            return <><option value={item.id}>{item.id} - {item.name}</option></>
-                        })
-                        }
+                    <label htmlFor='loaixe'>Loại Xe</label>
+                    <select name='loaixe' id='loaixe' {...register('car_type_id')}>
+                        {allcartype &&
+                            allcartype.map((item) => {
+                                return (
+                                    <>
+                                        <option value={item.id}>
+                                            {item.id} - {item.name}
+                                        </option>
+                                    </>
+                                );
+                            })}
                     </select>
-                    <label htmlFor="image-upload">Chọn ảnh:</label>
-                    <input type="file" id="image-upload" {...register('images')} name="images" accept="image/*" multiple />
+                    <label htmlFor='image-upload'>Chọn ảnh:</label>
+                    <input
+                        type='file'
+                        id='image-upload'
+                        {...register('images')}
+                        name='images'
+                        accept='image/*'
+                        multiple
+                    />
 
-                    <input type='hidden' name='nhà xe'  {...register('car_house_id')} value={1} />
+                    <input type='hidden' name='nhà xe' {...register('car_house_id')} value={1} />
 
                     <input type='submit' className='btnsb' value='Thêm Xe' />
                 </form>

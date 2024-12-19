@@ -9,10 +9,12 @@ import ChooseLocation from './choose-location';
 import ChooseSeat from './choose-seat';
 import { callApiSeat } from '../../redux/info-bus/infobus-asynThunk';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
-export default function HorizontalLinearStepper({index,car_id}){
-  // console.log("car-idddddd",car_id);
+
+export default function HorizontalLinearStepper({index,car_id,itemallthongtincx}){
+  console.log("car-itemallthongtincx",itemallthongtincx);
 
   const dispatch = useDispatch();
 
@@ -49,8 +51,6 @@ export default function HorizontalLinearStepper({index,car_id}){
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.");
     }
 
@@ -65,6 +65,8 @@ export default function HorizontalLinearStepper({index,car_id}){
   const handleReset = () => {
     setActiveStep(0);
   };
+
+
 
     return (
         
@@ -91,7 +93,7 @@ export default function HorizontalLinearStepper({index,car_id}){
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button onClick={handleReset}>Xóa</Button>
           </Box>
         </React.Fragment>
       ) : (
@@ -99,7 +101,7 @@ export default function HorizontalLinearStepper({index,car_id}){
 
           
           <Typography sx={{ mt: 2, mb: 1 }}>
-          {activeStep + 1 === 1 ? <ChooseSeat seat_car_id={car_id} /> : <ChooseLocation/> }
+          {activeStep + 1 === 1 ? <ChooseSeat seat_car_id={car_id}  /> : <ChooseLocation car_id={car_id}  itemallthongtincx={itemallthongtincx}/> }
 
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -109,7 +111,7 @@ export default function HorizontalLinearStepper({index,car_id}){
               onClick={handleBack}
               sx={{ mr: 1 }}
             >
-              Back
+              Quay về 
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
             {isStepOptional(activeStep) && (
@@ -118,7 +120,7 @@ export default function HorizontalLinearStepper({index,car_id}){
               </Button>
             )}
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === steps.length - 1 ? <Link to={'/thanhtoanlanmot/'+itemallthongtincx.id} >Tiếp Tục</Link> : 'Tiếp Tục'}
             </Button>
           </Box>
         </React.Fragment>

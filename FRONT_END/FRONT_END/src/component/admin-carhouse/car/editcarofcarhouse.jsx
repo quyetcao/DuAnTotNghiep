@@ -74,6 +74,7 @@ export default function EditCarOfCarHouse() {
     setValue('license_plate', dataoneCarofCH?.license_plate);
     setValue('model', dataoneCarofCH?.model);
 
+
     if (isToastOk === true) {
         notify(true);
         setTimeout(() => {

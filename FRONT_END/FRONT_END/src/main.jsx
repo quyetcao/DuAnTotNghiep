@@ -64,10 +64,13 @@ import AddDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/add-diem
 import EditDiemTra from './component/admin-carhouse/chuyenxe/điemon-tra/edit-diem-tra.jsx';
 import QuanlyGiamGia from './component/view-adminweb/giam-gia/show-list-giamgia.jsx';
 import AddGiamGia from './component/view-adminweb/giam-gia/add-ma-giam-gia.jsx';
+import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
 // import EditGiamGia from './component/view-adminweb/giam-gia/edit-ma-giam-gia.jsx';
 import Quanlychuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-xe/showchuyenxe.jsx';
 import ThanhToanLanMot from './component/thanhtoan/thanhtoanlan1.jsx';
 import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
+import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/addcxcarhouse.jsx';
+import EditChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/editcxcarhouse.jsx';
 
 
 
@@ -106,11 +109,11 @@ const routes = createBrowserRouter([
         element: <NoLogin />
       },
       {
-        path:"/khong-quyen-truy-cap",
-        element:<Insufficientaccess/>
+        path: "/khong-quyen-truy-cap",
+        element: <Insufficientaccess />
       },
       {
-        path: "/thanhtoanlanmot",
+        path: "/thanhtoanlanmot/:car_trip_id",
         element: <ThanhToanLanMot />
       },
       {
@@ -153,7 +156,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element:<AppAdmin />,
+    element: <AppAdmin />,
     children: [
       {
         path: '',
@@ -190,8 +193,8 @@ const routes = createBrowserRouter([
       },
       //loại xe
       {
-        path:'listcartype',
-        element:<Quanlyloaixe/>
+        path: 'listcartype',
+        element: <Quanlyloaixe />
 
       },
 
@@ -200,44 +203,48 @@ const routes = createBrowserRouter([
         element: <AddCarType />
       },
       {
-        path:'editloaixe/:id',
-        element:<EditCarType/>
+        path: 'editloaixe/:id',
+        element: <EditCarType />
       },
       // chuyến xe 
-      // {
-      //   path: 'addchuyenxe',
-      //   element: <AddChuyenXebyCarHouse />
-      // },
       {
-        path:'quan-li-chuyen-xe',
-        element:<Quanlychuyenxe/>
+        path: 'addchuyenxe',
+        element: <AddChuyenXebyCarHouse />
+      },
+      {
+        path: 'quan-li-chuyen-xe',
+        element: <Quanlychuyenxe />
 
+      },
+      {
+        path: 'edit-chuyen-xe/:id',
+        element: <EditChuyenXebyCarHouse />
       },
 
       // điểm đón trả
       {
-        path:'diem-don',
-        element:<QuanlyDiemDon/>
+        path: 'diem-don',
+        element: <QuanlyDiemDon />
       },
       {
-        path:'add-diem-don',
-        element:<AddDiemDon/>
+        path: 'add-diem-don',
+        element: <AddDiemDon />
       },
       {
-        path:'edit-diem-don/:id',
-        element:<EditDiemDon />
+        path: 'edit-diem-don/:id',
+        element: <EditDiemDon />
       },
       {
-        path:'diem-tra',
-        element:<QuanlyDiemTra/>
+        path: 'diem-tra',
+        element: <QuanlyDiemTra />
       },
       {
-        path:'add-diem-tra',
-        element:<AddDiemTra/>
+        path: 'add-diem-tra',
+        element: <AddDiemTra />
       },
       {
-        path:'edit-diem-tra/:id',
-        element:<EditDiemTra />
+        path: 'edit-diem-tra/:id',
+        element: <EditDiemTra />
       }
 
     ]
@@ -245,7 +252,7 @@ const routes = createBrowserRouter([
 
   {
     path: "/adminweb",
-    element:<AppAdminQLWeb /> ,
+    element: <AppAdminQLWeb />,
     children: [
       {
         path: '',
@@ -262,7 +269,7 @@ const routes = createBrowserRouter([
       {
         path: 'editcarhouse/:id',
         element: <EditCarHouse />,
-       },
+      },
       // Event 
       {
         path: 'listEvent',
@@ -279,40 +286,40 @@ const routes = createBrowserRouter([
 
       // post 
       {
-        path:'listArticles',
-        element: <QuanlyPost/>
+        path: 'listArticles',
+        element: <QuanlyPost />
       },
       {
-        path:'add-articles',
-        element: <AddEArticles/>
+        path: 'add-articles',
+        element: <AddEArticles />
       },
       {
-        path:'editArticles/:id',
-        element: <EditArticles/>
+        path: 'editArticles/:id',
+        element: <EditArticles />
       },
 
       //Banner
 
       {
-        path:'listbanner',
-        element: <ListBanner/>
+        path: 'listbanner',
+        element: <ListBanner />
       },
       {
         path: 'addbanner',
         element: <AddBanner />
       },
       {
-        path:'editbanner/:id',
-        element:<EditBanner/>
+        path: 'editbanner/:id',
+        element: <EditBanner />
       },
       //Giảm giá 
       {
-        path:'giam-gia',
-        element:<QuanlyGiamGia/>
+        path: 'giam-gia',
+        element: <QuanlyGiamGia />
       },
       {
-        path:'add-giam-gia',
-        element:<AddGiamGia/>
+        path: 'add-giam-gia',
+        element: <AddGiamGia />
       },
       {
         path:'edit-giam-gia/:id',
@@ -320,8 +327,8 @@ const routes = createBrowserRouter([
       },
       //User
       {
-        path:'listuse',
-        element:<QuanlyUser/>
+        path: 'listuse',
+        element: <QuanlyUser />
       },
 
     ]
@@ -335,6 +342,6 @@ createRoot(document.getElementById('root')).render(
   // <StrictMode>
   <Provider store={store}>
     <RouterProvider router={routes} />
-    </Provider>
+  </Provider>
   // </StrictMode>,
 )

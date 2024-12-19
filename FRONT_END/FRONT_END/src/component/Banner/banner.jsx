@@ -14,21 +14,17 @@ import AddIcon from '@mui/icons-material/Add';
 // import { Link } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 
-
 import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 // import viLocale from 'date-fns/locale/vi/index.js';
 
-//import react hook form 
-import { useForm } from "react-hook-form";
+//import react hook form
+import { useForm } from 'react-hook-form';
 import { MobileDatePicker } from '@mui/x-date-pickers';
 import { getSearchChuyenxe } from '../../redux/viewchuyenxe/viewcx-asynThunk';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
-
-
-
 
 export default function Banner() {
     //useState
@@ -54,18 +50,15 @@ export default function Banner() {
         setInputSearch(e);
     }
 
-
-
-
-    // function lấy ngày đi ngày về gửi lên form 
+    // function lấy ngày đi ngày về gửi lên form
     function SelectDatereturnChangr(date) {
         const selectedDateReturn = date ? date.format('YYYY-MM-DD') : null;
-        setreturndate(selectedDateReturn)
+        setreturndate(selectedDateReturn);
     }
     function SelectDateChange(date) {
         const selectedDate = date ? date.format('YYYY-MM-DD') : null;
-        setdeparturedate(selectedDate)
-    };
+        setdeparturedate(selectedDate);
+    }
 
     // Tạo ref để theo dõi vùng danh sách
     const danhSachTinhTPRef = useRef(null);
@@ -87,9 +80,7 @@ export default function Banner() {
         };
     }, []);
 
-
-
-    //thao tac voi form search 
+    //thao tac voi form search
     const {
         register,
         handleSubmit,
@@ -97,33 +88,28 @@ export default function Banner() {
     } = useForm({
         defaultValues: {
             city_from: '',
-            city_to: ''
-        }
-    })
-
+            city_to: '',
+        },
+    });
 
     const handleSubmitSearch = () => {
         handleSubmit(onSubmit)();
-
     };
     const dispatch = useDispatch();
     const navigate = useNavigate();
     function onSubmit(data) {
         data.city_from = 'Thành phố Hồ Chí Minh';
-        data.city_to = 'Tỉnh Khánh Hòa',
-            data.departure_date = departuredate;
+        (data.city_to = 'Tỉnh Khánh Hòa'), (data.departure_date = departuredate);
         data.arrival_date = returndate;
-        console.log("datainform them cphn", data);
+        console.log('datainform them cphn', data);
         dispatch(getSearchChuyenxe(data)).then(() => {
-            navigate('./viewchuyenxe')
-        })
-
+            navigate('./viewchuyenxe');
+        });
     }
     const isLoadBtnSearch = useSelector((state) => state.ViewChuyenXeSearch?.isLoadcx);
-    console.log("", isLoadBtnSearch);
+    console.log('', isLoadBtnSearch);
 
     /// gửi dispath dữ liệu lên serve dữ liệu gomò form gồm các thành phần như 101->107
-
 
     return (
         <div className='homepage'>
@@ -143,7 +129,6 @@ export default function Banner() {
                     </a>
                     <div className='search'>
                         <div className='search-content'>
-
                             <div className='search-top'>
                                 <div className='search-list'>
                                     <div className='list-item'>
@@ -179,7 +164,7 @@ export default function Banner() {
                                 </div>
                             </div>
                             <div className='search-bottom'>
-                                <form action="" onSubmit={handleSubmit(handleSubmitSearch)}>
+                                <form action='' onSubmit={handleSubmit(handleSubmitSearch)}>
                                     <div className='search-wrapper'>
                                         <div className='search-input'>
                                             <div className='input-list'>
@@ -202,10 +187,14 @@ export default function Banner() {
                                                             type='text'
                                                             value={tpfrom}
                                                             placeholder='Hà Nội'
-                                                            {...register("city_from")}
+                                                            {...register('city_from')}
                                                         />
                                                         {inputsearch == 'input-from' && (
-                                                            <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
+                                                            <div
+                                                                id='ds-tinh-tp'
+                                                                className='ds-tinh-tp'
+                                                                ref={danhSachTinhTPRef}
+                                                            >
                                                                 <ul>
                                                                     {datatp.map((item) => {
                                                                         return (
@@ -244,18 +233,23 @@ export default function Banner() {
                                                             type='text'
                                                             placeholder='Hải Phòng'
                                                             value={tpTo}
-                                                            {...register("city_to")}
+                                                            {...register('city_to')}
                                                         />
 
                                                         {inputsearch == 'input-to' && (
-                                                            <div id='ds-tinh-tp' className='ds-tinh-tp' ref={danhSachTinhTPRef}>
+                                                            <div
+                                                                id='ds-tinh-tp'
+                                                                className='ds-tinh-tp'
+                                                                ref={danhSachTinhTPRef}
+                                                            >
                                                                 <ul>
                                                                     {datatp.map((item) => {
                                                                         return (
                                                                             <li
                                                                                 key={item.code}
                                                                                 onClick={() => {
-                                                                                    settpTo(item.name), setInputSearch('');
+                                                                                    settpTo(item.name),
+                                                                                        setInputSearch('');
                                                                                 }}
                                                                             >
                                                                                 {item.name}
@@ -283,14 +277,14 @@ export default function Banner() {
                                                         <label className='style-text'>Ngày đi</label>
                                                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                             <MobileDatePicker
-                                                                format="DD-MM-YYYY"
+                                                                format='DD-MM-YYYY'
                                                                 sx={{
                                                                     // Tùy chỉnh kích thước input
                                                                     '& input': {
                                                                         height: '5px', // Kích thước chiều cao
                                                                         fontSize: '14px',
                                                                         padding: '8px',
-                                                                        marginLeft: '-10px'// Kích thước font chữ
+                                                                        marginLeft: '-10px', // Kích thước font chữ
                                                                     },
                                                                     // Loại bỏ outline
                                                                     '& .MuiOutlinedInput-root': {
@@ -308,7 +302,6 @@ export default function Banner() {
                                                                 onChange={SelectDateChange}
                                                             />
                                                         </LocalizationProvider>
-
                                                     </div>
                                                 </div>
 
@@ -327,27 +320,28 @@ export default function Banner() {
                                                         <p className='input-items__title'> Thêm ngày về</p>
                                                         {inputsearch === 'show-date-from' && (
                                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                <MobileDatePicker sx={{
-                                                                    // Tùy chỉnh kích thước input
-                                                                    '& input': {
-                                                                        height: '25px', // Kích thước chiều cao
-                                                                        fontSize: '14px',
-                                                                        padding: '8px',
-                                                                        marginLeft: '-10px'
-                                                                    },
-                                                                    // Loại bỏ outline
-                                                                    '& .MuiOutlinedInput-root': {
-                                                                        '& fieldset': {
-                                                                            border: 'none', // Không có đường viền
+                                                                <MobileDatePicker
+                                                                    sx={{
+                                                                        // Tùy chỉnh kích thước input
+                                                                        '& input': {
+                                                                            height: '25px', // Kích thước chiều cao
+                                                                            fontSize: '14px',
+                                                                            padding: '8px',
+                                                                            marginLeft: '-10px',
                                                                         },
-                                                                        '&:hover fieldset': {
-                                                                            border: 'none', // Không có đường viền khi hover
+                                                                        // Loại bỏ outline
+                                                                        '& .MuiOutlinedInput-root': {
+                                                                            '& fieldset': {
+                                                                                border: 'none', // Không có đường viền
+                                                                            },
+                                                                            '&:hover fieldset': {
+                                                                                border: 'none', // Không có đường viền khi hover
+                                                                            },
+                                                                            '&.Mui-focused fieldset': {
+                                                                                border: 'none', // Không có đường viền khi focus
+                                                                            },
                                                                         },
-                                                                        '&.Mui-focused fieldset': {
-                                                                            border: 'none', // Không có đường viền khi focus
-                                                                        },
-                                                                    },
-                                                                }}
+                                                                    }}
                                                                     onChange={SelectDatereturnChangr}
                                                                 />
                                                             </LocalizationProvider>
@@ -356,29 +350,33 @@ export default function Banner() {
                                                 ) : (
                                                     <div className='input-data'>
                                                         <label className='style-text'>Ngày về</label>
-                                                        <input className='style-input no-underline' type='text' value={returndate}  {...register("ngay-ve")} />
+                                                        <input
+                                                            className='style-input no-underline'
+                                                            type='text'
+                                                            value={returndate}
+                                                            {...register('ngay-ve')}
+                                                        />
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
-                                        {
-                                            isLoadBtnSearch === false ? <div className='search-btn'>
-                                                <input className='style-btn' type='submit' value='Tìm Kiếm' /> 
-                                            </div> : <LoadingButton
-                                                    loading
-                                                    loadingPosition="start"
-                                                    startIcon={<SaveIcon />}
-                                                    variant="outlined"
-                                                >
-                                                    Tìm Kiếm
-                                                </LoadingButton>
-                                       }
-
-
+                                        {isLoadBtnSearch === false ? (
+                                            <div className='search-btn'>
+                                                <input className='style-btn' type='submit' value='Tìm Kiếm' />
+                                            </div>
+                                        ) : (
+                                            <LoadingButton
+                                                loading
+                                                loadingPosition='start'
+                                                startIcon={<SaveIcon />}
+                                                variant='outlined'
+                                            >
+                                                Tìm Kiếm
+                                            </LoadingButton>
+                                        )}
                                     </div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>

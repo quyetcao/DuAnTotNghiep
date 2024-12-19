@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\DiscountCodeController;
-
+use App\Http\Controllers\Api\CityController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -71,6 +71,7 @@ Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse'])
 
 Route::get('/car/{id}', [CarController::class, 'showCar']);
 Route::get('/car', [CarController::class, 'listCar']);
+Route::get('/car/car_house_id/{car_house_id}', [CarController::class, 'showCarByCarHouseId']);
 
 // Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
 Route::post('/car/create', [CarController::class, 'createCar']);
@@ -188,7 +189,7 @@ Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 
 //Seat
 
-Route::get('/seat/{car_id}', [SeatController::class, 'showSeatsByCarId']);
+Route::get('/seat/{car_id}', [SeatController::class, 'showSeatbycarid']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
@@ -211,6 +212,7 @@ Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
 // EMPLOYEE
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
+Route::get('/employee/car_house_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
@@ -259,3 +261,10 @@ Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscount
 Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
 Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);
 Route::post('/apply-discount-codes', [DiscountCodeController::class, 'applyDiscountCode']);
+
+//City
+Route::get('/cities/{id}', [CityController::class, 'showId']); 
+Route::get('/cities', [CityController::class, 'show']); 
+Route::post('/cities', [CityController::class, 'create']); 
+Route::post('/cities/{id}', [CityController::class, 'update']); 
+Route::delete('/cities/{id}', [CityController::class, 'delete']); 

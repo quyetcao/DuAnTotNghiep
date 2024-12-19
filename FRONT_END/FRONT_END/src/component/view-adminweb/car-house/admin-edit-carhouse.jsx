@@ -81,10 +81,10 @@ export default function EditCarHouse() {
                         {...register('phone')}
                         placeholder='Số điện thoại'
                     />
-                    <label htmlFor='status'> Status </label>
+                    <label htmlFor='status'> Trạng Thái </label>
                     <select type='number' id='status' {...register('status')} placeholder='Trạng Thái'>
                         <option value='active'>Hoạt Động </option>
-                        <option value='inactive'>Không Hoạt Động </option>
+                        {/* <option value='inactive'>Không Hoạt Động </option> */}
                         <option value='paused'>Tạm Dừng </option>
                     </select>
                     <label htmlFor='address'>Address </label>

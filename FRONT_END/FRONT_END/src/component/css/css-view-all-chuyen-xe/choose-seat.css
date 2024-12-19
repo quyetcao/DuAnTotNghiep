@@ -48,6 +48,9 @@
     align-items: center;
     gap:10px;
 } */
+.seat-groups{
+    flex: 0 0 73%;
+}
 .seat-name{
     font-size: 14px;
 }
@@ -103,6 +106,7 @@
 
 /*hang-ghe -giuwa*/
 .hang-ghe-giua{
+
     display: flex;
     flex-wrap: wrap;
     justify-content:space-around;
@@ -116,7 +120,7 @@
 }
 .vo-lang{
     display: flex;
-    gap:2px;
+    gap: 40px;
     padding-left: 25px;
     margin-bottom: 10px;
 }
@@ -128,3 +132,17 @@
 }
 
 /*ghế*/
+.showghe-gia{
+    display: flex;
+    justify-content: space-between;
+}
+.show-ghe{
+    gap:5px;
+    display: flex;
+    align-items: center;
+}
+.showgia{
+    gap:5px;
+    display: flex;
+    align-items: center;
+}

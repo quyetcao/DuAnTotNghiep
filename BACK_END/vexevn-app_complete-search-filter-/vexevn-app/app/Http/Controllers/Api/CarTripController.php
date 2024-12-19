@@ -42,7 +42,7 @@ class CarTripController extends HelpController
 
     public function showCarTrip($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees'])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees','car.carType' ])->find($id);
 
 
         if (!$data) {

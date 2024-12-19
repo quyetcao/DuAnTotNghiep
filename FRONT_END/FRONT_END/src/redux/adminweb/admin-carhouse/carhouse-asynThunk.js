@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllCarHouse, getOneCarHouse, showPopupError, showPopupOk } from "./createSlice-carhouse";
+import { getAllCarHouse, getOneCarHouse, showPopupError, showPopupOk, showPopupError2, showPopupOk2 } from "./createSlice-carhouse";
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
 
 
@@ -22,16 +22,24 @@ export function CallapiGetAllCarHouse(){
 export function CallapiAddCarHouse(formcarhouse){
   return async (dispatch) => {
     try {
-   
-      let res = await axios.post(
-        `http://localhost:8000/api/carhouse/create/`,formcarhouse);
-      console.log(res);
+      let res = await axios.post(`http://localhost:8000/api/carhouse/create/`,formcarhouse);
+      console.log("all nha xe ", res);
 
+      dispatch(showPopupOk2(true));
     } catch (error) {
-      console.log(error);
-    } 
+      console.log("erooor", error);
+      dispatch(showPopupError2(true));
+    } finally {
+      setTimeout(() => {
+        dispatch(showPopupError2(false));
+        dispatch(showPopupOk2(false));
+      }, 3000);
+
+    }
   };
 }
+
+
 
 // call api lấy  nhà xe 
 export function CallapiGetOneCarHouse(id){

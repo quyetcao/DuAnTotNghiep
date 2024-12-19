@@ -6,6 +6,7 @@ const initialState = {
   // Tất cả chuyến xe search theo thời gian, search theo tuyến đường
   AllChuyenXeSearch:[],
   isLoadcx:false,
+  datacartriptheoid:[],
 
   
   };
@@ -30,10 +31,13 @@ const initialState = {
           state.isLoadcx = action.payload
         }
      
-      }
-
+      },
+      cartriptheoid(state, action){
+        state.datacartriptheoid = action.payload  ;
+       
+      },
 
     },
   });
   
-  export const {getAllChuyenXeSearch,changeIsLoadcx,reDataCx } = ViewUserSearchChuyenxe.actions;
+  export const {getAllChuyenXeSearch,changeIsLoadcx,reDataCx,cartriptheoid} = ViewUserSearchChuyenxe.actions;

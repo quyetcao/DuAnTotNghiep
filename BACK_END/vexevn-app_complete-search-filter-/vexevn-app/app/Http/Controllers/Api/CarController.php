@@ -224,6 +224,23 @@ class CarController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết xe thành công!', $data);
     }
+    public function showCarByCarHouseId($carHouseId)
+{
+    // Tìm các xe thuộc car_house_id
+    $data = Car::with('carImages', 'carHouse', 'carType')
+               ->where('car_house_id', $carHouseId)
+               ->get();
+
+    // Kiểm tra nếu không có xe nào
+    if ($data->isEmpty()) {
+        return $this->sendNotFoundResponse('Không tìm thấy xe thuộc nhà xe này!');
+    }
+
+    // Trả về danh sách xe
+    return $this->sendResponse(200, 'Lấy thông tin chi tiết xe thành công!', $data);
+}
+    
+
     public function listCar()
     {
         $data = Car::with('carImages', 'carHouse', 'carType')->paginate(10);

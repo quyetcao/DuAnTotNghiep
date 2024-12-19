@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { getAllCarType, showLoading, getAllListCar, showPopupOk, showPopupError, getoneCarType, getoneCarofCarHouse, showPopupOk1, showPopupError1 } from "./createSlice-cartype";
+import { getAllCarType, showLoading, getAllListCar, showPopupOk, showPopupError, getoneCarType, getoneCarofCarHouse, showPopupOk1, showPopupError1, getAllListCarbyCarHouseID } from "./createSlice-cartype";
 
 ////////////////////////////// lấy all xe of nhà xe XE CỦA NHÀ XE 
 export function CallapiGetAllListCar() {
@@ -16,6 +16,18 @@ export function CallapiGetAllListCar() {
   };
 }
 
+export function CallapiGetAllListCarofcarhouseid(car_house_id) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(`http://localhost:8000/api/car/car_house_id/${car_house_id}`);
+      console.log('all ds xe ', res);
+
+      dispatch(getAllListCarbyCarHouseID(res.data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 export function CallapiPostCarofCarHouse(dataform) {
   return async (dispatch) => {
     try {
