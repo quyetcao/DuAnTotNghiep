@@ -70,8 +70,6 @@ class DiscountCodeController extends Controller
         ]);
     }
     
-
-
     public function showDiscountCode($id)
     {
         $discountCode = DiscountCode::find($id);
