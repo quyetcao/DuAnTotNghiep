@@ -16,6 +16,9 @@ class Order extends Model
         'seat_ids',
         'total_price',
         'status',
+        'name',
+        'phone',
+        'email',
     ];
 
     /**
@@ -29,21 +32,27 @@ class Order extends Model
                 'user_id' => $order->user_id,
                 'status' => $order->status,
                 'description' => 'Đơn hàng được tạo với trạng thái: ' . $order->status,
+                'name' => $order->name, // Thêm thông tin tên
+                'phone' => $order->phone, // Thêm số điện thoại
+                'email' => $order->email, // Thêm email
             ]);
         });
 
         static::updated(function ($order) {
-            // Kiểm tra nếu trạng thái thay đổi và chuyển thành "cancelled"
             if ($order->isDirty('status') && $order->status === 'cancelled') {
                 OrderHistory::create([
                     'order_id' => $order->id,
                     'user_id' => $order->user_id,
                     'status' => 'cancelled',
                     'description' => 'Đơn hàng bị hủy và ghế đã được giải phóng.',
+                    'name' => $order->name, // Thêm thông tin tên
+                    'phone' => $order->phone, // Thêm số điện thoại
+                    'email' => $order->email, // Thêm email
                 ]);
             }
         });
     }
+
 
     /**
      * Quan hệ với lịch sử đơn hàng
