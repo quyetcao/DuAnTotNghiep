@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\OrderHistoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\DiscountCodeController;
-
+use App\Http\Controllers\Api\CityController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -261,3 +261,10 @@ Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscount
 Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
 Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);
 Route::post('/apply-discount-codes', [DiscountCodeController::class, 'applyDiscountCode']);
+
+//City
+Route::get('/cities/{id}', [CityController::class, 'showId']); 
+Route::get('/cities', [CityController::class, 'show']); 
+Route::post('/cities', [CityController::class, 'create']); 
+Route::post('/cities/{id}', [CityController::class, 'update']); 
+Route::delete('/cities/{id}', [CityController::class, 'delete']); 

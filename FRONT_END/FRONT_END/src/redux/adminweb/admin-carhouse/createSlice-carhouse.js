@@ -6,6 +6,9 @@ const initialState = {
     datacarhouseone: [],
     showPopupOk:false,
     showPopupError:false,
+    isloading:false,
+    popupXacNhan:false,
+    popupError:false,
 
 };
 
@@ -31,3 +34,30 @@ export const StoreCarHouse = createSlice({
 });
 
 export const { getAllCarHouse, getOneCarHouse,showPopupOk,showPopupError } = StoreCarHouse.actions;
+
+
+export const StoreAddCarHouse = createSlice({
+    name: "StoreCar",
+    initialState,
+    reducers: {
+    //   getAllCarHouse(state,action){
+    //     state.dataCar = action.payload;
+    //   },
+    //   getoneCarofCarHouse(state,action){
+    //     state.dataoneCarofCarHouse = action.payload;
+    //   },
+      showPopupOk2(state,action){
+        state.popupXacNhan = action.payload;
+        console.log(">>>>>ok",state.popupXacNhan);
+      },
+      showPopupError2(state,action){
+        state.popupError = action.payload;
+        console.log(">>>>>hhhhh",state.popupError);
+      },
+     
+
+    },
+  });
+
+    export const {showPopupOk2,showPopupError2} = StoreAddCarHouse.actions;
+  

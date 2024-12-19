@@ -86,7 +86,10 @@ export default function QuanlyBanner() {
                                                     <tr>
                                                         <td>{itembanner?.id}</td>
                                                         <td>
-                                                        <img src={`http://127.0.0.1:8000/images/banners/${itembanner?.image}`} width="50px" />
+                                                            <img
+                                                                src={`http://127.0.0.1:8000/images/banners/${itembanner?.image}`}
+                                                                width='50px'
+                                                            />
                                                         </td>
                                                         <td>{itembanner?.alt_text}</td>
                                                         <td className='action-icons'>
@@ -100,7 +103,7 @@ export default function QuanlyBanner() {
                                                                     deletebanner(itembanner.id);
                                                                 }}
                                                             />
-                                                            <FileCopyIcon />
+                                                            {/* <FileCopyIcon /> */}
                                                         </td>
                                                     </tr>
                                                 </tbody>
