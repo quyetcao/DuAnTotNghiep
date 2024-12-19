@@ -258,3 +258,4 @@ Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes
 Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscountCode']);
 Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
 Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);
+Route::post('/apply-discount-codes', [DiscountCodeController::class, 'applyDiscountCode']);
