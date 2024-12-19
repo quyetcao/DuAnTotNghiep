@@ -499,7 +499,7 @@ a.text-link1 {
     gap: 12px;
 }
 
-.footer {
+.body-container + .footer {
     display: none;
 }
 

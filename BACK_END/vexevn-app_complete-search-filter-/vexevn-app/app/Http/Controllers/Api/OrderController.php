@@ -92,8 +92,9 @@ class OrderController extends Controller
     //     return $this->sendResponse(200, 'Tính toán thành công.', ['totalAmount' => $totalAmount]);
     // }
 
-    public function showOrder($id){
-        $order = Order::find($id);
+    public function showOrder($id)
+    {
+        $order = Order::with(['user', 'carTrip'])->find($id);
 
         if (!$order) {
             return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
@@ -104,7 +105,8 @@ class OrderController extends Controller
 
     public function listOrders()
     {
-        $orders = Order::all();
+        $orders = Order::with(['user', 'carTrip'])->paginate(10); 
+
         return $this->sendResponse(200, 'Hiển thị danh sách đơn hàng thành công.', $orders);
     }
 

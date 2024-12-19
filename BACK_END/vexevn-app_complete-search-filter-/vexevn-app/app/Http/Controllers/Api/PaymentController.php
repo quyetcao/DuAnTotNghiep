@@ -29,7 +29,7 @@ class PaymentController extends Controller
             'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:0',
             'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal',
-            'discount_code' => 'nullable|string', // Thêm vào điều kiện cho mã giảm giá
+            'discount_code' => 'nullable|string', 
         ]);
         
         $order = Order::find($validated['order_id']);
@@ -76,11 +76,12 @@ class PaymentController extends Controller
                     'payment_method' => $validated['payment_method'],
                     'status' => 'completed',
                     'transaction_id' => $paymentResult['transaction_id'],
-                    'usage_limit' => $discountCode ? $discountCode->usage_limit : 0, 
+                    'discount_code_id' => $discountCode ? $discountCode->id : null, 
                 ]);
 
                 if ($discountCode) {
-                    $payment->updateUsageLimit();
+                    $discountCode->decrement('usage_limit');
+                    $discountCode->increment('used_count'); 
                 }
 
                 $order->update(['status' => 'paid']);
@@ -113,8 +114,6 @@ class PaymentController extends Controller
         }
     }
 
-    
-    
     private function calculateOrderTotalAmount($seatIds)
     {
         if (empty($seatIds) || !is_array($seatIds)) {
@@ -129,8 +128,6 @@ class PaymentController extends Controller
         return $totalAmount;
     }
     
-
-
     private function processPayment($data)
     {
         if ($data['payment_method'] === 'credit_card') {

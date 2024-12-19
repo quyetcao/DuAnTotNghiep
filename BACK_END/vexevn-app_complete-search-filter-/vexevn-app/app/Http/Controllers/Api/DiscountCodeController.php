@@ -15,12 +15,14 @@ class DiscountCodeController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|unique:discount_codes,code',
             'description' => 'nullable|string',
-            'discount_amount' => 'required|numeric|min:0', // Sẽ kiểm tra thêm bên dưới
+            'discount_amount' => 'required|numeric|min:0',
+            'minimum_order_value' => 'nullable|numeric|min:0',
             'discount_type' => 'required|string|in:percentage,fixed',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'is_active' => 'required',
             'usage_limit' => 'required|integer|min:0',
+            'used_count' => 'nullable|integer|min:0',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
     
@@ -105,11 +107,13 @@ class DiscountCodeController extends Controller
             'code' => 'nullable|string|unique:discount_codes,code,' . $id,
             'description' => 'nullable|string',
             'discount_amount' => 'nullable|numeric|min:0',
+            'minimum_order_value' => 'nullable|numeric|min:0',
             'discount_type' => 'nullable|string|in:percentage,fixed',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'nullable|boolean',
             'usage_limit' => 'nullable|integer|min:0',
+            'used_count' => 'nullable|integer|min:0',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
     
@@ -191,6 +195,66 @@ class DiscountCodeController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Mã giảm giá đã bị xóa.',
+        ]);
+    }
+
+    public function applyDiscountCode(Request $request)
+    {
+        $validated = $request->validate([
+            'code' => 'required|string',
+            'order_total' => 'required|numeric|min:0',
+        ]);
+
+        $discountCode = DiscountCode::where('code', $validated['code'])->first();
+
+        if (!$discountCode || !$discountCode->is_active) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Mã giảm giá không hợp lệ hoặc không còn hoạt động.',
+            ]);
+        }
+
+        $now = now();
+        if ($now < $discountCode->start_date || $now > $discountCode->end_date) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Mã giảm giá đã hết hạn hoặc chưa được kích hoạt.',
+            ]);
+        }
+
+        if ($discountCode->usage_limit > 0 && $discountCode->usage_limit <= $discountCode->used_count) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Mã giảm giá đã đạt giới hạn sử dụng.',
+            ]);
+        }
+
+        if ($discountCode->minimum_order_value && $validated['order_total'] < $discountCode->minimum_order_value) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Giá trị đơn hàng không đủ để áp dụng mã giảm giá.',
+            ], 422);
+        }
+
+        $discount = 0;
+        if ($discountCode->discount_type === 'percentage') {
+            $discount = $validated['order_total'] * ($discountCode->discount_amount / 100);
+        } elseif ($discountCode->discount_type === 'fixed') {
+            $discount = $discountCode->discount_amount;
+        }
+
+        $discountedTotal = max(0, $validated['order_total'] - $discount);
+
+        $discountCode->increment('used_count');
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Áp dụng mã giảm giá thành công.',
+            'data' => [
+                'original_price' => $validated['order_total'],
+                'discount' => $discount,
+                'discounted_price' => $discountedTotal,
+            ],
         ]);
     }
 }

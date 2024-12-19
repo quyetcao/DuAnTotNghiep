@@ -54,7 +54,7 @@ export default function ThanhToan() {
                             </span>
                             <span className='payments-security__title'>Nhiều cách thanh toán, bảo mật tuyệt đối</span>
                         </div>
-                        <div className='wrap-left'>
+                        <div className='wrap-left bottom__20'>
                             <div className='payment-method'>
                                 <p className='method-heading'>Phương thức thanh toán</p>
                                 <div className='method-heading2'>Chọn phương thức thanh toán</div>

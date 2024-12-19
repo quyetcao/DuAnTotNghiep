@@ -166,7 +166,7 @@ class CarTripController extends HelpController
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
                     'seat_type' => $i <= 5 ? 'vip' : 'standard',
-                    'price' => $i <= 5 ? 300 : 150,
+                    'price' => $i <= 5 ? 300000 : 250000,
                     'car_type_id' => $request->car_type_id,
                     'location_seat' => (string) $locationSeat,
                 ]);
