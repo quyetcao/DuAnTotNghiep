@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\OrderHistoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\DiscountCodeController;
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\CarTripStatusController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -126,6 +127,7 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // });
 
 // CAR TRIP
+Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
 
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
