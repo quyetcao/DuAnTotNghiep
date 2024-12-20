@@ -6,12 +6,24 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 // import WarningIcon from '@mui/icons-material/Warning';
 import '../css/thanhtoan.css';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
 
 export default function ThanhToan() {
     const location = useLocation();
     const formData = location.state;
-    console.log("formData",formData);
+    console.log('formData', formData);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(CallapiGetAllGiamGia());
+    }, []);
+    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+    console.log('all list giamgia', dataAllgiamgia);
+    // const isload = useSelector((state) => state.StoreGiamGia?.isloading);
+
     return (
         <>
             <div className='body-container'>
@@ -437,24 +449,32 @@ export default function ThanhToan() {
                                     </div>
                                 </div>
                                 <div className='cart-kk-detail'>
-                                    <div className='coupon-info-route-page-container'>
-                                        <div className='giamgia-thanhtoan'>
-                                            <img
-                                                src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png'
-                                                alt=''
-                                            />
-                                            <div className='thong-tin-ve-giam'>
-                                                <div className='title-giam-gia'>
-                                                    Bạn Mới (Vexere) <ErrorIcon fontSize='small' />
-                                                </div>
-                                                <div className='price-giam'>Giảm 10%</div>
-                                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
-                                                <div className='hsd'>
-                                                    HSD:<strong>T3, 10/9 14:00</strong>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {dataAllgiamgia &&
+                                        dataAllgiamgia.map((item) => {
+                                            return (
+                                                <>
+                                                    <div className='coupon-info-route-page-container'>
+                                                        <div className='giamgia' key={item.id}>
+                                                            <img
+                                                                src={`http://127.0.0.1:8000/images/discount_codes/${item?.image}`}
+                                                                alt=''
+                                                            />
+                                                            <div className='thong-tin-ve-giam'>
+                                                                <div className='title-giam-gia'>
+                                                                    Bạn Mới (Vexere){' '}
+                                                                    <ErrorIcon style={{ fontSize: '14px' }} />
+                                                                </div>
+                                                                <div className='price-giam'>{item.description}</div>
+                                                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
+                                                                <div className='hsd'>
+                                                                    HSD:<strong>{item.end_date}</strong>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            );
+                                        })}
                                     <div className='coupon-info-route-page-container'>
                                         <div className='giamgia'>
                                             <img
