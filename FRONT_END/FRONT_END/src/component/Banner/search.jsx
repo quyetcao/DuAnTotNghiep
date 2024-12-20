@@ -90,6 +90,8 @@ export default function Search(){
             navigate('./viewchuyenxe');
         });
     }
+
+    
     const isLoadBtnSearch = useSelector((state) => state.ViewChuyenXeSearch?.isLoadcx);
     console.log('', isLoadBtnSearch);
     return (

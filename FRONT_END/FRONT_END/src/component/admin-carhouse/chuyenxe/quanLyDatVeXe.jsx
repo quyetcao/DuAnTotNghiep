@@ -1,24 +1,5 @@
 // import css
 import '../../css/quanLyDatVeXe.css';
-// import mui icon
-// import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-// import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-// import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
-// import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-// import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
-// import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-// import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-// import TrendingUpOutlinedIcon from '@mui/icons-material/TrendingUpOutlined';
-// import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
-// import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
-// import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-// import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
-// import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-// import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-// import RefreshIcon from '@mui/icons-material/Refresh';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
@@ -27,8 +8,31 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { callApiGetCity } from '../../../redux/city/Asynthunk_city';
+import { useForm } from 'react-hook-form';
+import { getSearchChuyenxe } from '../../../redux/viewchuyenxe/viewcx-asynThunk';
+import { useNavigate } from 'react-router-dom';
 
 export default function QuanLyDatVeXe() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(callApiGetCity())
+    }, []);
+    const datacity = useSelector((state)=> state.StoreCity?.datacity);
+ const {register,handleSubmit,} = useForm();
+const handleSubmitSearch = () => {
+        handleSubmit(onSubmit)();
+    };
+  
+    // const navigate = useNavigate();
+
+    function onSubmit(data) {
+        console.log('datainform them cphn', data);
+        dispatch(getSearchChuyenxe(data)).then(() => {
+        });
+    }
     return (
         <>
             <div className='container quanLyDatVeXe'>
@@ -37,62 +41,37 @@ export default function QuanLyDatVeXe() {
                     {/* phần đầu */}
 
                     <div className='qlnx'>
+                        <form  onSubmit={handleSubmit(handleSubmitSearch)}>
                         <div className='qlnx-group'>
                             <div className='qlnx-group__list'>
                                 <div className='qlnx-group__item'>
                                     <p className='qlnx-item__heading'>Nơi đi</p>
-                                    <div className='qlnx-box'>
-                                        <span className='qlnx-box__title'>Bến xe Phía Đông</span>
-                                        <div className='qlnx-box__icon'>
-                                            <ExpandMoreIcon />
-                                        </div>
-                                    </div>
+                                   
+                                        <select name="" id=""  {...register('city_from')}>
+                                            {datacity && datacity?.map((item)=>{
+                                            return <> <option value={item.name}>{item.name}</option></> 
+                                            })}
+                                           
+                                        </select>
                                 </div>
                                 <div className='qlnx-group__item'>
-                                    <p className='qlnx-item__heading'>Nơi đến</p>
-                                    <div className='qlnx-box'>
-                                        <span className='qlnx-box__title'>Bến xe Phía Đông</span>
-                                        <div className='qlnx-box__icon'>
-                                            <ExpandMoreIcon />
-                                        </div>
-                                    </div>
+                                    <p className='qlnx-item__heading' >Nơi đến</p>
+                                    <select name="" id="" {...register('city_to')}>
+                                            {datacity && datacity?.map((item)=>{
+                                            return <> <option value={item.name}>{item.name}</option></> 
+                                            })}
+                                        </select>
                                 </div>
                                 <div className='qlnx-group__item'>
                                     <p className='qlnx-item__heading'>Ngày khởi hành</p>
-                                    <div className='qlnx-box'>
-                                        <div className='qlnx-box__icon'>
-                                            <ChevronLeftIcon />
-                                        </div>
-                                        <span className='qlnx-box__title'>Thứ 3, 20-2-2022</span>
-                                        <div className='qlnx-box__icon'>
-                                            <ChevronRightIcon />
-                                        </div>
-                                    </div>
+                                 
+                                     <input type="date"  {...register('departure_date')}/>
+                                  
                                 </div>
-                                <div className='qlnx-group__item'>
-                                    <p className='qlnx-item__heading'>Lọc chuyến đi</p>
-                                    <div className='qlnx-box'>
-                                        <div className='qlnx-box__route'>
-                                            <div className='qlnx-box__route-item qlnx-padding'>
-                                                <span className='qlnx-box__title'>Tuyến đường 1</span>
-                                                <div className='qlnx-box__icon qlnx-box__icon-small'>
-                                                    <CancelIcon />
-                                                </div>
-                                            </div>
-                                            <div className='qlnx-box__route-item qlnx-padding'>
-                                                <span className='qlnx-box__title'>Tuyến đường 1</span>
-                                                <div className='qlnx-box__icon qlnx-box__icon-small'>
-                                                    <CancelIcon />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className='qlnx-box__icon'>
-                                            <ExpandMoreIcon />
-                                        </div>
-                                    </div>
-                                </div>
+                               <input type='submit' value='Hiển Thị'></input>
                             </div>
                         </div>
+                        </form>
                     </div>
                     <div className='time-group'>
                         <div className='time-group__list'>
