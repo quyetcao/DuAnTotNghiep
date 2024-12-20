@@ -3,7 +3,7 @@ import axios from "axios";
 import { getAllgiamgia, getOnegiamgia, showLoading, showPopupError, showPopupOk } from "./CreateSlice-giam-gia";
 
 
-// call lấy tất cả xe 
+// call lấy tất max giảm giá
 export function CallapiGetAllGiamGia() {
   return async (dispatch) => {
     try {

@@ -92,9 +92,8 @@ export default function Quanlychiendich() {
                                     <h3 className='content-top-heading'>Quản lý chiến dịch</h3>
                                     <button className='content-top-btn'>Tạo mới</button>
                                 </div>
-                                <div className='content-handle'>
+                                {/* <div className='content-handle'>
                                     <div className='qlcd-search'>
-                                        {/* <SearchOutlinedIcon style={{ color: '#6e6e6e' }} /> */}
                                         <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
                                     </div>
                                     <div className='handle-btn'>
@@ -102,7 +101,7 @@ export default function Quanlychiendich() {
                                         <p className='handle-btn__text'>Active</p>
                                         <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='content-table'>
                                     <table>
                                         <thead>

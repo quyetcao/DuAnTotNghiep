@@ -10,11 +10,7 @@ export default function AddCarHouse() {
     //thao tac voi form gửi add nhà xe
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(CallapiGetAllCarHouse());
-    // }, []);
 
-    // const addcarhouse = useSelector((state) => state.StoreCarHouse?.dataCarHouse);
     const isToastOk = useSelector((state) => state.Storecarhouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.Storecarhouse?.popupError);
 
@@ -24,7 +20,7 @@ export default function AddCarHouse() {
         } else if (event == false) {
             toast.error('Lỗi form nhập!', { theme: 'colored' });
         }
-    };
+    }; 
 
     const {
         register,

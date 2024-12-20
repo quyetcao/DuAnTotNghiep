@@ -20,6 +20,9 @@ import MyGallery from './showimg';
 import { useDispatch, useSelector } from 'react-redux';
 import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
 import { useEffect } from 'react';
+import { CallapiGetAllBinhLuan } from '../../redux/adminweb/binhluan/binhluan-asynThunk';
+
+
 // import Drawer from '@mui/material/Drawer';
 // Tạo component TabPanel
 function TabPanel(props) {
@@ -65,6 +68,15 @@ export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, inf
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    // all binh luan
+    useEffect(() => {
+        dispatch(CallapiGetAllBinhLuan());
+    }, []);
+
+    const allBinhLuan = useSelector((state) => state.StoreBinhLuan?.dataBinhLuan);
+    console.log('all binhluan ---------1', allBinhLuan);
+
     // thanh lực
     const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
         width: '110px',
@@ -99,6 +111,9 @@ export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, inf
     function toggleDrawer() {
         setDrawer(true);
     }
+
+    
+
 
     return (
         <Box
@@ -323,31 +338,51 @@ export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, inf
                             </div>
                         </form>
                     </div>
-                    {/* <div className='item-bl'>
-                        <div className='item-bl-infouse'>
-                            <Avatar
-                                alt='Remy Sharp'
-                                src='../../images/img_page_viewchuyenxe/hinh-nen-gai-xinh-viet-nam-mac-vay-hoa.jpg'
-                                sx={{ width: 50, height: 50 }}
-                            />
-                            <div className='nameuser-star'>
-                                <div>Ali Du Som</div>
-                                <Rating name='read-only' value='4.8' readOnly size='small' />
-                            </div>
-                        </div>
-                        <div className='nd-bl'>
-                            <p>Ok dichj vụ rất tốt...</p>
-                        </div>
-                        <div className='tgian-bl'>
-                            <p>
-                                Đi ngày 24/06/2024{' '}
-                                <span>
-                                    <VerifiedIcon sx={{ width: '16px' }} /> Đã đặt vé
-                                </span>
-                            </p>
-                        </div>
-                    </div> */}
+
+                    {allBinhLuan &&
+                        allBinhLuan.map((item) => {
+                            return (
+                                <>
+                                    <div className='item-bl'>
+                                        <div className='item-bl-infouse'>
+                                            <div className='nameuser-star'>
+                                                <div></div>
+                                                <Rating name='read-only' value='4.8' readOnly size='small' />
+                                            </div>
+                                            <div className='nd-bl'>
+                                                <p>{item?.content}</p>
+                                            </div>
+                                            <div className='tgian-bl'>
+                                                <p>
+                                                    Đi ngày 24/06/2024{' '}
+                                                    <span>
+                                                        <VerifiedIcon sx={{ width: '16px' }} /> Đã đặt vé
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            );
+                        })}
                 </div>
+
+                <div className='group-comment'>
+                    <span className='comment-title'>Bình Luận</span>
+                    <div className='group-form-cm'>
+                        <form >
+                            <input
+                                className='inp-comment'
+                                id='content'
+                                
+                                placeholder='Nhập để bình luận...'
+                                style={{ width: '100%', marginBottom: '12px', borderRadius: '8px' }}
+                            ></input>
+                            <button type='submit' className='send-comment'>Gửi</button>
+                        </form>
+                    </div>
+                </div>
+
                 <Pagination
                     count={10}
                     variant='outlined'

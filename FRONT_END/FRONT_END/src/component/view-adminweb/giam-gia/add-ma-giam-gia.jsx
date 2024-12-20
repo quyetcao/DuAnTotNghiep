@@ -75,7 +75,7 @@ export default function AddGiamGia() {
                     {errors.discount_type && <p className='add-error'>{errors.discount_type.message}</p>}
 
                     <label htmlFor="discount_amount">Số tiền giảm (số % giảm)</label>
-                    <input type="number" id="discount_amount"    {...register('discount_amount', { required: 'Vui lòng nhập thông tin!' })} />
+                    <input type="text" id="discount_amount"    {...register('discount_amount', { required: 'Vui lòng nhập thông tin!' })} />
                     {errors.discount_amount && <p className='add-error'>{errors.discount_amount.message}</p>}
 
 

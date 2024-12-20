@@ -1,61 +1,49 @@
-import EditIcon from '@mui/icons-material/Edit';
+import '../../css/quan-li-chien-dich.css';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-// import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
-import { CallapiGetAllUser } from '../../../../redux/admin-vexere/user/asynThunk-user';
+import { CallapiGetAllBinhLuan, CallapiGetDeleteBinhLuan } from '../../../redux/adminweb/binhluan/binhluan-asynThunk';
 
-export default function QuanlyUser() {
+export default function AllBinhLuan() {
     // const navigate = useNavigate();
-
+    const allbinhluan = useSelector((state) => state.Storebinhluan?.databinhluan);
+    console.log('list binhluan 11111111', allbinhluan);
+    const isload = useSelector((state) => state.Storebinhluan?.isloading);
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllUser());
+        dispatch(CallapiGetAllBinhLuan());
     }, []);
-    const allUser = useSelector((state) => state.StoreUser?.dataUser);
-    console.log(">>>",allUser);
-    const isload = useSelector((state) => state.StoreUser?.isloading);
 
-
-    const dataUser= allUser.filter((item)=> item.carhouse_id == null)
- 
-
-   
-    function deleteUser(id) {
+    async function deletebinhluan(id) {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
-        //   dispatch(CallapiGetDeleteUser(id));
-          
+            await dispatch(CallapiGetDeleteBinhLuan(id));
+            await dispatch(CallapiGetAllBinhLuan());
         }
     }
-   
-    
+
+
     return (
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
                     <div className='body-content-top'>
-                        <h3 className='content-top-heading'>Quản lý User </h3>
+                        <h3 className='content-top-heading'>Quản Lý Bình Luận </h3>
+                        {/* <button className='content-top-btn' onClick={deleteAllBinhLuan}>
+                            Xóa tất cả
+                        </button> */}
                     </div>
-                    {/* <div className='content-handle'>
-                        <div className='qlcd-search'>
+                    <div className='content-handle'>
+                        {/* <div className='qlcd-search'>
                             <SearchOutlinedIcon style={{ color: '#6e6e6e' }} />
                             <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
-                        </div>
-                        <div className='handle-btn'>
-                            <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
-                            <p className='handle-btn__text'>Active</p>
-                            <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
-                    </div> */}
+                        </div> */}
+                    </div>
                     <div className='content-table'>
                         {isload ? (
                             <div style={{ transform: 'translateX(50%)' }}>
@@ -66,25 +54,36 @@ export default function QuanlyUser() {
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Tên KH </th>
-                                        <th>Email</th>
-                                        <th>Số Điện Thoại</th>
+                                        <th>Content </th>
+                                        <th>Users_id</th>
+                                        <th>Car_trips_id</th>
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(dataUser) &&
-                                    dataUser?.map((itemUser ) => {
+                                {Array.isArray(allbinhluan) &&
+                                    allbinhluan?.map((itembinhluan) => {
                                         return (
                                             <>
                                                 {' '}
                                                 <tbody>
                                                     <tr>
-                                                        <td>{itemUser?.id}</td>
-                                                        <td>{itemUser?.name}</td>
-                                                        <td>{itemUser?.email}</td>
-                                                        <td>{itemUser?.phone}</td>
+                                                        <td>{itembinhluan?.id}</td>
+                                                        {/* <td>
+                                                            <img
+                                                                src={`http://127.0.0.1:8000/images/banners/${itembanner?.image}`}
+                                                                width='50px'
+                                                            />
+                                                        </td> */}
+                                                        <td>{itembinhluan?.content}</td>
+                                                        <td>{itembinhluan?.users_id}</td>
+                                                        <td>{itembinhluan?.car_trips_id}</td>
                                                         <td className='action-icons'>
-                                                            <DeleteIcon onClick={()=>{deleteUser(itemUser?.id)}}/>                                
+                                                            
+                                                            <DeleteIcon
+                                                                onClick={() => {
+                                                                    deletebinhluan(itembinhluan?.id);
+                                                                }}
+                                                            />
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -95,12 +94,15 @@ export default function QuanlyUser() {
                         )}
                     </div>
                     <div className='box-footer-admin'>
-                        <div className='left-admin-select'>
-                            {/* <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Tài Khoản Nhà Xe</Button>
-                            </Link> */}
-                            {/* <Link to='/adminweb/listbanner' className='btn-input-manage'>
-                                <Button variant='contained'>Quản Lý Tài Khoản Quản Trị Web</Button>
+                        <div className='left-admin-select group-link-active'>
+                            <Link to='/adminweb/show-ds-carhouse'>
+                                <Button variant='contained'>Quản Lý Nhà Xe</Button>
+                            </Link>
+                            <Link to='/adminweb/listbanner'>
+                                <Button variant='contained'>Quản Lý Banner</Button>
+                            </Link>
+                            {/* <Link to='/admincarhouse/listcartype'>
+                                <Button variant='contained'>Quản Lý Loại Xe</Button>
                             </Link> */}
                         </div>
                         {/* <div className='page-button'>

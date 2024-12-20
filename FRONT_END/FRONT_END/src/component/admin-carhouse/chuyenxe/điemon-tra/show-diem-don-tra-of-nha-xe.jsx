@@ -41,9 +41,8 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
-                    <div className='content-handle'>
+                    {/* <div className='content-handle'>
                         <div className='qlcd-search'>
-                            {/* <SearchOutlinedIcon style={{ color: '#6e6e6e' }} /> */}
                             <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
                         </div>
                         <div className='handle-btn'>
@@ -51,7 +50,7 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                             <p className='handle-btn__text'>Active</p>
                             <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='content-table'>
                     {isload ? (
                             <div style={{ transform: 'translateX(50%)' }}>
@@ -97,7 +96,7 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                         </table>
                                )}
                     </div>
-                    <div className='page-button'>
+                    {/* <div className='page-button'>
                         <div className='page-list'>
                             <div className='page-list__item'>
                                 <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
@@ -112,7 +111,7 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                                 <ChevronRightIcon style={{ color: '#6e6e6e' }} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

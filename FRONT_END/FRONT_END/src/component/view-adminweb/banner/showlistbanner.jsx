@@ -1,9 +1,6 @@
 import '../../css/quan-li-chien-dich.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -51,15 +48,15 @@ export default function QuanlyBanner() {
                         </button>
                     </div>
                     <div className='content-handle'>
-                        <div className='qlcd-search'>
+                        {/* <div className='qlcd-search'> */}
                             {/* <SearchOutlinedIcon style={{ color: '#6e6e6e' }} /> */}
-                            <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
-                        </div>
-                        <div className='handle-btn'>
+                            {/* <input type='text' placeholder='Tìm kiếm tên chiến dịch' />  */}
+                        {/* </div> */}
+                        {/* <div className='handle-btn'>
                             <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
                             <p className='handle-btn__text'>Active</p>
                             <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='content-table'>
                         {isload ? (
