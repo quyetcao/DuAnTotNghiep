@@ -98,15 +98,12 @@ class Order extends Model
 
     public function pickupPoint()
     {
-        return $this->belongsTo(PickupPoint::class, 'car_trip_pickup_point_id');
+        return $this->belongsTo(\App\Models\PickupPoint::class, 'car_trip_pickup_point_id');
     }
 
-    /**
-     * Quan hệ với bảng dropoff_points (Điểm trả)
-     */
     public function dropoffPoint()
     {
-        return $this->belongsTo(DropoffPoint::class, 'car_trip_dropoff_point_id');
+        return $this->belongsTo(\App\Models\DropoffPoint::class, 'car_trip_dropoff_point_id');
     }
 
     public function user()

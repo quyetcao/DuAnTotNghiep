@@ -10,4 +10,8 @@ class CarTripPickupPoint extends Model
     use HasFactory;
 
     protected $fillable = ['car_trip_id', 'pickup_point_id', 'pickup_time'];
+    public function pickupPoint()
+    {
+        return $this->belongsTo(PickupPoint::class, 'pickup_point_id');
+    }
 }
