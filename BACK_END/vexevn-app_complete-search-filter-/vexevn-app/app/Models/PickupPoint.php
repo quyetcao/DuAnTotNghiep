@@ -14,7 +14,13 @@ class PickupPoint extends Model
     // public function city() {
     //     return $this->belongsTo(City::class);
     // }
-
+        
+    public function carTrips()
+    {
+        return $this->belongsToMany(CarTrip::class, 'car_trip_pickup_points')
+                    ->withPivot('id', 'pickup_time')
+                    ->withTimestamps();
+    }
     public function carHouse() {
         return $this->belongsTo(CarHouse::class);
     }

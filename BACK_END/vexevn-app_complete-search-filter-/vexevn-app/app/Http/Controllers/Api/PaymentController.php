@@ -8,19 +8,11 @@ use App\Models\Order;
 use App\Models\Seat;
 use App\Models\Ticket;
 use App\Models\DiscountCode;
-use App\Services\MoMoPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    protected $momoService;
-
-    public function __construct(MoMoPaymentService $momoService)
-    {
-        $this->momoService = $momoService;
-    }
-
     protected function sendResponse($statusCode, $message, $data = null)
     {
         return response()->json([
@@ -36,7 +28,7 @@ class PaymentController extends Controller
             'order_id' => 'required|exists:orders,id',
             'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:0',
-            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,momo', // Thêm momo
+            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,virtual_bank',
             'discount_code' => 'nullable|string',
         ]);
 
@@ -48,16 +40,15 @@ class PaymentController extends Controller
         $discountCode = null;
         if ($validated['discount_code']) {
             $discountCode = DiscountCode::where('code', $validated['discount_code'])->first();
-        
+
             if (!$discountCode) {
                 return $this->sendResponse(400, 'Mã giảm giá không tồn tại.');
             }
-        
+
             if ($discountCode->usage_limit <= 0 || !$discountCode->isValid()) {
                 return $this->sendResponse(400, 'Mã giảm giá không hợp lệ hoặc đã hết lượt sử dụng.');
             }
         }
-        
 
         $seatIds = json_decode($order->seat_ids, true);
         $calculatedAmount = $this->calculateOrderTotalAmount($seatIds);
@@ -73,8 +64,8 @@ class PaymentController extends Controller
         try {
             $paymentResult = $this->processPayment($validated);
 
-            if ($paymentResult['status'] === 'pending' && $validated['payment_method'] === 'momo') {
-                return $this->sendResponse(200, 'Chuyển hướng thanh toán qua MoMo.', [
+            if ($paymentResult['status'] === 'pending' && $validated['payment_method'] === 'virtual_bank') {
+                return $this->sendResponse(200, 'Chuyển hướng thanh toán qua tài khoản ngân hàng ảo.', [
                     'redirect_url' => $paymentResult['redirect_url'],
                 ]);
             }
@@ -125,17 +116,28 @@ class PaymentController extends Controller
         }
     }
 
-    public function completeMoMoPayment(Request $request)
+    public function handleBankCallback(Request $request)
     {
-        $result = $this->momoService->completePayment($request->all());
+        $validated = $request->validate([
+            'reference_id' => 'required|string',
+            'status' => 'required|string|in:success,failed',
+            'transaction_id' => 'nullable|string',
+        ]);
 
-        if ($result['status'] === 'success') {
-            // Cập nhật trạng thái thanh toán trong DB
-            Payment::where('transaction_id', $result['transaction_id'])->update(['status' => 'completed']);
-            return $this->sendResponse(200, 'Thanh toán MoMo thành công.');
+        $payment = Payment::where('transaction_id', $validated['reference_id'])->first();
+
+        if (!$payment) {
+            return $this->sendResponse(404, 'Giao dịch không tồn tại.');
         }
 
-        return $this->sendResponse(400, 'Thanh toán MoMo thất bại.', $result);
+        if ($validated['status'] === 'success') {
+            $payment->update(['status' => 'completed']);
+            $payment->order->update(['status' => 'paid']);
+            return $this->sendResponse(200, 'Cập nhật trạng thái thanh toán thành công.');
+        }
+
+        $payment->update(['status' => 'failed']);
+        return $this->sendResponse(400, 'Thanh toán không thành công.');
     }
 
     private function calculateOrderTotalAmount($seatIds)
@@ -149,31 +151,39 @@ class PaymentController extends Controller
 
     private function processPayment($data)
     {
-        if ($data['payment_method'] === 'momo') {
+        if ($data['payment_method'] === 'virtual_bank') {
             $parameters = [
                 'amount' => $data['amount'],
                 'orderId' => 'ORDER_' . $data['order_id'],
-                'requestId' => 'REQ_' . uniqid(),
-                'returnUrl' => config('services.momo.return_url'),
-                'notifyUrl' => config('services.momo.notify_url'),
+                'referenceId' => 'REF_' . uniqid(),
+                'bankApiUrl' => config('services.virtual_bank.api_url'),
+                'callbackUrl' => config('services.virtual_bank.callback_url'),
             ];
 
-            $response = $this->momoService->purchase($parameters);
+            $response = $this->initiateBankPayment($parameters);
 
-            if (isset($response['payUrl'])) {
+            if (isset($response['redirectUrl'])) {
                 return [
                     'status' => 'pending',
-                    'redirect_url' => $response['payUrl'],
+                    'redirect_url' => $response['redirectUrl'],
                 ];
             }
 
-            throw new \Exception($response['message'] ?? 'Lỗi không xác định từ MoMo.');
+            throw new \Exception($response['message'] ?? 'Lỗi không xác định từ ngân hàng ảo.');
         }
 
-        // Các phương thức thanh toán khác
         return [
             'status' => 'failed',
             'transaction_id' => null,
+        ];
+    }
+
+    private function initiateBankPayment($parameters)
+    {
+        // Simulate API call to a virtual bank
+        return [
+            'redirectUrl' => $parameters['bankApiUrl'] . '/payment?ref=' . $parameters['referenceId'],
+            'status' => 'success',
         ];
     }
 

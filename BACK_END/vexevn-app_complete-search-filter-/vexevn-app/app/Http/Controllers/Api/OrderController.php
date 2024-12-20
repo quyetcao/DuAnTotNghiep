@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CarTrip;
 use App\Models\Order;
 use App\Models\OrderHistory;
 use Illuminate\Support\Facades\DB;
 use App\Models\SeatCarTrip;
-use App\Models\CarTrip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -24,132 +24,93 @@ class OrderController extends Controller
     }
 
     public function createOrder(Request $request)
-{
-    // Validate dữ liệu đầu vào
-    \Log::info('Request Data:', $request->all());
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'car_trip_id' => 'required|exists:car_trips,id',
+            'seat_ids' => 'required|array|min:1',
+            'seat_ids.*' => 'exists:seat_car_trips,id',
+            'car_trip_pickup_point_id' => 'required|exists:car_trip_pickup_points,id',
+            'car_trip_dropoff_point_id' => 'required|exists:car_trip_dropoff_points,id',
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:15',
+            'email' => 'nullable|email|max:255',
+        ]);
 
-    $validated = $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'car_trip_id' => 'required|exists:car_trips,id',
-        'seat_ids' => 'required|array|min:1',
-        'seat_ids.*' => 'exists:seat_car_trips,id',
-        'car_trip_pickup_point_id' => 'required|exists:car_trip_pickup_points,id',
-        'car_trip_dropoff_point_id' => 'required|exists:car_trip_dropoff_points,id',
-        'name' => 'nullable|string|max:255',
-        'phone' => 'nullable|string|max:15',
-        'email' => 'nullable|email|max:255',
-    ]);
+        $user = \App\Models\User::find($validated['user_id']);
+        if (!$user) {
+            return $this->sendResponse(400, 'Người dùng không tồn tại.');
+        }
 
-    // Lấy thông tin người dùng từ user_id
-    $user = \App\Models\User::find($validated['user_id']);
-    if (!$user) {
-        return $this->sendResponse(400, 'Người dùng không tồn tại.');
-    }
+        $name = $validated['name'] ?? $user->name ?? 'Default Name';
+        $phone = $validated['phone'] ?? $user->phone ?? '0000000000';
+        $email = $validated['email'] ?? $user->email ?? 'default@example.com';
 
-    // Gán giá trị mặc định cho các trường
-    $name = $validated['name'] ?? $user->name ?? 'Default Name';
-    $phone = $validated['phone'] ?? $user->phone ?? '0000000000';
-    $email = $validated['email'] ?? $user->email ?? 'default@example.com';
+        $seats = SeatCarTrip::whereIn('id', $validated['seat_ids'])
+            ->where('car_trip_id', $validated['car_trip_id'])
+            ->where('is_available', true)
+            ->with('seat')
+            ->get();
 
-    // Kiểm tra khả dụng của ghế
-    $seats = SeatCarTrip::whereIn('id', $validated['seat_ids'])
-        ->where('car_trip_id', $validated['car_trip_id'])
-        ->where('is_available', true)
-        ->with('seat') // Load mối quan hệ seat
-        ->get();
+        if ($seats->isEmpty() || $seats->count() !== count($validated['seat_ids'])) {
+            return $this->sendResponse(400, 'Một hoặc nhiều ghế không khả dụng.');
+        }
 
-    if ($seats->isEmpty() || $seats->count() !== count($validated['seat_ids'])) {
-        return $this->sendResponse(400, 'Một hoặc nhiều ghế không khả dụng.');
-    }
-
-    // Lấy thông tin điểm đón
-    $carTripPickupPoint = \App\Models\CarTripPickupPoint::with('pickupPoint')
+        $carTripPickupPoint = \App\Models\CarTripPickupPoint::with('pickupPoint')
         ->where('id', $validated['car_trip_pickup_point_id'])
         ->first();
 
-    if (!$carTripPickupPoint || !$carTripPickupPoint->pickupPoint) {
-        return $this->sendResponse(400, 'Điểm đón không hợp lệ.');
-    }
+        if (!$carTripPickupPoint || !$carTripPickupPoint->pickupPoint) {
+            return $this->sendResponse(400, 'Điểm đón không hợp lệ.');
+        }
 
-    // Lấy thông tin điểm trả
-    $carTripDropoffPoint = \App\Models\CarTripDropoffPoint::with('dropoffPoint')
+        $carTripDropoffPoint = \App\Models\CarTripDropoffPoint::with('dropoffPoint')
         ->where('id', $validated['car_trip_dropoff_point_id'])
         ->first();
 
-    if (!$carTripDropoffPoint || !$carTripDropoffPoint->dropoffPoint) {
-        return $this->sendResponse(400, 'Điểm trả không hợp lệ.');
+        if (!$carTripDropoffPoint || !$carTripDropoffPoint->dropoffPoint) {
+            return $this->sendResponse(400, 'Điểm trả không hợp lệ.');
+        }
+
+        $pickupPoint = $carTripPickupPoint->pickupPoint;
+        $dropoffPoint = $carTripDropoffPoint->dropoffPoint;
+
+        $totalPrice = $seats->sum(function ($seatCarTrip) {
+            return $seatCarTrip->seat->price ?? 0;
+        });
+
+        try {
+            $order = Order::create([
+                'user_id' => $validated['user_id'],
+                'car_trip_id' => $validated['car_trip_id'],
+                'seat_ids' => json_encode($validated['seat_ids']),
+                'total_price' => $totalPrice,
+                'status' => 'pending',
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
+                'car_trip_pickup_point_id' => $validated['car_trip_pickup_point_id'],
+                'car_trip_dropoff_point_id' => $validated['car_trip_dropoff_point_id'],
+            ]);
+
+            SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
+
+            return $this->sendResponse(201, 'Đặt vé thành công!', [
+                'order' => $order,
+                'pickup_point' => $pickupPoint ? $pickupPoint->toArray() : null,
+                'dropoff_point' => $dropoffPoint ? $dropoffPoint->toArray() : null,
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
+            ]);
+        } catch (\Throwable $th) {
+            \Log::error('Error creating order: ' . $th->getMessage(), [
+                'validated_data' => $validated,
+            ]);
+
+            return $this->sendResponse(500, 'Đã xảy ra lỗi khi xử lý đơn hàng.');
+        }
     }
-
-    $pickupPoint = $carTripPickupPoint->pickupPoint;
-    $dropoffPoint = $carTripDropoffPoint->dropoffPoint;
-
-    // Tính tổng giá tiền
-    $totalPrice = $seats->sum(function ($seatCarTrip) {
-        return $seatCarTrip->seat->price ?? 0;
-    });
-
-    try {
-        // Tạo đơn hàng
-        $order = Order::create([
-            'user_id' => $validated['user_id'],
-            'car_trip_id' => $validated['car_trip_id'],
-            'seat_ids' => json_encode($validated['seat_ids']),
-            'total_price' => $totalPrice,
-            'status' => 'pending',
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $email,
-            'car_trip_pickup_point_id' => $validated['car_trip_pickup_point_id'],
-            'car_trip_dropoff_point_id' => $validated['car_trip_dropoff_point_id'],
-        ]);
-
-        // Cập nhật trạng thái ghế
-        SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
-
-        // Trả về kết quả thành công
-        return $this->sendResponse(201, 'Đặt vé thành công!', [
-            'order' => $order,
-            'pickup_point' => $pickupPoint ? $pickupPoint->toArray() : null,
-            'dropoff_point' => $dropoffPoint ? $dropoffPoint->toArray() : null,
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $email,
-        ]);
-    } catch (\Throwable $th) {
-        // Log lỗi chi tiết
-        \Log::error('Error creating order: ' . $th->getMessage(), [
-            'validated_data' => $validated,
-        ]);
-
-        return $this->sendResponse(500, 'Đã xảy ra lỗi khi xử lý đơn hàng.');
-    }
-}
-
-
-    // public function handleOrder($orderId)
-    // {
-    //     // Lấy đơn hàng từ DB
-    //     $order = Order::find($orderId);
-
-    //     // Kiểm tra nếu đơn hàng không tồn tại
-    //     if (!$order) {
-    //         return $this->sendResponse(404, 'Đơn hàng không tồn tại.');
-    //     }
-
-    //     // Lấy seat_ids, Laravel tự động chuyển từ JSON thành mảng
-    //     $seatIds = $order->seat_ids;
-
-    //     // Kiểm tra nếu seat_ids không phải là mảng hợp lệ
-    //     if (!is_array($seatIds)) {
-    //         return $this->sendResponse(400, 'Dữ liệu ghế không hợp lệ.');
-    //     }
-
-    //     // Tính tổng tiền từ seat_ids
-    //     $totalAmount = $this->calculateOrderTotalAmount($seatIds);
-
-    //     // Trả kết quả
-    //     return $this->sendResponse(200, 'Tính toán thành công.', ['totalAmount' => $totalAmount]);
-    // }
 
     public function showOrder($id)
     {
@@ -164,12 +125,11 @@ class OrderController extends Controller
 
     public function listOrders()
     {
-        $orders = Order::with(['user', 'carTrip'])->paginate(10); 
+        $orders = Order::with(['user', 'carTrip'])->paginate(10);
 
         return $this->sendResponse(200, 'Hiển thị danh sách đơn hàng thành công.', $orders);
     }
 
-    
     public function cancelOrder($orderId)
     {
         $order = Order::find($orderId);
@@ -189,20 +149,16 @@ class OrderController extends Controller
         }
 
         try {
-            // Cập nhật trạng thái đơn hàng thành "cancelled"
             $order->status = 'cancelled';
             $order->save();
 
-            // Lấy danh sách ghế từ đơn hàng
             $seatIds = json_decode($order->seat_ids, true);
 
-            // Cập nhật trạng thái `is_available` trong bảng `seat_car_trips`
             DB::table('seat_car_trips')
                 ->whereIn('seat_id', $seatIds)
-                ->where('car_trip_id', $order->car_trip_id) // Điều kiện theo chuyến đi
-                ->update(['is_available' => true]); // Giải phóng ghế
+                ->where('car_trip_id', $order->car_trip_id)
+                ->update(['is_available' => true]);
 
-            // Ghi lịch sử đơn hàng
             OrderHistory::create([
                 'order_id' => $order->id,
                 'user_id' => $order->user_id,
@@ -222,9 +178,8 @@ class OrderController extends Controller
         }
     }
 
-
-
-    public function updateOrderStatus(Request $request, $id){
+    public function updateOrderStatus(Request $request, $id)
+    {
         $order = Order::find($id);
 
         if (!$order) {
@@ -246,6 +201,19 @@ class OrderController extends Controller
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }
+    }
+
+    public function getOrdersByUserId($userId)
+    {
+        $orders = Order::with(['carTrip', 'carTrip.pickupPoints', 'carTrip.dropoffPoints'])
+            ->where('user_id', $userId)
+            ->paginate(10);
+
+        if ($orders->isEmpty()) {
+            return $this->sendResponse(404, 'Không tìm thấy đơn hàng nào cho người dùng này.');
+        }
+
+        return $this->sendResponse(200, 'Danh sách đơn hàng của người dùng.', $orders);
     }
 
 }
