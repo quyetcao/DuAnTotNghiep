@@ -9,10 +9,10 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { callApiGetCar, callApiGetCarHouse, callApiGetCarType, callApiTuyenDuong, callAsbydropoffpoint, callAsbypickuppoint } from '../../redux/info-bus/infobus-asynThunk';
+import { callApiGetCar, callApiGetCarHouse, callApiGetCarType, callApiSeatCarTripByCarTripId, callApiTuyenDuong, callAsbydropoffpoint, callAsbypickuppoint } from '../../redux/info-bus/infobus-asynThunk';
 import HorizontalLinearStepper from './tab-clickseat-choselocation.jsx';
 
-export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onToggle, onClick}) {
+export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onToggle, onClick }) {
 
     const infobus = useSelector((state) => state.InfoofBus?.infoBus[item?.car_id]);
     // console.log("infobuss", infobus);
@@ -67,6 +67,41 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
         return diadiem;
     }
 
+    function calculateTimeDifference(startTime, endTime) {
+        // Tách giờ, phút và giây từ chuỗi thời gian
+        const [startHour, startMinute, startSecond] = startTime.split(':').map(Number);
+        const [endHour, endMinute, endSecond] = endTime.split(':').map(Number);
+
+        // Chuyển đổi tất cả thành tổng giây
+        const startTotalSeconds = startHour * 3600 + startMinute * 60 + startSecond;
+        const endTotalSeconds = endHour * 3600 + endMinute * 60 + endSecond;
+
+        // Tính khoảng cách giây
+        let diffSeconds = endTotalSeconds - startTotalSeconds;
+
+        // Trường hợp qua ngày (end nhỏ hơn start)
+        if (diffSeconds < 0) {
+            diffSeconds += 24 * 3600; // Thêm 24 giờ
+        }
+
+        // Chuyển đổi giây thành giờ, phút, giây
+        const hours = Math.floor(diffSeconds / 3600);
+        const minutes = Math.floor((diffSeconds % 3600) / 60);
+
+
+        return `${hours}h${minutes}m`;
+    }
+    ////// thao tác với số ghế tính tổng số ghế còn lại.
+    useEffect(() => {
+        dispatch(callApiSeatCarTripByCarTripId(28))
+    }, [])
+    // const seatcartripbycartripid = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid);
+
+    //     const total = seatcartripbycartripid 
+    //     ? seatcartripbycartripid?.filter((item) => item.is_available !== 0) // Lọc những item không có is_available === 0
+    //         .reduce((sum, item) => sum + item.is_available, 0) // Cộng dồn giá trị is_available
+    //     : 0; // Nếu mảng không tồn tại, trả về 0
+    
 
     return (
         <div className='ttcx-container'>
@@ -129,10 +164,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
                                     {carType?.name}
                                     <div className='Sponsored__Container-sc-17s1or6-0 iGbCVp'>
                                         <div className='icon'>
-                                            <img
-                                                className='Sponsored__Icon-sc-17s1or6-1 ksuOIo my-svg-alternate'
-                                                src='https://storage.googleapis.com/fe-production/svgIcon/badge-sponsor.svg'
-                                            />
+
                                         </div>
                                         <p className='headline-text'>Tài trợ</p>
                                     </div>
@@ -165,7 +197,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
                                             <div className='hour'>{diemdon?.[0]?.pickup_time.substring(0, 5)}</div>
                                             <div className='place'>•{SplitChu(tuyenduong?.city_from)}</div>
                                         </div>
-                                        <div className='duration'>1h30m</div>
+                                        <div className='duration'>{calculateTimeDifference(item?.pickup_points[0]?.pivot?.pickup_time, item?.dropoff_points[0]?.pivot?.dropoff_time)}</div>
                                         <div className='content-cx to'>
                                             <div className='content-to-info1 '>
                                                 <div className='hour'>{diemtra?.[diemtra?.length - 1]?.dropoff_time.substring(0, 5)}</div>
@@ -176,7 +208,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
                                 </div>
                                 <div className='TicketPC__DetailAndAction-sc-1mxgwjh-8 TVXtN'>
                                     <div className='info'>
-                                        <div className='seat-available '>Còn 11 chỗ trống</div>
+                                        <div className='seat-available '>Còn  ghế</div>
                                     </div>
                                     <div className='action'>
                                         <button
@@ -207,14 +239,14 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
             {isActive &&
                 <div className='thong-tin-chi-tiet'>
                     <div className='tt-ct-tung-chuyen-xe'>
-                        <ScrollableTabsButtonVisible index={index} />
+                        <ScrollableTabsButtonVisible index={index} car_id={item.car_id} itemcx={item} infobus={infobus} />
                     </div>
                 </div>
             }
             {isActive1 &&
                 <div className='set-chair'>
                     <div className='tt-ct-seat-tung-chuyen-xe'>
-                         <HorizontalLinearStepper index={index} car_id={item.car_id} itemallthongtincx={item}  />
+                        <HorizontalLinearStepper index={index} car_id={item.car_id} itemallthongtincx={item} />
                     </div>
                 </div>
             }

@@ -88,9 +88,9 @@ export default function AccountMenu() {
           <Avatar /> Quản Trị Nhà Xe
         </MenuItem></Link> : <></>}
         
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
+       
+         <Link to='/taikhoan/thong-tin-tk'><MenuItem onClick={handleClose}> <Avatar />   Tài Khoản Của Tôi   </MenuItem></Link> 
+     
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
