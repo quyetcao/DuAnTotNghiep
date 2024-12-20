@@ -217,16 +217,17 @@ Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatC
     Route::get('/comment/{id}', [CommentController::class, 'show']);
     Route::get('/comment', [CommentController::class, 'index']);
 // });
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/comments/car-trips/{carTripId}', [CommentController::class, 'commentsByTrip']);
     Route::post('/comment', [CommentController::class, 'store']);
     Route::post('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
-// });
+});
 
 // EMPLOYEE
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
-Route::get('/employee/car_house_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
+Route::get('/douse_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);

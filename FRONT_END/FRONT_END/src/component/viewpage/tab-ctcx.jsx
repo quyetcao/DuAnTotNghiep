@@ -48,7 +48,6 @@ function a11yProps(index) {
 }
 
 export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus}) {
-    // console.log("itemcxxxxxxxxxxxxxxxxxxxxxxxxxxxx",itemcx);
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {

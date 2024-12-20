@@ -32,6 +32,8 @@ class OrderController extends Controller
             'car_trip_id' => 'required|exists:car_trips,id',
             'seat_ids' => 'required|array|min:1',
             'seat_ids.*' => 'exists:seat_car_trips,id',
+            'car_trip_pickup_point_id' => 'required|exists:car_trip_pickup_points,id',
+            'car_trip_dropoff_point_id' => 'required|exists:car_trip_dropoff_points,id',
             'name' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:15',
             'email' => 'nullable|email|max:255',
@@ -66,6 +68,10 @@ class OrderController extends Controller
         });
 
         try {
+            // Lấy thông tin từ bảng pickup_points và dropoff_points
+            $pickupPoint = \App\Models\PickupPoint::find($validated['car_trip_pickup_point_id']);
+            $dropoffPoint = \App\Models\DropoffPoint::find($validated['car_trip_dropoff_point_id']);
+
             // Tạo đơn hàng
             $order = Order::create([
                 'user_id' => $validated['user_id'],
@@ -76,14 +82,30 @@ class OrderController extends Controller
                 'name' => $name,
                 'phone' => $phone,
                 'email' => $email,
+                'car_trip_pickup_point_id' => $validated['car_trip_pickup_point_id'],
+                'car_trip_dropoff_point_id' => $validated['car_trip_dropoff_point_id'],
             ]);
 
             // Cập nhật trạng thái ghế
             SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
 
-            // Trả về đầy đủ dữ liệu đơn hàng
+            // Trả về đầy đủ dữ liệu đơn hàng kèm thông tin điểm đón và trả
             return $this->sendResponse(201, 'Đặt vé thành công!', [
                 'order' => $order,
+                'pickup_point' => [
+                    'id' => $pickupPoint->id,
+                    'name' => $pickupPoint->name,
+                    'address' => $pickupPoint->address,
+                    'car_house_id' => $pickupPoint->car_house_id,
+                    'is_public' => $pickupPoint->is_public,
+                ],
+                'dropoff_point' => [
+                    'id' => $dropoffPoint->id,
+                    'name' => $dropoffPoint->name,
+                    'address' => $dropoffPoint->address,
+                    'car_house_id' => $dropoffPoint->car_house_id,
+                    'is_public' => $dropoffPoint->is_public,
+                ],
                 'name' => $name,
                 'phone' => $phone,
                 'email' => $email,
