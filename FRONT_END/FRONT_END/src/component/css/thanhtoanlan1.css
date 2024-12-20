@@ -13,9 +13,9 @@
     font-size: 16px;
 }
 
-.zzzz {
+/* .zzzz {
     margin: 32px 0;
-}
+} */
 
 .border-message {
     border-radius: 8px;
@@ -472,6 +472,14 @@ p {
     color: rgb(36, 116, 229);
 }
 
+.chitietlan1{
+    text-align: right;
+}
+
+.chitiet-link {
+    margin-right: 12px;
+}
+
 .quydinh,
 .ft-content-btn-tt {
     display: none;
@@ -480,6 +488,51 @@ p {
 .wrap-top-header {
     display: none;
 }
+
+.thanhtoanlan1-btn {
+    width: 620px;
+    border-radius: 8px;
+    border: none;
+    background: rgb(255, 211, 51);
+    height: 48px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: none;
+    text-shadow: none;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.ft-content__title {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Mulish', sans-serif !important;;
+}
+
+.form-inp-lan1 + .footer {
+    display: none;
+}
+
+.message-error {
+    /* color: red;
+    font-size: 14px;
+    margin: 8px 8px -10px; */
+    height: 16px; /* Chiều cao cố định để giữ chỗ */
+    color: red;
+    font-size: 14px;
+    margin: -30px 8px -20px; 
+}
+
+.group-inp-lan1 {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
 
 /* responsive */
 @media (max-width: 480px) {

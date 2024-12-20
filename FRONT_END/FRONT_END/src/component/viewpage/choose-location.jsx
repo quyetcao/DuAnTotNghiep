@@ -1,9 +1,34 @@
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import '../css/css-view-all-chuyen-xe/choose-location.css';
+import { useEffect, useState } from 'react';
 export default function ChooseLocation({car_id,itemallthongtincx}) {
 
     console.log("itemallthongtincx", itemallthongtincx);
+    const [selectedValuediemdon , setSelectedValuediemdon] = useState(null);
+    const [selectedValuediemtra , setSelectedValuediemtra] = useState(null);
 
+    useEffect(() => {
+        if (selectedValuediemdon !== null) {
+          localStorage.setItem("setdiemdon", selectedValuediemdon);
+        }
+      }, [selectedValuediemdon]); 
+    
+   
+      useEffect(() => {
+        if (selectedValuediemtra !== null) {
+          localStorage.setItem("setdiemtra", selectedValuediemtra);
+        }
+      }, [selectedValuediemtra]);
+    
+    const handleRadioChange1  = (event) => {
+        setSelectedValuediemdon(event.target.value); 
+      };
+      const handleRadioChange2  = (event) => {
+        setSelectedValuediemtra(event.target.value); 
+      };
+
+      console.log("selectedValuediemdon",selectedValuediemdon+selectedValuediemtra);
+    
     return (
         <>
 
@@ -20,7 +45,7 @@ export default function ChooseLocation({car_id,itemallthongtincx}) {
                         {itemallthongtincx && itemallthongtincx?.pickup_points?.map((itemdiemdon) => {
                             return <div className="form-check" key={itemdiemdon.id}>
                                 <label className="form-check-label" >
-                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
+                                    <input type="radio" className="form-check-input"  onChange={handleRadioChange1}  name="" id="" value={itemdiemdon?.pivot?.pickup_point_id} />
                                     <li style={{ fontWeight: '500' }}>
                                         {itemdiemdon.pivot.pickup_time}
                                         <ul>
@@ -44,7 +69,7 @@ export default function ChooseLocation({car_id,itemallthongtincx}) {
                         {itemallthongtincx && itemallthongtincx?.dropoff_points?.map((itemdiemdon) => {
                             return <div className="form-check" key={itemdiemdon.id}>
                                 <label className="form-check-label" >
-                                    <input type="radio" className="form-check-input" name="" id="" value="checkedValue" />
+                                    <input type="radio" className="form-check-input"  name="" id=""   onChange={handleRadioChange2}  value={itemdiemdon?.pivot?.dropoff_point_id} />
                                     <li style={{ fontWeight: '500' }}>
                                         {itemdiemdon.pivot.dropoff_time}
                                         <ul>

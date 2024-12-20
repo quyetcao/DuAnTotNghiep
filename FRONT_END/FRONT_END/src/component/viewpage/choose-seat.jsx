@@ -6,27 +6,22 @@ import { useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { callApiSeatCarTripByCarTripId } from '../../redux/info-bus/infobus-asynThunk';
 import SVG from './svg';
-
+import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
 
 export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
-
-
     const allseatofcarid = useSelector((state) => state.SeatofCarid?.seatcarid);
 
-
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callApiSeatCarTripByCarTripId(itemallthongtincx?.id))
-    }, [])
+        dispatch(callApiSeatCarTripByCarTripId(itemallthongtincx?.id));
+    }, []);
     const seatcartripbycartripid = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid);
 
-
     const [selectedDivs, setSelectedDivs] = useState(() => {
-        const savedSeats = localStorage.getItem("dataSeat");
+        const savedSeats = localStorage.getItem('dataSeat');
         return savedSeats ? JSON.parse(savedSeats) : [];
     });
-
 
     function selectSeat(id) {
         const seatSelect = document.getElementById(id);
@@ -52,11 +47,10 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
 
     // Lưu trạng thái vào localStorage mỗi khi selectedDivs thay đổi
     useEffect(() => {
-        localStorage.setItem("dataSeat", JSON.stringify(selectedDivs));
+        localStorage.setItem('dataSeat', JSON.stringify(selectedDivs));
     }, [selectedDivs]);
 
-
-    ////////////////////////Hiển thị ghế chọn => tổng giá 
+    ////////////////////////Hiển thị ghế chọn => tổng giá
     // const [showSeat, setShowSeat] = useState([]);
     // const [totalprice, setTotalPrice] = useState(0);
     // function showselectseat(name, price) {
@@ -73,16 +67,14 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
     // }
 
     const [showSeat, setShowSeat] = useState(() => {
-        const savedSeats = localStorage.getItem("showSeat");
+        const savedSeats = localStorage.getItem('showSeat');
         return savedSeats ? JSON.parse(savedSeats) : [];
     });
 
     const [totalprice, setTotalPrice] = useState(() => {
-        const savedPrice = localStorage.getItem("totalPrice");
+        const savedPrice = localStorage.getItem('totalPrice');
         return savedPrice ? JSON.parse(savedPrice) : 0;
     });
-
-
 
     function showselectseat(name, price) {
         if (showSeat.includes(name)) {
@@ -96,25 +88,59 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
 
     // Lưu dữ liệu vào localStorage khi showSeat hoặc totalprice thay đổi
     useEffect(() => {
-        localStorage.setItem("showSeat", JSON.stringify(showSeat));
-        localStorage.setItem("totalPrice", JSON.stringify(totalprice));
+        localStorage.setItem('showSeat', JSON.stringify(showSeat));
+        localStorage.setItem('totalPrice', JSON.stringify(totalprice));
     }, [showSeat, totalprice]);
 
-    // khi thằng thông tin mount vào thì xóa 
+    // khi thằng thông tin mount vào thì xóa
     useEffect(() => {
-        localStorage.removeItem("dataSeat");
-        localStorage.removeItem("showSeat");
-        localStorage.removeItem("totalPrice");
+        localStorage.removeItem('dataSeat');
+        localStorage.removeItem('showSeat');
+        localStorage.removeItem('totalPrice');
     }, []);
 
+    // giam gia
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(CallapiGetAllGiamGia());
+    }, []);
+    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+    console.log('all list giamgia', dataAllgiamgia);
+    const isload = useSelector((state) => state.StoreGiamGia?.isloading);
 
     return (
         <>
-            <div className="note-go-bus-2">
+            <div className='note-go-bus-2'>
                 <VerifiedUserIcon sx={{ color: '#27AE60' }} />
                 <p style={{ frontSize: '12px' }}>Vé xe cam kết giữ đúng chỗ bạn đã chọn.</p>
             </div>
-            <div className="ds-giam-gia">
+            <div className='ds-giam-gia'>
+                {dataAllgiamgia &&
+                    dataAllgiamgia.map((item) => {
+                        return (
+                            <>
+                                <div className='coupon-info-route-page-container'>
+                                    <div className='giamgia'>
+                                        <img
+                                            src={`http://127.0.0.1:8000/images/discount_codes/${item?.image}`}
+                                            alt=''
+                                        />
+                                        <div className='thong-tin-ve-giam'>
+                                            <div className='title-giam-gia'>
+                                                Bạn Mới (Vexere){' '}
+                                                <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
+                                            </div>
+                                            <div className='price-giam'>{item.description}</div>
+                                            <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
+                                            <div className='hsd'>
+                                                HSD:<strong>{item.end_date}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        );
+                    })}
                 <div className='coupon-info-route-page-container'>
                     <div className='giamgia'>
                         <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
@@ -130,7 +156,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                         </div>
                     </div>
                 </div>
-                <div className='coupon-info-route-page-container' >
+                <div className='coupon-info-route-page-container'>
                     <div className='giamgia'>
                         <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
                         <div className='thong-tin-ve-giam'>
@@ -145,7 +171,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                         </div>
                     </div>
                 </div>
-                <div className='coupon-info-route-page-container' >
+                <div className='coupon-info-route-page-container'>
                     <div className='giamgia'>
                         <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
                         <div className='thong-tin-ve-giam'>
@@ -160,22 +186,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                         </div>
                     </div>
                 </div>
-                <div className='coupon-info-route-page-container' >
-                    <div className='giamgia'>
-                        <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
-                        <div className='thong-tin-ve-giam'>
-                            <div className='title-giam-gia'>
-                                Bạn Mới (Vexere) <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
-                            </div>
-                            <div className='price-giam'>Giảm 10%</div>
-                            <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
-                            <div className='hsd'>
-                                HSD:<strong>T3, 10/9 14:00</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='coupon-info-route-page-container' >
+                <div className='coupon-info-route-page-container'>
                     <div className='giamgia'>
                         <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
                         <div className='thong-tin-ve-giam'>
@@ -192,69 +203,90 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                 </div>
             </div>
 
-            <div className="info-choose-seat">
-                <div className="seat-groups">
-                    <div className="note">Chú thích</div>
-                    <div className="seat-info">
-                        <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 daMVvn seat-thumbnail" disabled="">
-                           <SVG/>
+            <div className='info-choose-seat'>
+                <div className='seat-groups'>
+                    <div className='note'>Chú thích</div>
+                    <div className='seat-info'>
+                        <div className='SeatThumbnail__SeatContainer-sc-1ooosi9-0 daMVvn seat-thumbnail' disabled=''>
+                            <SVG />
                         </div>
-                        <span className="seat-name">Ghế không bán</span>
+                        <span className='seat-name'>Ghế không bán</span>
                     </div>
 
-                    <div className="seat-info">
-                        <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 dLgsTe seat-thumbnail">
-                        <SVG/>
+                    <div className='seat-info'>
+                        <div className='SeatThumbnail__SeatContainer-sc-1ooosi9-0 dLgsTe seat-thumbnail'>
+                            <SVG />
                         </div>
-                        <span className="seat-name">Đang chọn</span>
+                        <span className='seat-name'>Đang chọn</span>
                     </div>
-                    <div className="seat-info">
-                        <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 ezApQI seat-thumbnail" color="#6bd600">
-                        <SVG/>
+                    <div className='seat-info'>
+                        <div
+                            className='SeatThumbnail__SeatContainer-sc-1ooosi9-0 ezApQI seat-thumbnail'
+                            color='#6bd600'
+                        >
+                            <SVG />
                         </div>
 
-                        <div className="seat-group">
-                            <span className="seat-name">
-                                <div className="seat-name-group">Ghế cuối</div>
-                                <div className="seat-original"><strong>230,000đ</strong></div>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="seat-info">
-                        <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 vvWPx seat-thumbnail" color="#fba442">
-                        <SVG/>
-                        </div>
-                        <div className="seat-group">
-                            <span className="seat-name">
-                                <div className="seat-name-group">Ghế giữa</div>
-                                <div className="seat-original"><strong>250,000đ</strong></div>
-                            </span>
-                        </div>
-                    </div>
-                    <div className="seat-info">
-                        <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 lfCjCF seat-thumbnail" color="#ae70ff">
-                        <SVG/>
-                        </div>
-                        <div className="seat-group">
-                            <span className="seat-name">
-                                <div className="seat-name-group">Ghế đầu</div>
-                                <div className="seat-original"><strong>230,000đ</strong>
+                        <div className='seat-group'>
+                            <span className='seat-name'>
+                                <div className='seat-name-group'>Ghế cuối</div>
+                                <div className='seat-original'>
+                                    <strong>230,000đ</strong>
                                 </div>
                             </span>
                         </div>
                     </div>
-                    <div>
 
+                    <div className='seat-info'>
+                        <div className='SeatThumbnail__SeatContainer-sc-1ooosi9-0 vvWPx seat-thumbnail' color='#fba442'>
+                            <SVG />
+                        </div>
+                        <div className='seat-group'>
+                            <span className='seat-name'>
+                                <div className='seat-name-group'>Ghế giữa</div>
+                                <div className='seat-original'>
+                                    <strong>250,000đ</strong>
+                                </div>
+                            </span>
+                        </div>
                     </div>
+                    <div className='seat-info'>
+                        <div
+                            className='SeatThumbnail__SeatContainer-sc-1ooosi9-0 lfCjCF seat-thumbnail'
+                            color='#ae70ff'
+                        >
+                            <SVG />
+                        </div>
+                        <div className='seat-group'>
+                            <span className='seat-name'>
+                                <div className='seat-name-group'>Ghế đầu</div>
+                                <div className='seat-original'>
+                                    <strong>230,000đ</strong>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div></div>
                 </div>
 
-                <div className="xe-bus">
-                    <div className="vo-lang">
-                        <svg fill="#000000" height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" >
-                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier"> <g>
-                                <path d="M305.997,15.492C137.27,15.492,0,152.762,0,321.491c0,113.854,62.614,
+                <div className='xe-bus'>
+                    <div className='vo-lang'>
+                        <svg
+                            fill='#000000'
+                            height='30px'
+                            width='30px'
+                            version='1.1'
+                            id='Capa_1'
+                            xmlns='http://www.w3.org/2000/svg'
+                            viewBox='0 0 612 612'
+                        >
+                            <g id='SVGRepo_bgCarrier' strokeWidth='0'></g>
+                            <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round'></g>
+                            <g id='SVGRepo_iconCarrier'>
+                                {' '}
+                                <g>
+                                    <path
+                                        d='M305.997,15.492C137.27,15.492,0,152.762,0,321.491c0,113.854,62.614,
                             217.611,163.405,270.782l8.03,4.235h269.128 l8.03-4.235C549.388,539.1,612,
                             435.342,612,321.491C612,152.762,474.728,15.492,305.997,15.492z M422.06,
                             523.185h-56.683 l-12.685-90.79c8.402-1.506,16.92-3.39,25.621-5.717c4.457-1.193,
@@ -267,107 +299,127 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                             17.771-83.604,34.315 c3.993-124.822,106.763-225.14,232.538-225.14c125.788,0,
                             228.57,100.337,232.545,225.177c-2.404-1.649-4.952-3.26-7.66-4.819 c-23.126-13.318-49.007-22.5-75.983-28.826c-1.913,
                             34.98-8.561,69.203-20.201,104.023c30.738,2.552,61.469,6.016,92.177,10.399 C509.169,
-                            448.276,472.355,494.221,422.06,523.185z"></path>
-                            </g>
+                            448.276,472.355,494.221,422.06,523.185z'
+                                    ></path>
+                                </g>
                             </g>
                         </svg>
-                        {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 0).map((itemseat) => {
-                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
-                            const isAvailable = seatData && seatData.is_available === 0;
+                        {allseatofcarid[seat_car_id]
+                            ?.filter((itemseat) => itemseat.location_seat == 0)
+                            .map((itemseat) => {
+                                const seatData = seatcartripbycartripid.find((item) => item.seat_id === itemseat.id);
+                                const isAvailable = seatData && seatData.is_available === 0;
 
-                            return (
-                                <div
-                                    key={itemseat.id}
-                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'lfCjCF'}`}
-                                    id={itemseat.id}
-                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
-                                        e.stopPropagation();
-                                        return;
-                                    } ;
-                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
-                                    color="#ae70ff"
-                                    value={itemseat}
-                                >
-                                    <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
-                                    <SVG/>
-                                    </Tooltip>
-                                </div>
-                            );
-                        })}
-
-
+                                return (
+                                    <div
+                                        key={itemseat.id}
+                                        className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${
+                                            isAvailable ? 'daMVvn' : 'lfCjCF'
+                                        }`}
+                                        id={itemseat.id}
+                                        onClick={(e) => {
+                                            if (e.currentTarget.classList.contains('daMVvn')) {
+                                                e.stopPropagation();
+                                                return;
+                                            }
+                                            selectSeat(itemseat.id);
+                                            showselectseat(itemseat.seat_number, itemseat.price);
+                                        }}
+                                        color='#ae70ff'
+                                        value={itemseat}
+                                    >
+                                        <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                            <SVG />
+                                        </Tooltip>
+                                    </div>
+                                );
+                            })}
                     </div>
-                    <div className="hang-ghe-giua">
-                    {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 1).map((itemseat) => {
-                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
-                            const isAvailable = seatData && seatData.is_available === 0;
+                    <div className='hang-ghe-giua'>
+                        {allseatofcarid[seat_car_id]
+                            ?.filter((itemseat) => itemseat.location_seat == 1)
+                            .map((itemseat) => {
+                                const seatData = seatcartripbycartripid.find((item) => item.seat_id === itemseat.id);
+                                const isAvailable = seatData && seatData.is_available === 0;
 
-                            return (
-                                <div
-                                    key={itemseat.id}
-                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'vvWPx'}`}
-                                    id={itemseat.id}
-                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
-                                        e.stopPropagation();
-                                        return;
-                                    } ;
-                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
-                                    color="#ae70ff"
-                                    value={itemseat}
-                                >
-                                    <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
-                                    <SVG/>
-                                    </Tooltip>
-                                </div>
-                            );
-                        })}
+                                return (
+                                    <div
+                                        key={itemseat.id}
+                                        className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${
+                                            isAvailable ? 'daMVvn' : 'vvWPx'
+                                        }`}
+                                        id={itemseat.id}
+                                        onClick={(e) => {
+                                            if (e.currentTarget.classList.contains('daMVvn')) {
+                                                e.stopPropagation();
+                                                return;
+                                            }
+                                            selectSeat(itemseat.id);
+                                            showselectseat(itemseat.seat_number, itemseat.price);
+                                        }}
+                                        color='#ae70ff'
+                                        value={itemseat}
+                                    >
+                                        <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                            <SVG />
+                                        </Tooltip>
+                                    </div>
+                                );
+                            })}
                     </div>
-                    <div className="hang-ghe-cuoi">
-                    {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 2).map((itemseat) => {
-                        console.log("kfvbdbfb",itemseat);
-                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
-                            const isAvailable = seatData && seatData.is_available === 0;
+                    <div className='hang-ghe-cuoi'>
+                        {allseatofcarid[seat_car_id]
+                            ?.filter((itemseat) => itemseat.location_seat == 2)
+                            .map((itemseat) => {
+                                console.log('kfvbdbfb', itemseat);
+                                const seatData = seatcartripbycartripid.find((item) => item.seat_id === itemseat.id);
+                                const isAvailable = seatData && seatData.is_available === 0;
 
-                            return (
-                                <div
-                                    key={itemseat.id}
-                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'ezApQI'}`}
-                                    id={itemseat.id}
-                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
-                                        e.stopPropagation();
-                                        return;
-                                    } ;
-                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
-                                    color="#ae70ff"
-                                    value={itemseat}
-                                >
-                                    <Tooltip title={`${itemseat?.seat_number}:${itemseat?.price}`}>
-                                    <SVG/>
-                                    </Tooltip>
-                                </div>
-                            );
-                        })}
+                                return (
+                                    <div
+                                        key={itemseat.id}
+                                        className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${
+                                            isAvailable ? 'daMVvn' : 'ezApQI'
+                                        }`}
+                                        id={itemseat.id}
+                                        onClick={(e) => {
+                                            if (e.currentTarget.classList.contains('daMVvn')) {
+                                                e.stopPropagation();
+                                                return;
+                                            }
+                                            selectSeat(itemseat.id);
+                                            showselectseat(itemseat.seat_number, itemseat.price);
+                                        }}
+                                        color='#ae70ff'
+                                        value={itemseat}
+                                    >
+                                        <Tooltip title={`${itemseat?.seat_number}:${itemseat?.price}`}>
+                                            <SVG />
+                                        </Tooltip>
+                                    </div>
+                                );
+                            })}
                     </div>
                 </div>
             </div>
-            <div className="showghe-gia">
-                <div className="show-ghe">
-                    <h4>Số Ghế:</h4><div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>{showSeat.map((item, index) => {
-
-                        if (index == showSeat.length - 1) {
-                            return `${item}`
-                        } else {
-                            return `${item},`
-                        }
-
-
-                    })}</div>
+            <div className='showghe-gia'>
+                <div className='show-ghe'>
+                    <h4>Số Ghế:</h4>
+                    <div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>
+                        {showSeat.map((item, index) => {
+                            if (index == showSeat.length - 1) {
+                                return `${item}`;
+                            } else {
+                                return `${item},`;
+                            }
+                        })}
+                    </div>
                 </div>
-                <div className="showgia">
-                    <h4>Tổng cộng:</h4> <div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>{totalprice}</div>
+                <div className='showgia'>
+                    <h4>Tổng cộng:</h4>{' '}
+                    <div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>{totalprice}</div>
                 </div>
             </div>
-
         </>
-    )
+    );
 }

@@ -12,7 +12,7 @@ import GppGoodIcon from '@mui/icons-material/GppGood';
 // import RemoveIcon from '@mui/icons-material/Remove';
 // import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 // import WarningIcon from '@mui/icons-material/Warning';
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 
 import '../css/thanhtoanlan1.css';
 import { useEffect } from 'react';
@@ -20,20 +20,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getChuyenxebyid } from '../../redux/viewchuyenxe/viewcx-asynThunk';
 import { callApiPostDonHang } from '../../redux/thanhtoan/AsyncThunk_thanhtoan';
 
-
-
 export default function ThanhToanLanMot() {
     const { car_trip_id } = useParams();
-    console.log("car_trip_id", car_trip_id);
+    console.log('car_trip_id', car_trip_id);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getChuyenxebyid(car_trip_id))
-    }, [])
+        dispatch(getChuyenxebyid(car_trip_id));
+    }, []);
 
     const data_car_trip = useSelector((state) => state.ViewChuyenXeSearch.datacartriptheoid);
-    console.log("data_car_trip", data_car_trip);
+    console.log('data_car_trip', data_car_trip);
 
-    // lay localstorage 
+    // lay localstorage
 
 
     const dataSeat = JSON.parse(localStorage.getItem("dataSeat"));
@@ -43,26 +41,33 @@ export default function ThanhToanLanMot() {
     console.log("showSeat", showSeat);
     console.log("totalPrice", totalPrice);
 
-    /// xuwr lys dâta 
+    /// xuwr lys dâta
     const formatDate = (dateString) => {
-        if (!dateString) return "";
-        const [year, month, day] = dateString.split("-");
+        if (!dateString) return '';
+        const [year, month, day] = dateString.split('-');
         return `${day}/${month}`;
     };
-    /// thao tác form 
+    /// thao tác form
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(data);
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('phone', data.phone);
         formData.append('email', data.email);
         formData.append('car_trip_id', car_trip_id);
-
+        formData.append('car_trip_pickup_point_id', Number(setdiemdon));  // Chuyển thành số
+        formData.append('car_trip_dropoff_point_id', Number(setdiemtra)); // Chuyển thành số
+    
         dataSeat.forEach((seat) => {
             formData.append('seat_ids[]', seat);
         });
+    
         const user_id = 24;
         formData.append('user_id', user_id);
         dispatch(callApiPostDonHang(formData))
@@ -72,7 +77,7 @@ export default function ThanhToanLanMot() {
 
     return (
         <>
-            <form className='form-inp-lan1' onSubmit={handleSubmit(onSubmit)}  >
+            <form className='form-inp-lan1' onSubmit={handleSubmit(onSubmit)}>
                 <div className='body-container'>
                     <div className='payment'>
                         <div className='payment-page'>
@@ -115,29 +120,64 @@ export default function ThanhToanLanMot() {
                                 <span className='payments-security__icon'>
                                     <GppGoodOutlinedIcon fontSize='small' />
                                 </span>
-                                <span className='payments-security__title'>Nhiều cách thanh toán, bảo mật tuyệt đối</span>
+                                <span className='payments-security__title'>
+                                    Nhiều cách thanh toán, bảo mật tuyệt đối
+                                </span>
                             </div>
                             <div className='wrap-left'>
                                 <div className='payment-method'>
                                     <p className='method-heading'>Thông tin liên hệ</p>
                                     <div className='group-payment'>
                                         <div className='payment-item border-bottom'>
-
                                             <div className='form-input-thanhtoanlan1'>
                                                 <div className='group-inp-lan1'>
                                                     <div className='box-lan1'>
-                                                        <input type='text' placeholder='Tên người đi'  {...register('name', { required: true })} />
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Tên người đi'
+                                                            {...register('name', {
+                                                                required: 'Vui lòng nhập thông tin!',
+                                                            })}
+                                                        />
                                                     </div>
+                                                    {errors.name && (
+                                                        <p className='message-error'>{errors.name.message}</p>
+                                                    )}
                                                     <div className='box-lan1 zzzz'>
-                                                        <input type='text' placeholder='Số điện thoại'  {...register('phone', { required: true })} />
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Số điện thoại'
+                                                            {...register('phone', {
+                                                                required: 'Vui lòng nhập thông tin',
+                                                                pattern: {
+                                                                    value: /^0\d{9}$/,
+                                                                    message:
+                                                                        'Vui lòng nhập đúng định dạng số điện thoại (10 số, bắt đầu bằng 0)',
+                                                                },
+                                                            })}
+                                                        />
                                                     </div>
+                                                    {errors.phone && (
+                                                        <p className='message-error'>{errors.phone.message}</p>
+                                                    )}
+
                                                     <div className='box-lan1 zzzz'>
                                                         <input
                                                             type='email'
                                                             placeholder='Email để nhận thông tin đặt chỗ'
-                                                            {...register('email', { required: true })}
+                                                            {...register('email', {
+                                                                required: 'Vui lòng nhập email',
+                                                                pattern: {
+                                                                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                                                    message: 'Vui lòng nhập đúng định dạng email',
+                                                                },
+                                                            })}
                                                         />
                                                     </div>
+                                                    {errors.email && (
+                                                        <p className='message-error'>{errors.email.message}</p>
+                                                    )}
+
                                                     <div className='box-lan1 border-message'>
                                                         <div className='message-content'>
                                                             <span className='message-svg'>
@@ -151,7 +191,6 @@ export default function ThanhToanLanMot() {
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -182,14 +221,15 @@ export default function ThanhToanLanMot() {
                                                     <div className='item-baohiem mar-4'>
                                                         <h4 className='baohiem-title'>Bảo hiểm tai nạn</h4>
                                                         <span className='baohiem-text'>
-                                                            Quyền lợi bảo hiểm lên đến 400 triệu đồng khi xảy ra tai nạn.
+                                                            Quyền lợi bảo hiểm lên đến 400 triệu đồng khi xảy ra tai
+                                                            nạn.
                                                         </span>
                                                     </div>
                                                     <div className='item-baohiem'>
                                                         <h4 className='baohiem-title'>Bảo hiểm hủy chuyến</h4>
                                                         <span className='baohiem-text'>
-                                                            Bồi thường 100% tiền vé nếu chuyến đi bị hủy bởi các lí do khách
-                                                            quan hoặc bất khả kháng về sức khỏe.
+                                                            Bồi thường 100% tiền vé nếu chuyến đi bị hủy bởi các lí do
+                                                            khách quan hoặc bất khả kháng về sức khỏe.
                                                         </span>
                                                     </div>
                                                 </div>
@@ -205,7 +245,6 @@ export default function ThanhToanLanMot() {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -230,11 +269,19 @@ export default function ThanhToanLanMot() {
                                             <p className='cart-text'>Giá vé</p>
                                             <div>
                                                 {data_car_trip?.seats
-                                                    ?.filter((itemseat) => dataSeat.includes(itemseat.id))
+                                                    ?.filter((itemseat) => dataSeat?.includes(itemseat.id))
                                                     ?.map((itemseat) => (
-                                                        <div className='cart-info' key={itemseat.id} style={{ textAlign: 'right' }}>
-                                                            <p className='cart-text text-price'>{itemseat.price}đ x 1</p>
-                                                            <p className='cart-text'>Mã ghế/giường: {itemseat.seat_number}</p>
+                                                        <div
+                                                            className='cart-info'
+                                                            key={itemseat.id}
+                                                            style={{ textAlign: 'right' }}
+                                                        >
+                                                            <p className='cart-text text-price'>
+                                                                {itemseat.price}đ x 1
+                                                            </p>
+                                                            <p className='cart-text'>
+                                                                Mã ghế/giường: {itemseat.seat_number}
+                                                            </p>
                                                         </div>
                                                     ))}
                                             </div>
@@ -257,7 +304,9 @@ export default function ThanhToanLanMot() {
                                                     width='16'
                                                     height='16'
                                                 />
-                                                <p className='section-ticket-header-left__title'>{data_car_trip && data_car_trip?.arrival_date}</p>
+                                                <p className='section-ticket-header-left__title'>
+                                                    {data_car_trip && data_car_trip?.arrival_date}
+                                                </p>
                                                 <div className='total-ticket'>
                                                     <img
                                                         className='people-icon ls-is-cached lazyloaded'
@@ -268,7 +317,7 @@ export default function ThanhToanLanMot() {
                                                         height='16'
                                                     />
                                                     <p className='section-ticket-header-left__title total-ticket__text'>
-                                                        {dataSeat.length}
+                                                        {dataSeat?.length}
                                                     </p>
                                                 </div>
                                             </div>
@@ -288,7 +337,9 @@ export default function ThanhToanLanMot() {
                                                     />
                                                 </div>
                                                 <div className='section-ticket-company-info-name'>
-                                                    <p className='base__Headline03-sc-1tvbuqk-15 boemqK'>{data_car_trip && data_car_trip?.car?.name}</p>
+                                                    <p className='base__Headline03-sc-1tvbuqk-15 boemqK'>
+                                                        {data_car_trip && data_car_trip?.car?.name}
+                                                    </p>
                                                     <p className='base__SmallCaption-sc-1tvbuqk-32 eSKsXb'>
                                                         {data_car_trip && data_car_trip?.car?.car_type.name}
                                                     </p>
@@ -347,7 +398,6 @@ export default function ThanhToanLanMot() {
                                                                     </div>
                                                                     <p className='base__SmallCaptionHighlight-sc-1tvbuqk-35 gzSlSc color--medium-sub'>
                                                                         {formatDate(data_car_trip.return_date)}
-
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -396,26 +446,40 @@ export default function ThanhToanLanMot() {
                         <div className='ft1-content'>
                             <div className='box-content-left-ft'>
                                 <div className='box-2-btn'>
-                                    <div className='ft-content-select ft-content-btn'>
-                                        <button className='ft-content__title'>Tiếp tục đặt vé một chiều</button>
+                                    <div className=''>
+                                        <button className='ft-content__title thanhtoanlan1-btn'>
+                                            Tiếp tục đặt vé một chiều
+                                        </button>
                                     </div>
                                 </div>
 
-                                <span className='dongy-chinhsach'>Bằng việc tiếp tục, bạn đồng ý với <a href='' className='chinhsach-link-lan1'>Chính sách bảo mật thanh toán</a> và <a href='' className='chinhsach-link-lan1'>Quy chế</a></span>
+                                <span className='dongy-chinhsach'>
+                                    Bằng việc tiếp tục, bạn đồng ý với{' '}
+                                    <a href='' className='chinhsach-link-lan1'>
+                                        Chính sách bảo mật thanh toán
+                                    </a>{' '}
+                                    và{' '}
+                                    <a href='' className='chinhsach-link-lan1'>
+                                        Quy chế
+                                    </a>
+                                </span>
                             </div>
                             <div className='box-content-right-ft'>
                                 <div className='xinchao'>
                                     <h4 className='content-right-heading'>Đặt thêm chiều về, giảm ngay 10%!</h4>
                                     <span className='ft-right-text'>
-                                        Áp dụng khi đặt cùng nhà xe Long Vân Limousine (dùng mã giảm giá khứ hồi ở bước thanh
-                                        toán).
+                                        Áp dụng khi đặt cùng nhà xe Long Vân Limousine (dùng mã giảm giá khứ hồi ở bước
+                                        thanh toán).
                                     </span>
-                                    <a href='' className='chinhsach-link-lan1'>Chi tiết</a>
+                                    <div className='chitietlan1'>
+                                        <a href='' className='chinhsach-link-lan1 chitiet-link'>
+                                            Chi tiết
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </form>
         </>

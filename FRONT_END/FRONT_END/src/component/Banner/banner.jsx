@@ -1,5 +1,5 @@
 // import Axios;
-import axios from 'axios';
+// import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import css
@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { callApiGetCity } from '../../redux/city/Asynthunk_city';
+import { CallapiGetAllBanner } from '../../redux/admin-vexere/banner/banner-asynThunk';
 
 export default function Banner() {
     //useState
@@ -37,11 +38,11 @@ export default function Banner() {
     const [inputsearch, setInputSearch] = useState('');
     // UseEffect call api lấy danh sách tỉnh thành phố
     useEffect(() => {
-        dispatch(callApiGetCity())
+        dispatch(callApiGetCity());
     }, []);
-    const datacity = useSelector((state)=> state.StoreCity?.datacity)
-    console.log(datacity );
-  
+    const datacity = useSelector((state) => state.StoreCity?.datacity);
+    console.log(datacity);
+
     // Thao tác với thẻ input nơi di chuyển
     function showDanhSachTinhTP(e) {
         console.log(inputsearch);
@@ -97,9 +98,8 @@ export default function Banner() {
     const navigate = useNavigate();
 
     function onSubmit(data) {
-        data.city_from =tpfrom;
-        data.city_to =tpTo, 
-        data.departure_date = departuredate;
+        data.city_from = tpfrom;
+        (data.city_to = tpTo), (data.departure_date = departuredate);
         data.arrival_date = returndate;
         console.log('datainform them cphn', data);
         dispatch(getSearchChuyenxe(data)).then(() => {
@@ -111,9 +111,32 @@ export default function Banner() {
 
     /// gửi dispath dữ liệu lên serve dữ liệu gomò form gồm các thành phần như 101->107
 
+    // xu li banner
+    const allbanner = useSelector((state) => state.Storebanner?.dataBanner);
+    console.log('list banner 000000000000000000', allbanner);
+    // const isload = useSelector((state) => state.Storebanner?.isloading);
+
+    useEffect(() => {
+        dispatch(CallapiGetAllBanner());
+    }, []);
+
+    // Kiểm tra nếu không có dữ liệu hoặc dữ liệu không hợp lệ
+    if (!allbanner || !Array.isArray(allbanner) || allbanner.length === 0) {
+        return <div>No banners available</div>;
+    }
+
+    // Lọc các banner hợp lệ (có thuộc tính image)
+    const validBanners = allbanner.filter((banner) => banner?.image);
+
+    const oneBanner = validBanners[0];
+    console.log('One banner:', oneBanner);
+
     return (
         <div className='homepage'>
-            <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt='' />
+            
+                <img className='img-banner' src={`http://127.0.0.1:8000/images/banners/${oneBanner?.image}`} alt='' />
+            
+            {/* <img className='img-banner' src='https://static.vexere.com/production/banners/910/leaderboard.png' alt=''  /> */}
             <div className='homepage-body'>
                 <div className='homepage-content'>
                     <a href='' className='content-link'>
@@ -196,7 +219,7 @@ export default function Banner() {
                                                                 ref={danhSachTinhTPRef}
                                                             >
                                                                 <ul>
-                                                                    {datacity.map((item) => {
+                                                                    {datacity?.map((item) => {
                                                                         return (
                                                                             <li
                                                                                 key={item.id}
@@ -243,7 +266,7 @@ export default function Banner() {
                                                                 ref={danhSachTinhTPRef}
                                                             >
                                                                 <ul>
-                                                                    {datacity.map((item) => {
+                                                                    {datacity?.map((item) => {
                                                                         return (
                                                                             <li
                                                                                 key={item.id}
