@@ -19,6 +19,8 @@ class Order extends Model
         'name',
         'phone',
         'email',
+        'car_trip_pickup_point_id',
+        'car_trip_dropoff_point_id',
     ];
 
     /**
@@ -94,20 +96,17 @@ class Order extends Model
         return $this->belongsTo(CarRoute::class);
     }
 
-    /**
-     * Quan hệ với điểm đón
-     */
-    public function pickupPoints()
+    public function pickupPoint()
     {
-        return $this->carTrip->pickupPoints();
+        return $this->belongsTo(PickupPoint::class, 'car_trip_pickup_point_id');
     }
 
     /**
-     * Quan hệ với điểm trả
+     * Quan hệ với bảng dropoff_points (Điểm trả)
      */
-    public function dropoffPoints()
+    public function dropoffPoint()
     {
-        return $this->carTrip->dropoffPoints();
+        return $this->belongsTo(DropoffPoint::class, 'car_trip_dropoff_point_id');
     }
 
     public function user()
