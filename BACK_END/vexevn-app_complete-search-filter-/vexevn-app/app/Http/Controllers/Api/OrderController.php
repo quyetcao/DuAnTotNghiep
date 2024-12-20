@@ -26,6 +26,8 @@ class OrderController extends Controller
     public function createOrder(Request $request)
 {
     // Validate dữ liệu đầu vào
+    \Log::info('Request Data:', $request->all());
+
     $validated = $request->validate([
         'user_id' => 'required|exists:users,id',
         'car_trip_id' => 'required|exists:car_trips,id',
