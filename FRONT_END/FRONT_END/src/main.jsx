@@ -72,6 +72,7 @@ import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
 import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/addcxcarhouse.jsx';
 import EditChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/editcxcarhouse.jsx';
 import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
+import Showdonhang from './component/admin-carhouse/chuyenxe/show-list-don-hang.jsx';
 
 
 
@@ -90,10 +91,6 @@ const routes = createBrowserRouter([
         path: "/viewchuyenxe",
         element: <ViewChuyenxe />
       },
-      // {
-      //   path: "/payment-information",
-      //   element: <PaymentInformation />
-      // },
       {
         path: "/login",
         element: <Login />
@@ -158,7 +155,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element: <AppAdmin />,
+    element:<AppAdmin />,
     children: [
       {
         path: '',
@@ -247,6 +244,10 @@ const routes = createBrowserRouter([
       {
         path: 'edit-diem-tra/:id',
         element: <EditDiemTra />
+      },
+      {
+        path:'show-don-hang',
+        element:<Showdonhang/>
       }
 
     ]

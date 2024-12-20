@@ -9,7 +9,9 @@ import '../css/thanhtoan.css';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
+import { Apdunggiamgia, CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
+import { useForm } from 'react-hook-form';
+import { callApigetAlldonhangtheouser, postthanhtoan } from '../../redux/donhang/Asyncthunkdh';
 
 export default function ThanhToan() {
     const location = useLocation();
@@ -17,12 +19,45 @@ export default function ThanhToan() {
     console.log('formData', formData);
 
     const dispatch = useDispatch();
+ 
+    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+//    const  dagiamgia= useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+   
+   const  donhangtheouser= useSelector((state) => state.Donhang?.donhangtheouser);
+   console.log("donhangtheouser",donhangtheouser[donhangtheouser.length -1 ]);
+    // console.log('all list giamgia', dataAllgiamgia);
+    // const isload = useSelector((state) => state.StoreGiamGia?.isloading);
+    // const dataSeat = JSON.parse(localStorage.getItem("dataSeat"));
+    // const showSeat = localStorage.getItem("showSeat");
+    const totalPrice = JSON.parse(localStorage.getItem("totalPrice"));
+    const user  = useSelector((state) => state.LoginLogOutRegister?.infoUser);
     useEffect(() => {
         dispatch(CallapiGetAllGiamGia());
-    }, []);
-    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
-    console.log('all list giamgia', dataAllgiamgia);
-    // const isload = useSelector((state) => state.StoreGiamGia?.isloading);
+        dispatch( callApigetAlldonhangtheouser(user.id))
+    }, [user.id]);
+    console.log('use',user.id);
+    const { register: registerForm1, handleSubmit: handleSubmitForm1 } = useForm();
+ 
+    const onSubmit1 = (data)=>{
+        data.order_total=totalPrice;
+        dispatch(Apdunggiamgia(data));
+    }
+
+    const { register: registerForm, handleSubmit: handleSubmitForm } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        const formData = new FormData();
+        data.payment_method = 'cash';
+        data.order_id = donhangtheouser[donhangtheouser.length -1 ]?.id;
+    
+        formData.append('order_id', data.order_id);
+        formData.append('amount', totalPrice);
+        formData.append('payment_method',data.payment_method);
+        formData.append('discount_code', data.discount_code);
+        formData.append('user_id', user.id);
+        dispatch(postthanhtoan(formData))
+       
+    }
 
     return (
         <>
@@ -78,7 +113,7 @@ export default function ThanhToan() {
                                     <div className='payment-item border-bottom'>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
+                                                <input type='radio' name='kieu-tt' className='radio-input' disabled />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -187,7 +222,7 @@ export default function ThanhToan() {
                                         </div>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
+                                                <input type='radio' name='kieu-tt' className='radio-input' checked />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -205,152 +240,7 @@ export default function ThanhToan() {
                                     <div className='payment-item border-bottom'>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
-                                            </span>
-                                            <span className='list-pttt'>
-                                                <img
-                                                    src='https://229a2c9fe669f7b.cmccloud.com.vn/httpImage/credit_card.svg'
-                                                    alt='VISA'
-                                                    className='img-icon'
-                                                />
-                                                <p className='title-base'>Thẻ thanh toán quốc tế</p>
-                                            </span>
-                                        </lable>
-                                        <p className='thanhtoan-heading text-content'>Thẻ Visa, MasterCard, JCB</p>
-                                        <p className='thanhtoan-heading text-content nhapma'>
-                                            Nhập mã VXRHDS50 hoặc VXRHDS100 - Giảm 50K cho đơn từ 250K và 100K cho đơn
-                                            từ 450K khi thanh toán bằng thẻ tín dụng HDSAISON <br />
-                                            <a href='' className='text-link'>
-                                                Điều kiện sử dụng
-                                            </a>
-                                        </p>
-                                    </div>
-                                    <div className='payment-item border-bottom'>
-                                        <lable className='list-qr'>
-                                            <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
-                                            </span>
-                                            <span className='list-pttt'>
-                                                <img
-                                                    src='https://229a2c9fe669f7b.cmccloud.com.vn/httpImage/airpay.svg'
-                                                    alt='AIR_PAY'
-                                                    className='img-icon'
-                                                />
-                                                <p className='title-base'>Ví ShopeePay</p>
-                                            </span>
-                                        </lable>
-                                        <p className='thanhtoan-heading text-content'>
-                                            Điện thoại của bạn phải được cài đặt ứng dụng ShopeePay
-                                        </p>
-                                        <p className='thanhtoan-heading text-content nhapma'>
-                                            Giảm 10K khi nhập mã SPPVEXE09 cho đơn từ 100K - <br />
-                                            <a href='' className='text-link'>
-                                                Điều kiện sử dụng
-                                            </a>
-                                        </p>
-
-                                        <div className='ant-collapse-content-box'>
-                                            <span className='PaymentMethods__LabelStyle-sc-6pvdqp-2 PaymentMethods__PaymentGuide-sc-6pvdqp-3 hUFPSU iIqzBs'>
-                                                Hướng dẫn thanh toán
-                                            </span>
-                                            <div className='PaymentMethods__GuildContainer-sc-6pvdqp-5 jCaFku'>
-                                                <p>
-                                                    1. Bạn sẽ được chuyển đến ứng dụng ShopeePay
-                                                    <br />
-                                                    2. Nhập thông tin thẻ thanh toán mới hoặc chọn thanh toán qua ví
-                                                    ShopeePay/thẻ đã liên kết với ví ShopeePay
-                                                    <br />
-                                                    3. Chọn `Thanh toán`` để tiến thành thanh toán vé
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='payment-item border-bottom'>
-                                        <lable className='list-qr'>
-                                            <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
-                                            </span>
-                                            <span className='list-pttt'>
-                                                <img
-                                                    src='https://229a2c9fe669f7b.cmccloud.com.vn/httpImage/vn_pay.svg'
-                                                    alt='VNPAY_APP'
-                                                    className='img-icon'
-                                                />
-                                                <p className='title-base'>Thanh toán VNPAY - QR</p>
-                                            </span>
-                                        </lable>
-                                        <p className='thanhtoan-heading text-content'>
-                                            Thiết bị cần cài đặt Ứng dụng ngân hàng (Mobile Banking) hoặc Ví VNPAY
-                                        </p>
-                                        <p className='thanhtoan-heading text-content nhapma'>
-                                            Giảm 10K và giảm 30K khi nhập mã VNPAYVXR10 lần lượt cho đơn từ 250K và 900K
-                                            - <br />
-                                            <a href='' className='text-link'>
-                                                Điều kiện sử dụng
-                                            </a>
-                                        </p>
-
-                                        <div className='ant-collapse-content-box'>
-                                            <span className='PaymentMethods__LabelStyle-sc-6pvdqp-2 PaymentMethods__PaymentGuide-sc-6pvdqp-3 hUFPSU iIqzBs'>
-                                                Hướng dẫn thanh toán
-                                            </span>
-                                            <div className='PaymentMethods__GuildContainer-sc-6pvdqp-5 jCaFku'>
-                                                <p>
-                                                    1. Đăng nhập Ứng dụng ngân hàng hoặc Ví VNPAY
-                                                    <br />
-                                                    2. Quét mã VNPAY-QR để thanh toán
-                                                    <br />
-                                                    3. Nhập số tiền thanh toán &amp; mã giảm giá (nếu có), xác minh giao
-                                                    dịch để đặt vé{' '}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='payment-item border-bottom'>
-                                        <lable className='list-qr'>
-                                            <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
-                                            </span>
-                                            <span className='list-pttt'>
-                                                <img
-                                                    src='https://229a2c9fe669f7b.cmccloud.com.vn/httpImage/momo.svg'
-                                                    alt='MOMO_PAY_APP'
-                                                    className='img-icon'
-                                                />
-                                                <p className='title-base'>Ví MoMo</p>
-                                            </span>
-                                        </lable>
-                                        <p className='thanhtoan-heading text-content'>
-                                            Điện thoại của bạn phải được cài đặt ứng dụng MoMo
-                                        </p>
-                                        <p className='thanhtoan-heading text-content nhapma'>
-                                            Giảm 10K khi nhập mã VEXEMOMO cho đơn từ 400K - <br />
-                                            <a href='' className='text-link'>
-                                                Điều kiện sử dụng
-                                            </a>
-                                        </p>
-                                        <div className='ant-collapse-content ant-collapse-content-active'>
-                                            <div className='ant-collapse-content-box'>
-                                                <span className='PaymentMethods__LabelStyle-sc-6pvdqp-2 PaymentMethods__PaymentGuide-sc-6pvdqp-3 hUFPSU iIqzBs'>
-                                                    Hướng dẫn thanh toán
-                                                </span>
-                                                <div className='PaymentMethods__GuildContainer-sc-6pvdqp-5 jCaFku'>
-                                                    <p>
-                                                        1. Bạn sẽ được chuyển đến ứng dụng Momo
-                                                        <br />
-                                                        2. Nhập thông tin thẻ thanh toán mới hoặc chọn thanh toán qua ví
-                                                        Momo/thẻ đã liên kết với ví Momo
-                                                        <br />
-                                                        3. Chọn `thanh toán` để tiến thành thanh toán vé
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='payment-item border-bottom'>
-                                        <lable className='list-qr'>
-                                            <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
+                                                <input type='radio' name='kieu-tt' className='radio-input' disabled />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -368,7 +258,7 @@ export default function ThanhToan() {
                                     <div className='payment-item border-bottom'>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
+                                                <input type='radio' name='kieu-tt' className='radio-input' disabled />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -386,7 +276,7 @@ export default function ThanhToan() {
                                     <div className='payment-item mt-20'>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' />
+                                                <input type='radio' name='kieu-tt' className='radio-input' disabled />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -409,7 +299,7 @@ export default function ThanhToan() {
                                 <div className='cart-item'>
                                     <span className='cart-heading'>Tổng tiền</span>
                                     <div className='cart-box'>
-                                        <span className='cart-price'>600.000đ</span>
+                                        <span className='cart-price'>{totalPrice}đ</span>
                                         <img
                                             className='icon-expand-more '
                                             data-src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/expand_more.svg'
@@ -418,15 +308,6 @@ export default function ThanhToan() {
                                             width='20'
                                             height='20'
                                         />
-                                    </div>
-                                </div>
-                                <div className='cart-item'>
-                                    <div className='cart-detail'>
-                                        <p className='cart-text'>Giá vé</p>
-                                        <div className='cart-info'>
-                                            <p className='cart-text text-price'>600.000đ x 1</p>
-                                            <p className='cart-text'>Mã ghế/giường: A9</p>
-                                        </div>
                                     </div>
                                 </div>
                                 <div className='cart-item'>
@@ -443,11 +324,14 @@ export default function ThanhToan() {
                                 <div className='cart-item'>
                                     <span className='cart-heading'>Mã giảm giá</span>
                                     <div className='cart-box'>
-                                        <Link href='#' color='#2474E5' className='cart-box-link'>
-                                            Chọn hoặc nhập mã
-                                        </Link>
+                                        <form action=""  onSubmit={handleSubmitForm1(onSubmit1)} >
+                                        <input href='#' color='#2474E5' className='cart-box-link' {...registerForm1('code')} ></input>
+                                        <input href='#' type="hidden" color='#2474E5' className='cart-box-link' {...registerForm1('toorder_total')} ></input>
+                                        <input type="submit" />
+                                        </form>
                                     </div>
                                 </div>
+
                                 <div className='cart-kk-detail'>
                                     {dataAllgiamgia &&
                                         dataAllgiamgia.map((item) => {
@@ -692,7 +576,7 @@ export default function ThanhToan() {
                                     <div className='cart-detail'>
                                         <p className='cart-text'>Hành khách</p>
                                         <div className='cart-info'>
-                                            <p className='cart-text text-price'>Alo chào em</p>
+                                            <p className='cart-text text-price'>{donhangtheouser[donhangtheouser.length -1 ]?.name}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -700,7 +584,7 @@ export default function ThanhToan() {
                                     <div className='cart-detail'>
                                         <p className='cart-text'>Số điện thoại</p>
                                         <div className='cart-info'>
-                                            <p className='cart-text text-price'>0952541541</p>
+                                            <p className='cart-text text-price'>{donhangtheouser[donhangtheouser.length -1 ]?.phone}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -708,7 +592,7 @@ export default function ThanhToan() {
                                     <div className='cart-detail'>
                                         <p className='cart-text'>Email</p>
                                         <div className='cart-info'>
-                                            <p className='cart-text text-price'>Alo@gmail.com</p>
+                                            <p className='cart-text text-price'>{donhangtheouser[donhangtheouser.length -1 ]?.email}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -725,7 +609,13 @@ export default function ThanhToan() {
                                     className='payment-ft-content__img'
                                     src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/shield_lock.svg'
                                 />
-                                <span className='payment-ft-content__title'>Thanh toán</span>
+                                <form action="" onSubmit={handleSubmitForm(onSubmit)}>
+                                
+                                <input type="hidden"  {...registerForm('discount_code')} ></input>
+                                <input type="hidden"  {...registerForm('order_id')} ></input>
+                                <input type="hidden"  {...registerForm('payment_method')} ></input>
+                                <input type="submit" className='payment-ft-content__title' value="Thanh Toán "></input>
+                                </form>
                             </div>
                         </div>
                         <div className='payment-footer__right'>

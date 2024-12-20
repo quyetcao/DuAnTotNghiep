@@ -82,3 +82,16 @@ export function CallapiUpdateGiamGia(id,formdata) {
   };
 }
 
+
+
+export function Apdunggiamgia(code) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(`http://localhost:8000/api/apply-discount-codes/`,code);
+   console.log("áp dụng mã giảm giá ",res);
+   dispatch(dagiamgia(res.data))
+    } catch (error) {
+     
+      console.log(error);
+    }}
+}

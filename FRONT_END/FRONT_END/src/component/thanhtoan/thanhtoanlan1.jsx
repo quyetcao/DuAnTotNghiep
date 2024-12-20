@@ -29,6 +29,10 @@ export default function ThanhToanLanMot() {
     }, []);
 
     const data_car_trip = useSelector((state) => state.ViewChuyenXeSearch.datacartriptheoid);
+    
+    const user  = useSelector((state) => state.LoginLogOutRegister?.infoUser);
+    console.log('use',user.id);
+    const dalogin = useSelector((state) => state.LoginLogOutRegister?.isAuthentication);
     console.log('data_car_trip', data_car_trip);
 
     // lay localstorage
@@ -69,13 +73,13 @@ export default function ThanhToanLanMot() {
             formData.append('seat_ids[]', seat);
         });
 
-        const user_id = 24;
-        formData.append('user_id', user_id);
+        // const user_id = 24;
+        formData.append('user_id', user.id);
         for (let pair of formData.entries()) {
             console.log(pair[0]+ ': ' + pair[1]);
         }
         dispatch(callApiPostDonHang(formData))
-        // navigate('/thanhtoan', { state: data });
+        navigate('/thanhtoan', { state: data });
     }
 
     const pickupPoint = data_car_trip?.pickup_points?.find(
@@ -95,9 +99,9 @@ export default function ThanhToanLanMot() {
 
 
 
-
     return (
-        <>
+        <> 
+        { dalogin ? 
             <form className='form-inp-lan1' onSubmit={handleSubmit(onSubmit)}>
                 <div className='body-container'>
                     <div className='payment'>
@@ -508,6 +512,12 @@ export default function ThanhToanLanMot() {
                     </div>
                 </div>
             </form>
-        </>
+        : < >   <div style={{display:'flex',justifyContent:'center',flexDirection:'column',alignItems:'center'}}>
+             <div>Mời Bạn Đăng Nhập</div>
+              <Link to='/login'>Vào Trang Đăng Nhập </Link>
+              <Link to='/'>Quay Lại Trang Chủ </Link>
+              </div></>
+                                        }
+                                        </>
     );
 }

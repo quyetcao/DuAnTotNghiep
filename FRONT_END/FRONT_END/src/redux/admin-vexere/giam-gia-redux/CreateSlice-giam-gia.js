@@ -8,6 +8,7 @@ const initialState = {
     showPopupOk:false,
     showPopupError:false,
     dataoneGiamgia:[],
+    dagiamgia:[],
 };
 
 
@@ -36,8 +37,11 @@ export const StoreGiamGia = createSlice({
           getOnegiamgia(state,action){
             state.dataoneGiamgia = action.payload;
           },
+          dagiamgia(state,action){
+            state.dagiamgia = action.payload;
+          },
     },
 });
 
-export const { getAllgiamgia,showLoading,showPopupOk,showPopupError,getOnegiamgia } = StoreGiamGia.actions;
+export const { getAllgiamgia,showLoading,showPopupOk,showPopupError,getOnegiamgia,dagiamgia} = StoreGiamGia.actions;
 

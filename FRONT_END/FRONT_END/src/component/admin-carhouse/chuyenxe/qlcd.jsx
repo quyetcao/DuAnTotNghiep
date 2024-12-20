@@ -1,20 +1,4 @@
 import '../../css/quan-li-chien-dich.css';
-
-// import mui icon
-// import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-// import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-// import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
-// import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-// import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-// import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
-// import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
-// import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-// import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
-// import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-// import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
-
 import EditIcon from '@mui/icons-material/Edit';
 import ListIcon from '@mui/icons-material/List';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -26,82 +10,10 @@ export default function Quanlychiendich() {
     return (
         <>
             <div className='container'>
-                {/* <div className='sidebar'>
-                    <a href='#' className='sidebar-icon'>
-                        <DashboardOutlinedIcon />
-                    </a>
-                    <a href='#' className='sidebar-icon'>
-                        <ConfirmationNumberOutlinedIcon />
-                    </a>
-                    <a href='#' className='sidebar-icon'>
-                        <SignalCellularAltOutlinedIcon />
-                    </a>
-                    <a href='#' className='sidebar-icon'>
-                        <GroupsOutlinedIcon />
-                    </a>
-                    <a href='#' className='active sidebar-icon'>
-                        <DirectionsBusFilledOutlinedIcon />
-                    </a>
-                    <a href='#' className='sidebar-icon'>
-                        <ForumOutlinedIcon />
-                    </a>
-                    <a href='#' className='sidebar-icon'>
-                        <BuildOutlinedIcon />
-                    </a>
-                </div> */}
+            
                 <div className='dashboard'>
                     <div className='dashboard-container'>
-                        {/* <div className='wrapper-top m-4'>
-                            <div className='form-search'>
-                                <div className='search-container'>
-                                    <SearchOutlinedIcon style={{ color: '#6e6e6e' }} />
-                                    <input type='text' placeholder='Tìm kiếm SĐT, Mã vé, Tên hành khách' />
-                                </div>
-                            </div>
-                            <div className='form-info'>
-                                <ul className='info-list'>
-                                    <li className='info-item'>
-                                        <p className='heading-title'>Phần mền nhà xe</p>
-                                        <ExpandMoreOutlinedIcon />
-                                    </li>
-                                    <li className='info-item border-item'>
-                                        <p className='heading-title'>4.5</p>
-                                        <StarOutlinedIcon style={{ color: '#FFD43B' }} />
-                                    </li>
-                                    <li className='info-item'>
-                                        <span className='border-right'></span>
-                                    </li>
-                                    <li className='info-item'>
-                                        <p className='heading-title'>Duy Anh</p>
-                                    </li>
-                                    <li className='info-item info-item__background'>
-                                        <NotificationsIcon fontSize='small' />
-                                    </li>
-                                    <li className='info-item info-item__background'>
-                                        <ArrowDropDownIcon fontSize='small' />
-                                    </li>
-                                    <li className='info-item info-item__background'>
-                                        <LocalPhoneIcon fontSize='small' />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> */}
-                        <div className='dashboard-body'>
-                            <div className='body-content'>
-                                <div className='body-content-top'>
-                                    <h3 className='content-top-heading'>Quản lý chiến dịch</h3>
-                                    <button className='content-top-btn'>Tạo mới</button>
-                                </div>
-                                {/* <div className='content-handle'>
-                                    <div className='qlcd-search'>
-                                        <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
-                                    </div>
-                                    <div className='handle-btn'>
-                                        <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
-                                        <p className='handle-btn__text'>Active</p>
-                                        <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                                    </div>
-                                </div> */}
+                    
                                 <div className='content-table'>
                                     <table>
                                         <thead>
@@ -194,8 +106,6 @@ export default function Quanlychiendich() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
         </>
     );
 }

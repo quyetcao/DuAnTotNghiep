@@ -25,12 +25,15 @@ function AppAdmin() {
                 
             <div className='container' >
                     <div className='sidebar'>
-                        {/* <a href='/admincarhouse' className='sidebar-icon'>
+                        <a href='/admincarhouse' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
-                        </a> */}
-                        {/* <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
+                        </a>
+                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
-                        </a> */}
+                        </a>
+                        <a href='/admincarhouse/show-don-hang' className='sidebar-icon'>
+                            <ConfirmationNumberOutlinedIcon />
+                        </a>
                         
                         <a href='/admincarhouse/diem-don' className='sidebar-icon'>
                             <RoomIcon />
