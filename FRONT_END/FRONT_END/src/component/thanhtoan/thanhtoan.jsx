@@ -313,9 +313,6 @@ export default function ThanhToan() {
                                 <div className='cart-item'>
                                     <div className='cart-detail'>
                                         <p className='cart-text'>Khuyến mãi</p>
-                                        <div className='cart-info'>
-                                            <p className='cart-text text-price'>-20.000đ</p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

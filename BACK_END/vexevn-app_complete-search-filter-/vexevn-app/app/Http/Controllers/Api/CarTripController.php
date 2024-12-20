@@ -154,12 +154,12 @@ class CarTripController extends HelpController
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
-                if ($i == 1 || $i == 2) {
-                    $locationSeat = 0;  
-                } elseif ($i == $numberOfSeats || $i == $numberOfSeats - 1) {
-                    $locationSeat = 2;  
+                if ($i == 1) {
+                    $locationSeat = 0; // Ghế đầu tiên
+                } elseif ($i == $numberOfSeats) {
+                    $locationSeat = 2; // Ghế cuối cùng
                 } else {
-                    $locationSeat = 1; 
+                    $locationSeat = 1; // Các ghế còn lại
                 }
 
                 $seat = Seat::create([

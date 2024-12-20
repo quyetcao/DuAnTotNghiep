@@ -23,7 +23,7 @@ export default function AddChuyenXebyCarHouse() {
     const alldiemdon = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
     const alldiemtra = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
     const allCar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
-    console.log("allcarr",allCar );
+    console.log("allcarr",allCar);
     const allTuyenDuong = useSelector((state) => state.InfoofBus?.allTuyenDuong);
     const allNv= useSelector((state) => state.StorEmmployee?.datanvlxcarhouseid);
     const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
@@ -49,10 +49,11 @@ export default function AddChuyenXebyCarHouse() {
     const [cartype,setCarType]= useState(0);
     // const [allNvaray, setAllNv] = useState([]);
     const handleCarChange = (event) => {
-        const selectedCarId = event.target.value;
+        const selectedCarId = event;
+        console.log("selectedCarId",selectedCarId );
         setCarType(selectedCarId);
     };
-    console.log(">>",allCar[cartype]?.car_type?.id);
+    console.log(">>fvvvvvvvvvfvvvvvvvvv",allCar[cartype]?.car_type?.id);
     ///phan thao tac form 
 
     const { register, handleSubmit } = useForm();
@@ -67,7 +68,7 @@ export default function AddChuyenXebyCarHouse() {
         formData.append('return_date', data.return_date);
         formData.append('price', data.price);
         formData.append('status', data.status);
-        formData.append('car_house_id', data.car_house_id);
+        formData.append('car_house_id', 1 );
         data.employees.forEach((employee, index) => {
             formData.append(`employees[${index}]`, employee);
         });
@@ -135,8 +136,8 @@ export default function AddChuyenXebyCarHouse() {
             <div className='page-add-carhouse'>
                 <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <label htmlFor='carName'>Tên xe</label>
-                    <select type='number' id='car_id' {...register('car_id')}  onChange={handleCarChange} placeholder='Tên xe'>
-                        {allCar && allCar.map((itemcar) => {
+                    <select type='number' id='car_id' {...register('car_id')}   onChange={(event) => handleCarChange(event.target.selectedIndex)} placeholder='Tên xe'>
+                        {allCar && allCar.map((itemcar,index) => {
                           return <><option value={itemcar.id}>{itemcar.name}</option></>  
                         })
                         }

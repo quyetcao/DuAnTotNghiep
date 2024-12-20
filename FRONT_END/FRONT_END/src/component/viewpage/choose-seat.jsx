@@ -10,13 +10,14 @@ import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/As
 
 export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
     const allseatofcarid = useSelector((state) => state.SeatofCarid?.seatcarid);
-
+  console.log("itemallthongtincx",itemallthongtincx);
     // const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(callApiSeatCarTripByCarTripId(itemallthongtincx?.id));
     }, []);
     const seatcartripbycartripid = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid);
+    console.log("seatcartripbycartripid",seatcartripbycartripid);
 
     const [selectedDivs, setSelectedDivs] = useState(() => {
         const savedSeats = localStorage.getItem('dataSeat');
@@ -49,23 +50,6 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
     useEffect(() => {
         localStorage.setItem('dataSeat', JSON.stringify(selectedDivs));
     }, [selectedDivs]);
-
-    ////////////////////////Hiển thị ghế chọn => tổng giá
-    // const [showSeat, setShowSeat] = useState([]);
-    // const [totalprice, setTotalPrice] = useState(0);
-    // function showselectseat(name, price) {
-
-    //     if (showSeat.includes(name)) {
-    //         setShowSeat(showSeat.filter((indexseat) => indexseat !== name));
-    //         const a = totalprice - price
-    //         setTotalPrice(a)
-    //     } else {
-    //         setShowSeat([...showSeat, name]);
-    //         const b = totalprice + price
-    //         setTotalPrice(b)
-    //     }
-    // }
-
     const [showSeat, setShowSeat] = useState(() => {
         const savedSeats = localStorage.getItem('showSeat');
         return savedSeats ? JSON.parse(savedSeats) : [];
@@ -307,7 +291,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                         {allseatofcarid[seat_car_id]
                             ?.filter((itemseat) => itemseat.location_seat == 0)
                             .map((itemseat) => {
-                                const seatData = seatcartripbycartripid.find((item) => item.seat_id === itemseat.id);
+                                const seatData = seatcartripbycartripid?.find((item) => item.seat_id === itemseat.id);
                                 const isAvailable = seatData && seatData.is_available === 0;
 
                                 return (

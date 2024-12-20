@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../src/redux/store';
 import './App.css';
@@ -18,7 +18,7 @@ import PanoramaIcon from '@mui/icons-material/Panorama';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
-
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 function AppAdminQLWeb() {
@@ -55,6 +55,9 @@ function AppAdminQLWeb() {
                         <a href='/adminweb/listbanner' className='sidebar-icon'>
                             <PanoramaIcon />
                         </a>
+                     <Link to='/'><AccountBalanceIcon /></Link>
+                            
+                        
                     </div>
                     <div className='dashboard'>
                         <div className='dashboard-container'>

@@ -83,7 +83,7 @@ export default function QuanlyGiamGia() {
                                         <td>{item?.start_date}</td>
                                         <td>{item?.end_date}</td>
                                         <td>{item?.usage_limit}</td>
-                                        <td>{item?.is_active}</td>
+                                        <td>{item?.is_active ? <>Hoạt Động</> : <>Không Hoạt Động</>}</td>
                                         <td><img src={`http://127.0.0.1:8000/images/discount_codes/${item?.image}`} width="50px" /></td>
                                         <td className='action-icons'>
                                             <EditIcon onClick={() => { navigateEdit(item.id) }} />

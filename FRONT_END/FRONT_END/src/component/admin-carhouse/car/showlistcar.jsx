@@ -49,17 +49,7 @@ export default function Quanlyxe() {
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
-                    {/* <div className='content-handle'>
-                        <div className='qlcd-search'>
-                            <SearchOutlinedIcon style={{ color: '#6e6e6e' }} />
-                            <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
-                        </div>
-                        <div className='handle-btn'>
-                            <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
-                            <p className='handle-btn__text'>Active</p>
-                            <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
-                    </div> */}
+                    
                     <div className='content-table'>
                         <table>
                             <thead>
@@ -81,7 +71,7 @@ export default function Quanlyxe() {
                                                 <tr>
                                                     <td>{itemlistcar?.id}</td>
                                                     <td>{itemlistcar?.name}</td>
-                                                    <td>TIENTO01</td>
+                                                    <td>{itemlistcar?.car_type?.name}</td>
                                                     <td>{itemlistcar?.license_plate}</td>
                                                     <td>{itemlistcar?.model}</td>
                                                     <td>

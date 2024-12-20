@@ -43,7 +43,7 @@ export default function Quanlychuyenxe() {
                 <div className='body-content'>
                     <div className='body-content-top'>
                         <h3 className='content-top-heading'>Quản lý Chuyến Xe</h3>
-                        <Link to='/admincarhouse/addCar'>
+                        <Link to='/admincarhouse/addchuyenxe'>
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>

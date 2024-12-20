@@ -68,7 +68,7 @@ export default function AddCarType() {
                     {errors.quantity_seat && <p className='add-error'>{errors.quantity_seat.message}</p>}
                     <label htmlFor='imgxe'>Ảnh </label>
                     <input type='file' id='imgxe' {...register('image')} />
-                    <input type='submit' className='btnsb' value='Thêm Chuyến Xe' />
+                    <input type='submit' className='btnsb' value='Thêm Loại  Xe' />
                 </form>
             </div>
         </>

@@ -35,8 +35,7 @@ export function CallapiGetAllListCarofcarhouseid(car_house_id) {
         try {
             let res = await axios.get(`http://localhost:8000/api/car/car_house_id/${car_house_id}`);
             console.log('all ds xe ', res);
-
-            dispatch(getAllListCarbyCarHouseID(res.data.data));
+            dispatch(getAllListCarbyCarHouseID(res.data.data.data));
         } catch (error) {
             console.log(error);
         }

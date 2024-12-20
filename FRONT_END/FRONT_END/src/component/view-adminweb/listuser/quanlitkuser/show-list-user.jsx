@@ -25,7 +25,7 @@ export default function QuanlyUser() {
     const isload = useSelector((state) => state.StoreUser?.isloading);
 
 
-    const dataUser= allUser.filter((item)=> item.carhouse_id == null)
+    // const dataUser= allUser.filter((item)=> item.carhouse_id == null)
  
 
    
@@ -69,20 +69,24 @@ export default function QuanlyUser() {
                                         <th>Tên KH </th>
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
+                                        <th>Nhà xe</th>
+                                        <th>Role</th>
                                         <th>Thao Tác</th>
                                     </tr>
                                 </thead>
-                                {Array.isArray(dataUser) &&
-                                    dataUser?.map((itemUser ) => {
+                                {Array.isArray(allUser) &&
+                                    allUser?.map((itemUser) => {
                                         return (
                                             <>
                                                 {' '}
                                                 <tbody>
                                                     <tr>
                                                         <td>{itemUser?.id}</td>
-                                                        <td>{itemUser?.name}</td>
+                                                        <td>{itemUser?.name || 'không có tên'}</td>
                                                         <td>{itemUser?.email}</td>
                                                         <td>{itemUser?.phone}</td>
+                                                        <td>{itemUser?.carhouse_id || 'không là quản trị'}</td>
+                                                        <td>{itemUser?.role}</td>
                                                         <td className='action-icons'>
                                                             <DeleteIcon onClick={()=>{deleteUser(itemUser?.id)}}/>                                
                                                         </td>

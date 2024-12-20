@@ -63,6 +63,7 @@ export default function QuanLyDatVeXe() {
     }, [seatcartrip])
     const seatcartripdata = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid)
     console.log("seatcartripdata", seatcartripdata);
+
     let ghedat = 0;
     return (
         <>
@@ -265,11 +266,7 @@ export default function QuanLyDatVeXe() {
 
                                     <div>
                                         <span className='label stats-details__datcho'>Đặt chỗ:</span>{' '}
-                                        <strong>{seatcartripdata && seatcartripdata?.forEach((item) => {
-                                            if (item.is_available === 0) {
-                                                ghedat++
-                                            }
-                                        })} {ghedat}</strong> vé 
+                                        <strong> {ghedat}</strong> vé 
                                     </div>
                                     <div>
                                         <span className='label stats-details__trong'>Trống:</span> <strong>{datacartriptheocarhouseid[selectedTrip]?.seats.length - ghedat}</strong>{' '}
@@ -319,7 +316,7 @@ export default function QuanLyDatVeXe() {
                         </div>
                     </div>
                     {/* phần cuối */}
-                    <div className='group-center'>
+                    {/* <div className='group-center'>
                         <div className='admin'>
                             <div className='admin-list'>
                                 <div className='admin-item admin-item-bg1'>
@@ -524,7 +521,7 @@ export default function QuanLyDatVeXe() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

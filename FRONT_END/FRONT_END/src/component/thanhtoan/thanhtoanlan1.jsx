@@ -66,8 +66,8 @@ export default function ThanhToanLanMot() {
         formData.append('phone', data.phone);
         formData.append('email', data.email);
         formData.append('car_trip_id', car_trip_id);
-        formData.append('car_trip_pickup_point_id', 58 );  // Chuyển thành số
-        formData.append('car_trip_dropoff_point_id', 56 ); // Chuyển thành số
+        formData.append('car_trip_pickup_point_id', setdiemdon );  // Chuyển thành số
+        formData.append('car_trip_dropoff_point_id', setdiemtra ); // Chuyển thành số
 
         dataSeat.forEach((seat) => {
             formData.append('seat_ids[]', seat);
@@ -83,7 +83,7 @@ export default function ThanhToanLanMot() {
     }
 
     const pickupPoint = data_car_trip?.pickup_points?.find(
-        (point) => point.id === setdiemtra
+        (point) => point.id == setdiemtra
     );
     const pickupName = pickupPoint?.name || "Tên không tồn tại";
     const pickupAdress = pickupPoint?.address || "Địa chỉ không tồn tại";
@@ -91,7 +91,7 @@ export default function ThanhToanLanMot() {
     
     // Lấy thông tin điểm trả
     const dropoffPoint = data_car_trip?.dropoff_points?.find(
-        (point) => point.id === setdiemdon
+        (point) => point.id == setdiemdon
     );
     const dropoffName = dropoffPoint?.name || "Tên không tồn tại";
     const dropoffAdress = dropoffPoint?.address || "Địa chỉ không tồn tại";
@@ -377,8 +377,8 @@ export default function ThanhToanLanMot() {
                                                             <div className='date-time-container'>
                                                                 <div className='date-time-container-pick-up'>
                                                                     <div className='base__Headline01-sc-1tvbuqk-44 kxACTE'>
-                                                                        {/* {data_car_trip && data_car_trip?.pickup_points?.[0]?.pivot?.pickup_time.slice(0, 5)} */}
-                                                                        {pickuptime?.slice(0, 5)}
+                                                                        {data_car_trip && data_car_trip?.pickup_points?.[0]?.pivot?.pickup_time.slice(0, 5)}
+                                                                        {/* {pickuptime?.slice(0, 5)} */}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -401,12 +401,12 @@ export default function ThanhToanLanMot() {
                                                             <div className='section-area'>
                                                                 <div className='section-area-picker'>
                                                                     <p className='base__Caption01Highlight-sc-1tvbuqk-17 jCbuWT'>
-                                                                        {/* {data_car_trip && data_car_trip?.pickup_points?.[0]?.name} */}
-                                                                        {pickupName}
+                                                                        {data_car_trip && data_car_trip?.pickup_points?.[0]?.name}
+                                                                        {/* {pickupName} */}
                                                                     </p>
                                                                     <p className='base__SmallCaption-sc-1tvbuqk-32 eSKsXb color--medium-sub'>
-                                                                        {/* {data_car_trip && data_car_trip?.pickup_points?.[0]?.address} */}
-                                                                        {pickupAdress}
+                                                                        {data_car_trip && data_car_trip?.pickup_points?.[0]?.address}
+                                                                        {/* {pickupAdress} */}
                                                                     </p>
                                                                 </div>
                                                                 <div className='button-mobile-change'>
@@ -422,8 +422,8 @@ export default function ThanhToanLanMot() {
                                                             <div className='date-time-container'>
                                                                 <div className='date-time-container-drop-off'>
                                                                     <div className='base__Headline01-sc-1tvbuqk-44 kxACTE'>
-                                                                        {/* {data_car_trip && data_car_trip?.dropoff_points?.[0]?.pivot?.dropoff_time.slice(0, 5)} */}
-                                                                        {dropoffTime?.slice(0, 5)}
+                                                                        {data_car_trip && data_car_trip?.dropoff_points?.[0]?.pivot?.dropoff_time.slice(0, 5)}
+                                                                        {/* {dropoffTime?.slice(0, 5)} */}
                                                                     </div>
                                                                     <p className='base__SmallCaptionHighlight-sc-1tvbuqk-35 gzSlSc color--medium-sub'>
                                                                         {formatDate(data_car_trip.return_date)}
@@ -449,12 +449,12 @@ export default function ThanhToanLanMot() {
                                                             <div className='section-area'>
                                                                 <div className='section-area-picker'>
                                                                     <p className='base__Caption01Highlight-sc-1tvbuqk-17 jCbuWT'>
-                                                                        {/* {data_car_trip && data_car_trip?.dropoff_points?.[0]?.name} */}
-                                                                        {dropoffName}
+                                                                        {data_car_trip && data_car_trip?.dropoff_points?.[0]?.name}
+                                                                        {/* {dropoffName} */}
                                                                     </p>
                                                                     <p className='base__SmallCaption-sc-1tvbuqk-32 eSKsXb color--medium-sub'>
-                                                                        {/* {data_car_trip && data_car_trip?.dropoff_points?.[0]?.address} */}
-                                                                        {dropoffAdress}
+                                                                        {data_car_trip && data_car_trip?.dropoff_points?.[0]?.address}
+                                                                        {/* {dropoffAdress} */}
                                                                     </p>
                                                                 </div>
                                                                 <div className='button-mobile-change'>

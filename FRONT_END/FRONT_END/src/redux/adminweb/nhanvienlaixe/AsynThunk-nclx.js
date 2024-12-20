@@ -19,8 +19,8 @@ import { getAllnvtheonhaxe } from "./createSlice-nvlx";
 export function CallapiGetAllListnvlxcarhouseid(car_house_id) {
   return async (dispatch) => {
     try {
-      let res = await axios.get(`http://localhost:8000/api/employee/car_house_id/${car_house_id}`);
-      console.log('all ds xe ', res);
+      let res = await axios.get(`http://localhost:8000/api/douse_id/${car_house_id}`);
+      console.log('all nhân viên  ', res);
 
       dispatch(getAllnvtheonhaxe(res.data.data));
     } catch (error) {
