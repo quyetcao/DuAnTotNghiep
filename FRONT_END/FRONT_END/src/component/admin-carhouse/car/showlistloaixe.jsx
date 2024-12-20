@@ -50,9 +50,8 @@ export default function Quanlyloaixe() {
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
-                    <div className='content-handle'>
+                    {/* <div className='content-handle'>
                         <div className='qlcd-search'>
-                            {/* <SearchOutlinedIcon style={{ color: '#6e6e6e' }} /> */}
                             <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
                         </div>
                         <div className='handle-btn'>
@@ -60,7 +59,7 @@ export default function Quanlyloaixe() {
                             <p className='handle-btn__text'>Active</p>
                             <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='content-table'>
                         {isload ? (
                             <div style={{ transform: 'translateX(50%)' }}>

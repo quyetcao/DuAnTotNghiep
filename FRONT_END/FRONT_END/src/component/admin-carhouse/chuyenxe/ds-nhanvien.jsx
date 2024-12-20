@@ -64,12 +64,11 @@ export default function DSNhanVien() {
                             <p className='active-heading'>Hướng dẫn viên</p>
                         </div>
                     </div>
-                    <div className='input-search'>
+                    {/* <div className='input-search'>
                         <div className='search-form'>
-                            {/* <SearchIcon style={{ color: '#6e6e6e' }} /> */}
                             <input type='text' placeholder='Tìm kiếm tên, số điện thoại' />
                         </div>
-                    </div>
+                    </div> */}
                     <div className='table-group'>
                         <table>
                             <tr className='table-list__heading'>

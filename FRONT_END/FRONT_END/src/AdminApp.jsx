@@ -14,9 +14,10 @@ import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumb
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import NoCrashIcon from '@mui/icons-material/NoCrash';
+import RoomIcon from '@mui/icons-material/Room';
+import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
 function AppAdmin() {
     return (
         <>
@@ -24,29 +25,28 @@ function AppAdmin() {
                 
             <div className='container' >
                     <div className='sidebar'>
-                        <a href='/admincarhouse' className='sidebar-icon'>
+                        {/* <a href='/admincarhouse' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
+                        </a> */}
+                        {/* <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
+                        </a> */}
+                        
+                        <a href='/admincarhouse/diem-don' className='sidebar-icon'>
+                            <RoomIcon />
                         </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
-                            <SignalCellularAltOutlinedIcon />
+                        <a href='/admincarhouse/diem-tra' className='sidebar-icon'>
+                            <WhereToVoteIcon />
                         </a>
-                        <a href='/admincarhouse/quanLyChienDich' className='sidebar-icon'>
-                            <GroupsOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='active sidebar-icon'>
+                        
+                        <a href='/admincarhouse/listcar' className='sidebar-icon'>
                             <DirectionsBusFilledOutlinedIcon />
                         </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
-                            <ForumOutlinedIcon />
+                        <a href='/admincarhouse/listcartype' className='sidebar-icon'>
+                            <NoCrashIcon />
                         </a>
                         <a href='/admincarhouse/routercar' className='sidebar-icon'>
                             <BuildOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/' className='sidebar-icon'>
-                            <NoCrashIcon />
                         </a>
                    
                     </div>

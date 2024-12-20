@@ -41,8 +41,6 @@ export default function ShowDsCarHouse() {
     const allcarHouse = useSelector((state) => state.Storecarhouse?.dataCarHouse);
     console.log('cx search', allcarHouse);
 
-    // const allcarHouse = useSelector((state) => state.Storecarhouse?.dataCarHouse);
-    // console.log('cx search', allcarHouse);
     const navigate = useNavigate();
     function chuyendentrangadd() {
         console.log('trang them nha xe');
@@ -72,17 +70,6 @@ export default function ShowDsCarHouse() {
                         <button className='content-top-btn' onClick={chuyendentrangadd}>
                             Tạo mới
                         </button>
-                    </div>
-                    <div className='content-handle'>
-                        <div className='qlcd-search'>
-                            <SearchOutlinedIcon style={{ color: '#6e6e6e' }} />
-                            <input type='text' placeholder='Tìm kiếm tên nhà xe' />
-                        </div>
-                        <div className='handle-btn'>
-                            <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
-                            <p className='handle-btn__text'>Active</p>
-                            <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
                     </div>
                     <div className='content-table'>
                         <table>
@@ -137,10 +124,9 @@ export default function ShowDsCarHouse() {
                             <Link to='/adminweb/listbanner'>
                                 <Button variant='contained'>Quản Lý Banner</Button>
                             </Link>
-                            {/* <Link to='/admincarhouse/listcartype'>
-                                <Button variant='contained'>Quản Lý Loại Xe</Button>
-                            </Link> */}
                         </div>
+
+                        {/* phân trang và sử lí khi thay đổi trangtrang */}
                         <Pagination links={allcarHouse?.links} onPageChange={handlePageChange} />
                     </div>
                 </div>

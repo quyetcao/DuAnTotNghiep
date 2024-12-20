@@ -49,11 +49,11 @@ export default function QuanlyGiamGia() {
                         </Link>
                     </div>
                     <div className='content-handle'>
-                        <div className='handle-btn'>
+                        {/* <div className='handle-btn'>
                             <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
                             <p className='handle-btn__text'>Active</p>
                             <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='content-table'>
                         {isload ? <div style={{ transform: "translateX(50%)" }}><CircularProgress /></div> :

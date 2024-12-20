@@ -71,6 +71,8 @@ import ThanhToanLanMot from './component/thanhtoan/thanhtoanlan1.jsx';
 import Baiviet from './component/admin-carhouse/baiviet/baiviet.jsx';
 import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/addcxcarhouse.jsx';
 import EditChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/editcxcarhouse.jsx';
+import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
+
 
 
 
@@ -329,6 +331,11 @@ const routes = createBrowserRouter([
       {
         path: 'listuse',
         element: <QuanlyUser />
+      },
+      // binhluan
+      {
+        path: 'listbinhluan',
+        element: <AllBinhLuan/>
       },
 
     ]

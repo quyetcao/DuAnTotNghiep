@@ -633,6 +633,21 @@
     zoom: 1;
 }
 
+.send-comment {
+    width: 20%;
+    height: 30px;
+    color: #fff;
+    font-size: 14px;
+    background-color: #2474e5;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.group-comment {
+    margin: 12px 0 0 60px;
+}
+
 
 /*code cho phần thông tin chi tiết phần giảm giá */
 
