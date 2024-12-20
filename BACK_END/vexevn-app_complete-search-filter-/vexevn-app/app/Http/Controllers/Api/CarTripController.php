@@ -363,10 +363,14 @@ class CarTripController extends HelpController
 
     public function getTripsByCarHouse($carHouseId)
     {
+        // Lấy thông tin user đăng nhập
+        $user = Auth::user();
         // Lấy danh sách chuyến xe của nhà xe
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
-                        ->where('car_house_id', $carHouseId)
-                        ->paginate(5);
+        ->whereHas('car', function ($query) use ($carHouseId) {
+            $query->where('car_house_id', $carHouseId);
+        })
+        ->paginate(10);
     
         // Kiểm tra nếu không có chuyến xe nào
         if ($data->isEmpty()) {
