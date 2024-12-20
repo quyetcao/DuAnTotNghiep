@@ -49,4 +49,10 @@ return [
         'notify_url' => env('MOMO_NOTIFY_URL'),
         'test_mode' => env('MOMO_TEST_MODE', true),
     ],
+    
+    'virtual_bank' => [
+        'api_url' => env('VIRTUAL_BANK_API_URL'),
+        'callback_url' => env('VIRTUAL_BANK_CALLBACK_URL'),
+    ],
+    
 ];

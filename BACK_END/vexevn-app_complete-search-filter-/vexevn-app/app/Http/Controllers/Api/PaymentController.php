@@ -8,19 +8,11 @@ use App\Models\Order;
 use App\Models\Seat;
 use App\Models\Ticket;
 use App\Models\DiscountCode;
-use App\Services\MoMoPaymentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    protected $momoService;
-
-    public function __construct(MoMoPaymentService $momoService)
-    {
-        $this->momoService = $momoService;
-    }
-
     protected function sendResponse($statusCode, $message, $data = null)
     {
         return response()->json([
@@ -36,7 +28,7 @@ class PaymentController extends Controller
             'order_id' => 'required|exists:orders,id',
             'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:0',
-            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,momo', // Thêm momo
+            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,cash',
             'discount_code' => 'nullable|string',
         ]);
 
@@ -48,16 +40,15 @@ class PaymentController extends Controller
         $discountCode = null;
         if ($validated['discount_code']) {
             $discountCode = DiscountCode::where('code', $validated['discount_code'])->first();
-        
+
             if (!$discountCode) {
                 return $this->sendResponse(400, 'Mã giảm giá không tồn tại.');
             }
-        
+
             if ($discountCode->usage_limit <= 0 || !$discountCode->isValid()) {
                 return $this->sendResponse(400, 'Mã giảm giá không hợp lệ hoặc đã hết lượt sử dụng.');
             }
         }
-        
 
         $seatIds = json_decode($order->seat_ids, true);
         $calculatedAmount = $this->calculateOrderTotalAmount($seatIds);
@@ -71,22 +62,15 @@ class PaymentController extends Controller
         }
 
         try {
-            $paymentResult = $this->processPayment($validated);
-
-            if ($paymentResult['status'] === 'pending' && $validated['payment_method'] === 'momo') {
-                return $this->sendResponse(200, 'Chuyển hướng thanh toán qua MoMo.', [
-                    'redirect_url' => $paymentResult['redirect_url'],
-                ]);
-            }
-
-            if ($paymentResult['status'] === 'completed') {
+            // Xử lý thanh toán bằng tiền mặt
+            if ($validated['payment_method'] === 'cash') {
                 $payment = Payment::create([
                     'order_id' => $validated['order_id'],
                     'user_id' => $validated['user_id'],
                     'amount' => $validated['amount'],
-                    'payment_method' => $validated['payment_method'],
+                    'payment_method' => 'cash',
                     'status' => 'completed',
-                    'transaction_id' => $paymentResult['transaction_id'],
+                    'transaction_id' => Str::uuid(),
                     'discount_code_id' => $discountCode ? $discountCode->id : null,
                 ]);
 
@@ -116,6 +100,30 @@ class PaymentController extends Controller
                     ]);
                 }
 
+                return $this->sendResponse(201, 'Thanh toán bằng tiền mặt và tạo vé thành công.', $payment);
+            }
+
+            // Xử lý các phương thức thanh toán khác
+            $paymentResult = $this->processPayment($validated);
+
+            if ($paymentResult['status'] === 'completed') {
+                $payment = Payment::create([
+                    'order_id' => $validated['order_id'],
+                    'user_id' => $validated['user_id'],
+                    'amount' => $validated['amount'],
+                    'payment_method' => $validated['payment_method'],
+                    'status' => 'completed',
+                    'transaction_id' => $paymentResult['transaction_id'],
+                    'discount_code_id' => $discountCode ? $discountCode->id : null,
+                ]);
+
+                if ($discountCode) {
+                    $discountCode->decrement('usage_limit');
+                    $discountCode->increment('used_count');
+                }
+
+                $order->update(['status' => 'paid']);
+
                 return $this->sendResponse(201, 'Thanh toán và tạo vé đã được xử lý thành công.', $payment);
             }
 
@@ -123,58 +131,6 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return $this->sendResponse(500, $e->getMessage());
         }
-    }
-
-    public function completeMoMoPayment(Request $request)
-    {
-        $result = $this->momoService->completePayment($request->all());
-
-        if ($result['status'] === 'success') {
-            // Cập nhật trạng thái thanh toán trong DB
-            Payment::where('transaction_id', $result['transaction_id'])->update(['status' => 'completed']);
-            return $this->sendResponse(200, 'Thanh toán MoMo thành công.');
-        }
-
-        return $this->sendResponse(400, 'Thanh toán MoMo thất bại.', $result);
-    }
-
-    private function calculateOrderTotalAmount($seatIds)
-    {
-        if (empty($seatIds) || !is_array($seatIds)) {
-            return 0;
-        }
-
-        return \DB::table('seats')->whereIn('id', $seatIds)->sum('price');
-    }
-
-    private function processPayment($data)
-    {
-        if ($data['payment_method'] === 'momo') {
-            $parameters = [
-                'amount' => $data['amount'],
-                'orderId' => 'ORDER_' . $data['order_id'],
-                'requestId' => 'REQ_' . uniqid(),
-                'returnUrl' => config('services.momo.return_url'),
-                'notifyUrl' => config('services.momo.notify_url'),
-            ];
-
-            $response = $this->momoService->purchase($parameters);
-
-            if (isset($response['payUrl'])) {
-                return [
-                    'status' => 'pending',
-                    'redirect_url' => $response['payUrl'],
-                ];
-            }
-
-            throw new \Exception($response['message'] ?? 'Lỗi không xác định từ MoMo.');
-        }
-
-        // Các phương thức thanh toán khác
-        return [
-            'status' => 'failed',
-            'transaction_id' => null,
-        ];
     }
 
     public function showPayment($id)
@@ -225,5 +181,23 @@ class PaymentController extends Controller
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }
+    }
+
+    private function calculateOrderTotalAmount($seatIds)
+    {
+        if (empty($seatIds) || !is_array($seatIds)) {
+            return 0;
+        }
+
+        return \DB::table('seats')->whereIn('id', $seatIds)->sum('price');
+    }
+
+    private function processPayment($data)
+    {
+        // Xử lý các phương thức thanh toán khác (nếu cần)
+        return [
+            'status' => 'failed',
+            'transaction_id' => null,
+        ];
     }
 }

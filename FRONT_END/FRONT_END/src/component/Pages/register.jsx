@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Visibility from '@mui/icons-material/Visibility';
@@ -14,7 +14,7 @@ export default function Register() {
         if (event == true) {
             toast.success("Đăng Ký Thành Công!", { theme: "colored" });
         } else if (event == false) {
-            toast.error("Đăng Ký Không Thành Công!", { theme: "colored" });
+            toast.error("Đăng Ký Không Thành Công Email hoặc Số điện thoại đã bị trùng!", { theme: "colored" });
         }
     }
 
@@ -22,15 +22,17 @@ export default function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors },watch } = useForm();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
     const onSubmit = (data) => {
-        console.log("data mật khẩu ",data);
+        console.log("data mật khẩu ", data);
         dispatch(dangkytaikhoan(data));
     }
 
     const isToastOk = useSelector((state) => state.LoginLogOutRegister?.registerOK);
     const isToastError = useSelector((state) => state.LoginLogOutRegister?.registerError);
+    const messageError = useSelector((state) => state.MessageError?.error)
+    console.log("log lỗi ", messageError);
 
     if (isToastOk === true) {
         notify(true);
@@ -41,7 +43,9 @@ export default function Register() {
     if (isToastError) {
         notify(false);
     }
+    
 
+  
     return (
         <>
             <ToastContainer />
@@ -129,12 +133,14 @@ export default function Register() {
                                 Đăng nhập với <strong>Google</strong>.
                             </p>
                         </div>
+                       
                     </div>
                     <div className='form_login_right'>
                         <img src='../../images/imageslogin/img_card.jpg' alt='' />
                         <img src='../../images/imageslogin/img_card.jpg' alt='' />
                         <img src='../../images/imageslogin/img_card.jpg' alt='' />
                     </div>
+                   
                 </div>
             </div>
         </>

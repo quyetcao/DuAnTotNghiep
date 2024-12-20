@@ -12,10 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('car_trip_pickup_point_id')->nullable();
-            $table->unsignedBigInteger('car_trip_dropoff_point_id')->nullable();
-            $table->foreign('car_trip_pickup_point_id')->references('id')->on('car_trip_pickup_points')->onDelete('set null');
-            $table->foreign('car_trip_dropoff_point_id')->references('id')->on('car_trip_dropoff_points')->onDelete('set null');
+            //
         });
     }
 
@@ -25,7 +22,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->dropForeign(['car_trip_pickup_point_id']);
+            $table->dropForeign(['car_trip_dropoff_point_id']);
+            $table->dropColumn('car_trip_pickup_point_id');
+            $table->dropColumn('car_trip_dropoff_point_id');
         });
     }
 };

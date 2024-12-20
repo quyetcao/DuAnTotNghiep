@@ -148,17 +148,11 @@ class SearchController extends HelpController
         return $this->validateAndExecute($request, $rules, function () use ($request) {
             // Lấy thông tin user đăng nhập
             $user = Auth::user();
-           
-            // // Kiểm tra nếu user không thuộc nhà xe
-            // if (!$user->carhouse_id) {
-            //     return $this->sendResponse(403, 'Bạn không thuộc nhà xe nào!');
-            // }
 
             $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
-                            ->whereHas('car', function ($query) use ($user) {
-                                $query->where('car_house_id', $user->carhouse_id);
-                            })
-                            ->paginate(10);
+            ->where('car_house_id', $user->carhouse_id)
+            ->where('departure_date', $request->departure_date)
+            ->get();
 
             if ($data->isEmpty()) {
                 return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc điều kiện này!');

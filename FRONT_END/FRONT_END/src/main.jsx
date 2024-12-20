@@ -47,9 +47,9 @@ import EditCarHouse from './component/view-adminweb/car-house/admin-edit-carhous
 import ListBanner from './component/view-adminweb/banner/showlistbanner.jsx'
 import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
-// import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
+// import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 // import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
 import HomePageWebAdmin from './component/view-adminweb/dashboardadminweb.jsx/homepageadminweb.jsx';
 import QuanlyUser from './component/view-adminweb/listuser/quanlitkuser/show-list-user.jsx';

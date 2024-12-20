@@ -33,7 +33,7 @@ const initialState = {
 };
 
 
-//CREATSLICE THÔNG TIN CHUYẾN XE 
+//CREATSLICE THÔNG TIN CHUYẾN XE (tuyêbs đường nămf cùng thong tin chuyến xe ) 
 export const InfoofBus = createSlice({
   name: "InfoofBus",
   initialState,
@@ -51,6 +51,7 @@ export const InfoofBus = createSlice({
       // console.log("Tuyến Đường", action.payload);
       state.infoTuyenDuong = action.payload
     },
+
     getAllTuyenDuong(state, action) {
       // console.log("Tuyến Đường", action.payload);
       state.allTuyenDuong = action.payload

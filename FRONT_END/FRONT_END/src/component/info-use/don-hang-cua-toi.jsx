@@ -60,13 +60,16 @@ export default function DonHangCuaToi() {
                         }}
                         aria-label='basic tabs example'
                     >
-                        <Tab label='Hiện tại' {...a11yProps(0)} sx={{ marginRight: 20 }} />
+                        <Tab label='Giới Thiệu' {...a11yProps(0)} sx={{ marginRight: 20 }} />
                         <Tab label='Đã đi' {...a11yProps(1)} sx={{ marginRight: 20 }} />
                         <Tab label='Đã hủy' {...a11yProps(2)} sx={{ marginRight: 20 }} />
                     </Tabs>
                 </Box>
                 <CustomTabPanel value={value} index={0}>
-                    Bạn chưa có chuyến đi nào
+                    <p>Bạn đang đăng nhập vào trang dành cho khách hàng,</p>
+                    <p>Bạn có thể xem được trạng thái vé </p>
+                    <p>Cảm Ơn quý khách </p>
+                    
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
                     Chưa có chuyến nào

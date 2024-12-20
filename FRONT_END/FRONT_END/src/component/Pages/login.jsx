@@ -25,7 +25,7 @@ export default function Login() {
         if (event == true) {
             toast.success("Đăng Nhập Thành Công!", { theme: "colored" });
         } else if (event == false) {
-            toast.error("Đăng Nhập Không Thành Công!", { theme: "colored" });
+            toast.error("Đăng Nhập Không Thành Công Mật Khẩu hoặc Email Không đúng!", { theme: "colored" });
         }
     }
 
