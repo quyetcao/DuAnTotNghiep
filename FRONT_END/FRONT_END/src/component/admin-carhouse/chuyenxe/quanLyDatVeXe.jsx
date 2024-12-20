@@ -13,13 +13,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm } from 'react-hook-form';
 import { getSearchChuyenxe, getSearchChuyenxecarhouseid } from '../../../redux/viewchuyenxe/viewcx-asynThunk';
-import { callApiListTuyenDuongAll } from '../../../redux/info-bus/infobus-asynThunk';
+import { callApiListTuyenDuongAll, callApiSeatCarTripByCarTripId } from '../../../redux/info-bus/infobus-asynThunk';
+import { CallapiGetOneCarType } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 // import { useNavigate } from 'react-router-dom';
 
 export default function QuanLyDatVeXe() {
 
-    const [selectedTrip, setSelectedTrip] = useState(0);
-console.log("selectedTrip",selectedTrip);
+    const [selectedTrip, setSelectedTrip] = useState(1);
+    const [idloaixe, setidloaixe] = useState(0);
+    const [seatcartrip, setseatcartrip] = useState(null);
+    console.log("selectedTrip", selectedTrip);
 
 
     const dispatch = useDispatch();
@@ -36,16 +39,31 @@ console.log("selectedTrip",selectedTrip);
         handleSubmit(onSubmit)();
     };
 
-
-    // const navigate = useNavigate();
-
     function onSubmit(data) {
         console.log('datainform them cphn', data);
         dispatch(getSearchChuyenxecarhouseid(data));
     }
-    const datacartriptheocarhouseid = useSelector((state) => state.ViewChuyenXeSearch?.datacartriptheocarhouseid)
-    console.log("datacartriptheocarhouseid", datacartriptheocarhouseid);
 
+
+    const datacartriptheocarhouseid = useSelector((state) => state.ViewChuyenXeSearch?.datacartriptheocarhouseid)
+    console.log("datacartriptheocarhouseidgbbbbbbbbbbbb ", datacartriptheocarhouseid);
+
+
+    // tìm loại xe 
+    useEffect(() => {
+        dispatch(CallapiGetOneCarType(idloaixe))
+    }, [idloaixe])
+
+    const loaixe = useSelector((state) => state.Storecartype?.dataOneCarType)
+    console.log(loaixe);
+
+    // lấy ghế theo chuyến xe 
+    useEffect(() => {
+        dispatch(callApiSeatCarTripByCarTripId(seatcartrip))
+    }, [seatcartrip])
+    const seatcartripdata = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid)
+    console.log("seatcartripdata", seatcartripdata);
+    let ghedat = 0;
     return (
         <>
             <div className='container quanLyDatVeXe'>
@@ -84,12 +102,18 @@ console.log("selectedTrip",selectedTrip);
                             </div>
                         </form>
                     </div>
+
                     <div className='time-group'>
                         <div className='time-group__list'>
-                            {datacartriptheocarhouseid && datacartriptheocarhouseid?.data?.map((item, index) => {
-                                return <  >
+                            {datacartriptheocarhouseid?.map((item, index) => {
+                                console.log("hello ");
+                                return <>
                                     <div className='time-group__item' key={item.id}
-                                        onClick={() => setSelectedTrip(index)}
+                                        onClick={() => {
+                                            setSelectedTrip(index);
+                                            setidloaixe(item.car.car_type_id);
+                                            setseatcartrip(item.id)
+                                        }}
                                         style={{ cursor: 'pointer' }}>
                                         <div className='time-group__heading'>{item?.pickup_points?.[0]?.pivot?.pickup_time.slice(0, 5)}</div>
                                         <div className='time-group__title'>123.45 - 10/10</div>
@@ -125,13 +149,14 @@ console.log("selectedTrip",selectedTrip);
                         </div>
                     </div>
 
+
                     {/* Phần giữa */}
                     <div className='trip-info'>
                         <div className='trip-header'>
-                            {selectedTrip && (
+                            {selectedTrip !== undefined && selectedTrip !== null && (
                                 <span>
-                                    Thuộc chuyến <strong>{datacartriptheocarhouseid?.data?.[selectedTrip]?.pickup_points?.[0]?.pivot?.pickup_time.slice(0, 5)}</strong> ngày <strong>{datacartriptheocarhouseid?.data?.[selectedTrip]?.departure_date}</strong> tuyến{' '}
-                                    <strong>{datacartriptheocarhouseid?.data?.[selectedTrip]?.car_route?.city_from + ' đến ' + datacartriptheocarhouseid?.data?.[selectedTrip]?.car_route?.city_to}</strong>
+                                    Thuộc chuyến <strong>{datacartriptheocarhouseid[selectedTrip]?.pickup_points?.[0]?.pivot?.pickup_time.slice(0, 5)}</strong> ngày <strong>{datacartriptheocarhouseid[selectedTrip]?.departure_date}</strong> tuyến{' '}
+                                    <strong>{datacartriptheocarhouseid[selectedTrip]?.car_route?.city_from + ' đến ' + datacartriptheocarhouseid[selectedTrip]?.car_route?.city_to}</strong>
                                 </span>
 
                             )}
@@ -144,17 +169,17 @@ console.log("selectedTrip",selectedTrip);
                                         Cập nhật thông tin
                                     </a>
                                 </div>
-                                {selectedTrip && (
+                                {selectedTrip !== undefined && selectedTrip !== null && (
                                     <span>
                                         <div className='trip-info__row'>
                                             <div className='trip-info__item'>
                                                 <span className='info-label'>Loại xe:</span>
-                                                <span>Giường nằm 40 chỗ (Có WC)</span>
+                                                <span>{loaixe?.name}</span>
                                             </div>
                                             <div className='trip-info__item'>
                                                 <span className='info-label'>Tài xế:</span>
                                                 <div className='info-value'>
-                                                    {datacartriptheocarhouseid?.data?.[selectedTrip]?.employees?.map((itemtx) => {
+                                                    {datacartriptheocarhouseid[selectedTrip]?.employees?.map((itemtx) => {
                                                         return <>
                                                             <span>
                                                                 {itemtx?.name}(<a>{itemtx.phone}</a>)
@@ -182,22 +207,22 @@ console.log("selectedTrip",selectedTrip);
                                 )}
 
                                 <div className='trip-info__row'>
-                                    {selectedTrip && (
+                                    {selectedTrip !== undefined && selectedTrip !== null && (
 
                                         <div className='trip-info__item'>
                                             <div>
-                                            <span className='info-label'>Biển Số xe:</span>
-                                            <span href='#' className='vehicle-link'>
+                                                <span className='info-label'>Biển Số xe:</span>
+                                                <span href='#' className='vehicle-link'>
 
-                                                <strong>{datacartriptheocarhouseid?.data?.[selectedTrip]?.car?.license_plate}</strong>{' '}
-                                            </span>
+                                                    <strong>{datacartriptheocarhouseid[selectedTrip]?.car?.license_plate}</strong>{' '}
+                                                </span>
                                             </div>
                                             <br />
-                                           
-                                            <p className='' style={{margin:'left'}}>
-                                                Tên xe: {datacartriptheocarhouseid?.data?.[selectedTrip]?.car?.name}
+
+                                            <p className='' style={{ margin: 'left' }}>
+                                                Tên xe: {datacartriptheocarhouseid[selectedTrip]?.car?.name}
                                             </p>
-                                          
+
                                         </div>
                                     )}
 
@@ -229,16 +254,25 @@ console.log("selectedTrip",selectedTrip);
                                     </div>
                                 </div>
                                 <div className='stats-details'>
-                                    <div>
-                                        <span className='label stats-details__pay'>Thanh toán:</span>{' '}
-                                        <strong>20</strong> vé
-                                    </div>
+                                    {selectedTrip !== undefined && selectedTrip !== null && (
+                                        <div className='trip-info__item'>
+                                            <div>
+                                                <span className='label stats-details__pay'>Số Chỗ:</span>{' '}
+                                                <strong>{datacartriptheocarhouseid[selectedTrip]?.seats.length}</strong> vé
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div>
                                         <span className='label stats-details__datcho'>Đặt chỗ:</span>{' '}
-                                        <strong>10</strong> vé
+                                        <strong>{seatcartripdata && seatcartripdata?.forEach((item) => {
+                                            if (item.is_available === 0) {
+                                                ghedat++
+                                            }
+                                        })} {ghedat}</strong> vé 
                                     </div>
                                     <div>
-                                        <span className='label stats-details__trong'>Trống:</span> <strong>10</strong>{' '}
+                                        <span className='label stats-details__trong'>Trống:</span> <strong>{datacartriptheocarhouseid[selectedTrip]?.seats.length - ghedat}</strong>{' '}
                                         vé
                                     </div>
                                 </div>
