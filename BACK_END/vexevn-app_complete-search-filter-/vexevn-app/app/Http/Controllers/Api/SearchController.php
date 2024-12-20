@@ -151,7 +151,8 @@ class SearchController extends HelpController
 
             $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
             ->where('car_house_id', $user->carhouse_id)
-            ->paginate(5);
+            ->where('departure_date', $request->departure_date)
+            ->get();
 
             if ($data->isEmpty()) {
                 return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc điều kiện này!');

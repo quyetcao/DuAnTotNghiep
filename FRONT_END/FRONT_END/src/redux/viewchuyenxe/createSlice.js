@@ -7,6 +7,7 @@ const initialState = {
   AllChuyenXeSearch:[],
   isLoadcx:false,
   datacartriptheoid:[],
+  datacartriptheocarhouseid:[],
 
   
   };
@@ -34,10 +35,12 @@ const initialState = {
       },
       cartriptheoid(state, action){
         state.datacartriptheoid = action.payload  ;
-       
+      },
+      cartriptheocarhouseid(state, action){
+        state.datacartriptheocarhouseid = action.payload  ;
       },
 
     },
   });
   
-  export const {getAllChuyenXeSearch,changeIsLoadcx,reDataCx,cartriptheoid} = ViewUserSearchChuyenxe.actions;
+  export const {getAllChuyenXeSearch,changeIsLoadcx,reDataCx,cartriptheoid,cartriptheocarhouseid} = ViewUserSearchChuyenxe.actions;

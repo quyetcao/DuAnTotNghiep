@@ -13,10 +13,13 @@ import { ChuyenxeofCarHouse } from "./adminweb/admin-cx-carhouse/createSlice-cx-
 import { StorEmmployee } from "./adminweb/nhanvienlaixe/createSlice-nvlx";
 import { StoreCity } from "./city/CreateSlice_city";
 import { StoreThanhToan } from "./thanhtoan/createSlice_thanhtoan";
+import { MessageError } from "./ErrorandOK/createSlice_log";
+import { Donhang } from "./donhang/createSlicedn";
 
 
 // Kết hợp các reducer
 const rootReducer = combineSlices( 
+  MessageError,
   StoreCity,
   ViewUserSearchChuyenxe,
   InfoofBus,
@@ -56,6 +59,7 @@ const rootReducer = combineSlices(
 
   //Thanh toán 
   StoreThanhToan,
+  Donhang,
    );
 
 export const store = configureStore({

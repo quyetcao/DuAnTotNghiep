@@ -8,7 +8,7 @@ export function callApiGetCity(){
   return async (dispatch) => {
     try {
    
-      let res = await axios.get(`http://127.0.0.1:8000/api/cities`);
+      let res = await axios.get(`http://127.0.0.1:8000/api/cities/`);
       dispatch(getallCity(res.data));
 
     } catch (error) {

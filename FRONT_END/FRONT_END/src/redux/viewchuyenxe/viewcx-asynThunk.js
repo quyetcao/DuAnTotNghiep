@@ -1,5 +1,5 @@
 import axios from "axios";
-import { cartriptheoid, changeIsLoadcx, getAllChuyenXeSearch, reDataCx } from "./createSlice";
+import { cartriptheocarhouseid, cartriptheoid, changeIsLoadcx, getAllChuyenXeSearch, reDataCx } from "./createSlice";
 
 
 
@@ -64,6 +64,45 @@ export function getChuyenxebyid(id_car_trip){
 
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function getSearchChuyenxecarhouseid(formSearch) {
+  return async (dispatch) => {
+    try {
+      dispatch(changeIsLoadcx(true));
+
+      // Lấy token từ localStorage
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        throw new Error('Token không tồn tại. Vui lòng đăng nhập.');
+      }
+
+      let res = await axios.get(
+        "http://localhost:8000/api/cartrip/search-by-date-and-route",
+        {
+          params: {
+            car_route_id: formSearch.car_route_id,
+            departure_date: formSearch.departure_date,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`, // Định dạng chính xác
+          },
+        }
+      );
+
+      let data = res.data.data;
+      console.log("asyncthunkcatripdncsnds ", data);
+      dispatch(cartriptheocarhouseid(data));
+    } catch (error) {
+      if (error.response) {
+        console.error('Backend Error:', error.response.data.message || error.response.data);
+      } else {
+        console.error('Error:', error.message);
+      }
+    } finally {
+      dispatch(changeIsLoadcx(false));
     }
   };
 }

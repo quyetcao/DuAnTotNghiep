@@ -15,6 +15,7 @@ const initialState = {
   usedaxacthuc: {},
   //----------đã đăng nhập-----
   isAuthentication: false,
+  messageError:'',
 
 
 };
@@ -30,7 +31,9 @@ export const LoginLogOutRegister = createSlice({
       state.registerOK = action.payload;
     },
     poststRegisterError(state, action) {
+     console.log("action.payload ",action.payload);
       state.registerError = action.payload;
+    
     },
     postRegisterpedding(state, action) {
       console.log("action.payload", action.payload);

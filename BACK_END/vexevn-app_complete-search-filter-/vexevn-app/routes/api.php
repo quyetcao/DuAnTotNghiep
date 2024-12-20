@@ -128,14 +128,14 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // });
 
 // CAR TRIP
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->group(function () {
     Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
     Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
     Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
     Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
     Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
     Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
-// });
+});
 
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
@@ -239,6 +239,7 @@ Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmploy
 
 Route::get('/orders/{id}', [OrderController::class, 'showOrder']);
 Route::get('/orders', [OrderController::class, 'listOrders']);
+
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/orders/create', [OrderController::class, 'createOrder']);
