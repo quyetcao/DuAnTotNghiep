@@ -38,13 +38,13 @@ class CarTrip extends Model
 
     public function pickupPoints() {
         return $this->belongsToMany(PickupPoint::class, 'car_trip_pickup_points')
-                    ->withPivot('pickup_time')
+                    ->withPivot('id', 'pickup_time')
                     ->withTimestamps();
     }
 
     public function dropoffPoints() {
         return $this->belongsToMany(DropoffPoint::class, 'car_trip_dropoff_points')
-                    ->withPivot('dropoff_time')
+                    ->withPivot('id', 'dropoff_time')
                     ->withTimestamps();
         
     }
