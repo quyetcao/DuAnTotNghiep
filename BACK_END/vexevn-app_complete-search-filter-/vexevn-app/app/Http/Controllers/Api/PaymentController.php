@@ -28,7 +28,7 @@ class PaymentController extends Controller
             'order_id' => 'required|exists:orders,id',
             'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric|min:0',
-            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,virtual_bank',
+            'payment_method' => 'required|string|in:credit_card,bank_transfer,paypal,cash',
             'discount_code' => 'nullable|string',
         ]);
 
@@ -62,22 +62,15 @@ class PaymentController extends Controller
         }
 
         try {
-            $paymentResult = $this->processPayment($validated);
-
-            if ($paymentResult['status'] === 'pending' && $validated['payment_method'] === 'virtual_bank') {
-                return $this->sendResponse(200, 'Chuyển hướng thanh toán qua tài khoản ngân hàng ảo.', [
-                    'redirect_url' => $paymentResult['redirect_url'],
-                ]);
-            }
-
-            if ($paymentResult['status'] === 'completed') {
+            // Xử lý thanh toán bằng tiền mặt
+            if ($validated['payment_method'] === 'cash') {
                 $payment = Payment::create([
                     'order_id' => $validated['order_id'],
                     'user_id' => $validated['user_id'],
                     'amount' => $validated['amount'],
-                    'payment_method' => $validated['payment_method'],
+                    'payment_method' => 'cash',
                     'status' => 'completed',
-                    'transaction_id' => $paymentResult['transaction_id'],
+                    'transaction_id' => Str::uuid(),
                     'discount_code_id' => $discountCode ? $discountCode->id : null,
                 ]);
 
@@ -107,6 +100,30 @@ class PaymentController extends Controller
                     ]);
                 }
 
+                return $this->sendResponse(201, 'Thanh toán bằng tiền mặt và tạo vé thành công.', $payment);
+            }
+
+            // Xử lý các phương thức thanh toán khác
+            $paymentResult = $this->processPayment($validated);
+
+            if ($paymentResult['status'] === 'completed') {
+                $payment = Payment::create([
+                    'order_id' => $validated['order_id'],
+                    'user_id' => $validated['user_id'],
+                    'amount' => $validated['amount'],
+                    'payment_method' => $validated['payment_method'],
+                    'status' => 'completed',
+                    'transaction_id' => $paymentResult['transaction_id'],
+                    'discount_code_id' => $discountCode ? $discountCode->id : null,
+                ]);
+
+                if ($discountCode) {
+                    $discountCode->decrement('usage_limit');
+                    $discountCode->increment('used_count');
+                }
+
+                $order->update(['status' => 'paid']);
+
                 return $this->sendResponse(201, 'Thanh toán và tạo vé đã được xử lý thành công.', $payment);
             }
 
@@ -114,77 +131,6 @@ class PaymentController extends Controller
         } catch (\Exception $e) {
             return $this->sendResponse(500, $e->getMessage());
         }
-    }
-
-    public function handleBankCallback(Request $request)
-    {
-        $validated = $request->validate([
-            'reference_id' => 'required|string',
-            'status' => 'required|string|in:success,failed',
-            'transaction_id' => 'nullable|string',
-        ]);
-
-        $payment = Payment::where('transaction_id', $validated['reference_id'])->first();
-
-        if (!$payment) {
-            return $this->sendResponse(404, 'Giao dịch không tồn tại.');
-        }
-
-        if ($validated['status'] === 'success') {
-            $payment->update(['status' => 'completed']);
-            $payment->order->update(['status' => 'paid']);
-            return $this->sendResponse(200, 'Cập nhật trạng thái thanh toán thành công.');
-        }
-
-        $payment->update(['status' => 'failed']);
-        return $this->sendResponse(400, 'Thanh toán không thành công.');
-    }
-
-    private function calculateOrderTotalAmount($seatIds)
-    {
-        if (empty($seatIds) || !is_array($seatIds)) {
-            return 0;
-        }
-
-        return \DB::table('seats')->whereIn('id', $seatIds)->sum('price');
-    }
-
-    private function processPayment($data)
-    {
-        if ($data['payment_method'] === 'virtual_bank') {
-            $parameters = [
-                'amount' => $data['amount'],
-                'orderId' => 'ORDER_' . $data['order_id'],
-                'referenceId' => 'REF_' . uniqid(),
-                'bankApiUrl' => config('services.virtual_bank.api_url'),
-                'callbackUrl' => config('services.virtual_bank.callback_url'),
-            ];
-
-            $response = $this->initiateBankPayment($parameters);
-
-            if (isset($response['redirectUrl'])) {
-                return [
-                    'status' => 'pending',
-                    'redirect_url' => $response['redirectUrl'],
-                ];
-            }
-
-            throw new \Exception($response['message'] ?? 'Lỗi không xác định từ ngân hàng ảo.');
-        }
-
-        return [
-            'status' => 'failed',
-            'transaction_id' => null,
-        ];
-    }
-
-    private function initiateBankPayment($parameters)
-    {
-        // Simulate API call to a virtual bank
-        return [
-            'redirectUrl' => $parameters['bankApiUrl'] . '/payment?ref=' . $parameters['referenceId'],
-            'status' => 'success',
-        ];
     }
 
     public function showPayment($id)
@@ -235,5 +181,23 @@ class PaymentController extends Controller
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }
+    }
+
+    private function calculateOrderTotalAmount($seatIds)
+    {
+        if (empty($seatIds) || !is_array($seatIds)) {
+            return 0;
+        }
+
+        return \DB::table('seats')->whereIn('id', $seatIds)->sum('price');
+    }
+
+    private function processPayment($data)
+    {
+        // Xử lý các phương thức thanh toán khác (nếu cần)
+        return [
+            'status' => 'failed',
+            'transaction_id' => null,
+        ];
     }
 }
