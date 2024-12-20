@@ -29,7 +29,7 @@ function AppAdminQLWeb() {
 
                 <div className='container'>
                     <div className='sidebar'>
-                        <a href='' className='sidebar-icon'>
+                        <a href='/adminweb' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
                         </a>
                         <a href='/adminweb/giam-gia' className='sidebar-icon'>

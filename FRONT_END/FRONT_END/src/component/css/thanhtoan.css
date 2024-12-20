@@ -538,8 +538,15 @@ a.text-link1 {
     transition: all ease-in-out 0.3s;
 }
 
-.payment-footer__left:hover {
+.payment-footer__left:hover  {
     background-color: rgb(255, 228, 133);
+}
+
+.payment-ft-content__title {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 .payment-footer__right {
