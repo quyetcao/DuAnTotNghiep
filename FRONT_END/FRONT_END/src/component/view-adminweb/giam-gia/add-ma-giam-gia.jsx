@@ -21,7 +21,7 @@ export default function AddGiamGia() {
 
   
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit,  formState: { errors }, } = useForm()
     const onSubmit = (data) => {
         const imageFiles = data.image[0];
         const formData = new FormData();
@@ -55,32 +55,45 @@ export default function AddGiamGia() {
 
         <>
             <ToastContainer />
-            <h3 style={{ textAlign: 'center' }}>THÊM Mã Giảm Giá</h3>
+            <h3 style={{ textAlign: 'center' }}>Thêm Mã Giảm Giá</h3>
             <div className="page-add-carhouse">
                 <form id="busForm" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <label htmlFor="code">Mã giảm giá </label>
-                    <input type="text" id="code"    {...register('code', { required: true })} placeholder="GG50FP" />
+                    <input type="text" id="code"    {...register('code', { required: 'Vui lòng nhập thông tin!' })} placeholder="GG50FP" />
+                    {errors.code && <p className='add-error'>{errors.code.message}</p>}
+
 
                     <label htmlFor="description">Mô tả</label>
                     <input name="description" id="description"  {...register('description')} />
+                    {errors.description && <p className='add-error'>{errors.description.message}</p>}
+
                     <label htmlFor="discount_type">Loại Giảm Giá</label>
                     <select type="date" id="discount_type"    {...register('discount_type')}>
                         <option value="fixed">Giảm Cố Định</option>
                         <option value="percentage">Giảm Theo Phần Trăm</option>
                     </select>
+                    {errors.discount_type && <p className='add-error'>{errors.discount_type.message}</p>}
+
                     <label htmlFor="discount_amount">Số tiền giảm (số % giảm)</label>
-                    <input type="number" id="discount_amount"    {...register('discount_amount', { required: true })} />
+                    <input type="number" id="discount_amount"    {...register('discount_amount', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.discount_amount && <p className='add-error'>{errors.discount_amount.message}</p>}
+
 
                     <label htmlFor="start_date">Ngày Bắt Đầu</label>
-                    <input type="datetime-local" id="start_date"    {...register('start_date', { required: true })} />
+                    <input type="datetime-local" id="start_date" {...register('start_date', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.start_date && <p className='add-error'>{errors.start_date.message}</p>}
                     <label htmlFor="end_date">Ngày Kết Thúc</label>
-                    <input type="datetime-local" id="end_date"    {...register('end_date', { required: true })} />
+                    <input type="datetime-local" id="end_date" {...register('end_date', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.end_date && <p className='add-error'>{errors.end_date.message}</p>}
+
                     <label htmlFor="usage_limit">Giới Hạn</label>
-                    <input type="number" id="usage_limit"    {...register('usage_limit', { required: true })} />
+                    <input type="number" id="usage_limit"    {...register('usage_limit', { required: 'Vui lòng nhập thông tin!' })} />
+                    {errors.usage_limit && <p className='add-error'>{errors.usage_limit.message}</p>}
+
                     <label htmlFor="is_active">Trạng Thái</label>
-                    <input type="number" id="is_active"    {...register('is_active', { required: true })} />
+                    <input type="number" id="is_active"    {...register('is_active', { required: 'Vui lòng nhập thông tin!' })} />
                     <label htmlFor="image">Ảnh</label>
-                    <input type="file" id="image"    {...register('image', { required: true })} />
+                    <input type="file" id="image"    {...register('image', { required: 'Vui lòng nhập thông tin!' })} />
                         <input type="submit" className='btnsb' value='Thêm Mã giảm' />
                 </form>
             </div>
