@@ -17,6 +17,9 @@ import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MyGallery from './showimg';
+import { useDispatch, useSelector } from 'react-redux';
+import { CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
+import { useEffect } from 'react';
 // import Drawer from '@mui/material/Drawer';
 // Tạo component TabPanel
 function TabPanel(props) {
@@ -47,7 +50,20 @@ function a11yProps(index) {
     };
 }
 
+<<<<<<< HEAD
+export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, infobus }) {
+    // console.log("itemcxxxxxxxxxxxxxxxxxxxxxxxxxxxx",itemcx);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(CallapiGetAllGiamGia());
+    }, []);
+    const dataAllgiamgia = useSelector((state) => state.StoreGiamGia?.dataAllgiamgia);
+    console.log('all list giamgia', dataAllgiamgia);
+    const isload = useSelector((state) => state.StoreGiamGia?.isloading);
+
+=======
 export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus}) {
+>>>>>>> f0154ceba7764a79f0fa974dea401be73b7173f5
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -73,7 +89,6 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
         },
     }));
 
-  
     function openttct(index) {
         console.log(index);
         var elements = document.getElementsByClassName('thong-tin-chi-tiet');
@@ -88,11 +103,6 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
     function toggleDrawer() {
         setDrawer(true);
     }
-
-
-
-
-
 
     return (
         <Box
@@ -125,51 +135,32 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
             {/* Nội dung của từng TabPanel */}
             <TabPanel value={value} index={0}>
                 <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', paddingLeft: '60px' }}>
-                    <div className='coupon-info-route-page-container' onClick={toggleDrawer}>
-                        <div className='giamgia'>
-                            <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
-                            <div className='thong-tin-ve-giam'>
-                                <div className='title-giam-gia'>
-                                    Bạn Mới (Vexere) <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
-                                </div>
-                                <div className='price-giam'>Giảm 10%</div>
-                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
-                                <div className='hsd'>
-                                    HSD:<strong>T3, 10/9 14:00</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='coupon-info-route-page-container' onClick={toggleDrawer}>
-                        <div className='giamgia'>
-                            <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
-                            <div className='thong-tin-ve-giam'>
-                                <div className='title-giam-gia'>
-                                    Bạn Mới (Vexere) <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
-                                </div>
-                                <div className='price-giam'>Giảm 10%</div>
-                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
-                                <div className='hsd'>
-                                    HSD: <strong>T3, 10/9 14:00</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='coupon-info-route-page-container' onClick={toggleDrawer}>
-                        <div className='giamgia'>
-                            <img src='../../images/img_page_viewchuyenxe/screenshot_1725632126.png' alt='' />
-                            <div className='thong-tin-ve-giam'>
-                                <div className='title-giam-gia'>
-                                    Bạn Mới (Vexere) <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
-                                </div>
-                                <div className='price-giam'>Giảm 10%</div>
-                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
-                                <div className='hsd'>
-                                    HSD: <strong>T3, 10/9 14:00</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {dataAllgiamgia &&
+                        dataAllgiamgia.map((item) => {
+                            return (
+                                <>
+                                    <div className='coupon-info-route-page-container' onClick={toggleDrawer}>
+                                        <div className='giamgia' key={item.id}>
+                                            <img
+                                                src={`http://127.0.0.1:8000/images/discount_codes/${item?.image}`}
+                                                alt=''
+                                            />
+                                            <div className='thong-tin-ve-giam'>
+                                                <div className='title-giam-gia'>
+                                                    Bạn Mới (Vexere){' '}
+                                                    <ErrorOutlineOutlinedIcon style={{ fontSize: '14px' }} />
+                                                </div>
+                                                <div className='price-giam'>{item.description}</div>
+                                                <div className='dk-giam'>Đơn hàng tối đa 1 vé</div>
+                                                <div className='hsd'>
+                                                    HSD:<strong>{item.end_date}</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            );
+                        })}
                 </div>
             </TabPanel>
             <TabPanel value={value} index={1} style={{ paddingLeft: '60px', paddingRigth: '60px' }}>
@@ -181,39 +172,55 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
                 <div className='diem-don-tra'>
                     <div className='diem-don'>
                         <h3>Điểm đón</h3>
-                        {itemcx && itemcx?.pickup_points?.map((itemdiemdon) => {
-                            return <div className="form-check" key={itemdiemdon.id}>
-                                <label className="form-check-label" >
-                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
-                                    <li style={{ fontWeight: '500' }}>
-                                        {itemdiemdon.pivot.pickup_time}
-                                        <ul>
-                                            <li className='trung-chuyen'>Có trung chuyển</li>
-                                            <li>{itemdiemdon.address}</li>
-                                        </ul>
-                                    </li>
-                                </label>
-                            </div>
-                        })
-                        }
+                        {itemcx &&
+                            itemcx?.pickup_points?.map((itemdiemdon) => {
+                                return (
+                                    <div className='form-check' key={itemdiemdon.id}>
+                                        <label className='form-check-label'>
+                                            <input
+                                                type='radio'
+                                                className='form-check-input'
+                                                name=''
+                                                id=''
+                                                value='checkedValue'
+                                            />
+                                            <li style={{ fontWeight: '500' }}>
+                                                {itemdiemdon.pivot.pickup_time}
+                                                <ul>
+                                                    <li className='trung-chuyen'>Có trung chuyển</li>
+                                                    <li>{itemdiemdon.address}</li>
+                                                </ul>
+                                            </li>
+                                        </label>
+                                    </div>
+                                );
+                            })}
                     </div>
                     <div className='diem-tra'>
                         <h3>Điểm trả</h3>
-                        {itemcx && itemcx?.dropoff_points?.map((itemdiemtra) => {
-                            return <div className="form-check" key={itemdiemtra.id}>
-                                <label className="form-check-label" >
-                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
-                                    <li style={{ fontWeight: '500' }}>
-                                        {itemdiemtra.pivot.dropoff_time}
-                                        <ul>
-                                            <li className='trung-chuyen'>Có trung chuyển</li>
-                                            <li>{itemdiemtra.address}</li>
-                                        </ul>
-                                    </li>
-                                </label>
-                            </div>
-                        })
-                        }
+                        {itemcx &&
+                            itemcx?.dropoff_points?.map((itemdiemtra) => {
+                                return (
+                                    <div className='form-check' key={itemdiemtra.id}>
+                                        <label className='form-check-label'>
+                                            <input
+                                                type='radio'
+                                                className='form-check-input'
+                                                name=''
+                                                id=''
+                                                value='checkedValue'
+                                            />
+                                            <li style={{ fontWeight: '500' }}>
+                                                {itemdiemtra.pivot.dropoff_time}
+                                                <ul>
+                                                    <li className='trung-chuyen'>Có trung chuyển</li>
+                                                    <li>{itemdiemtra.address}</li>
+                                                </ul>
+                                            </li>
+                                        </label>
+                                    </div>
+                                );
+                            })}
                     </div>
                 </div>
             </TabPanel>
@@ -295,6 +302,32 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
                 </div>
                 <div className='binh-luan'>
                     <div className='item-bl'>
+                        <form>
+                            <div className='item-bl-infouse'>
+                                <Avatar
+                                    alt='Remy Sharp'
+                                    src='../../images/img_page_viewchuyenxe/hinh-nen-gai-xinh-viet-nam-mac-vay-hoa.jpg'
+                                    sx={{ width: 50, height: 50 }}
+                                />
+                                <div className='nameuser-star'>
+                                    <div>Ali Du Som</div>
+                                    <Rating name='read-only' value='4.8' readOnly size='small' />
+                                </div>
+                            </div>
+                            <div className='nd-bl'>
+                                <p>Ok dichj vụ rất tốt...</p>
+                            </div>
+                            <div className='tgian-bl'>
+                                <p>
+                                    Đi ngày 24/06/2024{' '}
+                                    <span>
+                                        <VerifiedIcon sx={{ width: '16px' }} /> Đã đặt vé
+                                    </span>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    {/* <div className='item-bl'>
                         <div className='item-bl-infouse'>
                             <Avatar
                                 alt='Remy Sharp'
@@ -317,31 +350,7 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
                                 </span>
                             </p>
                         </div>
-                    </div>
-                    <div className='item-bl'>
-                        <div className='item-bl-infouse'>
-                            <Avatar
-                                alt='Remy Sharp'
-                                src='../../images/img_page_viewchuyenxe/hinh-nen-gai-xinh-viet-nam-mac-vay-hoa.jpg'
-                                sx={{ width: 50, height: 50 }}
-                            />
-                            <div className='nameuser-star'>
-                                <div>Ali Du Som</div>
-                                <Rating name='read-only' value='4.8' readOnly size='small' />
-                            </div>
-                        </div>
-                        <div className='nd-bl'>
-                            <p>Ok dichj vụ rất tốt...</p>
-                        </div>
-                        <div className='tgian-bl'>
-                            <p>
-                                Đi ngày 24/06/2024{' '}
-                                <span>
-                                    <VerifiedIcon sx={{ width: '16px' }} /> Đã đặt vé
-                                </span>
-                            </p>
-                        </div>
-                    </div>
+                    </div> */}
                 </div>
                 <Pagination
                     count={10}
@@ -351,7 +360,7 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
                 />
             </TabPanel>
             <TabPanel value={value} index={3}>
-            <MyGallery infobus={infobus}/>
+                <MyGallery infobus={infobus} />
             </TabPanel>
             <TabPanel value={value} index={4}>
                 <div className='chinh-sach-container'>
@@ -497,7 +506,12 @@ export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus
             <TabPanel value={value} index={6}>
                 Nội dung của Tab 7
             </TabPanel>
-            <CancelOutlinedIcon sx={{ position: 'absolute', top: 0, right: 0, color: 'red' }} onClick={()=>{openttct(index)}} />
+            <CancelOutlinedIcon
+                sx={{ position: 'absolute', top: 0, right: 0, color: 'red' }}
+                onClick={() => {
+                    openttct(index);
+                }}
+            />
             <Drawer
                 anchor='right'
                 open={drawer}

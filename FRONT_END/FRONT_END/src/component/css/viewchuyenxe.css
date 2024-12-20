@@ -646,6 +646,13 @@
     padding: 12px;
     border: 1px solid rgb(171, 166, 166);
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.coupon-info-route-page-container:hover {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 3px rgba(24, 144, 255, 0.2);
+    transition: all ease-in-out 0.25s;
 }
 
 .giamgia {
