@@ -244,6 +244,7 @@ Route::get('/orders', [OrderController::class, 'listOrders']);
 Route::post('/orders/create', [OrderController::class, 'createOrder']);
 Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
 Route::delete('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
+Route::get('orders/user/{userId}', [OrderController::class, 'getOrdersByUserId']);
 //});
 
 //ORDER HISTORY
