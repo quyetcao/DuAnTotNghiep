@@ -100,12 +100,14 @@ export default function EditCarHouse() {
                     <input type='submit' className='btnsb' value='OK' />
                 </form>
 
-                <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                    <Button variant='contained'>Quản Lý Xe</Button>
-                </Link>
-                <Link to='/admincarhouse/listcartype'>
-                    <Button variant='contained'>Quản Lý Loại Xe</Button>
-                </Link>
+                <div className='group-link-active'>
+                    <Link to='/adminweb/show-ds-carhouse'>
+                        <Button variant='contained'>Quản Lý Xe</Button>
+                    </Link>
+                    {/* <Link to='/admincarhouse/listcartype'>
+                        <Button variant='contained'>Quản Lý Loại Xe</Button>
+                    </Link> */}
+                </div>
             </div>
         </>
     );

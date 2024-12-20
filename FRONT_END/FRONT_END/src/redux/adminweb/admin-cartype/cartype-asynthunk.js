@@ -10,6 +10,7 @@ import {
     showPopupOk1,
     showPopupError1,
     getAllListCarbyCarHouseID,
+    getAllCarTypenopt,
 } from './createSlice-cartype';
 
 ////////////////////////////// lấy all xe of nhà xe XE CỦA NHÀ XE
@@ -101,14 +102,30 @@ export function CallapiUpdateCarofCarHouse(id, formdata) {
 
 ////// LOẠI XE CARTYPE
 // call lấy tất cả xe
-export function CallapiGetAllCarType() {
+export function CallapiGetAllCarType(page) {
     return async (dispatch) => {
         try {
             dispatch(showLoading(false));
-            let res = await axios.get(`http://localhost:8000/api/cartypes`);
+            let res = await axios.get(`http://localhost:8000/api/cartypes?page=${page}`);
             console.log('all loại xe ', res.data.data);
 
             dispatch(getAllCarType(res.data.data));
+            dispatch(showLoading(true));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+}
+
+
+export function CallapiGetAllCarTypenopt() {
+    return async (dispatch) => {
+        try {
+            dispatch(showLoading(false));
+            let res = await axios.get(`http://localhost:8000/api/cartypes/nopt`);
+            console.log('all loại xe ', res.data.data);
+
+            dispatch(getAllCarTypenopt(res.data.data));
             dispatch(showLoading(true));
         } catch (error) {
             console.log(error);

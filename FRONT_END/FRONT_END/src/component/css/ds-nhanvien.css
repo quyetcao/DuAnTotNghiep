@@ -185,9 +185,9 @@ body {
     margin-left: 6px;
 }
 
-.active {
+/* .active {
     margin: 4px 12px;
-}
+} */
 
 .active-list {
     display: flex;

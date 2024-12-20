@@ -95,12 +95,14 @@ export default function EditCarType() {
                 {/* <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
                     <Button variant='contained'>Quản Lý Nhà Xe</Button>
                 </Link> */}
-                <Link to='/admincarhouse/listcartype' className='btn-input-manage'>
-                    <Button variant='contained'>Quản Lý Loại Xe</Button>
-                </Link>
-                <Link to='/admincarhouse/listcar' className='btn-input-manage'>
-                    <Button variant='contained'>Quản Lý Xe</Button>
-                </Link>
+                <div className='group-link-active'>
+                    <Link to='/admincarhouse/listcartype'>
+                        <Button variant='contained'>Quản Lý Loại Xe</Button>
+                    </Link>
+                    <Link to='/admincarhouse/listcar'>
+                        <Button variant='contained'>Quản Lý Xe</Button>
+                    </Link>
+                </div>
             </div>
         </>
     );

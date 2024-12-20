@@ -305,6 +305,8 @@ tbody tr:nth-child(even) {
     border: 1px solid #b4b4b4;
     cursor: pointer;
     transition: all ease-in-out 0.15s; 
+    /* padding: 0 6px; */
+    margin: 0 6px;
 }
 
 .page-list__item:hover {
