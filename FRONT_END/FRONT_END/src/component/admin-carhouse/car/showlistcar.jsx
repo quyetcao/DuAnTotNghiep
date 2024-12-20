@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Pagination from '../../pagination/pagination';
+import { Button } from '@mui/material';
 
 export default function Quanlyxe() {
     const dispatch = useDispatch();
@@ -116,8 +117,15 @@ export default function Quanlyxe() {
                             </tbody>
                         </table>
                     </div>
+                    <div className='left-admin-select group-link-active'>
+                        <Link to='/admincarhouse/listcartype'>
+                            <Button variant='contained'>Quản Lý Loại Xe</Button>
+                        </Link>
+                        <Link to='/admincarhouse/listcar'>
+                            <Button variant='contained'>Quản Lý Xe</Button>
+                        </Link>
+                    </div>
                     <Pagination links={allcar?.links} onPageChange={handlePageChange} />
-                    
 
                     {/* <div className='page-button'>
                         <div className='page-list'>

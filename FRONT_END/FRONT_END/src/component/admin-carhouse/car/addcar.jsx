@@ -3,7 +3,8 @@ import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    CallapiGetAllCarType,
+    // CallapiGetAllCarType,
+    CallapiGetAllCarTypenopt,
     CallapiPostCarofCarHouse,
 } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { toast, ToastContainer } from 'react-toastify';
@@ -13,9 +14,9 @@ export default function AddCar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(CallapiGetAllCarType());
+        dispatch(CallapiGetAllCarTypenopt());
     }, []);
-    const allcartype = useSelector((state) => state.Storecartype?.dataCarType);
+    const dataCarTypenopt = useSelector((state) => state.Storecartype?.dataCarTypenopt);
     const isToastOk = useSelector((state) => state.StoreCar?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreCar?.popupError);
 
@@ -101,8 +102,8 @@ export default function AddCar() {
                     </select>
                     <label htmlFor='loaixe'>Loại Xe</label>
                     <select name='loaixe' id='loaixe' {...register('car_type_id')}>
-                        {allcartype &&
-                            allcartype?.data?.map((item) => {
+                        {dataCarTypenopt &&
+                            dataCarTypenopt?.map((item) => {
                                 return (
                                     <>
                                         <option value={item.id}>

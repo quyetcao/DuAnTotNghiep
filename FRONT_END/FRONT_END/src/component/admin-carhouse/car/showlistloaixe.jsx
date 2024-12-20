@@ -108,15 +108,18 @@ export default function Quanlyloaixe() {
                         )}
                     </div>
                     <div className='box-footer-admin'>
-                        <div className='left-admin-select'>
-                            <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
+                        <div className='left-admin-select group-link-active'>
+                            {/* <Link to='/adminweb/show-ds-carhouse'>
                                 <Button variant='contained'>Quản Lý Nhà Xe</Button>
                             </Link>
-                            <Link to='/adminweb/listbanner' className='btn-input-manage'>
+                            <Link to='/adminweb/listbanner'>
                                 <Button variant='contained'>Quản Lý Banner</Button>
-                            </Link>
+                            </Link> */}
                             <Link to='/admincarhouse/listcartype'>
                                 <Button variant='contained'>Quản Lý Loại Xe</Button>
+                            </Link>
+                            <Link to='/admincarhouse/listcar'>
+                                <Button variant='contained'>Quản Lý Xe</Button>
                             </Link>
                         </div>
                         <Pagination links={allcartype?.links} onPageChange={handlePageChange} />

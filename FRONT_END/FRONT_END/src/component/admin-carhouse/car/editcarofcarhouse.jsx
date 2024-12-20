@@ -2,12 +2,12 @@ import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    CallapiGetAllCarType,
     CallapiGetAllCarTypenopt,
     CallapiGetOneCarOfCarHouse,
-    CallapiGetOneCarType,
     CallapiUpdateCarofCarHouse,
-    CallapiUpdateCarType,
+    // CallapiGetAllCarType,
+    // CallapiGetOneCarType,
+    // CallapiUpdateCarType,
 } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -165,12 +165,14 @@ export default function EditCarOfCarHouse() {
                     <input type='submit' className='btnsb' value='Sửa' />
                 </form>
 
-                <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                    <Button variant='contained'>Quản Lý Xe</Button>
-                </Link>
-                <Link to='/admincarhouse/listcartype'>
-                    <Button variant='contained'>Quản Lý Loại Xe</Button>
-                </Link>
+               <div className='group-link-active'>
+                    <Link to='/adminweb/show-ds-carhouse'>
+                        <Button variant='contained'>Quản Lý Xe</Button>
+                    </Link>
+                    <Link to='/admincarhouse/listcartype'>
+                        <Button variant='contained'>Quản Lý Loại Xe</Button>
+                    </Link>
+               </div>
             </div>
         </>
     );

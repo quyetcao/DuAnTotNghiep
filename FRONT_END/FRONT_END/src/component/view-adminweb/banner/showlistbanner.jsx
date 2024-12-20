@@ -114,18 +114,18 @@ export default function QuanlyBanner() {
                         )}
                     </div>
                     <div className='box-footer-admin'>
-                        <div className='left-admin-select'>
-                            <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
+                        <div className='left-admin-select group-link-active'>
+                            <Link to='/adminweb/show-ds-carhouse'>
                                 <Button variant='contained'>Quản Lý Nhà Xe</Button>
                             </Link>
-                            <Link to='/adminweb/listbanner' className='btn-input-manage'>
+                            <Link to='/adminweb/listbanner'>
                                 <Button variant='contained'>Quản Lý Banner</Button>
                             </Link>
-                            <Link to='/admincarhouse/listcartype'>
+                            {/* <Link to='/admincarhouse/listcartype'>
                                 <Button variant='contained'>Quản Lý Loại Xe</Button>
-                            </Link>
+                            </Link> */}
                         </div>
-                        <div className='page-button'>
+                        {/* <div className='page-button'>
                             <div className='page-list'>
                                 <div className='page-list__item'>
                                     <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
@@ -140,7 +140,7 @@ export default function QuanlyBanner() {
                                     <ChevronRightIcon style={{ color: '#6e6e6e' }} />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

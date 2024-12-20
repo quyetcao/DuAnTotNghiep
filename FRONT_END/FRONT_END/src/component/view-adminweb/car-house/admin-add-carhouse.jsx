@@ -95,8 +95,15 @@ export default function AddCarHouse() {
                         placeholder='active or paused'
                     /> */}
                     <label htmlFor='phone'>Địa Chỉ</label>
-                    <input type='text' id='address' {...register('address')} placeholder='Nhập địa chỉ...' />
-                    {errors.phone && <p className='add-error'>{errors.phone.message}</p>}
+                    <input
+                        type='text'
+                        id='address'
+                        {...register('address', {
+                            required: 'Vui lòng nhập thông tin',
+                        })}
+                        placeholder='Nhập địa chỉ...'
+                    />
+                    {errors.address && <p className='add-error'>{errors.address.message}</p>}
 
                     <input type='submit' className='btnsb' value='Thêm nhà xe' />
                 </form>
