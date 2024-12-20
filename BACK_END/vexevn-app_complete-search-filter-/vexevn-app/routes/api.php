@@ -226,7 +226,7 @@ Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatC
 // EMPLOYEE
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
 Route::get('/employee', [EmployeeController::class, 'listEmployee']);
-Route::get('/employee/car_house_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
+Route::get('/douse_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
 
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
