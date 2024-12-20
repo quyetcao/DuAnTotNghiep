@@ -93,7 +93,7 @@ export default function QuanlyEvent() {
 
 
                     </div>
-                    <div className='page-button'>
+                    {/* <div className='page-button'>
                         <div className='page-list'>
                             <div className='page-list__item'>
                                 <ChevronLeftIcon style={{ color: '#6e6e6e' }} />
@@ -108,7 +108,7 @@ export default function QuanlyEvent() {
                                 <ChevronRightIcon style={{ color: '#6e6e6e' }} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
