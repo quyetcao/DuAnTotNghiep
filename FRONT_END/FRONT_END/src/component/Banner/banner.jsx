@@ -196,7 +196,7 @@ export default function Banner() {
                                                                 ref={danhSachTinhTPRef}
                                                             >
                                                                 <ul>
-                                                                    {datacity.map((item) => {
+                                                                    {datacity?.map((item) => {
                                                                         return (
                                                                             <li
                                                                                 key={item.id}
@@ -243,7 +243,7 @@ export default function Banner() {
                                                                 ref={danhSachTinhTPRef}
                                                             >
                                                                 <ul>
-                                                                    {datacity.map((item) => {
+                                                                    {datacity?.map((item) => {
                                                                         return (
                                                                             <li
                                                                                 key={item.id}
