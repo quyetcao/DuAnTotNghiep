@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\CarTrip;
 use App\Models\CarRoute;
 
-class SearchController extends Controller
+class SearchController extends HelpController
 {
     public function searchCarTrip(Request $request)
     {
@@ -136,5 +136,36 @@ class SearchController extends Controller
             'message' => 'Tìm kiếm chuyến đi thành công',
             'data' => $trips
         ], 200);
+    }
+
+    public function searchCarTripByCarHouse(Request $request)
+    {
+        $rules = [
+            'departure_date' => 'required|date',
+            'car_route_id' => 'required|exists:car_routes,id',
+        ];
+
+        return $this->validateAndExecute($request, $rules, function () use ($request) {
+            // Lấy thông tin user đăng nhập
+            $user = Auth::user();
+           
+            // // Kiểm tra nếu user không thuộc nhà xe
+            // if (!$user->carhouse_id) {
+            //     return $this->sendResponse(403, 'Bạn không thuộc nhà xe nào!');
+            // }
+
+            $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
+                            ->whereHas('car', function ($query) use ($user) {
+                                $query->where('car_house_id', $user->carhouse_id);
+                            })
+                            ->paginate(10);
+
+            if ($data->isEmpty()) {
+                return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc điều kiện này!');
+            }
+            return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo điều kiện thành công!', $data);            
+
+        });
+
     }
 }

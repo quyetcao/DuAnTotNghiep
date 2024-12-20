@@ -128,18 +128,18 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // });
 
 // CAR TRIP
-Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
+    Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
+    Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
+    Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
+    Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
+    Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+    Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
+});
 
 Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
 Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
 Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
-
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
-Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
-Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
-Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
-Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
-// });
 
 
 
@@ -217,11 +217,12 @@ Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatC
     Route::get('/comment/{id}', [CommentController::class, 'show']);
     Route::get('/comment', [CommentController::class, 'index']);
 // });
-// Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/comments/car-trips/{carTripId}', [CommentController::class, 'commentsByTrip']);
     Route::post('/comment', [CommentController::class, 'store']);
     Route::post('/comment/{id}', [CommentController::class, 'update']);
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
-// });
+});
 
 // EMPLOYEE
 Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
