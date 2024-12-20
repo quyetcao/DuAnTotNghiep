@@ -6,8 +6,12 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 // import WarningIcon from '@mui/icons-material/Warning';
 import '../css/thanhtoan.css';
+import { useLocation } from "react-router-dom";
 
 export default function ThanhToan() {
+    const location = useLocation();
+    const formData = location.state;
+    console.log("formData",formData);
     return (
         <>
             <div className='body-container'>

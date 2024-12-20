@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\DiscountCodeController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CarTripStatusController;
-
+use App\Http\Controllers\Api\SeatCarTripController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -199,6 +199,17 @@ Route::get('/seat', [SeatController::class, 'listSeat']);
 Route::post('/seat', [SeatController::class, 'createSeat']);
 Route::post('/seat/{id}', [SeatController::class, 'updateSeat']);
 Route::delete('/seat/{id}', [SeatController::class, 'deleteSeat']);
+// });
+
+//SeatCarTripCarTrip
+Route::get('/seat-car-trip/car-trip-id/{car_trip_id}', [SeatCarTripController::class, 'showSeatCarTripByCarTripId']);
+Route::get('/seat-car-trip/{car_id}', [SeatCarTripController::class, 'showSeatbycarid']);
+Route::get('/seat-car-trip', [SeatCarTripController::class, 'showSeatCarTrip']);
+
+// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::post('/seat-car-trip', [SeatCarTripController::class, 'createSeatCarTrip']);
+Route::post('/seat-car-trip/{id}', [SeatCarTripController::class, 'updateSeatCarTrip']);
+Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatCarTrip']);
 // });
 
 //Comment

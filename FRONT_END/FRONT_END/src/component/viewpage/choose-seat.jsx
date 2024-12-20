@@ -1,14 +1,26 @@
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import '../css/css-view-all-chuyen-xe/choose-seat.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
+import { callApiSeatCarTripByCarTripId } from '../../redux/info-bus/infobus-asynThunk';
+import SVG from './svg';
 
 
-export default function ChooseSeat({ seat_car_id}) {
+export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
+
 
     const allseatofcarid = useSelector((state) => state.SeatofCarid?.seatcarid);
+
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(callApiSeatCarTripByCarTripId(itemallthongtincx?.id))
+    }, [])
+    const seatcartripbycartripid = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid);
+
 
     const [selectedDivs, setSelectedDivs] = useState(() => {
         const savedSeats = localStorage.getItem("dataSeat");
@@ -70,7 +82,7 @@ export default function ChooseSeat({ seat_car_id}) {
         return savedPrice ? JSON.parse(savedPrice) : 0;
     });
 
-   
+
 
     function showselectseat(name, price) {
         if (showSeat.includes(name)) {
@@ -88,12 +100,12 @@ export default function ChooseSeat({ seat_car_id}) {
         localStorage.setItem("totalPrice", JSON.stringify(totalprice));
     }, [showSeat, totalprice]);
 
-   // khi thằng thông tin mount vào thì xóa 
+    // khi thằng thông tin mount vào thì xóa 
     useEffect(() => {
         localStorage.removeItem("dataSeat");
         localStorage.removeItem("showSeat");
         localStorage.removeItem("totalPrice");
-    }, []); 
+    }, []);
 
 
     return (
@@ -185,41 +197,20 @@ export default function ChooseSeat({ seat_car_id}) {
                     <div className="note">Chú thích</div>
                     <div className="seat-info">
                         <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 daMVvn seat-thumbnail" disabled="">
-                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                            </svg>
+                           <SVG/>
                         </div>
                         <span className="seat-name">Ghế không bán</span>
                     </div>
 
                     <div className="seat-info">
                         <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 dLgsTe seat-thumbnail">
-                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                            </svg>
+                        <SVG/>
                         </div>
                         <span className="seat-name">Đang chọn</span>
                     </div>
                     <div className="seat-info">
                         <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 ezApQI seat-thumbnail" color="#6bd600">
-                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                            </svg>
+                        <SVG/>
                         </div>
 
                         <div className="seat-group">
@@ -232,14 +223,7 @@ export default function ChooseSeat({ seat_car_id}) {
 
                     <div className="seat-info">
                         <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 vvWPx seat-thumbnail" color="#fba442">
-                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                            </svg>
+                        <SVG/>
                         </div>
                         <div className="seat-group">
                             <span className="seat-name">
@@ -250,13 +234,7 @@ export default function ChooseSeat({ seat_car_id}) {
                     </div>
                     <div className="seat-info">
                         <div className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 lfCjCF seat-thumbnail" color="#ae70ff">
-                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                            </svg>
+                        <SVG/>
                         </div>
                         <div className="seat-group">
                             <span className="seat-name">
@@ -293,82 +271,103 @@ export default function ChooseSeat({ seat_car_id}) {
                             </g>
                             </g>
                         </svg>
-                        {allseatofcarid[seat_car_id]
-                            ?.filter((itemseat) => itemseat.location_seat == 0).map((itemseat, index) => {
-                                return (
-                                    <div key={index} className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 lfCjCF seat-thumbnail" id={itemseat.id} onClick={() => { selectSeat(itemseat.id) }} color="#ae70ff" value={itemseat}>
-                                        <Tooltip title={itemseat.seat_number + ':' + itemseat.price} >
-                                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                                            </svg>
-                                        </Tooltip>
-                                    </div>
-                                );
-                            })}
+                        {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 0).map((itemseat) => {
+                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
+                            const isAvailable = seatData && seatData.is_available === 0;
+
+                            return (
+                                <div
+                                    key={itemseat.id}
+                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'lfCjCF'}`}
+                                    id={itemseat.id}
+                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
+                                        e.stopPropagation();
+                                        return;
+                                    } ;
+                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
+                                    color="#ae70ff"
+                                    value={itemseat}
+                                >
+                                    <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                    <SVG/>
+                                    </Tooltip>
+                                </div>
+                            );
+                        })}
+
+
                     </div>
                     <div className="hang-ghe-giua">
-                        {allseatofcarid && allseatofcarid[seat_car_id]
-                            ?.filter((itemseat) => itemseat.location_seat == 1).map((itemseat, index) => {
-                                return (
-                                    <div key={index} className="SeatThumbnail__SeatContainer-sc-1ooosi9-0 vvWPx seat-thumbnail" id={itemseat.id} onClick={() => { selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }} color="#ae70ff" value={itemseat}>
-                                        <Tooltip title={itemseat.seat_number + ':' + itemseat.price} >
-                                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                                            </svg>
-                                        </Tooltip>
-                                    </div>
-                                );
-                            })}
+                    {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 1).map((itemseat) => {
+                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
+                            const isAvailable = seatData && seatData.is_available === 0;
+
+                            return (
+                                <div
+                                    key={itemseat.id}
+                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'vvWPx'}`}
+                                    id={itemseat.id}
+                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
+                                        e.stopPropagation();
+                                        return;
+                                    } ;
+                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
+                                    color="#ae70ff"
+                                    value={itemseat}
+                                >
+                                    <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                    <SVG/>
+                                    </Tooltip>
+                                </div>
+                            );
+                        })}
                     </div>
                     <div className="hang-ghe-cuoi">
-                        {allseatofcarid && allseatofcarid[seat_car_id]
-                            ?.filter((itemseat) => itemseat.location_seat == 2).map((itemseat, index) => {
-                                return (
-                                    <div key={index} className="SeatThumbnail__SeatContainer-sc-1ooosi9-0  ezApQI  seat-thumbnail" id={itemseat.id} onClick={() => { selectSeat(itemseat.id) }} color="#ae70ff" value={itemseat}>
-                                        <Tooltip title={itemseat.seat_number + ':' + itemseat.price} >
-                                            <svg width="40" height="32" viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="8.75" y="2.75" width="22.5" height="26.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="10.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 10.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="35.25" y="11.75" width="14.5" height="5.5" rx="2.25" transform="rotate(90 35.25 11.75)" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <rect x="8.75" y="22.75" width="22.5" height="6.5" rx="2.25" fill="#FFF" stroke="#B8B8B8" strokeWidth="1.5" strokeLinejoin="round"></rect>
-                                                <path className="icon-selected" d="M20 6.333A6.67 6.67 0 0 0 13.334 13 6.67 6.67 0 0 0 20 19.667 6.67 6.67 0 0 0 26.667 13 6.669 6.669 0 0 0 20 6.333zm-1.333 10L15.333 13l.94-.94 2.394 2.387 5.06-5.06.94.946-6 6z" fill="transparent"></path>
-                                                <path className="icon-disabled" d="M24.96 9.46l-1.42-1.42L20 11.59l-3.54-3.55-1.42 1.42L18.59 13l-3.55 3.54 1.42 1.42L20 14.41l3.54 3.55 1.42-1.42L21.41 13l3.55-3.54z" fill="transparent"></path>
-                                            </svg>
-                                        </Tooltip>
-                                    </div>
-                                );
-                            })}
+                    {allseatofcarid[seat_car_id]?.filter((itemseat) => itemseat.location_seat == 2).map((itemseat) => {
+                        console.log("kfvbdbfb",itemseat);
+                            const seatData = seatcartripbycartripid.find(item => item.seat_id === itemseat.id);
+                            const isAvailable = seatData && seatData.is_available === 0;
+
+                            return (
+                                <div
+                                    key={itemseat.id}
+                                    className={`SeatThumbnail__SeatContainer-sc-1ooosi9-0 seat-thumbnail  ${isAvailable ? 'daMVvn' : 'ezApQI'}`}
+                                    id={itemseat.id}
+                                    onClick={(e) => {  if (e.currentTarget.classList.contains('daMVvn')) {
+                                        e.stopPropagation();
+                                        return;
+                                    } ;
+                                    selectSeat(itemseat.id); showselectseat(itemseat.seat_number, itemseat.price) }}
+                                    color="#ae70ff"
+                                    value={itemseat}
+                                >
+                                    <Tooltip title={`${itemseat?.seat_number}:${itemseat?.price}`}>
+                                    <SVG/>
+                                    </Tooltip>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
             <div className="showghe-gia">
                 <div className="show-ghe">
-                <h4>Số Ghế:</h4><div style={{fontSize:'16px',color:'rgb(0, 96, 196)',fontWeight:'600'}}>{showSeat.map((item,index)=>{
-                  
-                  if(index == showSeat.length-1){
-                               return `${item}`
-                    }else{
-                         return `${item},`
-                    }
-                    
-                   
-                })}</div>
+                    <h4>Số Ghế:</h4><div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>{showSeat.map((item, index) => {
+
+                        if (index == showSeat.length - 1) {
+                            return `${item}`
+                        } else {
+                            return `${item},`
+                        }
+
+
+                    })}</div>
                 </div>
                 <div className="showgia">
-                    <h4>Tổng cộng:</h4> <div style={{fontSize:'16px',color:'rgb(0, 96, 196)',fontWeight:'600'}}>{totalprice}</div>
+                    <h4>Tổng cộng:</h4> <div style={{ fontSize: '16px', color: 'rgb(0, 96, 196)', fontWeight: '600' }}>{totalprice}</div>
                 </div>
             </div>
-          
+
         </>
     )
 }

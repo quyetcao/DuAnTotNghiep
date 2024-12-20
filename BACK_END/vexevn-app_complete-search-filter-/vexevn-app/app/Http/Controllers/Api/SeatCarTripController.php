@@ -28,6 +28,16 @@ class SeatCarTripController extends Controller
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết seat car trip thành công!', $data);
     }
+    public function showSeatCarTripByCarTripId($carTripId)
+{
+    $data = SeatCarTrip::where('car_trip_id', $carTripId)->get();
+
+    if ($data->isEmpty()) {
+        return $this->sendResponse(404, 'Không tìm thấy thông tin cho car_trip_id đã cho!');
+    }
+
+    return $this->sendResponse(200, 'Lấy thông tin chi tiết cho car_trip_id thành công!', $data);
+}
 
     public function listSeatCarTrips()
     {

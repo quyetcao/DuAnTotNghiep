@@ -101,7 +101,7 @@ export default function HorizontalLinearStepper({index,car_id,itemallthongtincx}
 
           
           <Typography sx={{ mt: 2, mb: 1 }}>
-          {activeStep + 1 === 1 ? <ChooseSeat seat_car_id={car_id}  /> : <ChooseLocation car_id={car_id}  itemallthongtincx={itemallthongtincx}/> }
+          {activeStep + 1 === 1 ? <ChooseSeat seat_car_id={car_id} itemallthongtincx={itemallthongtincx} /> : <ChooseLocation car_id={car_id}  itemallthongtincx={itemallthongtincx}/> }
 
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
