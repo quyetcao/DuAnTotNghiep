@@ -16,6 +16,7 @@ import AltRouteIcon from '@mui/icons-material/AltRoute';
 import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import MyGallery from './showimg';
 // import Drawer from '@mui/material/Drawer';
 // Tạo component TabPanel
 function TabPanel(props) {
@@ -46,7 +47,8 @@ function a11yProps(index) {
     };
 }
 
-export default function ScrollableTabsButtonVisible({index}) {
+export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus}) {
+    // console.log("itemcxxxxxxxxxxxxxxxxxxxxxxxxxxxx",itemcx);
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -87,6 +89,11 @@ export default function ScrollableTabsButtonVisible({index}) {
     function toggleDrawer() {
         setDrawer(true);
     }
+
+
+
+
+
 
     return (
         <Box
@@ -175,39 +182,39 @@ export default function ScrollableTabsButtonVisible({index}) {
                 <div className='diem-don-tra'>
                     <div className='diem-don'>
                         <h3>Điểm đón</h3>
-                        <ul>
-                            <li style={{ fontWeight: '500' }}>
-                                08:11
-                                <ul>
-                                    <li className='trung-chuyen'>Có trung chuyển</li>
-                                    <li>Đón/trả tận nơi trong thành phố Hải Phòng</li>
-                                </ul>
-                            </li>
-                            <li>
-                                09:01
-                                <ul>
-                                    <li>Hải Phòng</li>
-                                </ul>
-                            </li>
-                        </ul>
+                        {itemcx && itemcx?.pickup_points?.map((itemdiemdon) => {
+                            return <div className="form-check" key={itemdiemdon.id}>
+                                <label className="form-check-label" >
+                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
+                                    <li style={{ fontWeight: '500' }}>
+                                        {itemdiemdon.pivot.pickup_time}
+                                        <ul>
+                                            <li className='trung-chuyen'>Có trung chuyển</li>
+                                            <li>{itemdiemdon.address}</li>
+                                        </ul>
+                                    </li>
+                                </label>
+                            </div>
+                        })
+                        }
                     </div>
                     <div className='diem-tra'>
                         <h3>Điểm trả</h3>
-                        <ul>
-                            <li>
-                                08:11
-                                <ul>
-                                    <li className='trung-chuyen'>Có trung chuyển</li>
-                                    <li>Đón/trả tận nơi trong thành phố Hải Phòng</li>
-                                </ul>
-                            </li>
-                            <li>
-                                09:01
-                                <ul>
-                                    <li>Hải Phòng</li>
-                                </ul>
-                            </li>
-                        </ul>
+                        {itemcx && itemcx?.dropoff_points?.map((itemdiemtra) => {
+                            return <div className="form-check" key={itemdiemtra.id}>
+                                <label className="form-check-label" >
+                                    <input type="radio" className="form-check-input"  name="" id="" value="checkedValue" />
+                                    <li style={{ fontWeight: '500' }}>
+                                        {itemdiemtra.pivot.dropoff_time}
+                                        <ul>
+                                            <li className='trung-chuyen'>Có trung chuyển</li>
+                                            <li>{itemdiemtra.address}</li>
+                                        </ul>
+                                    </li>
+                                </label>
+                            </div>
+                        })
+                        }
                     </div>
                 </div>
             </TabPanel>
@@ -345,7 +352,7 @@ export default function ScrollableTabsButtonVisible({index}) {
                 />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                ĐANG PHÁT TRIỂN
+            <MyGallery infobus={infobus}/>
             </TabPanel>
             <TabPanel value={value} index={4}>
                 <div className='chinh-sach-container'>

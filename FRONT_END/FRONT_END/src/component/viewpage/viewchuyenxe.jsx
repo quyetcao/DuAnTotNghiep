@@ -1,7 +1,7 @@
 //import css
 import '../css/viewchuyenxe.css';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import icon
 // import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 // import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
@@ -51,44 +51,18 @@ import DanhSachChuyenXeResponsive from './ds-chuyenxe-responsive';
 import NoSearch from './nosearch';
 import Search from '../Banner/search';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { callApiSeatCarTripByCarTripId } from '../../redux/info-bus/infobus-asynThunk';
 
 export default function ViewChuyenxe() {
-    
+
     const [activeIndex, setActiveIndex] = useState(null);
     const [activeIndex1, setActiveIndex1] = useState(null);
-    // const [htlich, sethtlich] = useState(false);
-    // const [htngay, setngay] = useState(dayjs('2022-04-17'));
-    // function onclick() {
-    //     sethtlich(true);
-    // }
-    // function onclick1() {
-    //     sethtlich(false);
-    // }
-    // const [selectedDate, setSelectedDate] = useState([null, null]);
-
-    // const handleDateChange = (newValue) => {
-    //     console.log(newValue);
-    //     // Nếu có giá trị ngày được chọn, đặt cả ngày bắt đầu và ngày kết thúc bằng nhau
-    //     if (newValue[0] && !newValue[1]) {
-    //         setSelectedDate([newValue[0], newValue[0]]);
-    //     } else {
-    //         setSelectedDate(newValue);
-    //     }
-    // };
-
     // loc
     const [value, setValue] = useState([20, 37]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    /// danh sach menu ở thông tin chi tiết
-    // const [value1, setValue1] = useState(0);
-    // const handleChange1 = (event, newValue) => {
-    //     setValue1(newValue);
-    // };
-
     /////////code để show thông tin chuyến xe đã được search
     const allChuyenxeSearch = useSelector((state) => state.ViewChuyenXeSearch?.AllChuyenXeSearch);
     console.log('cx search', allChuyenxeSearch);
@@ -103,12 +77,56 @@ export default function ViewChuyenxe() {
             setviewNoSearch(false);
         }
     }, []);
+   
+
+
+
+    //// Thưc hien code Lọc
+    const [sortOption, setSortOption] = useState('Mặt định'); // mặc định là 'Mặt định'
+    const [sortedTrips, setSortedTrips] = useState([]); // state để lưu danh sách chuyến xe đã sắp xếp
+
+    // Step 2: Hàm xử lý thay đổi giá trị radio
+    const handleSortChange = (event) => {
+        setSortOption(event.target.value);
+    };
+
+    useEffect(() => {
+
+    let sortedData = [...allChuyenxeSearch];
+
+    switch(sortOption) {
+        case 'Giờ đi sớm nhất':
+          sortedData.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
+          break;
+        case 'Giờ đi muộn nhất':
+          sortedData.sort((a, b) => b.departureTime.localeCompare(a.departureTime));
+          break;
+        case 'Đánh giá cao nhất':
+          sortedData.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'Giá tăng dần':
+          sortedData.sort((a, b) => a.price - b.price);
+          break;
+        case 'Giá giảm dần':
+          sortedData.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          // Mặt định: không sắp xếp
+          break;
+      }
+  
+      setSortedTrips(sortedData); 
+    }, [sortOption]); 
+
+
+
+
 
     return (
         <>
             <div className='viewchuyenxe'>
                 <div className='container_viewchuyenxe'>
-                   <Search/>
+                    <Search />
 
                     {viewNoSearch ? (
                         <NoSearch></NoSearch>
@@ -128,6 +146,8 @@ export default function ViewChuyenxe() {
                                             aria-labelledby='demo-radio-buttons-group-label'
                                             defaultValue='female'
                                             name='radio-buttons-group'
+                                            value={sortOption} // giá trị của radio được quản lý từ state
+                                            onChange={handleSortChange} // hàm xử lý khi người dùng chọn radio khác
                                         >
                                             <FormControlLabel
                                                 value='Mặt định'
@@ -554,12 +574,12 @@ export default function ViewChuyenxe() {
                                     <p className='title-cx-2'>Đặt chuyến xe trực tuyến</p>
                                 </div>
                                 <div className='ds-cx-desktop'>
-                                    {allChuyenxeSearch.map((item, index) => {
+                                    {sortedTrips.map((item, index) => {
                                         return <DanhSachChuyenXe key={item.id} index={index} item={item}
-                                        isActive={activeIndex === index} 
-                                        isActive1={activeIndex1 === index}// Kiểm tra chuyến xe này có đang được bật hay không
-                                         onToggle={() => setActiveIndex(activeIndex === index ? null : index)} 
-                                         onClick={()=>setActiveIndex1(activeIndex1 === index ? null : index) }
+                                            isActive={activeIndex === index}
+                                            isActive1={activeIndex1 === index}// Kiểm tra chuyến xe này có đang được bật hay không
+                                            onToggle={() => setActiveIndex(activeIndex === index ? null : index)}
+                                            onClick={() => setActiveIndex1(activeIndex1 === index ? null : index)}
                                         />;
                                     })}
                                 </div>

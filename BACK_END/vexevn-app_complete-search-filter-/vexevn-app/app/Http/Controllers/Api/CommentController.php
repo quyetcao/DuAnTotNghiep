@@ -80,6 +80,7 @@ class CommentController extends Controller
             ]
         ], 201);
     }
+    
     public function update(Request $request, $id)
     {
         $comment = Comment::find($id);
