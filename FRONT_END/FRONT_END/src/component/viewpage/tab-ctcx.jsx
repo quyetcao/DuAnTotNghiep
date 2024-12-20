@@ -50,6 +50,7 @@ function a11yProps(index) {
     };
 }
 
+<<<<<<< HEAD
 export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, infobus }) {
     // console.log("itemcxxxxxxxxxxxxxxxxxxxxxxxxxxxx",itemcx);
     const dispatch = useDispatch();
@@ -60,6 +61,9 @@ export default function ScrollableTabsButtonVisible({ index, car_id, itemcx, inf
     console.log('all list giamgia', dataAllgiamgia);
     const isload = useSelector((state) => state.StoreGiamGia?.isloading);
 
+=======
+export default function ScrollableTabsButtonVisible({index,car_id,itemcx,infobus}) {
+>>>>>>> f0154ceba7764a79f0fa974dea401be73b7173f5
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
