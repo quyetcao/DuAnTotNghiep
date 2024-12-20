@@ -1,8 +1,5 @@
 // import '../../../css/adminweb/';
 import EditIcon from '@mui/icons-material/Edit';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -85,7 +82,6 @@ export default function QuanlyPost() {
                                         <td className='action-icons'>
                                             <EditIcon onClick={() => { navigateEdit(item.id) }} />
                                             <DeleteIcon onClick={() => { deleteArticles(item.id) }} />
-                                            <FileCopyIcon />
                                         </td>
                                     </tr>
 
