@@ -21,7 +21,7 @@ class HelpController extends Controller
             return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $th->getMessage()]);
+            return $this->sendResponse(500, 'Lỗi hệ thống!', ['error' => $th->getMessage()]);
         }
     }
 
