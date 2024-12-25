@@ -12,7 +12,8 @@
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
         "spatie/laravel-permission": "^6.10",
-        "stripe/stripe-php": "^16.3"
+        "stripe/stripe-php": "^16.3",
+        "twilio/sdk": "^8.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.3",
