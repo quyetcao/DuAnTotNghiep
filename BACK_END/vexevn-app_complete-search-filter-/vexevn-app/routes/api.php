@@ -22,15 +22,20 @@ use App\Http\Controllers\Api\DiscountCodeController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CarTripStatusController;
 use App\Http\Controllers\Api\SeatCarTripController;
-use App\Http\Controllers\Api\SMSController;
+use App\Http\Controllers\Api\OTPController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Gửi OTP
+Route::post('/send-otp', [OTPController::class, 'sendOTP']);
+
+// Xác minh OTP
+Route::post('/verify-otp', [OTPController::class, 'verifyOtp'])->name('verify-otp');
+
 Route::post('/auth/signup', [AuthController::class, 'signUp']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
-Route::post('/send-sms', [SMSController::class, 'sendSMS']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/profile', [AuthController::class, 'profile']);
