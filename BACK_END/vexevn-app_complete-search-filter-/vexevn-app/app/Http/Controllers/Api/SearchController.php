@@ -12,7 +12,7 @@ use App\Models\CarRoute;
 
 class SearchController extends HelpController
 {
-    public function searchCarTrip(Request $request)
+    public function search(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'city_from' => 'required|string',

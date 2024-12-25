@@ -28,13 +28,13 @@ use App\Models\CarTripEmployee;
 
 class CarTripController extends HelpController
 {
-    public function listCarTrip()
+    public function index()
     {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->paginate(5);
 
         return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe thành công', $data);
     }
-    public function showCarTrip($id)
+    public function show($id)
     {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees','car.carType' ])->find($id);
 
@@ -48,7 +48,15 @@ class CarTripController extends HelpController
             'data' => $data
         ], 200);
     }
-    public function getTripsByCarHouse($carHouseId)
+    public function listCarTripNotStarted(){
+    // Lọc chuyến xe theo trạng thái 'not_started' cho người dùng
+    $data = CarTrip::notStarted()
+                   ->with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])
+                   ->paginate(5);
+
+    return $this->sendResponse(200, 'Danh sách chuyến xe chưa bắt đầu', $data);
+    }
+    public function getByCarHouse($carHouseId)
     {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
                         ->where('car_house_id', $carHouseId)
@@ -214,7 +222,7 @@ class CarTripController extends HelpController
     //     }
     // }
 
-    public function createCarTrip(Request $request) {
+    public function store(Request $request) {
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
@@ -473,7 +481,7 @@ class CarTripController extends HelpController
     //     }
     // }
 
-    public function updateCarTrip(Request $request, $id) {
+    public function update(Request $request, $id) {
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
@@ -582,7 +590,7 @@ class CarTripController extends HelpController
         });
     }
     
-    public function deleteCarTrip($id)
+    public function destroy($id)
     {
         $carTrip = CarTrip::find($id);
 

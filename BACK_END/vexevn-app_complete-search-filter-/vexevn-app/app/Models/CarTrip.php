@@ -53,15 +53,26 @@ class CarTrip extends Model
         return $this->belongsToMany(Employee::class, 'car_trip_employees', 'car_trip_id', 'employee_id')
                     ->withTimestamps();
     }
-    public function scopeNotStarted($query) {
+    public function scopeStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    // Scope for not_started
+    public function scopeNotStarted($query)
+    {
         return $query->where('status', 'not_started');
     }
-    
-    public function scopeRunning($query) {
+
+    // Scope for running
+    public function scopeRunning($query)
+    {
         return $query->where('status', 'running');
     }
 
-    public function scopeCompleted($query) {
+    // Scope for completed
+    public function scopeCompleted($query)
+    {
         return $query->where('status', 'completed');
     }
 

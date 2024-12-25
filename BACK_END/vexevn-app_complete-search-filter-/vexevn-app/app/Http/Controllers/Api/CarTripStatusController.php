@@ -18,7 +18,7 @@ class CarTripStatusController extends Controller
 
         // Cập nhật trạng thái "running" cho các chuyến xe đã đến ngày đi
         $running = CarTrip::where('status', 'not_started')
-                            ->whereDate('departure_date', '<=', $now->toDateString())
+                            ->whereDate('departure_date', '=', $now->toDateString())
                             ->update(['status' => 'running']);
 
         // Cập nhật trạng thái "completed" cho các chuyến xe đã kết thúc
@@ -27,9 +27,10 @@ class CarTripStatusController extends Controller
                             ->update(['status' => 'completed']);
 
         return response()->json([
-            'message' => 200,
+            'status' => 200,
+            'message' => 'Số chuyến xe lần lượt ở status running và complete',
             'running_updated' => $running,
             'completed_updated' => $completed,
-        ]);
+        ], 200);
     }
 }

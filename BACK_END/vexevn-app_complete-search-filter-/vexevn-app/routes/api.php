@@ -128,18 +128,35 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // });
 
 // CAR TRIP
-Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->group(function () {
-    Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
-    Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
-    Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
-    Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
-    Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
-    Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
+// Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->group(function () {
+//     Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
+//     Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
+//     Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
+//     Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
+//     Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
+//     Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
+// });
+// Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
+// Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
+// Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
+
+Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->prefix('cartrip')->group(function () {
+    Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
+    Route::get('/{id}', [CarTripController::class, 'show']); // Chi tiết chuyến xe
+    Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
+    Route::put('/{id}', [CarTripController::class, 'update']); // Cập nhật chuyến xe
+    Route::delete('/{id}', [CarTripController::class, 'destroy']); // Xóa chuyến xe
+    Route::get('/carhouse/{carHouseId}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
+    Route::post('/update-statuses', [CarTripStatusController::class, 'updateStatuses']); // Cập nhật trạng thái chuyến xe
 });
 
-Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
-Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
-Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
+// KHÔNG CẦN LOGIN
+Route::prefix('cartrip')->group(function () {
+    Route::get('/search', [SearchController::class, 'search']); // Tìm kiếm chuyến xe (public)
+    Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']); 
+});
+
+
 
 
 
