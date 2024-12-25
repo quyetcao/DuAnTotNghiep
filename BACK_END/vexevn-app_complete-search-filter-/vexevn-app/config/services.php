@@ -56,5 +56,10 @@ return [
         'api_url' => env('VIRTUAL_BANK_API_URL'),
         'callback_url' => env('VIRTUAL_BANK_CALLBACK_URL'),
     ],
-    
+    'twilio' => [
+    'sid' => env('TWILIO_ACCOUNT_SID'),
+    'token' => env('TWILIO_AUTH_TOKEN'),
+    'from' => env('TWILIO_PHONE_NUMBER'),
+],
+
 ];
