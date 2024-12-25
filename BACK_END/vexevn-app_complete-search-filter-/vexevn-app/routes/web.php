@@ -26,7 +26,23 @@ Route::get('/', function () {
 
 Route::get('home', [HomeController::class, 'index']);
 
+
 // LOGIN & SIGN UP WITH GOOGLE
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+// Hiển thị form quên mật khẩu
+Route::get('/password/forgot', function () {
+    return view('password.forgot');
+})->name('password.request');
+
+// Gửi email đặt lại mật khẩu
+Route::post('/password/email', [AuthController::class, 'sendResetLink'])->name('password.email');
+
+// Hiển thị form đặt lại mật khẩu
+Route::get('/password/reset/{token}', function ($token) {
+    return view('password.reset', ['token' => $token]);
+})->name('password.reset');
+
+// Xử lý đặt lại mật khẩu
+Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
 
