@@ -22,13 +22,15 @@ use App\Http\Controllers\Api\DiscountCodeController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CarTripStatusController;
 use App\Http\Controllers\Api\SeatCarTripController;
-
+use App\Http\Controllers\Api\SMSController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('/auth/signup', [AuthController::class, 'signUp']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+
+Route::post('/send-sms', [SMSController::class, 'sendSMS']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/auth/profile', [AuthController::class, 'profile']);
