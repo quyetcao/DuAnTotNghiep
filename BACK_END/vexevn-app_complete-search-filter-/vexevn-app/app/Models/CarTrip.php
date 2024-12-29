@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class CarTrip extends Model
 {
     use HasFactory;
@@ -29,7 +31,7 @@ class CarTrip extends Model
 
     public function seatCarTrips()
     {
-        return $this->hasMany(SeatCarTrip::class, 'car_trip_id');
+        return $this->hasMany(SeatCarTrip::class);
     }
     
     public function carRoute() {
@@ -74,6 +76,26 @@ class CarTrip extends Model
     public function scopeCompleted($query)
     {
         return $query->where('status', 'completed');
+    }
+
+    public static function resetCompletedTrips()
+    {
+        $completedTrips = self::where('status', 'completed')->get();
+    
+        foreach ($completedTrips as $trip) {
+            // Thực hiện cập nhật trạng thái và các ngày cho từng chuyến xe
+            $newDepartureDate = Carbon::parse($trip->departure_date)->addDays(7);
+            $newArrivalDate = Carbon::parse($trip->arrival_date)->addDays(7);
+            
+            // Nếu có ngày về, cập nhật ngày về
+            $newReturnDate = $trip->return_date ? Carbon::parse($trip->return_date)->addDays(7) : null;
+    
+            $trip->status = 'not_started';
+            $trip->departure_date = $newDepartureDate;
+            $trip->arrival_date = $newArrivalDate;
+            $trip->return_date = $newReturnDate;
+            $trip->save();
+        }
     }
 
  

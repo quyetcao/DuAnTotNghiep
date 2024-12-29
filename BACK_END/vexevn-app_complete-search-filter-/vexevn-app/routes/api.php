@@ -148,12 +148,11 @@ Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute'])
 // Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
 
 Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->prefix('cartrip')->group(function () {
-    Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
+
     Route::get('/{id}', [CarTripController::class, 'show']); // Chi tiết chuyến xe
-    Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
+
     Route::put('/{id}', [CarTripController::class, 'update']); // Cập nhật chuyến xe
     Route::delete('/{id}', [CarTripController::class, 'destroy']); // Xóa chuyến xe
-    Route::get('/carhouse/{carHouseId}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
     Route::post('/update-statuses', [CarTripStatusController::class, 'updateStatuses']); // Cập nhật trạng thái chuyến xe
 });
 
@@ -161,6 +160,10 @@ Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->prefix('cartrip
 Route::prefix('cartrip')->group(function () {
     Route::get('/search', [SearchController::class, 'search']); // Tìm kiếm chuyến xe (public)
     Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']); 
+    Route::get('/carhouse/{carHouseId}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
+    Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
+    Route::get('/reset-statuses/cartrip', [CarTripStatusController::class, 'resetCompletedCarTrips']);
+    Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
 });
 
 

@@ -30,36 +30,34 @@ class CarTripController extends HelpController
 {
     public function index()
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])->paginate(5);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])->paginate(5);
 
         return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe thành công', $data);
     }
     public function show($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees','car.carType' ])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'employees','car.carType' ])->find($id);
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy chuyến xe!');
         }
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Lấy thông tin chi tiết chuyến xe thành công!',
-            'data' => $data
-        ], 200);
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết chuyến xe thành công!', $data);
     }
     public function listCarTripNotStarted(){
     // Lọc chuyến xe theo trạng thái 'not_started' cho người dùng
     $data = CarTrip::notStarted()
-                   ->with(['car', 'pickupPoints', 'dropoffPoints', 'seats'])
+                   ->with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])
                    ->paginate(5);
 
     return $this->sendResponse(200, 'Danh sách chuyến xe chưa bắt đầu', $data);
     }
     public function getByCarHouse($carHouseId)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
-                        ->where('car_house_id', $carHouseId)
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'employees', 'carRoute'])
+                        ->whereHas('car', function ($query) use ($carHouseId) {
+                            $query->where('car_house_id', $carHouseId);
+                        })
                         ->paginate(5);
     
         // Kiểm tra nếu không có chuyến xe nào
@@ -226,7 +224,7 @@ class CarTripController extends HelpController
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
-            'car_route_id' => 'nullable|exists:car_routes,id',
+            'car_route_id' => 'required|exists:car_routes,id',
             'departure_date' => 'required|date|after_or_equal:today',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
@@ -485,7 +483,7 @@ class CarTripController extends HelpController
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
-            'car_route_id' => 'nullable|exists:car_routes,id',
+            'car_route_id' => 'required|exists:car_routes,id',
             'departure_date' => 'required|date|after_or_equal:today',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
