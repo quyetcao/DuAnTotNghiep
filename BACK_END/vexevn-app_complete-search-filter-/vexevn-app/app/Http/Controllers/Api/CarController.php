@@ -209,7 +209,7 @@ class CarController extends HelpController
             ]);
 
             // Trả về thông báo success
-            return $this->sendResponse(201, 'Nhà xe tạo mới thành công!', $carHouse);
+            return $this->sendResponse(201, 'Nhà xe  thành công!', $carHouse);
         });
     }
     public function deleteCarHouse($id)

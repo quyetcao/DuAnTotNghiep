@@ -5,28 +5,28 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\CarTrip;
 
-class ResetCompletedTrips extends Command
+class ChangeStatusTrips extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:reset-completed-trips';
+    protected $signature = 'app:change-status-trips';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset trạng thái các chuyến xe đã completed về not_started, cập nhật ngày khởi hành và reset ghế';
+    protected $description = 'Đổi trạng thái running, completed cho chuyến xe';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        CarTrip::resetCompletedTrips();
-        $this->info('Reset chuyến xe thành công!');
+        CarTrip::updateStatuses();
+        $this->info('Chuyến đổi trạng thái chuyến xe thành công!');
     }
 }

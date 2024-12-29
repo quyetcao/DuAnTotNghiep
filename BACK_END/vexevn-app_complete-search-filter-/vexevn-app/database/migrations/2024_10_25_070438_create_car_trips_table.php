@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('arrival_date');
             $table->date('return_date')->nullable();
             $table->unsignedBigInteger('price'); // Giá vé
-            $table->enum('status', ['not_started', 'running', 'completed']);
+            $table->enum('status', ['not_started', 'running', 'completed'])->default('not_started');
             $table->timestamps();
     
             $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');

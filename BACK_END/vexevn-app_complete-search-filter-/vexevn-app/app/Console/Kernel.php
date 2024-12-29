@@ -2,6 +2,7 @@
 namespace App\Console;
 
 use App\Console\Commands\ResetCompletedTrips;
+use App\Console\Commands\ChangeStatusTrips;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -9,12 +10,13 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         ResetCompletedTrips::class,
+        ChangeStatusTrips::class,
     ];
 
     protected function schedule(Schedule $schedule)
     {
-        // Lên lịch chạy command hàng ngày, ví dụ vào lúc 2 giờ sáng
-        $schedule->command(command: 'app:reset-completed-trips')->everyMinute();
+        $schedule->command('app:reset-completed-trips')->hourly();
+        $schedule->command('app:change-status-trips')->hourly();
     }
 
     protected function commands()

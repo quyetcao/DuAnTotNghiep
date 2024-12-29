@@ -28,7 +28,7 @@ class CarTripStatusController extends HelpController
 
         return response()->json([
             'status' => 200,
-            'message' => 'Số chuyến xe lần lượt ở status running và complete',
+            'message' => 'Số chuyến xe lần lượt ở status running và completed',
             'running_updated' => $running,
             'completed_updated' => $completed,
         ], 200);
