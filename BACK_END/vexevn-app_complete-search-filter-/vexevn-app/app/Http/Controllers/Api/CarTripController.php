@@ -301,8 +301,7 @@ class CarTripController extends HelpController
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
-                $locationSeat = ($i == 1 || $i == 2) ? 0 : (($i == $numberOfSeats || $i == $numberOfSeats - 1) ? 2 : 1);
-
+                $locationSeat = ($i == 1) ? 0 : (($i > $numberOfSeats - 3) ? 2 : 1);
                 $seat = Seat::create([
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
@@ -317,6 +316,7 @@ class CarTripController extends HelpController
                     'car_id' => $carTrip->car_id,
                     'car_trip_id' => $carTrip->id,
                     'is_available' => true,
+                    'booking_method' => 'web',
                 ]);
             }
 

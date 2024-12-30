@@ -292,6 +292,8 @@ Route::get('/payment/{id}', [PaymentController::class, 'showPayment']);
 Route::get('/payment/user/{userId}', [PaymentController::class, 'userPayments']);
 Route::get('/payment', [PaymentController::class, 'listPayments']);
 Route::delete('/payment/delete/{id}', [PaymentController::class, 'deletePayment']);
+Route::post('/create-vnpay-payment', [PaymentController::class, 'createVNPayPayment']);
+Route::get('/vnpay-callback', [PaymentController::class, 'vnpayCallback']);
 
 //User
 Route::get('/user/{id}', [UserController::class, 'listUser']);

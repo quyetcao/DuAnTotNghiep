@@ -34,9 +34,9 @@ class Order extends Model
                 'user_id' => $order->user_id,
                 'status' => $order->status,
                 'description' => 'Đơn hàng được tạo với trạng thái: ' . $order->status,
-                'name' => $order->name, // Thêm thông tin tên
-                'phone' => $order->phone, // Thêm số điện thoại
-                'email' => $order->email, // Thêm email
+                'name' => $order->name, 
+                'phone' => $order->phone, 
+                'email' => $order->email, 
             ]);
         });
 
@@ -47,9 +47,9 @@ class Order extends Model
                     'user_id' => $order->user_id,
                     'status' => 'cancelled',
                     'description' => 'Đơn hàng bị hủy và ghế đã được giải phóng.',
-                    'name' => $order->name, // Thêm thông tin tên
-                    'phone' => $order->phone, // Thêm số điện thoại
-                    'email' => $order->email, // Thêm email
+                    'name' => $order->name, 
+                    'phone' => $order->phone, 
+                    'email' => $order->email,
                 ]);
             }
         });

@@ -17,6 +17,7 @@ class SeatCarTrip extends Model
         'car_id',
         'car_trip_id',
         'is_available',
+        'booking_method', 
     ];
 
     public function seat()

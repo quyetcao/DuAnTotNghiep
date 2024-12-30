@@ -28,16 +28,17 @@ class SeatCarTripController extends Controller
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết seat car trip thành công!', $data);
     }
+
     public function showSeatCarTripByCarTripId($carTripId)
-{
-    $data = SeatCarTrip::where('car_trip_id', $carTripId)->get();
+    {
+        $data = SeatCarTrip::where('car_trip_id', $carTripId)->get();
 
-    if ($data->isEmpty()) {
-        return $this->sendResponse(404, 'Không tìm thấy thông tin cho car_trip_id đã cho!');
+        if ($data->isEmpty()) {
+            return $this->sendResponse(404, 'Không tìm thấy thông tin cho car_trip_id đã cho!');
+        }
+
+        return $this->sendResponse(200, 'Lấy thông tin chi tiết cho car_trip_id thành công!', $data);
     }
-
-    return $this->sendResponse(200, 'Lấy thông tin chi tiết cho car_trip_id thành công!', $data);
-}
 
     public function listSeatCarTrips()
     {
@@ -52,6 +53,7 @@ class SeatCarTripController extends Controller
             'car_id' => 'required|exists:cars,id',
             'car_trip_id' => 'required|exists:trips,id',
             'is_available' => 'boolean',
+            'booking_method' => 'in:hotline,counter,web', 
         ]);
 
         try {
@@ -76,6 +78,7 @@ class SeatCarTripController extends Controller
             'car_id' => 'required|exists:cars,id',
             'car_trip_id' => 'required|exists:trips,id',
             'is_available' => 'boolean',
+            'booking_method' => 'in:hotline,counter,web', 
         ]);
 
         if ($validateSeatCarTrip->fails()) {
@@ -87,6 +90,7 @@ class SeatCarTripController extends Controller
             $seatCarTrip->car_id = $request->car_id;
             $seatCarTrip->car_trip_id = $request->car_trip_id;
             $seatCarTrip->is_available = $request->is_available;
+            $seatCarTrip->booking_method = $request->booking_method; // Cập nhật booking_method
             $seatCarTrip->save();
 
             return $this->sendResponse(200, 'Cập nhật seat car trip thành công!', $seatCarTrip);
