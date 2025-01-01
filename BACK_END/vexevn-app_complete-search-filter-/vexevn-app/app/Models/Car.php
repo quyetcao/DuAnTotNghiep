@@ -26,6 +26,10 @@ class Car extends Model
     public function carTrips() {
         return $this->hasMany(CarTrip::class);
     }
+
+    public function employees() {
+        return $this->hasMany(Employee::class);
+    }
 }
 
 

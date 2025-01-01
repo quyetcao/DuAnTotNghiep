@@ -13,11 +13,11 @@ class HelpController extends Controller
 {
     public function handleDatabaseTransaction(callable $operation)
     {
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $result = $operation();
+            
             DB::commit();
-
             return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -67,6 +67,4 @@ class HelpController extends Controller
             return $this->sendResponse(200, $message);
         });
     }
-
-
 }

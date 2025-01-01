@@ -152,13 +152,42 @@ return [
     'uuid'                 => 'Trường :attribute phải là một chuỗi UUID hợp lệ.',
 
     'custom' => [
-        'price' => ['required' => 'Vui lòng nhập giá!',],
+        'name' => [
+            'required' => 'Vui lòng nhập tên!',
+            'unique' => 'Tên đã tồn tại'
+        ],
+        'license_plate' => [
+            'required' => 'Vui lòng nhập biển số xe!',
+            'unique' => 'Biển số xe đã tồn tại'
+        ],
+        'phone' => [
+            'required' => 'Vui lòng nhập số điện thoại!',
+            'unique' => 'Số điện thoại đã tồn tại',
+            'regex' => 'Số điện thoại phải có 10 số và bắt đầu bằng số 0',
+        ],
+        'address' => ['required' => 'Vui lòng nhập địa chỉ!'],
+        'price' => ['required' => 'Vui lòng nhập giá!'],
+        'title' => ['required' => 'Vui lòng nhập tiêu đề!'],
+        'status' => ['required' => 'Vui lòng chọn trạng thái!'],
+        'is_public' => ['required' => 'Vui lòng chọn chế độ công khai!'],
+        'city_from' => ['required' => 'Vui lòng chọn điểm khơi hành!'],
+        'city_to' => ['required' => 'Vui lòng chọn điểm đến!'],
+        'employees' => ['required' => 'Vui lòng chọn nhân viên phụ trách!'],
+        'quantity_' => ['required' => 'Vui lòng chọn nhập số lượng ghế!'],
+        'content' => ['required' => 'Vui lòng điền nội dung bình luận!'],
+        'car_type_id' => ['required' => 'Vui lòng chọn loại xe!'],
+        'car_house_id' => ['required' => 'Vui lòng chọn loại nhà xe!'],
         'car_id' => ['required' => 'Vui lòng chọn xe!'],
         'car_route_id' => ['required' => 'Vui lòng chọn tuyến đường!'],
+        'car_trip_id' => ['required' => 'Vui lòng chọn chuyến xe!'],
         'departure_date' => ['required' => 'Vui lòng chọn ngày đi!'],
         'arrival_date' => ['required' => 'Vui lòng chọn ngày đến!'],
         'pickup_points' => ['required' => 'Vui lòng chọn danh sách điểm đón!'],
         'dropoff_points' => ['required' => 'Vui lòng chọn danh sách điểm trả!'],
+        'dropoff_point_id' => ['required' => 'Vui lòng chọn điểm  trả!'],
+        'pickup_point_id' => ['required' => 'Vui lòng chọn điểm đón!'],
+        'pickup_time' => ['required' => 'Vui lòng chọn giờ đón!'],
+        'dropoff_time' => ['required' => 'Vui lòng chọn giờ trả!'],
     ],
 ];
 

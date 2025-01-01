@@ -47,11 +47,21 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::put('/auth/update-role/{id}', [AuthController::class, 'updateRole']);
     Route::delete('/auth/delete/{id}', [AuthController::class, 'deleteUser']);
 });
-/* =====================================================================
-                            CAR SYSTEM 
-===========================================================================*/
 
-// CAR TYPE
+/* =====================================================================
+                            USER 
+===========================================================================*/
+Route::get('/user/{id}', [UserController::class, 'listUser']);
+Route::get('/user', [UserController::class, 'listUser']);
+
+// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
+    Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser']);
+// });
+
+/* =====================================================================
+                            CAR TYPE 
+===========================================================================*/
 Route::get('/cartypes/nopt/', [CarController::class, 'listCarTypenopt']);
 Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
 Route::get('/cartypes', [CarController::class, 'listCarType']);
@@ -65,7 +75,9 @@ Route::get('/cartypes', [CarController::class, 'listCarType']);
 
 
 
-// CAR HOUSE
+/* =====================================================================
+                            CAR HOUSE 
+===========================================================================*/
 Route::get('/carhouse/{id}', [CarController::class, 'showCarHouse']);
 Route::get('/carhouse', [CarController::class, 'listCarHouse']);
 
@@ -76,19 +88,45 @@ Route::delete('/carhouse/delete/{id}', [CarController::class, 'deleteCarHouse'])
 // });
 
 
-// CAR
+/* =====================================================================
+                                CAR 
+===========================================================================*/
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('car')->group(function () {
 
-Route::get('/car/{id}', [CarController::class, 'showCar']);
-Route::get('/car', [CarController::class, 'listCar']);
-Route::get('/car/car_house_id/{car_house_id}', [CarController::class, 'showCarByCarHouseId']);
+});
 
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
-Route::post('/car/create', [CarController::class, 'createCar']);
-Route::post('/car/update/{id}', [CarController::class, 'updateCar']);
-Route::delete('car/delete/{id}', [CarController::class, 'deleteCar']);
-// });
+Route::prefix('car')->group(function () {
+    Route::get('/', [CarController::class, 'index']);
+    Route::post('/', [CarController::class, 'store']);
+    Route::get('/car-house/{id}', [CarController::class, 'getCarByCarHouseId']);
+    Route::get('/{id}', [CarController::class, 'show'])->where('id', '[0-9]+');;
+    Route::put('/{id}', [CarController::class, 'update'])->where('id', '[0-9]+');;
+    Route::delete('/{id}', [CarController::class, 'destroy'])->where('id', '[0-9]+');;
+});
 
-// PICK UP POINT
+/* =====================================================================
+                            EMPLOYEE 
+===========================================================================*/
+Route::middleware(['auth::sanctum', 'role:admin,carhouse'])->prefix('employee')->group(function () {
+
+});
+
+Route::prefix('employee')->group(function () {
+    Route::get('/', [EmployeeController::class, 'index']);
+    Route::post('/', [EmployeeController::class, 'store']);
+    Route::get('/car-house/{id}', [EmployeeController::class, 'getEmployeeByCarHouse']); // car_house_id
+    Route::get('/car/{id}', [EmployeeController::class, 'getEmployeeByCar']); // car_id
+
+    Route::get('/{id}', [EmployeeController::class, 'show'])->where('id', '[0-9]+');;
+    Route::put('/{id}', [EmployeeController::class, 'update'])->where('id', '[0-9]+');;
+    Route::delete('/{id}', [EmployeeController::class, 'destroy'])->where('id', '[0-9]+');;
+});
+
+
+
+/* =====================================================================
+                            PUP 
+===========================================================================*/
 Route::get('/pickuppoint/{id}', [CarController::class, 'showPickupPointById']);
 Route::get('/pickuppoint/car_trip/{car_trip_id}', [CarController::class, 'getPickupPointByCarTrip']);
 Route::get('/pickuppoint/car_house/{car_house_id}', [CarController::class, 'getPickupPointByCarHouse']);
@@ -103,10 +141,9 @@ Route::delete('/pickuppoint/delete/{id}', [CarController::class, 'deletePickupPo
 // });
 
 
-// Route::get('')
-
-
-// DROP OFF POINT
+/* =====================================================================
+                            DOP 
+===========================================================================*/
 Route::get('/dropoffpoint/{id}', [CarController::class, 'showDropoffPointById']);
 Route::get('/dropoffpoint/car_trip/{car_trip_id}', [CarController::class, 'showDropoffPointByCarTrip']);
 Route::get('/dropoffpoint/car_house/{car_house_id}', [CarController::class, 'getDropoffpointByCarHouse']);
@@ -118,13 +155,13 @@ Route::post('/dropoffpoint/update/{id}', [CarController::class, 'updateDropoffPo
 Route::delete('/dropoffpoint/delete/{id}', [CarController::class, 'deleteDropoffPoint']);
 // });
 
-// Route::get('')
 
-// PROVINCE
+/* =====================================================================
+                    PROVINCE - CAR ROUTE
+===========================================================================*/
 Route::get('/province', [ProvinceController::class, 'listProvince']);
 
 // CAR ROUTE POINT
-
 Route::get('/carroute/{id}', [CarController::class, 'showCarRoute']);
 Route::get('/carroute', [CarController::class, 'listCarRoute']);
 
@@ -134,49 +171,47 @@ Route::post('/carroute/update/{id}', [CarController::class, 'updateCarRoute']);
 Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute']);
 // });
 
-// CAR TRIP
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->group(function () {
-//     Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
-//     Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
-//     Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
-//     Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
-//     Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
-//     Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
-// });
-// Route::get('/cartrip/search', [SearchController::class, 'searchCarTrip']);
-// Route::get('/cartrip/{id}', [CarTripController::class, 'showCarTrip']);
-// Route::get('/cartrip', [CarTripController::class, 'listCarTrip']);
+/* =====================================================================
+                            CITY 
+===========================================================================*/
+Route::get('/cities/{id}', [CityController::class, 'showId']); 
+Route::get('/cities', [CityController::class, 'show']); 
+Route::post('/cities', [CityController::class, 'create']); 
+Route::post('/cities/{id}', [CityController::class, 'update']); 
+Route::delete('/cities/{id}', [CityController::class, 'delete']); 
 
-Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->prefix('cartrip')->group(function () {
+/* =====================================================================
+                            CAR TRIP 
+===========================================================================*/
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('cartrip')->group(function () {
 
-    Route::get('/{id}', [CarTripController::class, 'show']); // Chi tiết chuyến xe
-
-
-    Route::delete('/{id}', [CarTripController::class, 'destroy']); // Xóa chuyến xe
-    Route::post('/update-statuses', [CarTripStatusController::class, 'updateStatuses']); // Cập nhật trạng thái chuyến xe
 });
 
 // KHÔNG CẦN LOGIN
 Route::prefix('cartrip')->group(function () {
-    Route::get('/search', [SearchController::class, 'search']); // Tìm kiếm chuyến xe (public)
-    Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']); 
-    Route::get('/carhouse/{carHouseId}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
-    Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
-    Route::get('/reset-statuses/cartrip', [CarTripStatusController::class, 'resetCompletedCarTrips']);
-    Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
-    Route::put('/{id}', [CarTripController::class, 'update']); // Cập nhật chuyến xe
-    Route::delete('/{id}', [CarTripController::class, 'destroy']); // Xóa chuyến xe
-    Route::post('/update-statuses', [CarTripStatusController::class, 'updateStatuses']); // Cập nhật trạng thái chuyến xe
+    Route::prefix('search')->group(function () {
+        Route::get('/', [SearchController::class, 'search']); 
+        Route::get('/car-route-and-date', [SearchController::class, 'searchByCarRouteAndDate']);
+    });
 
+    Route::prefix('status')->group(function () {
+        Route::get('/reset', [CarTripStatusController::class, 'resetCompletedCarTrips']);
+        Route::post('/update', [CarTripStatusController::class, 'updateStatuses']);
+    });
+
+    Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
+    Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
+    Route::get('/car-house/{id}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
+    Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']); 
+    Route::get('/{id}', [CarTripController::class, 'show'])->where('id', '[0-9]+'); // Chi tiết chuyến xe
+    Route::put('/{id}', [CarTripController::class, 'update'])->where('id', '[0-9]+'); // Cập nhật chuyến xe
+    Route::delete('/{id}', [CarTripController::class, 'destroy'])->where('id', '[0-9]+'); // Xóa chuyến xe
 });
 
 
-
-
-
-
-
-//Banner
+/* =====================================================================
+                            BANNER 
+===========================================================================*/
 
 Route::get('/banner/{id}', [BannerController::class, 'showBanner']);
 Route::get('/banner', [BannerController::class, 'listBanner']);
@@ -187,8 +222,10 @@ Route::get('/banner', [BannerController::class, 'listBanner']);
     Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
 // });
 
-// EVENT
 
+/* =====================================================================
+                            EVENT - ARTICLE
+===========================================================================*/
 Route::get('/event/{id}', [EventController::class, 'showEvent']);
 Route::get('/event', [EventController::class, 'listEvent']);
 
@@ -198,7 +235,6 @@ Route::get('/event', [EventController::class, 'listEvent']);
     Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
 // });
 
-// ARTICLE
 
 Route::get('/article/{id}', [EventController::class, 'showArticle']);
 Route::get('/article', [EventController::class, 'listArticle']);
@@ -209,8 +245,11 @@ Route::get('/article', [EventController::class, 'listArticle']);
     Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);
 // });
 
-//Ticket
 
+
+/* =====================================================================
+                            TICKET 
+===========================================================================*/
 Route::get('/ticket/{id}', [TicketController::class, 'showTicket']);
 Route::get('/ticket', [TicketController::class, 'listTicket']);
 
@@ -221,8 +260,9 @@ Route::delete('/ticket/{id}', [TicketController::class, 'deleteTicket']);
 // });
 
 
-//Seat
-
+/* =====================================================================
+                            SEAT - SEAT CAR TRIP 
+===========================================================================*/
 Route::get('/seat/{car_id}', [SeatController::class, 'showSeatbycarid']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
@@ -243,7 +283,10 @@ Route::post('/seat-car-trip/{id}', [SeatCarTripController::class, 'updateSeatCar
 Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatCarTrip']);
 // });
 
-//Comment
+
+/* =====================================================================
+                            COMMENT 
+===========================================================================*/
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/comment/{id}', [CommentController::class, 'show']);
     Route::get('/comment', [CommentController::class, 'index']);
@@ -255,19 +298,13 @@ Route::delete('/seat-car-trip/{id}', [SeatCarTripController::class, 'deleteSeatC
     Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
 // });
 
-// EMPLOYEE
-Route::get('/employee/{id}', [EmployeeController::class, 'showEmployee']);
-Route::get('/employee', [EmployeeController::class, 'listEmployee']);
-Route::get('/douse_id/{car_house_id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
 
-// Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-Route::post('/employee/create', [EmployeeController::class, 'createEmployee']);
-Route::post('/employee/update/{id}', [EmployeeController::class, 'updateEmployee']);
-Route::delete('/employee/delete/{id}', [EmployeeController::class, 'deleteEmployee']);
-// });
 
-//ORDER
 
+
+/* =====================================================================
+                        ORDER - ORDER HISTORY
+===========================================================================*/
 Route::get('/orders/{id}', [OrderController::class, 'showOrder']);
 Route::get('/orders', [OrderController::class, 'listOrders']);
 
@@ -285,7 +322,10 @@ Route::post('/order-histories', [OrderHistoryController::class, 'createOrderHist
 Route::get('/order-histories/{orderId}', [OrderHistoryController::class, 'getOrderHistory']);
 Route::get('/orders/{orderId}/with-history', [OrderHistoryController::class, 'getOrderWithHistory']);
 
-//PAYMENT
+
+/* =====================================================================
+                            PAYMENT 
+===========================================================================*/
 Route::post('/payment/create', [PaymentController::class, 'createPayment']);
 Route::post('/payment/complete-momo', [PaymentController::class, 'completeMoMoPayment']);
 Route::get('/payment/{id}', [PaymentController::class, 'showPayment']);
@@ -295,26 +335,13 @@ Route::delete('/payment/delete/{id}', [PaymentController::class, 'deletePayment'
 Route::post('/create-vnpay-payment', [PaymentController::class, 'createVNPayPayment']);
 Route::get('/vnpay-callback', [PaymentController::class, 'vnpayCallback']);
 
-//User
-Route::get('/user/{id}', [UserController::class, 'listUser']);
-Route::get('/user', [UserController::class, 'listUser']);
 
-// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::post('/user/update/{id}', [UserController::class, 'updateUserByAdmin']);
-    Route::delete('/user/delete/{id}', [UserController::class, 'deleteUser']);
-// });
-
-//DISCOUNTCODE
+/* =====================================================================
+                            DISCOUNT CODE 
+===========================================================================*/
 Route::post('/discount-codes', [DiscountCodeController::class, 'createDiscountCode']);
 Route::get('/discount-codes', [DiscountCodeController::class, 'listDiscountCodes']);
 Route::get('/discount-codes/{id}', [DiscountCodeController::class, 'showDiscountCode']);
 Route::post('/discount-codes/{id}', [DiscountCodeController::class, 'updateDiscountCode']);
 Route::delete('/discount-codes/{id}', [DiscountCodeController::class, 'deleteDiscountCode']);
 Route::post('/apply-discount-codes', [DiscountCodeController::class, 'applyDiscountCode']);
-
-//City
-Route::get('/cities/{id}', [CityController::class, 'showId']); 
-Route::get('/cities', [CityController::class, 'show']); 
-Route::post('/cities', [CityController::class, 'create']); 
-Route::post('/cities/{id}', [CityController::class, 'update']); 
-Route::delete('/cities/{id}', [CityController::class, 'delete']); 

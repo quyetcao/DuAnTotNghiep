@@ -54,11 +54,8 @@ class CarTrip extends Model
             ->withPivot('id', 'dropoff_time')
             ->withTimestamps();
     }
-    public function employees()
-    {
-        return $this->belongsToMany(Employee::class, 'car_trip_employees', 'car_trip_id', 'employee_id')
-            ->withTimestamps();
-    }
+
+
     public function scopeStatus($query, $status)
     {
         return $query->where('status', $status);

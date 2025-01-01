@@ -24,7 +24,6 @@ use App\Models\CarTripDropoffPoint;
 use App\Models\CarTripPickupPoint;
 use App\Models\Seat;
 use App\Models\SeatCarTrip;
-use App\Models\CarTripEmployee;
 
 class CarTripController extends HelpController
 {
@@ -34,9 +33,11 @@ class CarTripController extends HelpController
 
         return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe thành công', $data);
     }
+
+
     public function show($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'employees','car.carType' ])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'car.carType' ])->find($id);
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy chuyến xe!');
@@ -44,6 +45,8 @@ class CarTripController extends HelpController
 
         return $this->sendResponse(200, 'Lấy thông tin chi tiết chuyến xe thành công!', $data);
     }
+
+
     public function listCarTripNotStarted(){
     // Lọc chuyến xe theo trạng thái 'not_started' cho người dùng
     $data = CarTrip::notStarted()
@@ -52,9 +55,11 @@ class CarTripController extends HelpController
 
     return $this->sendResponse(200, 'Danh sách chuyến xe chưa bắt đầu', $data);
     }
+
+
     public function getByCarHouse($carHouseId)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'employees', 'carRoute'])
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'carRoute'])
                         ->whereHas('car', function ($query) use ($carHouseId) {
                             $query->where('car_house_id', $carHouseId);
                         })
@@ -68,6 +73,7 @@ class CarTripController extends HelpController
         // Trả về danh sách chuyến xe
         return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo nhà xe thành công!', $data);
     }
+
 
     // public function createCarTrip(Request $request)
     // {
@@ -237,9 +243,9 @@ class CarTripController extends HelpController
             'dropoff_points' => 'required|array',
             'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
-                //  Validate Employees data
-            'employees' => 'required|array',
-            'employees.*' => 'exists:employees,id', 
+            //     //  Validate Employees data
+            // 'employees' => 'required|array',
+            // 'employees.*' => 'exists:employees,id', 
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request) {
@@ -277,14 +283,14 @@ class CarTripController extends HelpController
             }
 
             // Add Employee
-            $listEmployee = [];
-            foreach ($request->employees as $employeeId) {
-                CarTripEmployee::create([
-                    'car_trip_id' => $carTrip->id,
-                    'employee_id' => $employeeId
-                ]);
-                $listEmployee[] = $employeeId;
-            }
+            // $listEmployee = [];
+            // foreach ($request->employees as $employeeId) {
+            //     CarTripEmployee::create([
+            //         'car_trip_id' => $carTrip->id,
+            //         'employee_id' => $employeeId
+            //     ]);
+            //     $listEmployee[] = $employeeId;
+            // }
 
             // Add Seat
             $car = Car::find($carTrip->car_id);
@@ -325,10 +331,10 @@ class CarTripController extends HelpController
                 'carTrip' => $carTrip,
                 'listNewPickupPoints' => $listNewPUP,
                 'listNewDropoffPoints' => $listNewDOP,
-                'listEmployee' => $listEmployee
             ]);
         });
     }
+
 
     // public function updateCarTrip(Request $request, $id)
     // {
@@ -496,9 +502,7 @@ class CarTripController extends HelpController
             'dropoff_points' => 'required|array',
             'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
-                //  Validate Employees data
-            'employees' => 'required|array',
-            'employees.*' => 'exists:employees,id', 
+
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request, $id) {
@@ -567,23 +571,11 @@ class CarTripController extends HelpController
                 $listNewDOP[] = $dropoffPoint;
             }
 
-            // Update Employee
-            CarTripEmployee::where('car_trip_id', $carTrip->id)->delete();
-
-            $listEmployee = [];
-            foreach ($request->employees as $employeeId) {
-                CarTripEmployee::create([
-                    'car_trip_id' => $carTrip->id,
-                    'employee_id' => $employeeId,
-                ]);
-                $listEmployee[] = $employeeId;
-            }
 
             return $this->sendResponse(201, 'Cập nhật chuyến xe thành công!', [
                 'carTrip' => $carTrip,
                 'listNewPickupPoints' => $listNewPUP,
                 'listNewDropoffPoints' => $listNewDOP,
-                'listEmployee' => $listEmployee
             ]);
         });
     }
@@ -598,25 +590,12 @@ class CarTripController extends HelpController
 
         try {
             DB::beginTransaction();
-
-            // Xóa các bản ghi ở bảng trung gian car_trip_pickup_points
-            $carTrip->pickupPoints()->detach();
-
-            // Xóa các bản ghi ở bảng trung gian car_trip_dropoff_points
-            $carTrip->dropoffPoints()->detach();
-
-            //  Xoá nhân viên 
-            $carTrip->employees()->detach();
-
-            // Xóa chuyến xe
             $carTrip->delete();
 
             DB::commit();
-
-            return $this->sendResponse(200, 'Chuyến xe đã được xóa thành công!', $carTrip);
+            return $this->sendResponse(200, 'Chuyến xe đã được xóa thành công!');
         } catch (\Throwable $th) {
             DB::rollBack();
-
             return response()->json([
                 'status' => 500,
                 'message' => 'Lỗi hệ thống!',
