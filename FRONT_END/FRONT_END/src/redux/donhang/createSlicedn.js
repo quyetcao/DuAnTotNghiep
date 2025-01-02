@@ -5,6 +5,7 @@ const initialState = {
     allDonHang: [],
     donhangtheouser: [],
     isloading:false,
+    thanhtoanok:false,
 };
 
 
@@ -27,8 +28,11 @@ export const Donhang = createSlice({
                 state.isloading = false;
             }
         },
+        thanhtoanok(state,action){
+            state.thanhtoanok=action.payload;
+        }
 
     }
 });
 
-export const { getAllDonhang,getdonhangtheouser,showLoading } = Donhang.actions;
+export const { getAllDonhang,getdonhangtheouser,showLoading,thanhtoanok } = Donhang.actions;

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ErrorIcon from '@mui/icons-material/Error';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
@@ -42,7 +42,7 @@ export default function ThanhToan() {
         data.order_total=totalPrice;
         dispatch(Apdunggiamgia(data));
     }
-
+    const navigate = useNavigate();
     const { register: registerForm, handleSubmit: handleSubmitForm } = useForm();
     const onSubmit = (data) => {
         console.log(data);
@@ -50,14 +50,16 @@ export default function ThanhToan() {
         data.payment_method = 'cash';
         data.order_id = donhangtheouser[donhangtheouser.length -1 ]?.id;
     
+
         formData.append('order_id', data.order_id);
         formData.append('amount', totalPrice);
-        formData.append('payment_method',data.payment_method);
-        formData.append('discount_code', data.discount_code);
+        formData.append('payment_method','cash');
+        formData.append('discount_code', '');
         formData.append('user_id', user.id);
         dispatch(postthanhtoan(formData))
-       
+        navigate('/thanhtoanok');
     }
+      
 
     return (
         <>

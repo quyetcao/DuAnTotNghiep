@@ -73,6 +73,8 @@ import AddChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuy
 import EditChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chuyen-xe/editcxcarhouse.jsx';
 import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
 import Showdonhang from './component/admin-carhouse/chuyenxe/show-list-don-hang.jsx';
+import Thanhtoanthanhcong from './component/thanhtoan/thanhtoanthanhcong.jsx';
+import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 
 
 
@@ -137,6 +139,10 @@ const routes = createBrowserRouter([
         element: <SelectSeatResponsive />
       },
       {
+        path: '/thanhtoanok',
+        element: <Thanhtoanthanhcong />
+      },
+      {
         path: "/taikhoan",
         element: <Taikhoan />,
         children: [
@@ -155,7 +161,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element:<AppAdmin />,
+    element: <AppAdmin />,
     children: [
       {
         path: '',
@@ -246,8 +252,8 @@ const routes = createBrowserRouter([
         element: <EditDiemTra />
       },
       {
-        path:'show-don-hang',
-        element:<Showdonhang/>
+        path: 'show-don-hang',
+        element: <Showdonhang />
       }
 
     ]
@@ -255,15 +261,15 @@ const routes = createBrowserRouter([
 
   {
     path: "/adminweb",
-    element: <AppAdminQLWeb />,
+    element: <PrivateRouterAdminWeb><AppAdminQLWeb /></PrivateRouterAdminWeb> ,
     children: [
       {
         path: '',
-        element: <HomePageWebAdmin />
+        element: <PrivateRouterAdminWeb> <HomePageWebAdmin /></PrivateRouterAdminWeb>
       },
       {
         path: 'show-ds-carhouse',
-        element: <ShowDsCarHouse />
+        element: <PrivateRouterAdminWeb> <ShowDsCarHouse /></PrivateRouterAdminWeb>
       },
       {
         path: 'addcarhouse',
@@ -276,7 +282,7 @@ const routes = createBrowserRouter([
       // Event 
       {
         path: 'listEvent',
-        element: <QuanlyEvent />
+        element:<PrivateRouterAdminWeb><QuanlyEvent /></PrivateRouterAdminWeb> 
       },
       {
         path: 'addEvent',
@@ -325,8 +331,8 @@ const routes = createBrowserRouter([
         element: <AddGiamGia />
       },
       {
-        path:'edit-giam-gia/:id',
-        element:<EditGiamGia/>
+        path: 'edit-giam-gia/:id',
+        element: <EditGiamGia />
       },
       //User
       {
@@ -336,7 +342,7 @@ const routes = createBrowserRouter([
       // binhluan
       {
         path: 'listbinhluan',
-        element: <AllBinhLuan/>
+        element: <AllBinhLuan />
       },
 
     ]

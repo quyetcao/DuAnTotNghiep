@@ -18,7 +18,7 @@ import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import NoCrashIcon from '@mui/icons-material/NoCrash';
 import RoomIcon from '@mui/icons-material/Room';
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+// import AccountBalanceIcon from '@mui/icons-material/AccountBalance';/
 function AppAdmin() {
     return (
         <>
@@ -26,33 +26,33 @@ function AppAdmin() {
                 
             <div className='container' >
                     <div className='sidebar'>
-                        <a href='/admincarhouse' className='sidebar-icon'>
+                        <Link to='/admincarhouse' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/admincarhouse/quanLyDatVeXe' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/show-don-hang' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/admincarhouse/show-don-hang' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
-                        </a>
+                        </Link>
                         
-                        <a href='/admincarhouse/diem-don' className='sidebar-icon'>
+                        <Link to='/admincarhouse/diem-don' className='sidebar-icon'>
                             <RoomIcon />
-                        </a>
-                        <a href='/admincarhouse/diem-tra' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/admincarhouse/diem-tra' className='sidebar-icon'>
                             <WhereToVoteIcon />
-                        </a>
+                        </Link>
                         
-                        <a href='/admincarhouse/listcar' className='sidebar-icon'>
+                        <Link to='/admincarhouse/listcar' className='sidebar-icon'>
                             <DirectionsBusFilledOutlinedIcon />
-                        </a>
-                        <a href='/admincarhouse/listcartype' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/admincarhouse/listcartype' className='sidebar-icon'>
                             <NoCrashIcon />
-                        </a>
-                        <a href='/admincarhouse/routercar' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/admincarhouse/routercar' className='sidebar-icon'>
                             <BuildOutlinedIcon />
-                        </a>
-                        <Link to='/'><AccountBalanceIcon /></Link>
+                        </Link>
+                        <Link to='/'><LinkccountBalanceIcon /></Link>
                    
                     </div>
                     <div className='dashboard'>
@@ -84,7 +84,7 @@ function AppAdmin() {
                                             <NotificationsIcon fontSize='small' />
                                         </li>
                                         <li className='info-item info-item__background'>
-                                            <ArrowDropDownIcon fontSize='small' />
+                                            <LinkrrowDropDownIcon fontSize='small' />
                                         </li>
                                         <li className='info-item info-item__background'>
                                             <LocalPhoneIcon fontSize='small' />

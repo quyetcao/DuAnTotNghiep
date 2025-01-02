@@ -29,32 +29,32 @@ function AppAdminQLWeb() {
 
                 <div className='container'>
                     <div className='sidebar'>
-                        <a href='/adminweb' className='sidebar-icon'>
+                        <Link to='/adminweb' className='sidebar-icon'>
                             <DashboardOutlinedIcon />
-                        </a>
-                        <a href='/adminweb/giam-gia' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/adminweb/giam-gia' className='sidebar-icon'>
                             <ConfirmationNumberOutlinedIcon />
-                        </a>
-                        <a href='/adminweb/listEvent' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/adminweb/listEvent' className='sidebar-icon'>
                             <EmojiEventsIcon />
-                        </a>
-                        <a href='/adminweb/listuse' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/adminweb/listuse' className='sidebar-icon'>
                             <GroupsOutlinedIcon />
-                        </a>
-                        <a href='/adminweb/listArticles' className='sidebar-icon'> 
+                        </Link>
+                        <Link to='/adminweb/listArticles' className='sidebar-icon'> 
                             <PostAddIcon />
-                        </a>
+                        </Link>
                         {/* active */}
                  
-                        <a href='/adminweb/show-ds-carhouse' className='sidebar-icon'>
+                        <Link to='/adminweb/show-ds-carhouse' className='sidebar-icon'>
                             <DirectionsBusFilledOutlinedIcon />
-                        </a>
-                        <a href='/adminweb/listbinhluan' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/adminweb/listbinhluan' className='sidebar-icon'>
                             <ForumOutlinedIcon />
-                        </a>
-                        <a href='/adminweb/listbanner' className='sidebar-icon'>
+                        </Link>
+                        <Link to='/adminweb/listbanner' className='sidebar-icon'>
                             <PanoramaIcon />
-                        </a>
+                        </Link>
                      <Link to='/'><AccountBalanceIcon /></Link>
                             
                         

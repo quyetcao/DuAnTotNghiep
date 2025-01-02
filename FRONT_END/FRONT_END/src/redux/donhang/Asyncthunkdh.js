@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { getAllDonhang, getdonhangtheouser, showLoading } from "./createSlicedn";
+import { getAllDonhang, getdonhangtheouser, showLoading, thanhtoanok } from "./createSlicedn";
 
 
 
@@ -51,7 +51,7 @@ export function postthanhtoan(formData) {
         try {
             let res = await axios.post(`http://localhost:8000/api/payment/create/`, formData);
             console.log(res);
-         
+            thanhtoanok(true);
         } catch (error) {
             console.log(error);
    

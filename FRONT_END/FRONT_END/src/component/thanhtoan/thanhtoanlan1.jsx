@@ -66,8 +66,8 @@ export default function ThanhToanLanMot() {
         formData.append('phone', data.phone);
         formData.append('email', data.email);
         formData.append('car_trip_id', car_trip_id);
-        formData.append('car_trip_pickup_point_id', setdiemdon );  // Chuyển thành số
-        formData.append('car_trip_dropoff_point_id', setdiemtra ); // Chuyển thành số
+        // formData.append('car_trip_pickup_point_id', setdiemdon );  // Chuyển thành số
+        // formData.append('car_trip_dropoff_point_id', setdiemtra ); // Chuyển thành số
 
         dataSeat.forEach((seat) => {
             formData.append('seat_ids[]', seat);

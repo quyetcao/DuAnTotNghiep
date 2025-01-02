@@ -68,7 +68,7 @@ export default function AddChuyenXebyCarHouse() {
         formData.append('return_date', data.return_date);
         formData.append('price', data.price);
         formData.append('status', data.status);
-        formData.append('car_house_id', 1 );
+        formData.append('car_house_id', 1);
         data.employees.forEach((employee, index) => {
             formData.append(`employees[${index}]`, employee);
         });

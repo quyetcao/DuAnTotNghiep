@@ -35,9 +35,9 @@ export default function QuanLyDatVeXe() {
 
 
     const { register, handleSubmit, } = useForm();
-    const handleSubmitSearch = () => {
-        handleSubmit(onSubmit)();
-    };
+    // const handleSubmitSearch = () => {
+    //     handleSubmit(onSubmit)();
+    // };
 
     function onSubmit(data) {
         console.log('datainform them cphn', data);
@@ -73,7 +73,7 @@ export default function QuanLyDatVeXe() {
                     {/* phần đầu */}
 
                     <div className='qlnx'>
-                        <form onSubmit={handleSubmit(handleSubmitSearch)}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <div className='qlnx-group'>
                                 <div className='qlnx-group__list'>
                                     <div className='qlnx-group__item'>

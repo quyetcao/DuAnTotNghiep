@@ -10,10 +10,10 @@ export default function PrivateRouterAdminCarHouse({ children }) {
   const roleAdminWeb = infoUser?.role;
 
 
-  // if (!isAuthentication) {
-  //   alert("Bạn cần đăng nhập!");
-  //   return <Navigate to="/khong-quyen-truy-cap" replace={true} />;
-  // }
+  if (!isAuthentication) {
+    alert("Bạn cần đăng nhập!");
+    return <Navigate to="/khong-quyen-truy-cap" replace={true} />;
+  }
 
   if (roleAdminWeb != 'carhouse') {
     alert("Bạn không có quyền truy cập!");

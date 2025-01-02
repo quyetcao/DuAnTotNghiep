@@ -80,7 +80,7 @@ export function getSearchChuyenxecarhouseid(formSearch) {
       }
 
       let res = await axios.get(
-        "http://localhost:8000/api/cartrip/search-by-date-and-route",
+        "http://localhost:8000/api/cartrip/search-by-date-and-route/",
         {
           params: {
             car_route_id: formSearch.car_route_id,
