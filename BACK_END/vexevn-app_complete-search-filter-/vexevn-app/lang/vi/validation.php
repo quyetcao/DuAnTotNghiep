@@ -165,6 +165,10 @@ return [
             'unique' => 'Số điện thoại đã tồn tại',
             'regex' => 'Số điện thoại phải có 10 số và bắt đầu bằng số 0',
         ],
+        'quantity_seat' => [
+            'required' => 'Vui lòng chọn nhập số lượng ghế!',
+            'integer' => 'Số ghế phải là số nguyên!'
+        ],
         'address' => ['required' => 'Vui lòng nhập địa chỉ!'],
         'price' => ['required' => 'Vui lòng nhập giá!'],
         'title' => ['required' => 'Vui lòng nhập tiêu đề!'],
@@ -173,7 +177,6 @@ return [
         'city_from' => ['required' => 'Vui lòng chọn điểm khơi hành!'],
         'city_to' => ['required' => 'Vui lòng chọn điểm đến!'],
         'employees' => ['required' => 'Vui lòng chọn nhân viên phụ trách!'],
-        'quantity_' => ['required' => 'Vui lòng chọn nhập số lượng ghế!'],
         'content' => ['required' => 'Vui lòng điền nội dung bình luận!'],
         'car_type_id' => ['required' => 'Vui lòng chọn loại xe!'],
         'car_house_id' => ['required' => 'Vui lòng chọn loại nhà xe!'],

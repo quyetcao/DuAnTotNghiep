@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\DiscountCodeController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CarTripStatusController;
 use App\Http\Controllers\Api\SeatCarTripController;
+use App\Http\Controllers\Api\CarTypeController;
 use App\Http\Controllers\Api\OTPController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -62,18 +63,29 @@ Route::get('/user', [UserController::class, 'listUser']);
 /* =====================================================================
                             CAR TYPE 
 ===========================================================================*/
-Route::get('/cartypes/nopt/', [CarController::class, 'listCarTypenopt']);
-Route::get('/cartypes/{id}', [CarController::class, 'showCarType']);
-Route::get('/cartypes', [CarController::class, 'listCarType']);
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('cartype')->group(function () {}
+);
 
+Route::prefix('cartype')->group(function () {
+    /* Ở hàm index với:
+    http://127.0.0.1:8000/api/cartype/?all=true --> hiển thị all()
+    http://127.0.0.1:8000/api/cartype/?per_page=2 --> hiển thị có phân trang là 2 (mặc định bằng 5)
 
-// Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->group(function () {
-    Route::post('/cartypes/create', [CarController::class, 'createCarType']);
-    Route::post('/cartypes/update/{id}', [CarController::class, 'updateCarType']);
-    Route::delete('/cartypes/delete/{id}', [CarController::class, 'deleteCarType']);
-// });
+    VD cho FE:
+        fetch('/cartype?per_page=10')
+        .then(response => response.json())
+        .then(data => console.log(data));
 
-
+    ** LƯU Ý: HTTP PUT của laravel tuân thủ đúng quy tắc http mà form-data ở postman thì không nên
+        nếu test thì test ở bên raw dạng JSON. Sẽ không ảnh hưởng vì FE sau này đổ ra nếu đúng quy tắc
+        JSON thì nó vẫn hoạt động bth.
+    */
+    Route::get('/', [CarTypeController::class, 'index']);
+    Route::post('/', [CarTypeController::class, 'store']);
+    Route::get('/{id}', [CarTypeController::class, 'show']);
+    Route::put('/{id}', [CarTypeController::class, 'update']);
+    Route::delete('/{id}', [CarTypeController::class, 'destroy']);
+});
 
 /* =====================================================================
                             CAR HOUSE 
