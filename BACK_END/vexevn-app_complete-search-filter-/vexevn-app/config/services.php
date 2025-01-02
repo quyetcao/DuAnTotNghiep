@@ -38,8 +38,10 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+
+
 
     'momo' => [
         'partner_code' => env('MOMO_PARTNER_CODE'),
@@ -54,5 +56,10 @@ return [
         'api_url' => env('VIRTUAL_BANK_API_URL'),
         'callback_url' => env('VIRTUAL_BANK_CALLBACK_URL'),
     ],
-    
+    'twilio' => [
+    'sid' => env('TWILIO_ACCOUNT_SID'),
+    'token' => env('TWILIO_AUTH_TOKEN'),
+    'from' => env('TWILIO_PHONE_NUMBER'),
+],
+
 ];

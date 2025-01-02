@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -38,6 +39,7 @@ class AuthController extends HelpController
                         'name' => $googleUser->name,
                         'google_id' => $googleUser->id,
                         'password' => Hash::make('12345678'),
+                        // 'password' => bcrypt(Str::random(16)), ngẫu nhiên
                     ]
                 );
 
@@ -50,6 +52,54 @@ class AuthController extends HelpController
                 return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $e->getMessage()]);
             }
         });
+    }
+
+   public function sendResetLink(Request $request)
+{
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    if ($status === Password::RESET_LINK_SENT) {
+        return response()->json([
+            'status' => 200,
+            'message' => 'Liên kết đặt lại mật khẩu đã được gửi.',
+        ]);
+    }
+
+    return response()->json([
+        'status' => 400,
+        'message' => 'Không thể gửi liên kết đặt lại mật khẩu.',
+        'error' => __($status),
+    ], 400);
+}
+
+    // Đặt lại mật khẩu
+    public function resetPassword(Request $request)
+    {
+        // Xác thực dữ liệu nhập
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        // Đặt lại mật khẩu
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->save();
+            }
+        );
+
+        // Phản hồi theo trạng thái
+        return $status === Password::PASSWORD_RESET
+            ? $this->sendResponse(200, 'Mật khẩu đã được đặt lại thành công.')
+            : $this->sendResponse(400, 'Không thể đặt lại mật khẩu.', ['error' => __($status)]);
     }
     public function signUp(Request $request)
     {

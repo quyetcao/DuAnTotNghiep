@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 use App\Models\CarTrip;
 
-class CarTripStatusController extends Controller
+class CarTripStatusController extends HelpController
 {
     public function updateStatuses()
     {
@@ -18,7 +18,7 @@ class CarTripStatusController extends Controller
 
         // Cập nhật trạng thái "running" cho các chuyến xe đã đến ngày đi
         $running = CarTrip::where('status', 'not_started')
-                            ->whereDate('departure_date', '<=', $now->toDateString())
+                            ->whereDate('departure_date', '=', $now->toDateString())
                             ->update(['status' => 'running']);
 
         // Cập nhật trạng thái "completed" cho các chuyến xe đã kết thúc
@@ -27,9 +27,27 @@ class CarTripStatusController extends Controller
                             ->update(['status' => 'completed']);
 
         return response()->json([
-            'message' => 200,
+            'status' => 200,
+            'message' => 'Số chuyến xe lần lượt ở status running và completed',
             'running_updated' => $running,
             'completed_updated' => $completed,
-        ]);
+        ], 200);
+    }
+
+    public function resetCompletedCarTrips(){
+        $completedTrips = CarTrip::where('status', 'completed')->get();        
+
+        $updatedTrip = [];
+        foreach($completedTrips as $trip) {
+            $newDepartureDate = Carbon::parse($trip->departure_date)->addDays(7);
+
+            $trip->update([
+                'status' => 'not_started',
+                'departure_date' => $newDepartureDate
+            ]);
+            $updatedTrip[] = $trip;
+        }
+
+        return $this->sendResponse(200, 'Reset thành công!', $updatedTrip);
     }
 }

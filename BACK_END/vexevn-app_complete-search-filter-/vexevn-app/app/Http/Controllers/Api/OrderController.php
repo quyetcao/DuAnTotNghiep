@@ -17,19 +17,28 @@ class OrderController extends Controller
     protected function sendResponse($statusCode, $message, $data = null)
     {
         return response()->json([
-            'status' => $statusCode,
-            'message' => $message,
-            'data' => $data,
+            'status' => $statusCode, 
+            'message' => $message,  
+            'data' => $data,       
         ], $statusCode);
     }
 
     public function createOrder(Request $request)
+<<<<<<< HEAD
 {
+=======
+    {
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
     $validated = $request->validate([
         'user_id' => 'required|exists:users,id',
         'car_trip_id' => 'required|exists:car_trips,id',
         'seat_ids' => 'required|array|min:1',
         'seat_ids.*' => 'exists:seat_car_trips,id',
+<<<<<<< HEAD
+=======
+        'car_trip_pickup_point_id' => 'nullable|exists:car_trip_pickup_points,id', // Cho phép null
+        'car_trip_dropoff_point_id' => 'nullable|exists:car_trip_dropoff_points,id', // Cho phép null
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
         'name' => 'nullable|string|max:255',
         'phone' => 'nullable|string|max:15',
         'email' => 'nullable|email|max:255',
@@ -54,6 +63,38 @@ class OrderController extends Controller
         return $this->sendResponse(400, 'Một hoặc nhiều ghế không khả dụng.');
     }
 
+<<<<<<< HEAD
+=======
+    // Lấy giá trị mặc định nếu không có trong request
+    $carTripPickupPointId = $validated['car_trip_pickup_point_id'] ??
+        \App\Models\CarTripPickupPoint::where('car_trip_id', $validated['car_trip_id'])->first()->id ?? null;
+
+    if (!$carTripPickupPointId) {
+        return $this->sendResponse(400, 'Không tìm thấy điểm đón mặc định.');
+    }
+
+    $carTripDropoffPointId = $validated['car_trip_dropoff_point_id'] ??
+        \App\Models\CarTripDropoffPoint::where('car_trip_id', $validated['car_trip_id'])->first()->id ?? null;
+
+    if (!$carTripDropoffPointId) {
+        return $this->sendResponse(400, 'Không tìm thấy điểm trả mặc định.');
+    }
+
+    $carTripPickupPoint = \App\Models\CarTripPickupPoint::with('pickupPoint')->find($carTripPickupPointId);
+    $carTripDropoffPoint = \App\Models\CarTripDropoffPoint::with('dropoffPoint')->find($carTripDropoffPointId);
+
+    if (!$carTripPickupPoint || !$carTripPickupPoint->pickupPoint) {
+        return $this->sendResponse(400, 'Điểm đón không hợp lệ.');
+    }
+
+    if (!$carTripDropoffPoint || !$carTripDropoffPoint->dropoffPoint) {
+        return $this->sendResponse(400, 'Điểm trả không hợp lệ.');
+    }
+
+    $pickupPoint = $carTripPickupPoint->pickupPoint;
+    $dropoffPoint = $carTripDropoffPoint->dropoffPoint;
+
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
     $totalPrice = $seats->sum(function ($seatCarTrip) {
         return $seatCarTrip->seat->price ?? 0;
     });
@@ -68,12 +109,22 @@ class OrderController extends Controller
             'name' => $name,
             'phone' => $phone,
             'email' => $email,
+<<<<<<< HEAD
+=======
+            'car_trip_pickup_point_id' => $carTripPickupPointId,
+            'car_trip_dropoff_point_id' => $carTripDropoffPointId,
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
         ]);
 
         SeatCarTrip::whereIn('id', $validated['seat_ids'])->update(['is_available' => false]);
 
         return $this->sendResponse(201, 'Đặt vé thành công!', [
             'order' => $order,
+<<<<<<< HEAD
+=======
+            'pickup_point' => $pickupPoint ? $pickupPoint->toArray() : null,
+            'dropoff_point' => $dropoffPoint ? $dropoffPoint->toArray() : null,
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
             'name' => $name,
             'phone' => $phone,
             'email' => $email,
@@ -85,7 +136,11 @@ class OrderController extends Controller
 
         return $this->sendResponse(500, 'Đã xảy ra lỗi khi xử lý đơn hàng.');
     }
+<<<<<<< HEAD
 }
+=======
+    }
+>>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
 
 
     public function showOrder($id)
@@ -163,7 +218,7 @@ class OrderController extends Controller
         }
 
         $validated = Validator::make($request->all(), [
-            'status' => 'required|string|in:pending,paid,cancelled',
+            'status' => 'required|string|in:pending,paid,cancelled', 
         ]);
 
         if ($validated->fails()) {
@@ -191,5 +246,4 @@ class OrderController extends Controller
 
         return $this->sendResponse(200, 'Danh sách đơn hàng của người dùng.', $orders);
     }
-
 }

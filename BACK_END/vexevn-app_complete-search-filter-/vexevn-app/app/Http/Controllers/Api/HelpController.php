@@ -13,15 +13,15 @@ class HelpController extends Controller
 {
     public function handleDatabaseTransaction(callable $operation)
     {
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $result = $operation();
+            
             DB::commit();
-
             return $result;
         } catch (\Throwable $th) {
             DB::rollBack();
-            return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $th->getMessage()]);
+            return $this->sendResponse(500, 'Lỗi hệ thống!', ['error' => $th->getMessage()]);
         }
     }
 
@@ -67,6 +67,4 @@ class HelpController extends Controller
             return $this->sendResponse(200, $message);
         });
     }
-
-
 }

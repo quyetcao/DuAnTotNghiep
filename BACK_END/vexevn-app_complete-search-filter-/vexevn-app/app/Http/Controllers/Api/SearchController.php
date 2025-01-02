@@ -12,7 +12,7 @@ use App\Models\CarRoute;
 
 class SearchController extends HelpController
 {
-    public function searchCarTrip(Request $request)
+    public function search(Request $request)
     {
         $validation = Validator::make($request->all(), [
             'city_from' => 'required|string',
@@ -138,7 +138,7 @@ class SearchController extends HelpController
         ], 200);
     }
 
-    public function searchCarTripByCarHouse(Request $request)
+    public function searchByCarRouteAndDate(Request $request)
     {
         $rules = [
             'departure_date' => 'required|date',
@@ -146,11 +146,9 @@ class SearchController extends HelpController
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request) {
-            // Lấy thông tin user đăng nhập
-            $user = Auth::user();
 
-            $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seats', 'employees', 'carRoute'])
-            ->where('car_house_id', $user->carhouse_id)
+            $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'carRoute'])
+            ->where('car_route_id', $request->car_route_id)
             ->where('departure_date', $request->departure_date)
             ->get();
 

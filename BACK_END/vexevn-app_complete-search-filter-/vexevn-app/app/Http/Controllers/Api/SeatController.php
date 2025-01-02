@@ -14,14 +14,14 @@ class SeatController extends Controller
     protected function sendResponse($statusCode, $message, $data = null)
     {
         return response()->json([
-            'status' => $statusCode,
-            'message' => $message,
-            'data' => $data,
+            'status' => $statusCode, 
+            'message' => $message,  
+            'data' => $data,        
         ], $statusCode);
     }
+
     public function showSeatByCarId($car_id)
     {
-        // Tìm tất cả các ghế theo car_id
         $data = Seat::where('car_id', $car_id)->get();
     
         if ($data->isEmpty()) {
@@ -30,7 +30,7 @@ class SeatController extends Controller
     
         return $this->sendResponse(200, 'Lấy danh sách ghế thành công!', $data);
     }
-    
+
     public function showSeat($id)
     {
         $data = Seat::find($id);
@@ -42,7 +42,6 @@ class SeatController extends Controller
         return $this->sendResponse(200, 'Lấy thông tin chi tiết ghế thành công!', $data);
     }
 
-
     public function listSeat()
     {
         $seats = Seat::all();
@@ -52,12 +51,12 @@ class SeatController extends Controller
     public function createSeat(Request $request)
     {
         $validated = $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'car_type_id' => 'required|exists:car_types,id',
-            'seat_number' => 'required|string',
-            'seat_type' => 'required|string|in:vip,standard',
-            'price' => 'required|numeric|min:0',
-            'location_seat' => 'required|in:0,1,2', // Kiểm tra giá trị hợp lệ cho location_seat
+            'car_id' => 'required|exists:cars,id', 
+            'car_type_id' => 'required|exists:car_types,id', 
+            'seat_number' => 'required|string', 
+            'seat_type' => 'required|string|in:vip,standard', 
+            'price' => 'required|numeric|min:0', 
+            'location_seat' => 'required|in:0,1,2', 
         ]);
 
         try {
@@ -69,7 +68,6 @@ class SeatController extends Controller
         }
     }
 
-
     public function updateSeat(Request $request, $id)
     {
         $seat = Seat::find($id);
@@ -79,12 +77,12 @@ class SeatController extends Controller
         }
 
         $validateSeat = Validator::make($request->all(), [
-            'car_id' => 'required|exists:cars,id',
-            'car_type_id' => 'required|exists:car_types,id',
-            'seat_number' => 'required|string',
-            'seat_type' => 'required|string|in:vip,standard',
-            'price' => 'required|numeric|min:0',
-            'location_seat' => 'required|in:0,1,2', // Kiểm tra giá trị hợp lệ cho location_seat
+            'car_id' => 'required|exists:cars,id', 
+            'car_type_id' => 'required|exists:car_types,id', 
+            'seat_number' => 'required|string', 
+            'seat_type' => 'required|string|in:vip,standard', 
+            'price' => 'required|numeric|min:0', 
+            'location_seat' => 'required|in:0,1,2', 
         ]);
 
         if ($validateSeat->fails()) {
@@ -97,15 +95,14 @@ class SeatController extends Controller
             $seat->seat_number = $request->seat_number;
             $seat->seat_type = $request->seat_type;
             $seat->price = $request->price;
-            $seat->location_seat = $request->location_seat; // Cập nhật location_seat
-            $seat->save();
+            $seat->location_seat = $request->location_seat; 
+            $seat->save(); 
 
             return $this->sendResponse(200, 'Cập nhật ghế thành công!', $seat);
         } catch (\Throwable $th) {
             return $this->sendResponse(500, $th->getMessage());
         }
     }
-
 
     public function deleteSeat($id)
     {
