@@ -8,11 +8,11 @@
 </head>
 <body>
     <a href="{{route('auth.google')}}">Google</a>
-    <form action="/login-register" method="POST">
+    {{-- <form action="/login-register" method="POST">
         @csrf
         <label for="phone">Số điện thoại:</label>
         <input type="text" id="phone" name="phone" required>
         <button type="submit">Đăng nhập/Đăng ký</button>
-    </form>
+    </form> --}}
 </body>
 </html>
