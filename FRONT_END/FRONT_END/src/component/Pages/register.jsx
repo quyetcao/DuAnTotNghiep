@@ -26,7 +26,7 @@ export default function Register() {
 
     const onSubmit = (data) => {
         console.log("data mật khẩu ", data);
-        dispatch(dangkytaikhoan(data));
+        dispatch(dangkytaikhoan(1,data));
     }
 
     const isToastOk = useSelector((state) => state.LoginLogOutRegister?.registerOK);
@@ -44,6 +44,10 @@ export default function Register() {
         notify(false);
     }
     
+    function registerbygoogle(){
+        const data='';
+        dispatch(dispatch(dangkytaikhoan(0,data)))
+    }
 
   
     return (
@@ -129,8 +133,8 @@ export default function Register() {
                         </form>
                         <div className='login_icon'>
                             <img src='../../images/imageslogin/icons8-google-48.png' alt='' />
-                            <p>
-                                Đăng nhập với <strong>Google</strong>.
+                            <p onClick={registerbygoogle}>
+                              Đăng ký với <strong>Google</strong>.
                             </p>
                         </div>
                        
