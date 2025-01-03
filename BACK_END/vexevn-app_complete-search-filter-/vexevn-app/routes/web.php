@@ -31,8 +31,10 @@ Route::get('home', [HomeController::class, 'index']);
 
 
 // LOGIN & SIGN UP WITH GOOGLE
-Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+Route::middleware(['cors'])->group(function () {
+    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+});
 // Hiển thị form quên mật khẩu
 Route::get('/password/forgot', function () {
     return view('password.forgot');
