@@ -8,7 +8,7 @@ return [
 
     'vnp_Url' => env('VNP_URL', 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html'),
 
-    'vnp_ReturnUrl' => env('VNP_RETURNURL', 'https://127.0.0.1:8000/api/vnpay-callback'),
+    'vnp_ReturnUrl' => env('VNP_RETURNURL', 'http://127.0.0.1:8000/api/vnpay-callback'),
 
     'vnp_CurrCode' => 'VND',
 

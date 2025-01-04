@@ -7,10 +7,13 @@ use App\Models\Payment;
 use App\Models\Order;
 use App\Models\Seat;
 use App\Models\Ticket;
+use App\Mail\OrderSuccessMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\DiscountCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class PaymentController extends Controller
 {
@@ -123,6 +126,7 @@ class PaymentController extends Controller
 
                 $order->update(['status' => 'paid']);
 
+                Mail::to($order->user->email)->send(new OrderSuccessMail($order, $payment));
                 return $this->sendResponse(201, 'Thanh toán và tạo vé đã được xử lý thành công.', $payment);
             }
 
@@ -187,48 +191,70 @@ class PaymentController extends Controller
 
     public function vnpayCallback(Request $request)
     {
-    $vnp_HashSecret = config('vnpay.vnp_HashSecret'); 
-    $inputData = $request->all(); 
+        $vnp_HashSecret = config('vnpay.vnp_HashSecret');
+        $inputData = $request->all();
+        $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
 
-    $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
+        // Loại bỏ SecureHash để xác thực
+        unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
+        ksort($inputData);
+        $query = http_build_query($inputData);
+        $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
 
-    unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
-    ksort($inputData); 
-    $query = http_build_query($inputData);
-    $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
-
-    if ($secureHash !== $vnp_SecureHash) {
-        Log::error('VNPay Callback: Invalid SecureHash.', ['input' => $inputData, 'generated' => $secureHash]);
-        return $this->sendResponse(400, 'Chữ ký không hợp lệ.');
-    }
-
-    if ($inputData['vnp_ResponseCode'] == '00') {
-        $order = Order::find($inputData['vnp_OrderInfo']); 
-
-        if (!$order) {
-            Log::error('VNPay Callback: Order Not Found.', ['vnp_OrderInfo' => $inputData['vnp_OrderInfo']]);
-            return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
+        // Xác thực chữ ký
+        if ($secureHash !== $vnp_SecureHash) {
+            return $this->sendResponse(400, 'Chữ ký không hợp lệ.');
         }
 
-        $payment = Payment::create([
-            'order_id' => $order->id,
-            'user_id' => $order->user_id,
-            'amount' => $inputData['vnp_Amount'] / 100, 
-            'payment_method' => 'vnpay',
-            'status' => 'completed',
-            'transaction_id' => $inputData['vnp_TransactionNo'],
-            'payment_gateway' => 'vnpay',
-        ]);
+        // Kiểm tra mã phản hồi từ VNPay
+        if ($inputData['vnp_ResponseCode'] == '00') {
+            $order = Order::find($inputData['vnp_OrderInfo']); // Tìm đơn hàng
 
-        $order->update(['status' => 'paid']);
+            if (!$order) {
+                return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
+            }
 
-        Log::info('VNPay Callback: Payment Success.', ['order_id' => $order->id]);
-        return $this->sendResponse(200, 'Thanh toán VNPay thành công.', $payment);
+            // Kiểm tra trạng thái đơn hàng
+            if ($order->status === 'paid') {
+                return $this->sendResponse(200, 'Đơn hàng đã được thanh toán.', [
+                    'order_id' => $order->id,
+                    'amount' => $inputData['vnp_Amount'] / 100
+                ]);
+            }
+
+            // Tạo thanh toán và cập nhật đơn hàng
+            try {
+                DB::beginTransaction();
+
+                $payment = Payment::create([
+                    'order_id' => $order->id,
+                    'user_id' => $order->user_id,
+                    'amount' => $inputData['vnp_Amount'] / 100,
+                    'payment_method' => 'vnpay',
+                    'status' => 'completed',
+                    'transaction_id' => $inputData['vnp_TransactionNo'],
+                    'payment_gateway' => 'vnpay',
+                ]);
+
+                $order->update(['status' => 'paid']);
+
+                DB::commit();
+                
+                Mail::to($order->user->email)->send(new OrderSuccessMail($order, $payment));
+                return $this->sendResponse(200, 'Thanh toán VNPay thành công.', [
+                    'order_id' => $order->id,
+                    'amount' => $inputData['vnp_Amount'] / 100
+                ]);
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->sendResponse(500, 'Lỗi hệ thống.');
+            }
+        }
+
+        return $this->sendResponse(400, 'Giao dịch thất bại.');
     }
 
-    Log::error('VNPay Callback: Transaction Failed.', ['input' => $inputData]);
-    return $this->sendResponse(400, 'Thanh toán VNPay thất bại.');
-    }
 
 
     public function showPayment($id)
