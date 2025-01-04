@@ -235,36 +235,6 @@ class CarTripController extends HelpController
             'arrival_date' => 'required|date|after_or_equal:departure_date',
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
-<<<<<<< HEAD
-            'car_house_id' => 'required|exists:car_houses,id', // Validation for car_house_id
-    
-            'pickup_points' => 'required|array',
-            'pickup_points.*.id' => 'required|exists:pickup_points,id',
-            'pickup_points.*.pickup_time' => 'required|date_format:H:i',
-    
-            'dropoff_points' => 'required|array',
-            'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
-            'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
-    
-            'employees' => 'required|array',  // Validate employees array
-            'employees.*' => 'exists:employees,id',  // Employee IDs phải tồn tại
-    
-            'car_type_id' => 'required|exists:car_types,id',
-        ]);
-    
-        if ($validateCT->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validateCT->errors()
-            ], 422);
-        }
-    
-        try {
-            DB::beginTransaction();
-    
-            // Tạo chuyến xe mới với car_house_id
-=======
             'status' => 'required|in:not_started,running,completed',
                 // Validate PUP & DOP data
             'pickup_points' => 'required|array',
@@ -273,14 +243,10 @@ class CarTripController extends HelpController
             'dropoff_points' => 'required|array',
             'dropoff_points.*.id' => 'required|exists:dropoff_points,id',
             'dropoff_points.*.dropoff_time' => 'required|date_format:H:i',
-            //     //  Validate Employees data
-            // 'employees' => 'required|array',
-            // 'employees.*' => 'exists:employees,id', 
         ];
 
         return $this->validateAndExecute($request, $rules, function () use ($request) {
             // Main cartrip data
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
             $carTrip = CarTrip::create([
                 'car_id' => $request->car_id,
                 'car_route_id' => $request->car_route_id,
@@ -288,18 +254,10 @@ class CarTripController extends HelpController
                 'arrival_date' => $request->arrival_date,
                 'return_date' => $request->return_date,
                 'price' => $request->price,
-<<<<<<< HEAD
-                'status' => 'not_started',
-                'car_house_id' => $request->car_house_id, // Save car_house_id
-            ]);
-    
-            // Lưu điểm đón
-=======
                 'status' => $request->status ?? 'not_started',
             ]);
 
             // Add PUP
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
             $listNewPUP = [];
             foreach ($request->pickup_points as $pickupPoint) {
                 CarTripPickupPoint::create([
@@ -309,13 +267,8 @@ class CarTripController extends HelpController
                 ]);
                 $listNewPUP[] = $pickupPoint;
             }
-<<<<<<< HEAD
-    
-            // Lưu điểm trả
-=======
 
             // Add DOP
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
             $listNewDOP = [];
             foreach ($request->dropoff_points as $dropoffPoint) {
                 CarTripDropoffPoint::create([
@@ -325,22 +278,8 @@ class CarTripController extends HelpController
                 ]);
                 $listNewDOP[] = $dropoffPoint;
             }
-<<<<<<< HEAD
-    
-=======
-
-            // Add Employee
-            // $listEmployee = [];
-            // foreach ($request->employees as $employeeId) {
-            //     CarTripEmployee::create([
-            //         'car_trip_id' => $carTrip->id,
-            //         'employee_id' => $employeeId
-            //     ]);
-            //     $listEmployee[] = $employeeId;
-            // }
 
             // Add Seat
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
             $car = Car::find($carTrip->car_id);
     
             if (!$car) {
@@ -352,31 +291,10 @@ class CarTripController extends HelpController
             }
     
             $carType = CarType::find($car->car_type_id);
-<<<<<<< HEAD
-    
-            if (!$carType) {
-                return response()->json([
-                    'status' => 422,
-                    'message' => 'Không tìm thấy thông tin loại xe.',
-                ], 422);
-            }
-    
-            $numberOfSeats = $carType->quantity_seat;
-            for ($i = 1; $i <= $numberOfSeats; $i++) {
-                if ($i == 1) {
-                    $locationSeat = 0; // Ghế đầu tiên
-                } elseif ($i == $numberOfSeats) {
-                    $locationSeat = 2; // Ghế cuối cùng
-                } else {
-                    $locationSeat = 1; // Các ghế còn lại
-                }
-    
-=======
 
             $numberOfSeats = $carType->quantity_seat;
             for ($i = 1; $i <= $numberOfSeats; $i++) {
                 $locationSeat = ($i == 1) ? 0 : (($i > $numberOfSeats - 3) ? 2 : 1);
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
                 $seat = Seat::create([
                     'car_id' => $carTrip->car_id,
                     'seat_number' => 'Seat ' . $i,
@@ -389,45 +307,11 @@ class CarTripController extends HelpController
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
-<<<<<<< HEAD
-                    'car_trip_id' => $carTrip->id,
-                    'is_available' => true,
-                ]);
-            }
-    
-            $listEmployee = [];
-            foreach ($request->employees as $employeeId) {
-                CarTripEmployee::create([
-=======
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
                     'car_trip_id' => $carTrip->id,
                     'is_available' => true,
                     'booking_method' => 'web',
                 ]);
             }
-<<<<<<< HEAD
-    
-            DB::commit();
-    
-            return response()->json([
-                'status' => 201,
-                'message' => 'Chuyến xe tạo mới thành công!',
-                'data' => [
-                    'carTrip' => $carTrip,
-                    'listNewPickupPoints' => $listNewPUP,
-                    'listNewDropoffPoints' => $listNewDOP,
-                    'listEmployee' => $listEmployee
-                ]
-            ], 201);
-        } catch (\Throwable $th) {
-            DB::rollBack();
-    
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage(),
-            ], 500);
-        }
-=======
 
             // Success response
             return $this->sendResponse(201, 'Chuyến xe tạo mới thành công!', [
@@ -436,7 +320,6 @@ class CarTripController extends HelpController
                 'listNewDropoffPoints' => $listNewDOP,
             ]);
         });
->>>>>>> 49db629eaa5813eb6c563368cfa0a01f1c5bd696
     }
     
 
