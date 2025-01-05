@@ -49,15 +49,9 @@ class AuthController extends HelpController
                     'token' => $user->createToken('API TOKEN')->plainTextToken,
                     'user' => $user,
                 ]);
-
-                 // Tạo token
-            //    $token = $user->createToken('API TOKEN')->plainTextToken;
-
-            // Chuyển hướng về frontend với token và thông tin user
-            // return redirect()->to("http://localhost:5173/?success=true&token={$token}&name={$user->name}");
-            } catch (\Exception $e) {
-                // return redirect()->to("http://localhost:5173/?success=false&error=" . urlencode($e->getMessage()));
-                return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $e->getMessage()]);
+            } catch (\Throwable $th) {
+                Log::error('Google Login Error:', ['message' => $th->getMessage(), 'trace' => $th->getTraceAsString()]);
+                return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $th->getMessage()]);
             }
         });
     }

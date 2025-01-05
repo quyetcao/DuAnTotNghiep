@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             // 'admin' => \App\Http\Middleware\Admin::class,
             'role' => \App\Http\Middleware\Role::class,
+            'cors' => \Illuminate\Http\Middleware\HandleCors::class,
             // 'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             // 'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             // 'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
