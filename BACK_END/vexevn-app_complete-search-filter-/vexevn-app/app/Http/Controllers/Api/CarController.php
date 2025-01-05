@@ -25,86 +25,7 @@ use Illuminate\Support\Facades\Log;
 class CarController extends HelpController
 {
 
-    /* =====================================================================
-                                CAR HOUSE
-===========================================================================*/
-    public function showCarHouse($id)
-    {
-        $data = CarHouse::find($id);
-        // $data = CarHouse::with('carImages', 'carHouse', 'carType')
 
-
-        if (!$data) {
-            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
-        }
-
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết nhà xe thành công!', $data);
-    }
-    public function listCarHouse()
-    {
-        // $data = CarHouse::all();
-        $data = CarHouse::paginate(5);
-
-        return $this->sendResponse(200, 'Hiển thị danh sách nhà xe thành công!', $data);
-    }
-    public function createCarHouse(Request $request)
-    {
-        $rules =  [
-            'name' => 'required|unique:car_houses,name',
-            'phone' => 'required|unique:car_houses,phone|regex:/^0[0-9]{10}$/',
-            'address' => 'required|string',
-            'status' => 'required|in:active,inactive,paused'
-        ];
-
-        return $this->validateAndExecute($request, $rules, function () use ($request) {
-            $carHouse = CarHouse::create([
-                'name' => $request->name,
-                'phone' => $request->phone,
-                'address' => $request->address,
-                'status' => $request->status ?? 'active'
-            ]);
-
-            // Trả về thông báo success
-            return $this->sendResponse(201, 'Nhà xe tạo mới thành công!', $carHouse);
-        });
-    }
-    public function updateCarHouse(Request $request, $id)
-    {
-        $carHouse = CarHouse::find($id);
-
-        if (!$carHouse) {
-            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
-        }
-
-
-        $rules =  [
-            'name' => 'required|unique:car_houses,name,' . $id,
-            'phone' => 'required|unique:car_houses,phone,' . $id . '|regex:/^[0-9]{10}$/',
-            'address' => 'nullable|string',
-            'status' => 'required|in:active,inactive,paused'
-        ];
-
-        return $this->validateAndExecute($request, $rules, function () use ($request, $carHouse) {
-            $carHouse->update([
-                'name' => $request->name ?? $carHouse->name,
-                'phone' => $request->phone ?? $carHouse->phone,
-                'address' => $request->address ?? $carHouse->address,
-                'status' => $request->status ?? $carHouse->status,
-            ]);
-
-            // Trả về thông báo success
-            return $this->sendResponse(201, 'Nhà xe  thành công!', $carHouse);
-        });
-    }
-    public function deleteCarHouse($id)
-    {
-        $carHouse = CarHouse::find($id);
-
-        if (!$carHouse) {
-            return $this->sendNotFoundResponse('Không tìm thấy nhà xe!');
-        }
-        return $this->handleDelete(CarHouse::class, $id, 'Nhà xe đã được xóa thành công!');
-    }
 
     /* =====================================================================
                                     CAR 
@@ -465,6 +386,14 @@ class CarController extends HelpController
             return $this->sendNotFoundResponse('Không tìm thấy xe!');
         }
 
+        $relations = ['carTrips', 'employees'];
+
+        foreach ($relations as $relation) {
+            if ($car->{$relation}()->exists()) {
+                return $this->sendResponse(400, "Không thể xoá loại xe vì đang được sử dụng trong bảng {$relation}!");
+            }
+        }
+
         try {
             DB::beginTransaction();
             $carImages = $car->carImages;
@@ -493,156 +422,6 @@ class CarController extends HelpController
         }
     }
 
-    /* =====================================================================
-                        PICK UP POINT 
-===========================================================================*/
-    public function showPickupPointById($id)
-    {
-
-        $data = PickupPoint::find($id);
-        if (!$data) {
-            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
-        }
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
-    }
-
-
-
-    public function showPickupPoint($carTripId)
-    {
-        $data = CarTripPickupPoint::where('car_trip_id', $carTripId)->get();
-        if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
-        }
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
-    }
-
-
-
-    public function getPickupPointByCarHouse($carHouseId)
-    {
-
-        $data = PickupPoint::where('car_house_id', $carHouseId)->get();
-        if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse('Không tìm thấy điểm đón!');
-        }
-        return $this->sendResponse(200, 'Lấy thông tin chi tiết điểm đón thành công!', $data);
-    }
-
-
-    public function listPickupPoint()
-    {
-        $data = PickupPoint::all();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Hiển thị danh sách Điểm Đón thành công',
-            'data' => $data
-        ], 200);
-    }
-    public function createPickupPoint(Request $request)
-    {
-        $validatePUP = Validator::make($request->all(), [
-            'name' => 'required|string|unique:pickup_points,name',
-            'address' => 'nullable|string',
-            'car_house_id' => 'nullable|exists:car_houses,id',
-            'is_public' => 'required|boolean'
-        ]);
-
-        if ($validatePUP->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validatePUP->errors()
-            ], 422);
-        }
-
-        try {
-            $pickupPoint = PickupPoint::create([
-                'name' => $request->name,
-                'address' => $request->address,
-                // 'city_id' => $request->city_id,
-                'car_house_id' => $request->car_house_id,
-                'is_public' => $request->is_public
-            ]);
-
-            return response()->json([
-                'status' => 201,
-                'message' => 'Điểm đón đã được thêm thành công',
-                'data' => $pickupPoint
-            ], 201);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
-    public function updatePickupPoint(Request $request, $id)
-    {
-        $pickupPoint = PickupPoint::find($id);
-
-        if (!$pickupPoint) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy điểm đón!',
-            ], 404);
-        }
-
-        $validatePUP = Validator::make($request->all(), [
-            'name' => 'required|string|unique:pickup_points,name,' . $id,
-            'address' => 'nullable|string',
-            'car_house_id' => 'nullable|exists:car_houses,id',
-            'is_public' => 'required|boolean'
-        ]);
-
-        if ($validatePUP->fails()) {
-            return response()->json([
-                'status' => 422,
-                'message' => 'Lỗi xác thực form',
-                'data' => $validatePUP->errors()
-            ], 422);
-        }
-
-        try {
-            $pickupPoint->name = $request->name;
-            $pickupPoint->address = $request->address;
-            // $pickupPoint->city_id = $request->city_id;
-            $pickupPoint->car_house_id = $request->car_house_id;
-            $pickupPoint->is_public = $request->is_public;
-
-            $pickupPoint->save();
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Điểm đón đã được cập nhật thành công',
-                'data' => $pickupPoint,
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => 500,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
-    public function deletePickupPoint($id)
-    {
-        $data = PickupPoint::find($id); 
-        if (!$data) {
-            return response()->json([
-                'status' => 404,
-                'message' => 'Không tìm thấy điểm đón!'
-            ], 404);
-        }
-
-        $data->delete();
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Điểm đón đã được xoá thành công',
-            'delete_data' => $data
-        ], 200);
-    }
 
     /* =====================================================================
                         DROP OFF POINT 

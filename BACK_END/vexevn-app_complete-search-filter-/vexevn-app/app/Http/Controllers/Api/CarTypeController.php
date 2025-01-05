@@ -13,13 +13,13 @@ class CarTypeController extends HelpController
     {
         if ($request->query('all') === 'true') {
             $data = CarType::all();
-            return $this->sendResponse(200, 'Hiển thị danh sách loại xe không phân trang thành công!', $data);
+            return $this->sendResponse(200, 'Hiển thị danh sách loại xe thành công!', $data);
         }
 
         $perPage = $request->query('per_page', 5);
 
         $data = CarType::paginate((int)$perPage);
-        return $this->sendResponse(200, 'Hiển thị danh sách loại xe thành công!', $data);
+        return $this->sendResponse(200, "Hiển thị danh sách loại xe thành công! Với {$perPage} đối tượng mỗi trang", $data);
     }
 
 
@@ -110,8 +110,12 @@ class CarTypeController extends HelpController
             return $this->sendNotFoundResponse('Không tìm thấy loại xe!');
         }
 
-        if ($carType->cars()->count() > 0) {
-            return $this->sendResponse(400, 'Không thể xoá loại xe vì đang được sử dụng!');
+        $relations = ['cars'];
+
+        foreach ($relations as $relation) {
+            if ($carType->{$relation}()->exists()) {
+                return $this->sendResponse(400, "Không thể xoá loại xe vì đang được sử dụng trong bảng {$relation}!");
+            }
         }
 
         if ($carType->image) {
@@ -121,6 +125,8 @@ class CarTypeController extends HelpController
                 unlink($imagePath);
             }
         }
-        return $this->handleDelete(CarType::class, $id, 'Xoá loại xe thành công!');
+
+        $carType->delete();
+        return $this->sendResponse(200, 'Xoá loại xe thành công!');
     }
 }
