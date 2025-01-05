@@ -48,8 +48,8 @@ class AuthController extends HelpController
                     'token' => $user->createToken('API TOKEN')->plainTextToken,
                     'user' => $user,
                 ]);
-            } catch (\Exception $e) {
-                return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $e->getMessage()]);
+            } catch (\Throwable $th) {
+                return $this->sendResponse(500, 'Lỗi hệ thống', ['error' => $th->getMessage()]);
             }
         });
     }

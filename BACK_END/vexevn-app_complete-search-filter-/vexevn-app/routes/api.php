@@ -183,15 +183,6 @@ Route::post('/carroute/update/{id}', [CarController::class, 'updateCarRoute']);
 Route::delete('/carroute/delete/{id}', [CarController::class, 'deleteCarRoute']);
 // });
 
-// CAR TRIP
-// // Route::middleware(['auth:sanctum', 'role:admin,carhouse,user'])->group(function () {
-//     Route::get('/cartrip/search-by-date-and-route', [SearchController::class, 'searchCarTripByCarHouse']);
-//     Route::get('/cartrip/update-statuses', [CarTripStatusController::class, 'updateStatuses']);
-//     Route::post('/cartrip/create', [CarTripController::class, 'createCarTrip']);
-//     Route::post('/cartrip/update/{id}', [CarTripController::class, 'updateCarTrip']);
-//     Route::delete('/cartrip/delete/{id}', [CarTripController::class, 'deleteCarTrip']);
-//     Route::get('/cartrip/by-carhouse/{carHouseId}', [CarTripController::class, 'getTripsByCarHouse']);
-// // });
 /* =====================================================================
                             CITY 
 ===========================================================================*/
