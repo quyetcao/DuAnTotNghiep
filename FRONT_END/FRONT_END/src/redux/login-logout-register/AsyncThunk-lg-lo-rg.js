@@ -3,47 +3,69 @@ import { postLogin, postRegister, poststRegisterError, setLoginError, setLoginOK
 import { logError } from "../ErrorandOK/createSlice_log";
 
 
-
-
-export function dangkytaikhoan(dk,body) {
+export function dangkytaikhoan(dk, body) {
   return async (dispatch) => {
     if(dk == 0){
-      try {
-        let res = await axios.get(
-          `http://localhost:8000/auth/google/`);
-      } catch (error) {
-        dispatch(poststRegisterError(true));
-        dispatch(logError(error.response.data.data));
-  
-      } finally {
-        setTimeout(() => {
-          dispatch(postRegister(false));
-          dispatch(poststRegisterError(false));
-        }, 2000);
-      }
-
-    }else if(dk == 1){
+      // Chuyển hướng người dùng đến trang Google OAuth
+      window.location.href = 'http://localhost:8000/auth/google'; // Đảm bảo URL này đúng với route trong Laravel của bạn
+    } else if(dk == 1){
       try {
         let res = await axios.post(
           `http://localhost:8000/api/auth/signup/`, body);
-        // console.log("ket qua dang ky ", res);
         dispatch(postRegister(true));
-  
       } catch (error) {
-        // console.log("errỏr đăng ký",error.response.data.data);
         dispatch(poststRegisterError(true));
         dispatch(logError(error.response.data.data));
-  
       } finally {
         setTimeout(() => {
           dispatch(postRegister(false));
           dispatch(poststRegisterError(false));
         }, 2000);
       }
-    };
     }
-  
+  }
 }
+
+
+// export function dangkytaikhoan(dk,body) {
+//   return async (dispatch) => {
+//     if(dk == 0){
+//       try {
+//         let res = await axios.get(
+//           `http://localhost:8000/auth/google/`);
+//       } catch (error) {
+//         dispatch(poststRegisterError(true));
+//         dispatch(logError(error.response.data.data));
+  
+//       } finally {
+//         setTimeout(() => {
+//           dispatch(postRegister(false));
+//           dispatch(poststRegisterError(false));
+//         }, 2000);
+//       }
+
+//     }else if(dk == 1){
+//       try {
+//         let res = await axios.post(
+//           `http://localhost:8000/api/auth/signup/`, body);
+//         // console.log("ket qua dang ky ", res);
+//         dispatch(postRegister(true));
+  
+//       } catch (error) {
+//         // console.log("errỏr đăng ký",error.response.data.data);
+//         dispatch(poststRegisterError(true));
+//         dispatch(logError(error.response.data.data));
+  
+//       } finally {
+//         setTimeout(() => {
+//           dispatch(postRegister(false));
+//           dispatch(poststRegisterError(false));
+//         }, 2000);
+//       }
+//     };
+//     }
+  
+// }
 
 export function dangnhap(body) {
   return async (dispatch) => {

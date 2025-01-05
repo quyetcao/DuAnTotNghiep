@@ -15,20 +15,30 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // 'paths' => ['*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    // 'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    // 'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => [],
+    // 'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    // 'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    // 'exposed_headers' => [],
 
-    'max_age' => 0,
+    // 'max_age' => 0,
 
-    'supports_credentials' => false,
+    // 'supports_credentials' => false,
+  
+        'paths' => ['*', 'sanctum/csrf-cookie', 'auth/google/callback'], // Đảm bảo các đường dẫn cần thiết được bao gồm
+        'allowed_methods' => ['*'],
+        'allowed_origins' => ['http://localhost:5173'],  // Cho phép yêu cầu từ ứng dụng React
+        'allowed_origins_patterns' => [],
+        'allowed_headers' => ['*'],
+        'exposed_headers' => [],
+        'max_age' => 0,
+        'supports_credentials' => true,
+    
 
 ];
