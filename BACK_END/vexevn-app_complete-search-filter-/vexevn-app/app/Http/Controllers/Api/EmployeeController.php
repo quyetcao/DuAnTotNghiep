@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\{
     CarHouse,
     Car,
+    Employee,
 };
 use Illuminate\Http\Request;
-
-use App\Models\Employee;
 
 class EmployeeController extends HelpController
 {
@@ -31,20 +30,45 @@ class EmployeeController extends HelpController
     }
 
 
-    public function getEmployeeByCarHouse($id)
+    public function getEmployeeByCarHouse(Request $request, $id)
     {
 
-        $data = Employee::where('car_house_id', $id)->get();
+        $carHouse = CarHouse::find($id);
+        
+        if(!$carHouse) {
+            return $this->sendNotFoundResponse("Không tồn tại nhà xe với id là {$id}!");
+        }
+
+        if ($request->query('all') == 'true') {
+            $data = Employee::where('car_house_id', $id)->get();
+            
+            if ($data->isEmpty()) {
+                return $this->sendNotFoundResponse('Không tìm thấy nhân viên phụ trách nhà xe này!');
+            }
+
+            return $this->sendResponse(200, 'Lấy thông tin nhân viên theo nhà xe thành công!', $data);
+        }
+
+        $perPage = $request->query('per_page', 5);
+        $data = Employee::where('car_house_id', $id)->paginate((int)$perPage);
 
         if ($data->isEmpty()) {
             return $this->sendNotFoundResponse('Không tìm thấy nhân viên phụ trách nhà xe này!');
         }
 
-        return $this->sendResponse(200, 'Lấy thông tin nhân viên theo nhà xe thành công!', $data);
+        return $this->sendResponse(200, 
+        "Lấy thông tin nhân viên theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang", 
+        $data);
     }
 
 
     public function getEmployeeByCar($id) {
+        $car = Car::find($id);
+        
+        if(!$car) {
+            return $this->sendNotFoundResponse("Không tồn tại xe với id là {$id}!");
+        }
+        
         $data = Employee::where('car_id', $id)->get();
         
         if ($data->isEmpty()) {
@@ -59,8 +83,8 @@ class EmployeeController extends HelpController
         $rules = [
             'name' => 'required|string',
             'car_id' => 'nullable|exists:cars,id',
-            'car_house_id' => 'required|exists:car_houses,id',
-            'phone' => 'required|unique:employees,phone|regex:/^0[0-9]{10}$/',
+            'car__id' => 'required|exists:car_houses,id',
+            'phone' => 'required|unique:employees,phone|regex:/^0[0-9]{9}$/',
             'address' => 'nullable|string',
             'role' => 'required|in:0,1',
         ];
@@ -132,6 +156,14 @@ class EmployeeController extends HelpController
 
 
     public function destroy($id) {
-        return $this->handleDelete(Employee::class, $id, 'Nhân viên đã được xóa thành công!');
+        $employee = Employee::find($id);
+
+        if (!$employee) {
+            return $this->sendNotFoundResponse('Không tìm thấy nhân viên!');
+        }
+
+        $employee->delete();
+
+        return $this->sendResponse(200, 'Xoá nhân viên thành công!');
     }
 }

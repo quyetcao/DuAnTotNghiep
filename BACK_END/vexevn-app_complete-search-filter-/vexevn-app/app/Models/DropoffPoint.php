@@ -11,10 +11,6 @@ class DropoffPoint extends Model
 
     protected $fillable = ['name', 'address', 'car_house_id', 'is_public'];
 
-    // public function city () {
-    //     return $this->belongsTo(City::class);
-    // }
-
     public function carTrips()
     {
         return $this->belongsToMany(CarTrip::class, 'car_trip_dropoff_points')
