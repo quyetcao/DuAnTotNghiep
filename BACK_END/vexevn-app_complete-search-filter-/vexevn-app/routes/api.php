@@ -215,23 +215,27 @@ Route::delete('/cities/{id}', [CityController::class, 'delete']);
 /* =====================================================================
                             CAR TRIP 
 ===========================================================================*/
-Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('cartrip')->group(function () {});
+Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('car-trip')->group(function () {});
 
 // KHÔNG CẦN LOGIN
-Route::prefix('cartrip')->group(function () {
+Route::prefix('car-trip')->group(function () {
     Route::prefix('search')->group(function () {
         Route::get('/', [SearchController::class, 'search']);
         Route::get('/car-route-and-date', [SearchController::class, 'searchByCarRouteAndDate']);
     });
 
-    Route::prefix('status')->group(function () {
-        Route::get('/reset', [CarTripStatusController::class, 'resetCompletedCarTrips']);
-        Route::post('/update', [CarTripStatusController::class, 'updateStatuses']);
-    });
+    // Route::prefix('status')->group(function () {
+    //     Route::get('/reset', [CarTripStatusController::class, 'resetCompletedCarTrips']);
+    //     Route::post('/update', [CarTripStatusController::class, 'updateStatuses']);
+    // });
 
     Route::get('/', [CarTripController::class, 'index']); // Hiển thị danh sách chuyến xe
     Route::post('/', [CarTripController::class, 'store']); // Tạo mới chuyến xe
-    Route::get('/car-house/{id}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
+
+    Route::prefix('take-by')->group(function () {
+        Route::get('/car-house/{id}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
+    });
+    
     Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']);
     Route::get('/{id}', [CarTripController::class, 'show'])->where('id', '[0-9]+'); // Chi tiết chuyến xe
     Route::put('/{id}', [CarTripController::class, 'update'])->where('id', '[0-9]+'); // Cập nhật chuyến xe

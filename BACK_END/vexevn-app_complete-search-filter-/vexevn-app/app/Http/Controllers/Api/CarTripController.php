@@ -27,17 +27,24 @@ use App\Models\SeatCarTrip;
 
 class CarTripController extends HelpController
 {
-    public function index()
+    public function index(Request $request)
     {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])->paginate(5);
 
-        return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe thành công', $data);
+        if ($request->query('all') === 'true') {
+            $data = $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])->get();
+            return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe thành công!', $data);
+        }
+
+        $perPage = $request->query('per_page', 5);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])->paginate((int)$perPage);
+        return $this->sendResponse(200, "Hiển thị danh sách chuyến xe thành công! Với {$perPage} đối tượng mỗi trang", $data);
     }
 
 
     public function show($id)
     {
-        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'car.carType' ])->find($id);
+        $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'car.carType'])->find($id);
 
         if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy chuyến xe!');
@@ -47,31 +54,66 @@ class CarTripController extends HelpController
     }
 
 
-    public function listCarTripNotStarted(){
-    // Lọc chuyến xe theo trạng thái 'not_started' cho người dùng
-    $data = CarTrip::notStarted()
-                   ->with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])
-                   ->paginate(5);
+    public function listCarTripNotStarted(Request $request)
+    {
+        // Lọc chuyến xe theo trạng thái 'not_started' cho người dùng
+        $data = CarTrip::notStarted()
+            ->with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])
+            ->paginate(5);
 
-    return $this->sendResponse(200, 'Danh sách chuyến xe chưa bắt đầu', $data);
+        if ($request->query('all') === 'true') {
+            $data = $data = CarTrip::notStarted()
+                                    ->with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])
+                                    ->get();
+            return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe chưa xuất phát thành công!', $data);
+        }
+
+        $perPage = $request->query('per_page', 5);
+        $data = CarTrip::notStarted()
+                        ->with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats'])
+                        ->paginate((int)$perPage);
+        return $this->sendResponse(200, "Hiển thị danh sách chuyến xe chưa xuất phát thành công! Với {$perPage} đối tượng mỗi trang", $data);
     }
 
 
-    public function getByCarHouse($carHouseId)
+    public function getByCarHouse(Request $request, $id)
     {
         $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'carRoute'])
-                        ->whereHas('car', function ($query) use ($carHouseId) {
-                            $query->where('car_house_id', $carHouseId);
-                        })
-                        ->paginate(5);
+            ->whereHas('car', function ($query) use ($id) {
+                $query->where('car_house_id', $id);
+            })
+            ->paginate(5);
+
+            if ($request->query('all') == 'true') {
+                $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'carRoute'])
+                                ->whereHas('car', function ($query) use ($id) {
+                                    $query->where('car_house_id', $id);
+                                })
+                                ->get();
     
-        // Kiểm tra nếu không có chuyến xe nào
-        if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse('Không tìm thấy chuyến xe thuộc nhà xe này!');
-        }
+                if ($data->isEmpty()) {
+                    return $this->sendNotFoundResponse('Không tìm thấy chuyến xe của nhà xe này!');
+                }
     
-        // Trả về danh sách chuyến xe
-        return $this->sendResponse(200, 'Hiển thị danh sách chuyến xe theo nhà xe thành công!', $data);
+                return $this->sendResponse(200, 'Lấy thông tin chi tiết chuyến xe theo nhà xe thành công!', $data);
+            }
+    
+            $perPage = $request->query('per_page', 5);
+            $data = CarTrip::with(['car', 'pickupPoints', 'dropoffPoints', 'seatCarTrips', 'seats', 'carRoute'])
+                            ->whereHas('car', function ($query) use ($id) {
+                                $query->where('car_house_id', $id);
+                            })
+                            ->paginate((int)$perPage);
+    
+            if ($data->isEmpty()) {
+                return $this->sendNotFoundResponse('Không tìm thấy chuyến xe của nhà xe này!');
+            }
+    
+            return $this->sendResponse(
+                200,
+                "Lấy thông tin chi tiết chuyến xe theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang",
+                $data
+            );
     }
 
 
@@ -226,7 +268,8 @@ class CarTripController extends HelpController
     //     }
     // }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
@@ -236,7 +279,7 @@ class CarTripController extends HelpController
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
             'status' => 'required|in:not_started,running,completed',
-                // Validate PUP & DOP data
+            // Validate PUP & DOP data
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
             'pickup_points.*.pickup_time' => 'required|date_format:H:i',
@@ -281,15 +324,15 @@ class CarTripController extends HelpController
 
             // Add Seat
             $car = Car::find($carTrip->car_id);
-    
+
             if (!$car) {
                 return $this->sendNotFoundResponse('Xe không tồn tại trong cơ sở dữ liệu.');
             }
-    
+
             if (!$car->car_type_id) {
                 return $this->sendNotFoundResponse('Xe không thuộc loại xe nào!');
             }
-    
+
             $carType = CarType::find($car->car_type_id);
 
             $numberOfSeats = $carType->quantity_seat;
@@ -303,7 +346,7 @@ class CarTripController extends HelpController
                     'car_type_id' => $request->car_type_id,
                     'location_seat' => (string) $locationSeat,
                 ]);
-    
+
                 SeatCarTrip::create([
                     'seat_id' => $seat->id,
                     'car_id' => $carTrip->car_id,
@@ -314,14 +357,14 @@ class CarTripController extends HelpController
             }
 
             // Success response
-            return $this->sendResponse(201, 'Chuyến xe tạo mới thành công!', [
+            return $this->sendResponse(201, 'Thêm mới chuyến xe thành công!', [
                 'carTrip' => $carTrip,
                 'listNewPickupPoints' => $listNewPUP,
                 'listNewDropoffPoints' => $listNewDOP,
             ]);
         });
     }
-    
+
 
     // public function updateCarTrip(Request $request, $id)
     // {
@@ -426,8 +469,8 @@ class CarTripController extends HelpController
     //                 [
     //                     'car_trip_id' => $carTrip->id,
     //                     'dropoff_point_id' => $dropoffPoint['id'],
-                        
-                        
+
+
     //                 ],
     //                 [
     //                     'dropoff_time' => $dropoffPoint['dropoff_time']
@@ -472,7 +515,8 @@ class CarTripController extends HelpController
     //     }
     // }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $rules = [
             // Validate cartrip data
             'car_id' => 'required|exists:cars,id',
@@ -482,7 +526,7 @@ class CarTripController extends HelpController
             'return_date' => 'nullable|date|after_or_equal:arrival_date',
             'price' => 'required|numeric|min:0',
             'status' => 'required|in:not_started,running,completed',
-                // Validate PUP & DOP data
+            // Validate PUP & DOP data
             'pickup_points' => 'required|array',
             'pickup_points.*.id' => 'required|exists:pickup_points,id',
             'pickup_points.*.pickup_time' => 'required|date_format:H:i',
@@ -566,7 +610,7 @@ class CarTripController extends HelpController
             ]);
         });
     }
-    
+
     public function destroy($id)
     {
         $carTrip = CarTrip::find($id);
@@ -580,7 +624,7 @@ class CarTripController extends HelpController
             $carTrip->delete();
 
             DB::commit();
-            return $this->sendResponse(200, 'Chuyến xe đã được xóa thành công!');
+            return $this->sendResponse(200, 'Xoá chuyến xe thành công!');
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -591,4 +635,3 @@ class CarTripController extends HelpController
         }
     }
 }
-

@@ -411,7 +411,7 @@ class CarController extends HelpController
 
         foreach ($relations as $relation) {
             if ($car->{$relation}()->exists()) {
-                return $this->sendResponse(400, "Không thể xoá loại xe vì đang được sử dụng trong bảng {$relation}!");
+                return $this->sendResponse(400, "Không thể xoá xe vì đang được sử dụng trong bảng {$relation}!");
             }
         }
 
