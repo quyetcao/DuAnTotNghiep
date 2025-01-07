@@ -169,22 +169,35 @@ return [
             'required' => 'Vui lòng chọn nhập số lượng ghế!',
             'integer' => 'Số ghế phải là số nguyên!'
         ],
+        'title' => [
+            'required' => 'Vui lòng nhập tiêu đề!',
+            'unique' => 'Tiêu đề đã tồn tại',
+        ],
         'address' => ['required' => 'Vui lòng nhập địa chỉ!'],
         'price' => ['required' => 'Vui lòng nhập giá!'],
-        'title' => ['required' => 'Vui lòng nhập tiêu đề!'],
         'status' => ['required' => 'Vui lòng chọn trạng thái!'],
         'is_public' => ['required' => 'Vui lòng chọn chế độ công khai!'],
         'city_from' => ['required' => 'Vui lòng chọn điểm khơi hành!'],
         'city_to' => ['required' => 'Vui lòng chọn điểm đến!'],
         'employees' => ['required' => 'Vui lòng chọn nhân viên phụ trách!'],
         'content' => ['required' => 'Vui lòng điền nội dung bình luận!'],
+        
         'car_type_id' => ['required' => 'Vui lòng chọn loại xe!'],
         'car_house_id' => ['required' => 'Vui lòng chọn loại nhà xe!'],
         'car_id' => ['required' => 'Vui lòng chọn xe!'],
         'car_route_id' => ['required' => 'Vui lòng chọn tuyến đường!'],
         'car_trip_id' => ['required' => 'Vui lòng chọn chuyến xe!'],
+        'event_id' => ['required' => 'Vui lòng chọn sự kiện!'],
+
         'departure_date' => ['required' => 'Vui lòng chọn ngày đi!'],
         'arrival_date' => ['required' => 'Vui lòng chọn ngày đến!'],
+        'start_date' => ['after_or_equal' => 'Ngày bắt đầu phải sau hoặc bằng ngày hôm nay!'],
+        'end_date' => ['after_or_equal' => 'Ngày kết thúc phải sau hoặc bằng ngày bắt đầu!'],
+        'publication_date' => [
+            'required' => 'Vui lòng chọn ngày đi!',
+            'after_or_equal' => 'Ngày tạo phải sau hoặc bằng ngày hôm nay!'
+        ],
+
         'pickup_points' => ['required' => 'Vui lòng chọn danh sách điểm đón!'],
         'dropoff_points' => ['required' => 'Vui lòng chọn danh sách điểm trả!'],
         'dropoff_point_id' => ['required' => 'Vui lòng chọn điểm  trả!'],
@@ -193,4 +206,3 @@ return [
         'dropoff_time' => ['required' => 'Vui lòng chọn giờ trả!'],
     ],
 ];
-

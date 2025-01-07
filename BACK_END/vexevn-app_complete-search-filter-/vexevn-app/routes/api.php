@@ -28,6 +28,7 @@ use App\Http\Controllers\Api\{
     CommentController,
     BannerController,
     EventController,
+    ArticleController,
 };
 
 use App\Http\Controllers\UserController;
@@ -235,7 +236,7 @@ Route::prefix('car-trip')->group(function () {
     Route::prefix('take-by')->group(function () {
         Route::get('/car-house/{id}', [CarTripController::class, 'getByCarHouse']); // Lấy chuyến xe theo nhà xe
     });
-    
+
     Route::get('/not-started', [CarTripController::class, 'listCarTripNotStarted']);
     Route::get('/{id}', [CarTripController::class, 'show'])->where('id', '[0-9]+'); // Chi tiết chuyến xe
     Route::put('/{id}', [CarTripController::class, 'update'])->where('id', '[0-9]+'); // Cập nhật chuyến xe
@@ -260,25 +261,26 @@ Route::delete('/banner/delete/{id}', [BannerController::class, 'deleteBanner']);
 /* =====================================================================
                             EVENT - ARTICLE
 ===========================================================================*/
-Route::get('/event/{id}', [EventController::class, 'showEvent']);
-Route::get('/event', [EventController::class, 'listEvent']);
+Route::middleware(['auth:sanctum', 'role:admin'])->prefix('event')->group(function () {});
 
-// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-Route::post('/event/create', [EventController::class, 'createEvent']);
-Route::post('/event/update/{id}', [EventController::class, 'updateEvent']);
-Route::delete('/event/delete/{id}', [EventController::class, 'deleteEvent']);
-// });
+Route::prefix('event')->group(function () {
+    Route::get('', [EventController::class, 'index']);
+    Route::post('/', [EventController::class, 'store']);
+    Route::get('/{id}', [EventController::class, 'show']);
+    Route::put('/{id}', [EventController::class, 'update']);
+    Route::delete('/{id}', [EventController::class, 'destroy']);
+});
 
 
-Route::get('/article/{id}', [EventController::class, 'showArticle']);
-Route::get('/article', [EventController::class, 'listArticle']);
+Route::middleware(['auth:sanctum', 'role:admin'])->prefix('article')->group(function () {});
 
-// Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-Route::post('/article/create', [EventController::class, 'createArticle']);
-Route::post('/article/update/{id}', [EventController::class, 'updateArticle']);
-Route::delete('/article/delete/{id}', [EventController::class, 'deleteArticle']);
-// });
-
+Route::prefix('article')->group(function () {
+    Route::get('/', [ArticleController::class, 'index']);
+    Route::post('/', [ArticleController::class, 'store']);
+    Route::get('/{id}', [ArticleController::class, 'show']);
+    Route::put('/{id}', [ArticleController::class, 'update']);
+    Route::delete('/{id}', [ArticleController::class, 'destroy']);
+});
 
 
 /* =====================================================================
