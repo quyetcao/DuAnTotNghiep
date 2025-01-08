@@ -173,13 +173,16 @@ return [
             'required' => 'Vui lòng nhập tiêu đề!',
             'unique' => 'Tiêu đề đã tồn tại',
         ],
+        'employees' => [
+            'required' => 'Vui lòng chọn nhân viên phụ trách!',
+            'max' => 'Nhân viên phụ trách chỉ được tối đa :max người!',
+        ],
         'address' => ['required' => 'Vui lòng nhập địa chỉ!'],
         'price' => ['required' => 'Vui lòng nhập giá!'],
         'status' => ['required' => 'Vui lòng chọn trạng thái!'],
         'is_public' => ['required' => 'Vui lòng chọn chế độ công khai!'],
         'city_from' => ['required' => 'Vui lòng chọn điểm khơi hành!'],
         'city_to' => ['required' => 'Vui lòng chọn điểm đến!'],
-        'employees' => ['required' => 'Vui lòng chọn nhân viên phụ trách!'],
         'content' => ['required' => 'Vui lòng điền nội dung bình luận!'],
         
         'car_type_id' => ['required' => 'Vui lòng chọn loại xe!'],
