@@ -12,17 +12,19 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends HelpController
 {
-    public function index() {
+    public function index()
+    {
         $data = Employee::paginate(10);
 
         return $this->sendResponse(200, 'Hiển thị danh sách nhân viên thành công!', $data);
     }
 
 
-    public function show($id) {
+    public function show($id)
+    {
         $data = Employee::find($id);
-    
-        if(!$data) {
+
+        if (!$data) {
             return $this->sendNotFoundResponse('Không tìm thấy nhân viên!');
         }
 
@@ -34,14 +36,14 @@ class EmployeeController extends HelpController
     {
 
         $carHouse = CarHouse::find($id);
-        
-        if(!$carHouse) {
+
+        if (!$carHouse) {
             return $this->sendNotFoundResponse("Không tồn tại nhà xe với id là {$id}!");
         }
 
         if ($request->query('all') == 'true') {
             $data = Employee::where('car_house_id', $id)->get();
-            
+
             if ($data->isEmpty()) {
                 return $this->sendNotFoundResponse('Không tìm thấy nhân viên phụ trách nhà xe này!');
             }
@@ -56,21 +58,24 @@ class EmployeeController extends HelpController
             return $this->sendNotFoundResponse('Không tìm thấy nhân viên phụ trách nhà xe này!');
         }
 
-        return $this->sendResponse(200, 
-        "Lấy thông tin nhân viên theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang", 
-        $data);
+        return $this->sendResponse(
+            200,
+            "Lấy thông tin nhân viên theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang",
+            $data
+        );
     }
 
 
-    public function getEmployeeByCar($id) {
+    public function getEmployeeByCar($id)
+    {
         $car = Car::find($id);
-        
-        if(!$car) {
+
+        if (!$car) {
             return $this->sendNotFoundResponse("Không tồn tại xe với id là {$id}!");
         }
-        
+
         $data = Employee::where('car_id', $id)->get();
-        
+
         if ($data->isEmpty()) {
             return $this->sendNotFoundResponse('Không tìm thấy nhân viên phụ trách xe này!');
         }
@@ -79,11 +84,12 @@ class EmployeeController extends HelpController
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $rules = [
             'name' => 'required|string',
             'car_id' => 'nullable|exists:cars,id',
-            'car__id' => 'required|exists:car_houses,id',
+            'car_house_id' => 'required|exists:car_houses,id',
             'phone' => 'required|unique:employees,phone|regex:/^0[0-9]{9}$/',
             'address' => 'nullable|string',
             'role' => 'required|in:0,1',
@@ -97,8 +103,24 @@ class EmployeeController extends HelpController
                 if ($car->car_house_id != $request->car_house_id) {
                     return $this->sendResponse(422, "Xe {$car->name} không thuộc nhà xe {$carHouse->name}!");
                 }
+
+                // Kiểm tra số lượng nhân viên trên xe
+                $employeeCount = $car->employees()->count();
+                if ($employeeCount >= 4) {
+                    return $this->sendResponse(422, "Xe {$car->name} đã đạt giới hạn 4 nhân viên!");
+                }
+
+                // Kiểm tra số lượng nhân viên với role 0 hoặc 1
+                $driverCount = $car->employees()->where('role', 0)->count();
+                $collectorCount = $car->employees()->where('role', 1)->count();
+                if ($request->role == 0 && $driverCount >= 2) {
+                    return $this->sendResponse(422, "Xe {$car->name} đã đủ 2 tài xế!");
+                }
+                if ($request->role == 1 && $collectorCount >= 2) {
+                    return $this->sendResponse(422, "Xe {$car->name} đã đủ 2 nhân viên thu vé!");
+                }
             }
-            
+
             $employee = Employee::create([
                 'name' => $request->name,
                 'car_id' => $request->car_id,
@@ -111,11 +133,11 @@ class EmployeeController extends HelpController
             // Trả về thông báo success
             return $this->sendResponse(201, 'Nhân viên tạo mới thành công!', $employee);
         });
-
     }
 
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $employee = Employee::find($id);
 
         if (!$employee) {
@@ -126,7 +148,7 @@ class EmployeeController extends HelpController
             'name' => 'required|string',
             'car_id' => 'nullable|exists:cars,id',
             'car_house_id' => 'required|exists:car_houses,id',
-            'phone' => 'required|unique:employees,phone,' .$id.'|regex:/^[0-9]{10}$/',
+            'phone' => 'required|unique:employees,phone,' . $id . '|regex:/^[0-9]{10}$/',
             'address' => 'nullable|string',
             'role' => 'required|in:0,1'
         ];
@@ -138,6 +160,24 @@ class EmployeeController extends HelpController
 
                 if ($car->car_house_id != $request->car_house_id) {
                     return $this->sendResponse(422, "Xe {$car->name} không thuộc nhà xe {$carHouse->name}!");
+                }
+
+                if ($employee->car_id != $request->car_id || $employee->role != $request->role) {
+                    // Đếm số nhân viên hiện có với role cụ thể
+                    $driverCount = $car->employees()->where('role', 0)->count();
+                    $collectorCount = $car->employees()->where('role', 1)->count();
+
+                    if ($car->employees()->count() >= 4) {
+                        return $this->sendResponse(422, "Xe {$car->name} đã đủ 4 nhân viên phụ trách!");
+                    }
+    
+                    if ($request->role == 0 && $driverCount >= 2) {
+                        return $this->sendResponse(422, "Xe {$car->name} đã đủ 2 tài xế!");
+                    }
+    
+                    if ($request->role == 1 && $collectorCount >= 2) {
+                        return $this->sendResponse(422, "Xe {$car->name} đã đủ 2 nhân viên thu vé!");
+                    }
                 }
             }
 
@@ -155,7 +195,8 @@ class EmployeeController extends HelpController
     }
 
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $employee = Employee::find($id);
 
         if (!$employee) {

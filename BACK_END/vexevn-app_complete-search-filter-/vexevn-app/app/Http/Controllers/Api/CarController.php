@@ -54,32 +54,32 @@ class CarController extends HelpController
             ->where('car_house_id', $id)
             ->paginate(5);
 
-            if ($request->query('all') == 'true') {
-                $data = Car::with('carImages', 'carHouse', 'carType', 'employees')
-                            ->where('car_house_id', $id)
-                            ->get();
-    
-                if ($data->isEmpty()) {
-                    return $this->sendNotFoundResponse('Không tìm thấy xe của nhà xe này!');
-                }
-    
-                return $this->sendResponse(200, 'Lấy thông tin chi tiết xe theo nhà xe thành công!', $data);
-            }
-    
-            $perPage = $request->query('per_page', 5);
+        if ($request->query('all') == 'true') {
             $data = Car::with('carImages', 'carHouse', 'carType', 'employees')
-                        ->where('car_house_id', $id)
-                        ->paginate((int)$perPage);
-    
+                ->where('car_house_id', $id)
+                ->get();
+
             if ($data->isEmpty()) {
                 return $this->sendNotFoundResponse('Không tìm thấy xe của nhà xe này!');
             }
-    
-            return $this->sendResponse(
-                200,
-                "Lấy thông tin chi tiết xe theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang",
-                $data
-            );
+
+            return $this->sendResponse(200, 'Lấy thông tin chi tiết xe theo nhà xe thành công!', $data);
+        }
+
+        $perPage = $request->query('per_page', 5);
+        $data = Car::with('carImages', 'carHouse', 'carType', 'employees')
+            ->where('car_house_id', $id)
+            ->paginate((int)$perPage);
+
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse('Không tìm thấy xe của nhà xe này!');
+        }
+
+        return $this->sendResponse(
+            200,
+            "Lấy thông tin chi tiết xe theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang",
+            $data
+        );
     }
 
 
@@ -93,7 +93,7 @@ class CarController extends HelpController
             'model' => 'nullable|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg',
 
-            'employees' => 'required|array',
+            'employees' => 'required|array|max:4',
             'employees.*' => 'exists:employees,id'
         ];
 
@@ -130,6 +130,9 @@ class CarController extends HelpController
             }
 
             // Execute employees
+            $driverCount = 0;
+            $collectorCount = 0;
+
             foreach ($request->employees as $employeeId) {
                 $employee = Employee::find($employeeId);
 
@@ -143,6 +146,28 @@ class CarController extends HelpController
                     return $this->sendResponse(422, "Nhân viên {$employee->name} và xe được thêm không chung một nhà xe!");
                 }
 
+                // Count employee
+                if ($employee->role == 0) {
+                    $driverCount++;
+                } elseif ($employee->role == 1) {
+                    $collectorCount++;
+                }
+
+                if ($driverCount > 2) {
+                    DB::rollBack();
+                    return $this->sendResponse(422, "Không thể thêm quá 2 tài xế!");
+                }
+
+                if ($collectorCount > 2) {
+                    DB::rollBack();
+                    return $this->sendResponse(422, "Không thể thêm quá 2 người thu vé!");
+                }
+
+                if ($driverCount + $collectorCount > 4) {
+                    DB::rollBack();
+                    return $this->sendResponse(422, "Tổng số người phụ trách không được vượt quá 4!");
+                }
+
                 $employee->car_id = $car->id;
                 $employee->save();
             }
@@ -153,7 +178,7 @@ class CarController extends HelpController
                 'Tạo mới xe thành công!',
                 [
                     'car' => $car,
-                    'employee' => $car->employees()->get(['id', 'name']),
+                    'employee' => $car->employees()->get(['id', 'name', 'role']),
                     'images' => $car->carImages()->get(['id', 'image']),
                 ],
 
@@ -284,7 +309,7 @@ class CarController extends HelpController
             'model' => 'nullable|string',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg',
 
-            'employees' => 'required|array',
+            'employees' => 'required|array|max:4',
             'employees.*' => 'exists:employees,id'
         ]);
 
@@ -355,8 +380,18 @@ class CarController extends HelpController
             }
 
             // Execute employees
+            $driverCount = 0;
+            $collectorCount = 0;
+
             foreach ($request->employees as $employeeId) {
                 $employee = Employee::find($employeeId);
+
+                // Count employee
+                if ($employee->role == 0) {
+                    $driverCount++;
+                } elseif ($employee->role == 1) {
+                    $collectorCount++;
+                }
 
                 if ($employee && $employee->car_id && $employee->car_id != $car->id) {
                     return $this->sendResponse(422, "Nhân viên {$employee->name} đã có xe khác!");
@@ -364,6 +399,15 @@ class CarController extends HelpController
 
                 if ($employee->car_house_id != $car->car_house_id) {
                     return $this->sendResponse(422, "Nhân viên {$employee->name} và xe {$car->name} không chung một nhà xe!");
+                }
+
+                // Execute Employee number
+                if ($driverCount > 2) {
+                    return $this->sendResponse(422, "Không thể thêm quá 2 tài xế!");
+                }
+                
+                if ($collectorCount > 2) {
+                    return $this->sendResponse(422, "Không thể thêm quá 2 người thu vé!");
                 }
 
                 $employee->car_id = $car->id;
