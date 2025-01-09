@@ -166,6 +166,10 @@ class EmployeeController extends HelpController
                     // Đếm số nhân viên hiện có với role cụ thể
                     $driverCount = $car->employees()->where('role', 0)->count();
                     $collectorCount = $car->employees()->where('role', 1)->count();
+
+                    if ($car->employees()->count() >= 4) {
+                        return $this->sendResponse(422, "Xe {$car->name} đã đủ 4 nhân viên phụ trách!");
+                    }
     
                     if ($request->role == 0 && $driverCount >= 2) {
                         return $this->sendResponse(422, "Xe {$car->name} đã đủ 2 tài xế!");
