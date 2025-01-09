@@ -75,7 +75,7 @@ import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
 import Showdonhang from './component/admin-carhouse/chuyenxe/show-list-don-hang.jsx';
 import Thanhtoanthanhcong from './component/thanhtoan/thanhtoanthanhcong.jsx';
 import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
-import Register1 from './component/Pages/register1.jsx';
+// import Register1 from './component/Pages/register1.jsx';
 
 
 

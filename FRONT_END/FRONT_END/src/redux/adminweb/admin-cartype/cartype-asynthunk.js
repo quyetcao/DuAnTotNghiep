@@ -99,13 +99,16 @@ export function CallapiUpdateCarofCarHouse(id, formdata) {
     };
 }
 
+
+
+
 ////// LOẠI XE CARTYPE
 // call lấy tất cả xe
 export function CallapiGetAllCarType(page) {
     return async (dispatch) => {
         try {
             dispatch(showLoading(false));
-            let res = await axios.get(`http://localhost:8000/api/cartypes?page=${page}`);
+            let res = await axios.get(`http://localhost:8000/api/car-type?per_page=2=${page}`);
             console.log('all loại xe ', res.data.data);
 
             dispatch(getAllCarType(res.data.data));
@@ -136,7 +139,7 @@ export function CallapiGetAllCarTypenopt() {
 export function CallapiPostCarType(dataform) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/cartypes/create`, dataform);
+            let res = await axios.post(`http://localhost:8000/api/car-type/`, dataform);
             console.log('all loại xe ', res);
 
             dispatch(getAllCarType(res.data.data));
@@ -157,7 +160,7 @@ export function CallapiPostCarType(dataform) {
 export function CallapiGetDeleteCar(id) {
     return async (dispatch) => {
         try {
-            let res = await axios.delete(`http://localhost:8000/api/cartypes/delete/${id}`);
+            let res = await axios.delete(`http://localhost:8000/api/car-type/${id}`);
             console.log('all ds xe ', res);
         } catch (error) {
             console.log(error);
@@ -169,7 +172,7 @@ export function CallapiGetDeleteCar(id) {
 export function CallapiGetOneCarType(id) {
     return async (dispatch) => {
         try {
-            let res = await axios.get(`http://localhost:8000/api/cartypes/${id}`);
+            let res = await axios.get(`http://localhost:8000/api/car-type/${id}`);
             dispatch(getoneCarType(res.data.data));
         } catch (error) {
             console.log(error);
@@ -177,10 +180,19 @@ export function CallapiGetOneCarType(id) {
     };
 }
 
-export function CallapiUpdateCarType(id, formdata) {
+export function CallapiUpdateCarType(id,formdata) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/cartypes/update/${id}`, formdata);
+            console.log("><<>><><>",formdata);
+            for (let [key, value] of formdata.entries()) {
+                console.log(`${key}:`, value);
+            }
+            let res = await axios.post(`http://localhost:8000/api/car-type/${id}`,formdata,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(">>PP:::",res);
             dispatch(showPopupOk(true));
         } catch (error) {
             dispatch(showPopupError(true));

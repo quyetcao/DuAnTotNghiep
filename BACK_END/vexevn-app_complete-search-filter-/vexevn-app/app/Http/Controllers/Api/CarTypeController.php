@@ -80,7 +80,7 @@ class CarTypeController extends HelpController
 
             if ($request->hasfile('image')) {
                 $old_img_path = public_path('images/cartypes/' . $carType->image);
-                if (file_exists($old_img_path && is_file($old_img_path))) {
+                if (file_exists($old_img_path) && is_file($old_img_path)) {
                     unlink($old_img_path);
                 }
 

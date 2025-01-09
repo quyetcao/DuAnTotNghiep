@@ -7,7 +7,7 @@ export function dangkytaikhoan(dk, body) {
   return async (dispatch) => {
     if(dk == 0){
       // Chuyển hướng người dùng đến trang Google OAuth
-      window.location.href = 'http://localhost:8000/auth/google'; // Đảm bảo URL này đúng với route trong Laravel của bạn
+      window.location.href ="http://localhost:8000/auth/google"; // Đảm bảo URL này đúng với route trong Laravel của bạn
     } else if(dk == 1){
       try {
         let res = await axios.post(

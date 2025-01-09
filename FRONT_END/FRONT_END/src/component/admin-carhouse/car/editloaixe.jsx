@@ -40,17 +40,23 @@ export default function EditCarType() {
         formState: { errors },
     } = useForm();
     const onSubmit = (data) => {
-        const imageFile = data.image[0];
         const formData = new FormData();
+        const imageFile = data.image[0];
         formData.append('name', data.name);
         formData.append('quantity_seat', data.quantity_seat);
         formData.append('image', imageFile);
-        dispatch(CallapiUpdateCarType(id, formData));
-    };
-    setValue('name', dataoneCarType?.name);
-    setValue('quantity_seat', dataoneCarType?.quantity_seat);
-    setValue('image', dataoneCarType?.image);
+        formData.append('_method', 'PUT');
+        console.log("kiểm tra số",typeof(data.quantity_seat));
+        dispatch(CallapiUpdateCarType(id,formData));
 
+    };
+    useEffect(() => {
+        if (dataoneCarType) {
+            setValue('name', dataoneCarType.name || ''); // Thiết lập giá trị ban đầu cho "name"
+            setValue('quantity_seat', dataoneCarType.quantity_seat || ''); // Giá trị ban đầu cho "quantity_seat"
+            setValue('image', null); // Không set giá trị file hình ảnh (file input không lưu giá trị)
+        }
+    }, [dataoneCarType, setValue]);
     if (isToastOk === true) {
         notify(true);
         setTimeout(() => {
@@ -91,10 +97,6 @@ export default function EditCarType() {
 
                     <input type='submit' className='btnsb' value='Sửa' />
                 </form>
-
-                {/* <Link to='/adminweb/show-ds-carhouse' className='btn-input-manage'>
-                    <Button variant='contained'>Quản Lý Nhà Xe</Button>
-                </Link> */}
                 <div className='group-link-active'>
                     <Link to='/admincarhouse/listcartype'>
                         <Button variant='contained'>Quản Lý Loại Xe</Button>
