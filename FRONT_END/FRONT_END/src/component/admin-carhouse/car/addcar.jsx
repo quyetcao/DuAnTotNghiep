@@ -3,22 +3,26 @@ import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    CallapiGetAllCarType,
+    // CallapiGetAllCarType,
     CallapiGetAllCarTypenopt,
     CallapiPostCarofCarHouse,
 } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { CallapiNvbycarhouse } from '../../../redux/adminweb/nhanvienlaixe/AsynThunk-nclx';
 
 export default function AddCar() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(CallapiGetAllCarTypenopt());
+        dispatch(CallapiNvbycarhouse(1));
     }, []);
     const dataCarTypenopt = useSelector((state) => state.Storecartype?.dataCarTypenopt);
     const isToastOk = useSelector((state) => state.StoreCar?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreCar?.popupError);
+    const datanv = useSelector((state) => state.StorEmmployee?.dsnvofcarhouse);
+    const listerror = useSelector((state) => state.Errormessage?.error);
 
     const notify = (event) => {
         if (event == true) {
@@ -27,19 +31,25 @@ export default function AddCar() {
             toast.error('Lỗi form nhập!', { theme: 'colored' });
         }
     };
-
+    
+      
     // const { register, handleSubmit } = useForm();
     const onSubmit = (data) => {
         const imageFile = data.images;
+        const employe=data.employees;
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('model', data.model);
         formData.append('license_plate', data.license_plate);
         formData.append('car_type_id', data.car_type_id);
         formData.append('car_house_id', data.car_house_id);
+        for (let i = 0; i < employe.length; i++) {
+            formData.append('employees[]', employe[i]);
+        }
         for (let i = 0; i < imageFile.length; i++) {
             formData.append('images[]', imageFile[i]);
         }
+     
         console.log('form thêm xe', data);
         dispatch(CallapiPostCarofCarHouse(formData));
     };
@@ -113,6 +123,21 @@ export default function AddCar() {
                                 );
                             })}
                     </select>
+                    
+                    <label htmlFor='employees'>Chọn Nhân Viên</label>
+                    <select name='employees' id='employees' {...register('employees')}  multiple>
+                        {datanv &&
+                            datanv?.map((item) => {
+                                return (
+                                    <>
+                                        <option value={item.id}>
+                                            {item.id} - {item.name}
+                                        </option>
+                                    </>
+                                );
+                            })}
+                    </select>
+                    {listerror?.message && <p className='add-error'>{listerror?.message}</p>}
                     <label htmlFor='image-upload'>Chọn ảnh:</label>
                     <input
                         type='file'

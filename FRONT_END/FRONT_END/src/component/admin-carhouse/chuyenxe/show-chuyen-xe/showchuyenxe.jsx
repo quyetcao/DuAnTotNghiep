@@ -15,8 +15,8 @@ export default function Quanlychuyenxe() {
     const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1); 
     useEffect(() => {
-        dispatch(CallapiGetAllcxofCarHouse(1,currentPage));
-    }, [currentPage]);
+        dispatch(CallapiGetAllcxofCarHouse(1));
+    }, []);
     const allcx = useSelector((state) => state.ChuyenxeofCarHouse?.AllChuyenXecarhouse);
     console.log('all cx car ', allcx);
 

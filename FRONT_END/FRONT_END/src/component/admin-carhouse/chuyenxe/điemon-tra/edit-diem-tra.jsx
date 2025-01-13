@@ -18,10 +18,10 @@ export default function EditDiemTra() {
     }, [])
 
     const dataoneDiemTra = useSelector((state) => state.StoreDiemTraCarHouse?.dataoneDiemTra);
-    console.log("data>>>>>>",dataoneDiemTra);
+    // console.log("data>>>>>>",dataoneDiemTra);
     const isToastOk = useSelector((state) => state.StoreDiemTraCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreDiemTraCarHouse?.popupError);
-
+    const listerror = useSelector((state) => state.Errormessage?.error);
     const notify = (event) => {
         if (event == true) {
             toast.success("Sửa Thành Công!", { theme: "colored" });
@@ -64,6 +64,7 @@ export default function EditDiemTra() {
 
                     <label htmlFor="chuyenxe">Tên Điểm Trả</label>
                     <input type="text" name="" id=""   {...register('name', { required: true })} />
+                    {listerror?.name?.[0] && <p className='add-error'>{listerror?.name?.[0]}</p>}
                     <label htmlFor="tuyenduong">Địa Chỉ Điểm Trả</label>
                     <input type="text" name="" id="" {...register('address', { required: true })} />
                     <label htmlFor="tuyenduong">Địa Chỉ Điểm Trả</label>
@@ -71,6 +72,7 @@ export default function EditDiemTra() {
                         <option value={0}>Không Công Khai ( Chỉ Nhà xe mình Sử dụng)</option>
                         <option value={1}>Công Khai (Cho nhà xe khác có thể sử dụng)</option>
                     </select>
+                    {listerror?.is_public?.[0] && <p className='add-error'>{listerror?.is_public?.[0]}</p>}
                     <input type="hidden"   {...register('car_house_id', { required: true })} />
 
                     <input type="submit" className='btnsb' value='Sửa' />

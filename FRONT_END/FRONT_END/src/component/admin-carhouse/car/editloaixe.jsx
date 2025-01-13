@@ -46,7 +46,7 @@ export default function EditCarType() {
         formData.append('quantity_seat', data.quantity_seat);
         formData.append('image', imageFile);
         formData.append('_method', 'PUT');
-        console.log("kiểm tra số",typeof(data.quantity_seat));
+        // console.log("kiểm tra số",typeof(data.quantity_seat));
         dispatch(CallapiUpdateCarType(id,formData));
 
     };

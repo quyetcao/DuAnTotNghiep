@@ -1,7 +1,6 @@
 import '../../css/adminweb/addchuyenxe.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-// import { CallapiGetOneCar } from '../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,7 +8,6 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-// import { CallapiGetOneCarHouse } from '../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 import { CallapiEditCarHouse, CallapiGetOneCarHouse } from '../../../redux/adminweb/admin-carhouse/carhouse-asynThunk';
 
 
@@ -84,7 +82,6 @@ export default function EditCarHouse() {
                     <label htmlFor='status'> Trạng Thái </label>
                     <select type='number' id='status' {...register('status')} placeholder='Trạng Thái'>
                         <option value='active'>Hoạt Động </option>
-                        {/* <option value='inactive'>Không Hoạt Động </option> */}
                         <option value='paused'>Tạm Dừng </option>
                     </select>
                     <label htmlFor='address'>Address </label>
@@ -104,9 +101,6 @@ export default function EditCarHouse() {
                     <Link to='/adminweb/show-ds-carhouse'>
                         <Button variant='contained'>Quản Lý Xe</Button>
                     </Link>
-                    {/* <Link to='/admincarhouse/listcartype'>
-                        <Button variant='contained'>Quản Lý Loại Xe</Button>
-                    </Link> */}
                 </div>
             </div>
         </>

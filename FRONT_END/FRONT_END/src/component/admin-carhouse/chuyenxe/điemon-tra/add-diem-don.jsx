@@ -11,6 +11,7 @@ export default function AddDiemDon(){
 
     const isToastOk = useSelector((state) => state.StoreDiemDonCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreDiemDonCarHouse?.popupError);
+    const listerror = useSelector((state) => state.Errormessage?.error);
 
     const notify = (event) => {
         if (event == true) {
@@ -46,6 +47,7 @@ export default function AddDiemDon(){
                 
                 <label htmlFor="chuyenxe">Tên Điểm Đón</label>
                 <input type="text" name="" id=""   {...register('name', { required: true })}/>
+                {listerror?.name?.[0] && <p className='add-error'>{listerror?.name?.[0]}</p>}
                 <label htmlFor="tuyenduong">Địa Chỉ Điểm Đón</label>
                 <input type="text" name="" id="" {...register('address', { required: true })} />
                 <label htmlFor="tuyenduong">Địa Chỉ Điểm Đón</label>

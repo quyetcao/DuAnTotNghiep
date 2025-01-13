@@ -98,7 +98,7 @@ export function callApiTuyenDuong(car_route_id){
     try {
    
       let res = await axios.get(
-        `http://localhost:8000/api/carroute/${car_route_id}`);
+        `http://localhost:8000/api/car-route/${car_route_id}`);
       let data = res.data.data;
       // console.log("áuncthunktuyenduong",data);
       dispatch(getinfoTuyenDuong({data}));
@@ -114,9 +114,9 @@ export function callApiListTuyenDuongAll(){
     try {
    
       let res = await axios.get(
-        `http://localhost:8000/api/carroute/`);
+        `http://localhost:8000/api/car-route/`);
       let data = res.data.data;
-      console.log("áuncthunktuyenduong",data);
+      // console.log("áuncthunktuyenduong",data);
       dispatch(getAllTuyenDuong(data));
 
     } catch (error) {

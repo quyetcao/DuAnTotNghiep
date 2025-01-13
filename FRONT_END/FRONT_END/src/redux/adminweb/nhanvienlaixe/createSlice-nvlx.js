@@ -10,6 +10,7 @@ const initialState = {
       popupError:false,
       datanvlx:[],
       datanvlxcarhouseid:[],
+      dsnvofcarhouse:[],
 
   // lấy loại xe 
   // lấy 1 loại xe 
@@ -49,12 +50,15 @@ const initialState = {
       },
       getonenvlx(state,action){
         state.dataOnenvlx = action.payload;
-      }
+      },
+      getallnvofcarhouse(state,action){
+        state.dsnvofcarhouse = action.payload;
+      },
       
      
 
     },
   });
   
-  export const {getAllnv ,showLoading,showPopupOk,showPopupError,getAllnvtheonhaxe,getonenvlx } = StorEmmployee.actions;
+  export const {getAllnv ,showLoading,showPopupOk,showPopupError,getAllnvtheonhaxe,getonenvlx,getallnvofcarhouse } = StorEmmployee.actions;
 

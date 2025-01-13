@@ -16,11 +16,13 @@ import { StoreThanhToan } from "./thanhtoan/createSlice_thanhtoan";
 import { Storebinhluan } from "./adminweb/binhluan/binhluan-createSlide";
 import { MessageError } from "./ErrorandOK/createSlice_log";
 import { Donhang } from "./donhang/createSlicedn";
+import { Errormessage } from "./error/creaslice_error";
 
 
 // Kết hợp các reducer
 const rootReducer = combineSlices( 
   MessageError,
+  Errormessage,
   StoreCity,
   ViewUserSearchChuyenxe,
   InfoofBus,

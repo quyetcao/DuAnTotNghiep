@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     CallapiGetAllListCar,
-    CallapiGetAllListCarofcarhouseid,
     CallapiGetDeleteCarofCarHouse,
 } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,17 +14,12 @@ import { Button } from '@mui/material';
 export default function Quanlyxe() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    // useEffect(() => {
-    //     dispatch(CallapiGetAllListCar(1));
-    // }, [currentPage]);
-
-    
     useEffect(() => {
-        dispatch(CallapiGetAllListCarofcarhouseid(1));
-    }, []);
-    const allcar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
+        dispatch(CallapiGetAllListCar(1, currentPage));
+    }, [currentPage]);
+    const allcar = useSelector((state) => state.StoreCar?.dataCar);
     console.log('all car ', allcar);
 
     //edit
@@ -37,13 +31,12 @@ export default function Quanlyxe() {
         const isconfim = confirm('Bạn có muốn xóa không?');
         if (isconfim) {
             await dispatch(CallapiGetDeleteCarofCarHouse(id));
-            // await dispatch(CallapiGetAllListCar(1, currentPage));
-            await dispatch(CallapiGetAllListCar(1));
+            await dispatch(CallapiGetAllListCar(1, currentPage));
         }
     }
 
     const handlePageChange = (pageNumber) => {
-        // setCurrentPage(pageNumber); // Cập nhật trang
+        setCurrentPage(pageNumber); // Cập nhật trang
     };
 
     return (
@@ -72,11 +65,11 @@ export default function Quanlyxe() {
                             </thead>
                             <tbody>
                                 {allcar &&
-                                    allcar?.map((itemlistcar,index) => {
+                                    allcar?.data?.map((itemlistcar) => {
                                         return (
                                             <>
                                                 <tr>
-                                                    <td>{index+1}</td>
+                                                    <td>{itemlistcar?.id}</td>
                                                     <td>{itemlistcar?.name}</td>
                                                     <td>{itemlistcar?.car_type?.name}</td>
                                                     <td>{itemlistcar?.license_plate}</td>

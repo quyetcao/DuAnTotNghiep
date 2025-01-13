@@ -13,6 +13,7 @@ export default function AddCarHouse() {
 
     const isToastOk = useSelector((state) => state.Storecarhouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.Storecarhouse?.popupError);
+    const Errormessage=useSelector((state) => state.Errormessage?.error);
 
     const notify = (event) => {
         if (event == true) {
@@ -62,9 +63,7 @@ export default function AddCarHouse() {
                         placeholder='Nhập tên nhà xe...'
                     />
                     {errors.name && <p className='add-error'>{errors.name.message}</p>}
-
-                    {/* <label htmlFor="address">Địa Chỉ</label>
-                        <input type="text" id="address"    {...register('diachi', { required: true })}  placeholder="Nhập địa chỉ..." /> */}
+                    {Errormessage?.name?.[0] &&  <p className='add-error'>{Errormessage?.name?.[0]}</p>}
 
                     <label htmlFor='phone'>Số Điện Thoại</label>
                     <input
@@ -79,17 +78,12 @@ export default function AddCarHouse() {
                         })}
                     />
                     {errors.phone && <p className='add-error'>{errors.phone.message}</p>}
+                    {Errormessage?.phone?.[0] &&  <p className='add-error'>{Errormessage?.phone?.[0]}</p>}
                     <label htmlFor='status'>Trạng Thái</label>
                     <select type='number' id='status' {...register('status')} placeholder='Trạng Thái'>
                         <option value='active'>Hoạt Động </option>
                         <option value='paused'>Tạm Dừng </option>
                     </select>
-                    {/* <input
-                        type='text'
-                        id='status'
-                        {...register('status')}
-                        placeholder='active or paused'
-                    /> */}
                     <label htmlFor='phone'>Địa Chỉ</label>
                     <input
                         type='text'

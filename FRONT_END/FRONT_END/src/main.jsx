@@ -74,7 +74,8 @@ import EditChuyenXebyCarHouse from './component/admin-carhouse/chuyenxe/show-chu
 import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
 import Showdonhang from './component/admin-carhouse/chuyenxe/show-list-don-hang.jsx';
 import Thanhtoanthanhcong from './component/thanhtoan/thanhtoanthanhcong.jsx';
-import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
+import AddNv from './component/admin-carhouse/nhanvien/add-nv.jsx';
+// import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 // import Register1 from './component/Pages/register1.jsx';
 
 
@@ -259,22 +260,26 @@ const routes = createBrowserRouter([
       {
         path: 'show-don-hang',
         element: <Showdonhang />
-      }
-
+      },
+      // nhân viên 
+      {
+        path: 'add-nhan-vien',
+        element: <AddNv />
+      },
     ]
   },
 
   {
     path: "/adminweb",
-    element: <PrivateRouterAdminWeb><AppAdminQLWeb /></PrivateRouterAdminWeb> ,
+    element:<AppAdminQLWeb /> ,
     children: [
       {
         path: '',
-        element: <PrivateRouterAdminWeb> <HomePageWebAdmin /></PrivateRouterAdminWeb>
+        element: <HomePageWebAdmin />
       },
       {
         path: 'show-ds-carhouse',
-        element: <PrivateRouterAdminWeb> <ShowDsCarHouse /></PrivateRouterAdminWeb>
+        element:<ShowDsCarHouse />
       },
       {
         path: 'addcarhouse',
@@ -287,7 +292,7 @@ const routes = createBrowserRouter([
       // Event 
       {
         path: 'listEvent',
-        element:<PrivateRouterAdminWeb><QuanlyEvent /></PrivateRouterAdminWeb> 
+        element:<QuanlyEvent />
       },
       {
         path: 'addEvent',

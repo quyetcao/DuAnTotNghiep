@@ -8,14 +8,30 @@ import {
     showPopupOk2,
     showLoading,
 } from './createSlice-carhouse';
+import { updateError } from '../../error/creaslice_error';
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('authToken')}`;
 
 // call  lấy tất cả  nhà xe
-export function CallapiGetAllCarHouse(page) {
+
+
+export function CallapiGetAllCarHouse() {
     return async (dispatch) => {
         try {
             dispatch(showLoading(false));
-            let res = await axios.get(`http://localhost:8000/api/carhouse?page=${page}`);
+            let res = await axios.get(`http://localhost:8000/api/car-house/`);
+            dispatch(getAllCarHouse(res.data.data));
+            dispatch(showLoading(true));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+}
+
+export function CallapiGetAllCarHousephantrang(page) {
+    return async (dispatch) => {
+        try {
+            dispatch(showLoading(false));
+            let res = await axios.get(`http://localhost:8000/api/car-house?per_page=${page}`);
             dispatch(getAllCarHouse(res.data.data));
             dispatch(showLoading(true));
         } catch (error) {
@@ -28,11 +44,13 @@ export function CallapiGetAllCarHouse(page) {
 export function CallapiAddCarHouse(formcarhouse) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/carhouse/create/`, formcarhouse);
+            dispatch(updateError())
+            let res = await axios.post(`http://localhost:8000/api/car-house/`, formcarhouse);
 
             dispatch(showPopupOk2(true));
         } catch (error) {
             console.log('erooor', error);
+            dispatch(updateError(error.response.data.data))
             dispatch(showPopupError2(true));
         } finally {
             setTimeout(() => {
@@ -47,7 +65,7 @@ export function CallapiAddCarHouse(formcarhouse) {
 export function CallapiGetOneCarHouse(id) {
     return async (dispatch) => {
         try {
-            let res = await axios.get(`http://localhost:8000/api/carhouse/${id}`);
+            let res = await axios.get(`http://localhost:8000/api/car-house/${id}`);
             console.log(res);
             dispatch(getOneCarHouse(res.data.data));
         } catch (error) {
@@ -57,10 +75,10 @@ export function CallapiGetOneCarHouse(id) {
 }
 
 // call api chỉnh sửa nhà xe
-export function CallapiEditCarHouse(id, formData) {
+export function CallapiEditCarHouse(id,formData) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/carhouse/update/${id}`, formData);
+            let res = await axios.put(`http://localhost:8000/api/car-house/${id}`,formData);
             console.log(res);
             dispatch(showPopupOk(true));
         } catch (error) {
@@ -78,7 +96,7 @@ export function CallapiEditCarHouse(id, formData) {
 export function CallapiGetDeleteCarHouse(id) {
     return async (dispatch) => {
         try {
-            let res = await axios.delete(`http://localhost:8000/api/carhouse/delete/${id}`);
+            let res = await axios.delete(`http://localhost:8000/api/car-house/${id}`);
         } catch (error) {
             console.log(error);
         }

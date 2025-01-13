@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\Api\{
     AuthController,
     OTPController,
@@ -117,7 +116,7 @@ Route::middleware(['auth:sanctum', 'role:admin,carhouse'])->prefix('car')->group
 Route::prefix('car')->group(function () {
     Route::get('/', [CarController::class, 'index']);
     Route::post('/', [CarController::class, 'store']);
-    Route::get('/car-house/{id}', [CarController::class, 'getCarByCarHouseId']);
+    Route::get('/car-house/{id}', [CarController::class, 'getAllCarByCarHouseId']);
     Route::get('/{id}', [CarController::class, 'show'])->where('id', '[0-9]+');
     Route::put('/{id}', [CarController::class, 'update'])->where('id', '[0-9]+');
     Route::delete('/{id}', [CarController::class, 'destroy'])->where('id', '[0-9]+');

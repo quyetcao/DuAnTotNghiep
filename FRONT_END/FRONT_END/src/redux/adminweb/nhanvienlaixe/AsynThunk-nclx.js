@@ -1,20 +1,31 @@
 
 import axios from "axios";
-import { getAllnvtheonhaxe } from "./createSlice-nvlx";
+import { getallnvofcarhouse, getAllnvtheonhaxe } from "./createSlice-nvlx";
 
 ////////////////////////////// lấy all xe of nhà xe XE CỦA NHÀ XE 
-// export function CallapiGetAllListCar() {
-//   return async (dispatch) => {
-//     try {
-//       let res = await axios.get(`http://localhost:8000/api/car`);
-//       console.log('all ds xe ', res);
 
-//       dispatch(getAllListCar(res.data.data.data));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// }
+// Route::prefix('employee')->group(function () {
+//   Route::get('/', [EmployeeController::class, 'index']);
+//   Route::post('/', [EmployeeController::class, 'store']);
+//   Route::prefix('take-by')->group(function () {
+//       Route::get('/car-house/{id}', [EmployeeController::class, 'getEmployeeByCarHouse']);
+//       Route::get('/car/{id}', [EmployeeController::class, 'getEmployeeByCar']);
+//   });
+
+//   Route::get('/{id}', [EmployeeController::class, 'show'])->where('id', '[0-9]+');
+//   Route::put('/{id}', [EmployeeController::class, 'update'])->where('id', '[0-9]+');
+//   Route::delete('/{id}', [EmployeeController::class, 'destroy'])->where('id', '[0-9]+');
+
+export function CallapiNvbycarhouse(car_house_id) {
+  return async (dispatch) => {
+    try {
+      let res = await axios.get(`http://localhost:8000/api/employee/take-by/car-house/${car_house_id}`);
+      dispatch(getallnvofcarhouse(res.data.data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 export function CallapiGetAllListnvlxcarhouseid(car_house_id) {
   return async (dispatch) => {

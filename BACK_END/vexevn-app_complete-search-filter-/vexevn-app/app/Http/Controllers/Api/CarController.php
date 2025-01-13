@@ -48,7 +48,7 @@ class CarController extends HelpController
         return $this->sendResponse(200, 'Lấy thông tin chi tiết xe thành công!', $data);
     }
 
-    public function getCarByCarHouseId(Request $request, $id)
+    public function getAllCarByCarHouseId(Request $request, $id)
     {
         $data = Car::with('carImages', 'carHouse', 'carType', 'employees')
             ->where('car_house_id', $id)
@@ -81,7 +81,41 @@ class CarController extends HelpController
             $data
         );
     }
-
+    // public function getCarByCarHouseId(Request $request, $id)
+    // {
+    //     // Lấy giá trị query 'all' và 'per_page'
+    //     $isAll = $request->query('all', 'false') === 'true';
+    //     $perPage = (int)$request->query('per_page', 5);
+    
+    //     // Truy vấn cơ bản
+    //     $query = Car::with('carImages', 'carHouse', 'carType', 'employees')
+    //                 ->where('car_house_id', $id);
+    
+    //     // Nếu cần tất cả dữ liệu
+    //     if ($isAll) {
+    //         $data = $query->get();
+    
+    //         if ($data->isEmpty()) {
+    //             return $this->sendNotFoundResponse('Không tìm thấy xe của nhà xe này!');
+    //         }
+    
+    //         return $this->sendResponse(200, 'Lấy thông tin chi tiết xe theo nhà xe thành công!', $data);
+    //     }
+    
+    //     // Nếu phân trang
+    //     $data = $query->paginate($perPage);
+    
+    //     if ($data->isEmpty()) {
+    //         return $this->sendNotFoundResponse('Không tìm thấy xe của nhà xe này!');
+    //     }
+    
+    //     return $this->sendResponse(
+    //         200,
+    //         "Lấy thông tin chi tiết xe theo nhà xe thành công! Với {$perPage} đối tượng mỗi trang",
+    //         $data
+    //     );
+    // }
+    
 
     public function store(Request $request)
     {

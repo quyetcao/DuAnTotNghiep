@@ -23,9 +23,8 @@ export default function AddChuyenXebyCarHouse() {
     const alldiemdon = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
     const alldiemtra = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
     const allCar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
-    console.log("allcarr",allCar);
+    // console.log("allcarr",allCar);
     const allTuyenDuong = useSelector((state) => state.InfoofBus?.allTuyenDuong);
-    const allNv= useSelector((state) => state.StorEmmployee?.datanvlxcarhouseid);
     const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.ChuyenxeofCarHouse?.popupError);
     
@@ -69,9 +68,6 @@ export default function AddChuyenXebyCarHouse() {
         formData.append('price', data.price);
         formData.append('status', data.status);
         formData.append('car_house_id', 1);
-        data.employees.forEach((employee, index) => {
-            formData.append(`employees[${index}]`, employee);
-        });
         formData.append('car_type_id',allCar[cartype]?.car_type?.id);
         pickupPoints.forEach((point, index) => {
             formData.append(`pickup_points[${index}][id]`, point.id);
@@ -137,14 +133,14 @@ export default function AddChuyenXebyCarHouse() {
                 <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <label htmlFor='carName'>Tên xe</label>
                     <select type='number' id='car_id' {...register('car_id')}   onChange={(event) => handleCarChange(event.target.selectedIndex)} placeholder='Tên xe'>
-                        {allCar && allCar.map((itemcar,index) => {
+                        {allCar && allCar.map((itemcar) => {
                           return <><option value={itemcar.id}>{itemcar.name}</option></>  
                         })
                         }
                     </select>
                     <label htmlFor='car_route_id'>Tuyến Đường</label>
                     <select type='number' id='car_route_id' {...register('car_route_id')} >
-                    {allTuyenDuong && allTuyenDuong.map((itemtd) => {
+                    {allTuyenDuong && allTuyenDuong?.data?.map((itemtd) => {
                           return <><option value={itemtd.id}>{itemtd.city_from}-{itemtd.city_to}</option></>  
                         })
                         }
@@ -182,20 +178,11 @@ export default function AddChuyenXebyCarHouse() {
                         <option value='running'>Đang chạy </option>
                         <option value='completed'>Hoàn Thành</option>
                     </select>
-                    <label htmlFor='employees'>Tài Xế </label>
-                    <select id='employees' {...register('employees')}  multiple >
-                    {allNv.map((itemnv) => (
-                                    <option key={itemnv.id} value={itemnv.id}>
-                                        {itemnv.name}
-                                    </option>
-                                ))}
-                       
-                    </select>
                     <div>
                         <label htmlFor="status">Điểm đón</label>
                         <div>
                             <select name="id" onClick={handlePickupChange}>
-                                {alldiemdon.map((itemdiemdon) => (
+                                {alldiemdon?.data?.map((itemdiemdon) => (
                                     <option key={itemdiemdon.id} value={itemdiemdon.id}>
                                         {itemdiemdon.address}
                                     </option>
@@ -225,7 +212,7 @@ export default function AddChuyenXebyCarHouse() {
                         <label htmlFor='status'>Điểm trả</label>
                         <div>
                             <select name="id" onClick={handleDropoffChange}>
-                                {alldiemtra.map((itemdiemtra) => (
+                                {alldiemtra?.data?.map((itemdiemtra) => (
                                     <option key={itemdiemtra.id} value={itemdiemtra.id}>
                                         {itemdiemtra.address}
                                     </option>

@@ -12,6 +12,7 @@ import {
     getAllListCarbyCarHouseID,
     getAllCarTypenopt,
 } from './createSlice-cartype';
+import { updateError } from '../../error/creaslice_error';
 
 ////////////////////////////// lấy all xe of nhà xe XE CỦA NHÀ XE
 export function CallapiGetAllListCar(id, page) {
@@ -33,7 +34,7 @@ export function CallapiGetAllListCar(id, page) {
 export function CallapiGetAllListCarofcarhouseid(car_house_id) {
     return async (dispatch) => {
         try {
-            let res = await axios.get(`http://localhost:8000/api/car/car_house_id/${car_house_id}`);
+            let res = await axios.get(`http://localhost:8000/api/car/car-house/${car_house_id}`);
             console.log('all ds xe ', res);
             dispatch(getAllListCarbyCarHouseID(res.data.data.data));
         } catch (error) {
@@ -44,12 +45,14 @@ export function CallapiGetAllListCarofcarhouseid(car_house_id) {
 export function CallapiPostCarofCarHouse(dataform) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/car/create`, dataform);
+            dispatch(updateError())
+            let res = await axios.post(`http://localhost:8000/api/car/`, dataform);
             console.log('all loại xe ', res);
 
             dispatch(showPopupOk1(true));
         } catch (error) {
             console.log('erooor', error);
+            dispatch(updateError(error.response.data))
             dispatch(showPopupError1(true));
         } finally {
             setTimeout(() => {
@@ -85,9 +88,15 @@ export function CallapiGetOneCarOfCarHouse(id) {
 export function CallapiUpdateCarofCarHouse(id, formdata) {
     return async (dispatch) => {
         try {
-            let res = await axios.post(`http://localhost:8000/api/car/update/${id}`, formdata);
+            dispatch(updateError())
+            let res = await axios.post(`http://localhost:8000/api/car/${id}`,formdata,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             dispatch(showPopupOk1(true));
         } catch (error) {
+            dispatch(updateError(error.response.data))
             dispatch(showPopupError1(true));
             console.log(error);
         } finally {
@@ -124,7 +133,7 @@ export function CallapiGetAllCarTypenopt() {
     return async (dispatch) => {
         try {
             dispatch(showLoading(false));
-            let res = await axios.get(`http://localhost:8000/api/cartypes/nopt`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/car-type?all=true`);
             console.log('all loại xe ', res.data.data);
 
             dispatch(getAllCarTypenopt(res.data.data));

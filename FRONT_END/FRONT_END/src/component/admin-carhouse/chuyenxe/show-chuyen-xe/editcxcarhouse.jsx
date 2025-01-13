@@ -7,7 +7,7 @@ import { CallapiGetAllDiemDonByCarHouse, CallapiGetAllDiemTraByCarHouse } from '
 import { CallapiGetAllListCarofcarhouseid } from '../../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 import { callApiListTuyenDuongAll } from '../../../../redux/info-bus/infobus-asynThunk';
 import { CallapiGetOneCxCarHouse, CallapiUpdateCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
-import { CallapiGetAllListnvlxcarhouseid } from '../../../../redux/adminweb/nhanvienlaixe/AsynThunk-nclx';
+// import { CallapiGetAllListnvlxcarhouseid } from '../../../../redux/adminweb/nhanvienlaixe/AsynThunk-nclx';
 
 
 export default function EditChuyenXebyCarHouse() {
@@ -20,18 +20,20 @@ export default function EditChuyenXebyCarHouse() {
         dispatch(CallapiGetAllDiemDonByCarHouse(1))
         dispatch(CallapiGetAllListCarofcarhouseid(1))
         dispatch(callApiListTuyenDuongAll())
-        dispatch(CallapiGetAllListnvlxcarhouseid(1))
+        // dispatch(CallapiGetAllListnvlxcarhouseid(1))
     }, [])
     const dataonecx = useSelector((state) => state.ChuyenxeofCarHouse?.dataOneCx);
-    console.log("object",dataonecx);
+    // console.log("object",dataonecx);
     const alldiemdon = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
     const alldiemtra = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
     const allCar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
-    console.log("allcarr",allCar );
+    // console.log("allcarr",allCar );
     const allTuyenDuong = useSelector((state) => state.InfoofBus?.allTuyenDuong);
-    const allNv= useSelector((state) => state.StorEmmployee?.datanvlxcarhouseid);
     const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.ChuyenxeofCarHouse?.popupError);
+    const listerror = useSelector((state) => state.Errormessage?.error);
+
+
     
  
     // phan tao picup piont , drroff point 
@@ -39,8 +41,7 @@ export default function EditChuyenXebyCarHouse() {
     const [dropoffPoints, setDropoffPoints] = useState([]);
     const [pickup, setPickup] = useState({ id: "", pickup_time: "" });
     const [dropoff, setDropoff] = useState({ id: "", dropoff_time: "" });
-    const [cartype,setCarType]= useState(0);
-    // const [allNvaray, setAllNv] = useState([]);
+
     const handleCarChange = (event) => {
         const selectedCarId = event.target.value;
         setCarType(selectedCarId);
@@ -51,7 +52,6 @@ export default function EditChuyenXebyCarHouse() {
     const { register, handleSubmit,setValue } = useForm();
     const onSubmit = (data) => {
         console.log("data",data);
-       
         const formData = new FormData();
         formData.append('car_id', data.car_id);
         formData.append('car_route_id', data.car_route_id);
@@ -60,11 +60,7 @@ export default function EditChuyenXebyCarHouse() {
         formData.append('return_date', data.return_date);
         formData.append('price', data.price);
         formData.append('status', data.status);
-        formData.append('car_house_id', data.car_house_id);
-        data.employees.forEach((employee, index) => {
-            formData.append(`employees[${index}]`, employee);
-        });
-        formData.append('car_type_id',allCar[cartype]?.car_type?.id);
+        formData.append('_method', 'PUT');
         pickupPoints.forEach((point, index) => {
             formData.append(`pickup_points[${index}][id]`, point.id);
             formData.append(`pickup_points[${index}][pickup_time]`, point.pickup_time);
@@ -83,8 +79,7 @@ export default function EditChuyenXebyCarHouse() {
     setValue('return_date', dataonecx?.return_date);
     setValue('price', dataonecx?.price);
     setValue('status', dataonecx?.status);
-    setValue('car_house_id', dataonecx?.car_house_id);
-    setValue('car_type_id', dataonecx?.car_type_id);
+
 
     const handlePickupChange = (e) => {
       
@@ -96,9 +91,6 @@ export default function EditChuyenXebyCarHouse() {
         e.preventDefault(); 
         setDropoff({ ...dropoff, [e.target.name]: e.target.value });
     };
-
-
-
 
     const addPickup = () => {
         if (pickup.id && pickup.pickup_time) {
@@ -150,13 +142,15 @@ export default function EditChuyenXebyCarHouse() {
                         })
                         }
                     </select>
+                    {listerror?.data?.car_id?.[0] && <p className='add-error'>{listerror?.data?.car_id?.[0]}</p>}
                     <label htmlFor='car_route_id'>Tuyến Đường</label>
                     <select type='number' id='car_route_id' {...register('car_route_id')} >
-                    {allTuyenDuong && allTuyenDuong.map((itemtd) => {
+                    {allTuyenDuong && allTuyenDuong?.data?.map((itemtd) => {
                           return <><option value={itemtd.id}>{itemtd.city_from}-{itemtd.city_to}</option></>  
                         })
                         }
                     </select>
+                   
                     <label htmlFor='ngaydi'>Ngày đi</label>
                     <input
                         className='addcar-input'
@@ -165,6 +159,7 @@ export default function EditChuyenXebyCarHouse() {
                         {...register('departure_date', { required: true })}
                         placeholder='ngày đi '
                     />
+                     {listerror?.data?.departure_date?.[0] && <p className='add-error'>{listerror?.data?.departure_date?.[0]}</p>}
                     <label htmlFor='ngayve'>Ngày đến</label>
                     <input
                         className='addcar-input'
@@ -173,7 +168,7 @@ export default function EditChuyenXebyCarHouse() {
                         {...register('arrival_date')}
                         placeholder='ngày đến'
                     />
-
+                        {listerror?.data?.arrival_date?.[0] && <p className='add-error'>{listerror?.data?.arrival_date?.[0]}</p>}      
                     <label htmlFor='ngayve'>Ngày về</label>
                     <input
                         className='addcar-input'
@@ -182,28 +177,22 @@ export default function EditChuyenXebyCarHouse() {
                         {...register('return_date')}
                         placeholder='ngày về '
                     />
+                     {listerror?.data?.return_date?.[0] && <p className='add-error'>{listerror?.data?.return_date?.[0]}</p>}
                     <label htmlFor='price'>Giá</label>
                     <input className='price' type='number' id='price' {...register('price')} placeholder='Giá' />
+                    {listerror?.data?.price?.[0] && <p className='add-error'>{listerror?.data?.price?.[0]}</p>}
                     <label htmlFor='status'>Trạng Thái </label>
                     <select id='status' {...register('status')} >
-                        <option value='not_started'>Chưa khởi hành  </option>
-                        <option value='running'>Đang chạy </option>
+                        <option value='not_started'>Chưa khởi hành</option>
+                        <option value='running'>Đang chạy</option>
                         <option value='completed'>Hoàn Thành</option>
                     </select>
-                    <label htmlFor='employees'>Tài Xế </label>
-                    <select id='employees' {...register('employees')}  multiple >
-                    {allNv.map((itemnv) => (
-                                    <option key={itemnv.id} value={itemnv.id}>
-                                        {itemnv.name}
-                                    </option>
-                                ))}
-                       
-                    </select>
+                    {listerror?.data?.status?.[0] && <p className='add-error'>{listerror?.data?.status?.[0]}</p>}
                     <div>
                         <label htmlFor="status">Điểm đón</label>
                         <div>
                             <select name="id" onClick={handlePickupChange}>
-                                {alldiemdon.map((itemdiemdon) => (
+                                {alldiemdon?.data?.map((itemdiemdon) => (
                                     <option key={itemdiemdon.id} value={itemdiemdon.id}>
                                         {itemdiemdon.address}
                                     </option>
@@ -218,6 +207,7 @@ export default function EditChuyenXebyCarHouse() {
                             />
 
                             <p onClick={addPickup}>Add Pickup Point</p>
+                          
                         </div>
                         <ul>
                             {pickupPoints.map((point, index) => (
@@ -226,13 +216,14 @@ export default function EditChuyenXebyCarHouse() {
                                 </li>
                             ))}
                         </ul>
+                        {listerror?.data?.pickup_points?.[0] && <p className='add-error'>{listerror?.data?.pickup_points?.[0]}</p>}
                     </div>
 
                     <div>
                         <label htmlFor='status'>Điểm trả</label>
                         <div>
                             <select name="id" onClick={handleDropoffChange}>
-                                {alldiemtra.map((itemdiemtra) => (
+                                {alldiemtra?.data?.map((itemdiemtra) => (
                                     <option key={itemdiemtra.id} value={itemdiemtra.id}>
                                         {itemdiemtra.address}
                                     </option>
@@ -253,10 +244,9 @@ export default function EditChuyenXebyCarHouse() {
                                 </li>
                             ))}
                         </ul>
+                        {listerror?.data?.dropoff_points?.[0] && <p className='add-error'>{listerror?.data?.dropoff_points?.[0]}</p>}
                     </div>
-                    <input type='hidden' name='nhà xe'  {...register('car_house_id')} value={1} />
-                    <input type='hidden' name='loại xe '  {...register('car_type_id')}  />
-
+            
                     <input type='submit' className='btnsb' value='Xác Nhận' />
                 </form >
             </div >

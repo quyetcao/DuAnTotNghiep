@@ -18,10 +18,10 @@ export default function EditDiemDon() {
     }, [])
 
     const dataoneDiemDon = useSelector((state) => state.StoreDiemDonCarHouse?.dataoneDiemDon);
-    console.log("data>>>>>>",dataoneDiemDon);
+    // console.log("data>>>>>>",dataoneDiemDon);
     const isToastOk = useSelector((state) => state.StoreDiemDonCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreDiemDonCarHouse?.popupError);
-
+    const listerror = useSelector((state) => state.Errormessage?.error);
     const notify = (event) => {
         if (event == true) {
             toast.success("Sửa Thành Công!", { theme: "colored" });
@@ -33,7 +33,8 @@ export default function EditDiemDon() {
     const navigate = useNavigate();
     const { register, handleSubmit, setValue } = useForm()
     const onSubmit = (data) => {
-        dispatch(CallapiUpdateDiemDon(id, data))
+        console.log("svfgsf",data);
+        dispatch(CallapiUpdateDiemDon(id,data))
     }
     setValue('name', dataoneDiemDon?.name);
     setValue('address', dataoneDiemDon?.address);
@@ -64,6 +65,7 @@ export default function EditDiemDon() {
 
                     <label htmlFor="chuyenxe">Tên Điểm Đón</label>
                     <input type="text" name="" id=""   {...register('name', { required: true })} />
+                    {listerror?.name?.[0] && <p className='add-error'>{listerror?.name?.[0]}</p>}
                     <label htmlFor="tuyenduong">Địa Chỉ Điểm Đón</label>
                     <input type="text" name="" id="" {...register('address', { required: true })} />
                     <label htmlFor="tuyenduong">Địa Chỉ Điểm Đón</label>
@@ -71,6 +73,7 @@ export default function EditDiemDon() {
                         <option value={0}>Không Công Khai ( Chỉ Nhà xe mình Sử dụng)</option>
                         <option value={1}>Công Khai (Cho nhà xe khác có thể sử dụng)</option>
                     </select>
+                    {listerror?.is_public?.[0] && <p className='add-error'>{listerror?.is_public?.[0]}</p>}
                     <input type="hidden"   {...register('car_house_id', { required: true })} />
 
                     <input type="submit" className='btnsb' value='Sửa' />

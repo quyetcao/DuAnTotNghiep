@@ -12,7 +12,7 @@ export default function AddDiemTra(){
 
     const isToastOk = useSelector((state) => state.StoreDiemTraCarHouse?.popupXacNhan);
     const isToastError = useSelector((state) => state.StoreDiemTraCarHouse?.popupError);
-
+    const listerror = useSelector((state) => state.Errormessage?.error);
     const notify = (event) => {
         if (event == true) {
             toast.success("Thêm Điểm Trả Thành Công!", { theme: "colored" });
@@ -47,6 +47,7 @@ export default function AddDiemTra(){
                 
                 <label htmlFor="chuyenxe">Tên Điểm Trả</label>
                 <input type="text" name="" id=""   {...register('name', { required: true })}/>
+                {listerror?.name?.[0] && <p className='add-error'>{listerror?.name?.[0]}</p>}
                 <label htmlFor="tuyenduong">Địa Chỉ Điểm Trả</label>
                 <input type="text" name="" id="" {...register('address', { required: true })} />
                 <label htmlFor="tuyenduong">Địa Chỉ Điểm Trả</label>

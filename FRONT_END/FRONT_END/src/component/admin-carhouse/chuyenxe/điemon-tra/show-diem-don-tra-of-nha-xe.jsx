@@ -15,6 +15,7 @@ export default function QuanlyDiemDon() {
         dispatch(CallapiGetAllDiemDonByCarHouse(1));
     }, []);
     const datadiemdonofcarhouse = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
+
 console.log(">>>>>>>>",datadiemdonofcarhouse);
 
 const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
@@ -41,16 +42,6 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                             <button className='content-top-btn'>Tạo mới</button>
                         </Link>
                     </div>
-                    {/* <div className='content-handle'>
-                        <div className='qlcd-search'>
-                            <input type='text' placeholder='Tìm kiếm tên chiến dịch' />
-                        </div>
-                        <div className='handle-btn'>
-                            <p className='handle-btn__text handle-btn__active handle-btn-borr1'>Tất cả</p>
-                            <p className='handle-btn__text'>Active</p>
-                            <p className='handle-btn__text handle-btn-borr2'>Inactive</p>
-                        </div>
-                    </div> */}
                     <div className='content-table'>
                     {isload ? (
                             <div style={{ transform: 'translateX(50%)' }}>
@@ -69,7 +60,7 @@ const isload = useSelector((state) => state.StoreDiemDonCarHouse?.isloading);
                             </thead>
                             <tbody>
                                 {datadiemdonofcarhouse &&
-                                    datadiemdonofcarhouse.map((item) => {
+                                    datadiemdonofcarhouse?.data?.map((item) => {
                                         return (
                                             <>
                                                 <tr>
