@@ -17,4 +17,6 @@ return [
     'vnp_OrderType' => 'billpayment',
 
     'vnp_Version' => '2.1.0',
+
+    'frontend_return_url' => env('FRONTEND_RETURN_URL', 'http://localhost:5173/thanhtoanok/'),
 ];

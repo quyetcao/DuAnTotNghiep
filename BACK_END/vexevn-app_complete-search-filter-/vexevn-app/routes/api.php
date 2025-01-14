@@ -302,7 +302,6 @@ Route::get('/seat/{car_id}', [SeatController::class, 'showSeatbycarid']);
 Route::get('/seat', [SeatController::class, 'listSeat']);
 
 
-
 Route::get('/seat-car-trip/car-trip-id/{car_trip_id}', [SeatCarTripController::class, 'showSeatCarTripByCarTripId']);
 // Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/seat', [SeatController::class, 'createSeat']);

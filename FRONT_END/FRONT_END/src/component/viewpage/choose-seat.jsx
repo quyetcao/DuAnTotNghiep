@@ -312,7 +312,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                                         color='#ae70ff'
                                         value={itemseat}
                                     >
-                                        <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                        <Tooltip title={`${itemseat?.seat_number}:${itemseat?.price}`}>
                                             <SVG />
                                         </Tooltip>
                                     </div>
@@ -344,7 +344,7 @@ export default function ChooseSeat({ seat_car_id, itemallthongtincx }) {
                                         color='#ae70ff'
                                         value={itemseat}
                                     >
-                                        <Tooltip title={`${itemseat.seat_number}:${itemseat.price}`}>
+                                        <Tooltip title={"sdj"}>
                                             <SVG />
                                         </Tooltip>
                                     </div>

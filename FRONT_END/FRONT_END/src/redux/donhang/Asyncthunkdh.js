@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { getAllDonhang, getdonhangtheouser, showLoading, thanhtoanok } from "./createSlicedn";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 
@@ -58,3 +59,23 @@ export function postthanhtoan(formData) {
         }
     };
 }
+
+
+export function postthanhtoanbynganhang(formData) {
+    return async (dispatch) => {
+        try {
+            let res = await axios.post(`http://localhost:8000/api/create-vnpay-payment`, formData);
+            console.log(res);
+            // thanhtoanok(true);
+            if(
+                res.status == 200
+            ){
+                window.location.href =`${res.data.data.payment_url}`;
+            }
+        } catch (error) {
+            console.log(error);
+   
+        }
+    };
+}
+

@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useForm } from 'react-hook-form';
-import { getSearchChuyenxe, getSearchChuyenxecarhouseid } from '../../../redux/viewchuyenxe/viewcx-asynThunk';
+import { getSearchChuyenxecarhouseid } from '../../../redux/viewchuyenxe/viewcx-asynThunk';
 import { callApiListTuyenDuongAll, callApiSeatCarTripByCarTripId } from '../../../redux/info-bus/infobus-asynThunk';
 import { CallapiGetOneCarType } from '../../../redux/adminweb/admin-cartype/cartype-asynthunk';
 // import { useNavigate } from 'react-router-dom';
@@ -30,9 +30,6 @@ export default function QuanLyDatVeXe() {
         dispatch(callApiListTuyenDuongAll())
     }, []);
     const router = useSelector((state) => state.InfoofBus?.allTuyenDuong)
-    console.log(router);
-
-
 
     const { register, handleSubmit, } = useForm();
     // const handleSubmitSearch = () => {
@@ -81,7 +78,7 @@ export default function QuanLyDatVeXe() {
 
                                         <select name="" id=""  {...register('car_route_id')}>
                                             {Array.isArray(router) && router.length > 0 ? (
-                                                router.map((item) => (
+                                                router?.map((item) => (
                                                     <option key={item.id} value={item.id}>
                                                         {item.city_from + '--' + item.city_to}
                                                     </option>

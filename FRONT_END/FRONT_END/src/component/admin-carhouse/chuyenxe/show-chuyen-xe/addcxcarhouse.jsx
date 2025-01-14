@@ -140,7 +140,7 @@ export default function AddChuyenXebyCarHouse() {
                     </select>
                     <label htmlFor='car_route_id'>Tuyến Đường</label>
                     <select type='number' id='car_route_id' {...register('car_route_id')} >
-                    {allTuyenDuong && allTuyenDuong?.data?.map((itemtd) => {
+                    {allTuyenDuong && allTuyenDuong?.map((itemtd) => {
                           return <><option value={itemtd.id}>{itemtd.city_from}-{itemtd.city_to}</option></>  
                         })
                         }
