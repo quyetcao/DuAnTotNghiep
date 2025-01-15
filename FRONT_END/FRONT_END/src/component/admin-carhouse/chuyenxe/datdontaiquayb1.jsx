@@ -25,15 +25,15 @@ export default function DatDonTaiQuayB1() {
 
     const { register, handleSubmit, } = useForm();
     function onSubmit(data) {
-        console.log('datainform them cphn', data);
+        // console.log('datainform them cphn', data);
         dispatch(getSearchChuyenxecarhouseid(data));
     }
     const datacartriptheocarhouseid = useSelector((state) => state.ViewChuyenXeSearch?.datacartriptheocarhouseid)
-    console.log("datacartriptheocarhouseidgbbbbbbbbbbbb ", datacartriptheocarhouseid);
+    // console.log("datacartriptheocarhouseidgbbbbbbbbbbbb ", datacartriptheocarhouseid);
     const loaixe = useSelector((state) => state.Storecartype?.dataOneCarType)
-    console.log(loaixe);
+    // console.log(loaixe);
     const seatcartripdata = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid)
-    console.log("seatcartripdata", seatcartripdata);
+    // console.log("seatcartripdata", seatcartripdata);
    function datdontaiquay(id){
     navigate(`/admincarhouse/dat-don-tai-quay-b2/${id}`);
    }

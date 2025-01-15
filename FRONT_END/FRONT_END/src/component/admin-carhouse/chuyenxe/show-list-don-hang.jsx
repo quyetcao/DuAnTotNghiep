@@ -1,7 +1,7 @@
 
 import EditIcon from '@mui/icons-material/Edit';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { callApigetAlldonhang } from '../../../redux/donhang/Asyncthunkdh';
@@ -12,7 +12,7 @@ export default function Showdonhang() {
         dispatch(callApigetAlldonhang());
     }, []);
     const alldonhang = useSelector((state) => state.Donhang?.allDonHang);
-console.log("alldonhang",alldonhang);
+    console.log("alldonhang", alldonhang);
 
 
     // //edit 
@@ -32,10 +32,10 @@ console.log("alldonhang",alldonhang);
         <>
             <div className='dashboard-body'>
                 <div className='body-content'>
-                <div className='body-content-top'>
+                    <div className='body-content-top'>
                         <h3 className='content-top-heading'>Quản lý Đơn Hàng </h3>
-                       
-                    </div>   
+
+                    </div>
                     <div className='content-table'>
                         <table>
                             <thead>
@@ -50,18 +50,31 @@ console.log("alldonhang",alldonhang);
                             </thead>
                             <tbody>
                                 {alldonhang &&
-                                    alldonhang?.map((item) => {
+                                    alldonhang?.map((item, index) => {
                                         return (
                                             <>
                                                 <tr>
+                                                    <td>{index + 1}</td>
                                                     <td>{item?.name}</td>
-                                                    <td>{item?.phone}</td> 
+                                                    <td>{item?.phone}</td>
                                                     <td>{item?.total_price}</td>
-                                                    <td>{item?.status}</td>
-                                                  
+                                                    <td>
+                                                    {(() => {
+                                                        switch (item?.status) {
+                                                            case 'pending':
+                                                                return 'Trạng thái chờ';
+                                                            case 'paid':
+                                                                return 'Đã thanh toán';
+                                                            case 'cancelled':
+                                                                return 'Chưa hoàn thành';
+                                                            default:
+                                                                return '';
+                                                        }
+                                                    })()}
+                                                    </td>
                                                     <td className='action-icons'>
-                                                        <EditIcon/>
-                                                        <DeleteIcon/>
+                                                        <EditIcon />
+                                                        <DeleteIcon />
                                                     </td>
                                                 </tr>
                                             </>

@@ -359,7 +359,7 @@ class PaymentController extends Controller
 
                 DB::commit();
 
-                Mail::to($order->user->email)->send(new OrderSuccessMail($order, $payment));
+                Mail::to($order->email)->send(new OrderSuccessMail($order, $payment));
                 return redirect(config('vnpay.frontend_return_url') . '?status=success&order_id=' . $order->id . '&amount=' . ($inputData['vnp_Amount'] / 100));
             } catch (\Exception $e) {
                 DB::rollBack();

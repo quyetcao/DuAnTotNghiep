@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllseatbycarid, getallseatcarid, getAllTuyenDuong, getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong, getSeatCarTripbyCarTripId } from "./createSlice-infobus";
+import { getAllseatbycarid, getallseatcarid, getAllTuyenDuong, getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong, getonecxdetaodon, getSeatCarTripbyCarTripId } from "./createSlice-infobus";
 
 
 
@@ -175,6 +175,21 @@ export function getAllseatcartripbycartripid(car_trip_id){
       let data = res.data.data;
       console.log("all ghế theo cartripid",res);
       dispatch(getAllseatbycarid(data));
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}
+
+export function getAllseatcartripbycarid(car_id){
+  return async (dispatch) => {
+    try {
+   
+      let res = await axios.get(
+        `http://localhost:8000/api/car-trip/${car_id}`);
+      let data = res.data.data;
+      // console.log("all ghế theo cartripid",res);
+      dispatch(getonecxdetaodon(data));
     } catch (error) {
       console.log(error);
     } 

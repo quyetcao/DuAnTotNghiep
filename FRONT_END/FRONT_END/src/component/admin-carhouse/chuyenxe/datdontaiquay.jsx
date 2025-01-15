@@ -3,150 +3,126 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate, useParams } from 'react-router-dom';
-// import { CallapiGetAllDiemDonByCarHouse, CallapiGetAllDiemTraByCarHouse } from '../../../../redux/adminweb/admin-diem-don-tra/asynthunk-diem-don-tra';
-// import { CallapiGetAllListCarofcarhouseid } from '../../../../redux/adminweb/admin-cartype/cartype-asynthunk';
-// import { callApiListTuyenDuongAll } from '../../../../redux/info-bus/infobus-asynThunk';
-// import { CallapiPostCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
-// import { CallapiGetAllListnvlxcarhouseid } from '../../../../redux/adminweb/nhanvienlaixe/AsynThunk-nclx';
-import { callApiSeatCarTripByCarTripId } from '../../../redux/info-bus/infobus-asynThunk';
+import { getAllseatcartripbycarid } from '../../../redux/info-bus/infobus-asynThunk';
+
+import { callApiPostDonHang } from '../../../redux/thanhtoan/AsyncThunk_thanhtoan';
+import { updateError } from '../../../redux/error/creaslice_error';
 
 
 export default function DatDonTaiQuayB2() {
-        const { id } = useParams();
-        const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
-        // dispatch(CallapiGetAllDiemTraByCarHouse(1))
-        // dispatch(CallapiGetAllDiemDonByCarHouse(1))
-        // dispatch(CallapiGetAllListCarofcarhouseid(1))
-        // dispatch(callApiListTuyenDuongAll())
-        // dispatch(CallapiGetAllListnvlxcarhouseid(1))
-     
-    dispatch(callApiSeatCarTripByCarTripId(id))
+        dispatch(getAllseatcartripbycarid(id))
+
+        return () => {
+            dispatch(updateError())
+          };
     }, [])
-    // const alldiemdon = useSelector((state) => state.StoreDiemDonCarHouse?.datadiemdonofcarhouse);
-    // const alldiemtra = useSelector((state) => state.StoreDiemTraCarHouse?.datadiemtraofcarhouse);
-    // const allCar = useSelector((state) => state.StoreCar?.dataCarofcarhouseid);
-    // // console.log("allcarr",allCar);
-    // const allTuyenDuong = useSelector((state) => state.InfoofBus?.allTuyenDuong);
-    // const isToastOk = useSelector((state) => state.ChuyenxeofCarHouse?.popupXacNhan);
-    const infocx = useSelector((state) => state.SeatofCarid?.seatcartripbycartripid);
-    console.log("xjfnvln",infocx);
-    
- 
+
+
+    const listerror = useSelector((state) => state.Errormessage?.error);
+    const isToastOk = useSelector((state) => state.MessageOk?.logOk);
+    const isToastError  = useSelector((state) => state.MessageOk?.logErr);
+    const infocx = useSelector((state) => state.InfoofBus?.dataseatcarid);
+    // console.log("xjfnvln", infocx);
 
 
 
-    // const notify = (event) => {
-    //     if (event == true) {
-    //         toast.success("Thêm Xe Thành Công!", { theme: "colored" });
-    //     } else if (event == false) {
-    //         toast.error("Lỗi form nhập!", { theme: "colored" });
-    //     }
-    // }
-
-    // // phan tao picup piont , drroff point 
-    // const [pickupPoints, setPickupPoints] = useState([]);
-    // const [dropoffPoints, setDropoffPoints] = useState([]);
-    // const [pickup, setPickup] = useState({ id: "", pickup_time: "" });
-    // const [dropoff, setDropoff] = useState({ id: "", dropoff_time: "" });
-    // const [cartype,setCarType]= useState(0);
-    // // const [allNvaray, setAllNv] = useState([]);
-    // const handleCarChange = (event) => {
-    //     const selectedCarId = event;
-    //     console.log("selectedCarId",selectedCarId );
-    //     setCarType(selectedCarId);
-    // };
-    // console.log(">>fvvvvvvvvvfvvvvvvvvv",allCar[cartype]?.car_type?.id);
-    // ///phan thao tac form 
-
-    // const { register, handleSubmit } = useForm();
-    // const onSubmit = (data) => {
-    //     console.log("data",data);
-       
-    //     const formData = new FormData();
-    //     formData.append('car_id', data.car_id);
-    //     formData.append('car_route_id', data.car_route_id);
-    //     formData.append('departure_date', data.departure_date);
-    //     formData.append('arrival_date', data.arrival_date);
-    //     formData.append('return_date', data.return_date);
-    //     formData.append('price', data.price);
-    //     formData.append('status', data.status);
-    //     formData.append('car_house_id', 1);
-    //     formData.append('car_type_id',allCar[cartype]?.car_type?.id);
-    //     pickupPoints.forEach((point, index) => {
-    //         formData.append(`pickup_points[${index}][id]`, point.id);
-    //         formData.append(`pickup_points[${index}][pickup_time]`, point.pickup_time);
-    //     });
-        
-    //     dropoffPoints.forEach((point, index) => {
-    //         formData.append(`dropoff_points[${index}][id]`, point.id);
-    //         formData.append(`dropoff_points[${index}][dropoff_time]`, point.dropoff_time);
-    //     });
-    
-
-    //     for (let pair of formData.entries()) {
-    //         console.log(`${pair[0]}: ${pair[1]}`);
-    //     }
-    //     dispatch(CallapiPostCxCarHouse(formData));
-    // };
 
 
-    // const handlePickupChange = (e) => {
+    const notify = (event) => {
+        if (event == true) {
+            toast.success("Thêm Xe Thành Công!", { theme: "colored" });
+        } else if (event == false) {
+            toast.error("Lỗi form nhập!", { theme: "colored" });
+        }
+    }
+
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => {
+        const formData = new FormData();
+        formData.append('user_id', data.user_id);
+        formData.append('name', data.name);
+        formData.append('phone', data.phone);
+        formData.append('email', data.email);
+        formData.append('car_trip_id', Number(infocx?.id));
+        formData.append('car_trip_pickup_point_id', Number(data.car_trip_pickup_point_id));
+        formData.append('car_trip_dropoff_point_id', Number(data.car_trip_dropoff_point_id));
+        const seat_id=data.seat_ids;
+        for (let i = 0; i < seat_id.length; i++) {
+            formData.append('seat_ids[]', Number(seat_id[i]));
+        }
       
-    //     e.preventDefault(); 
-    //     setPickup({ ...pickup, [e.target.name]: e.target.value });
-    // };
 
-    // const handleDropoffChange = (e) => {
-    //     e.preventDefault(); 
-    //     setDropoff({ ...dropoff, [e.target.name]: e.target.value });
-    // };
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+          }
+        dispatch(callApiPostDonHang(formData));
+    };
 
-
-
-
-    // const addPickup = () => {
-    //     if (pickup.id && pickup.pickup_time) {
-    //         setPickupPoints([...pickupPoints, { id: parseInt(pickup.id), pickup_time: pickup.pickup_time }]);
-    //         setPickup({ id: "", pickup_time: "" });
-    //         console.log("pickupPoints",pickupPoints);
-    //     }
-    // };
-
-    // const addDropoff = () => {
-    //     if (dropoff.id && dropoff.dropoff_time) {
-    //         setDropoffPoints([...dropoffPoints, { id: parseInt(dropoff.id), dropoff_time: dropoff.dropoff_time }]);
-    //         setDropoff({ id: "", dropoff_time: "" });
-    //     }
-    // };
-    // if (isToastOk === true) {
-    //     notify(true);
-    //     setTimeout(() => {
-    //         navigate('/admincarhouse/quan-li-chuyen-xe');
-    //     }, 2000);
-    // }
-    // if (isToastError) {
-    //     notify(false);
-    // }
-   
-    // onSubmit={handleSubmit(onSubmit)}
+    if (isToastOk === true) {
+        notify(true);
+        setTimeout(() => {
+            navigate('/admincarhouse/show-don-hang');
+        }, 2000);
+    }
+    if (isToastError) {
+        notify(false);
+    }
     return (
         <>  <ToastContainer />
             <h3 style={{ textAlign: 'center', marginTop: '40px' }}>TẠO ĐƠN TẠI QUẦY</h3>
             <div className='page-add-carhouse'>
-                <form id='busForm'  encType="multipart/form-data">
+                <form id='busForm' onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
                     <label htmlFor='carName'>User id</label>
-                    <input type="number" />
+                    <input type="number" {...register('user_id')} />
+                    {listerror?.message && <p className='add-error'>{listerror?.errors?.user_id?.[0]}</p>}
                     <label htmlFor='name'>Người đặt </label>
-                    <input type="text" />
+                    <input type="text" {...register('name')} />
+                  
                     <label htmlFor='phone'>Số điện thoại  </label>
+                    <input type="text" {...register('phone')} />
+                  
                     <label htmlFor='email'>Email  </label>
+                    <input type="email" {...register('email')} />
+                
                     <label htmlFor='car_trip_id'>Chọn xe</label>
+                    {infocx && infocx?.car?.id ? <input type='number' value={infocx?.id} {...register('car_trip_id')} /> : ''}
                     <label htmlFor='seat_ids'>Chọn ghế</label>
+                    <select name="seat_ids" id="" {...register('seat_ids')} multiple>
+                        {infocx &&
+                            infocx?.seats?.map((item1) => {
+                                console.log("<<<", item1);
+                                const matchedSeat = infocx?.seat_car_trips?.find((item2) => item1.id === item2.seat_id);
+                                if (matchedSeat) {
+                                    return (
+                                        <option key={item1.id} value={matchedSeat.seat_id}>
+                                            {matchedSeat.seat_id} : {matchedSeat.is_available === 0 ? "Đã được đặt" : "Chưa được đặt"}
+                                        </option>
+                                    );
+                                }
+                                return null;
+                            })}
+                    </select>
+                    {listerror?.message && <p className='add-error'>{listerror?.errors?.seat_ids?.[0]}</p>}
+
                     <label htmlFor='car_trip_pickup_point_id'>Chọn điểm đón</label>
+                    <select name="" id="" {...register('car_trip_pickup_point_id')}>
+                        {infocx && infocx?.pickup_points?.map((diemdon) => {
+                            return <><option value={diemdon?.pivot?.id}>{diemdon?.address}</option></>
+                        })}
+                    </select>
+                    {listerror?.message && <p className='add-error'>{listerror?.errors?.car_trip_pickup_point_id?.[0]}</p>}
+
                     <label htmlFor='car_trip_dropoff_point_id'>Chọn điểm trả</label>
+                    <select name="" id="" {...register('car_trip_dropoff_point_id')}>
+                        {infocx && infocx?.dropoff_points?.map((diemtra) => {
+                            return <><option value={diemtra?.pivot?.id}>{diemtra?.address}</option></>
+                        })}
+                    </select>
+                    {listerror?.message && <p className='add-error'>{listerror?.errors?.car_trip_dropoff_point_id?.[0]}</p>}
 
                     <input type='submit' className='btnsb' value='Thêm Đơn Hàng' />
                 </form >

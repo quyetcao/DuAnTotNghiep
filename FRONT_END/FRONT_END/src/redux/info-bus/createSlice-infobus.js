@@ -31,6 +31,10 @@ const initialState = {
   // /seat-car-trip/car-trip-id/{car-trip-id}
   dataseatcarid:[],
 
+
+  /////////////////////////LẤY THÔNG TIN CHUYẾN XE
+   datacartripbyid:[],
+
 };
 
 
@@ -57,10 +61,14 @@ export const InfoofBus = createSlice({
       // console.log("Tuyến Đường", action.payload);
       state.allTuyenDuong = action.payload
     },
+
+    getonecxdetaodon(state, action) {
+      state.dataseatcarid = action.payload
+    },
   },
 });
 
-export const { getinfoChuyenXeSearch, getinfoTuyenDuong, getAllTuyenDuong } = InfoofBus.actions;
+export const { getinfoChuyenXeSearch, getinfoTuyenDuong, getAllTuyenDuong,getonecxdetaodon } = InfoofBus.actions;
 
 
 //CREATSLICE THÔNG TIN NHÀ XE 
