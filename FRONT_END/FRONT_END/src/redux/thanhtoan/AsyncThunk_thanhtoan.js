@@ -1,6 +1,7 @@
 import axios from "axios";
 import { logEr, logError, logOk } from "../ErrorandOK/createSlice_log";
 import { updateError } from "../error/creaslice_error";
+import { storedhuse } from "./createSlice_thanhtoan";
 
 
 
@@ -30,3 +31,18 @@ export function callApiPostDonHang(formData){
          };
 }
 
+
+
+/// lấy đơn hàng của user
+
+export function callApidonhanguser(user_id){
+  return async (dispatch) => {
+    try {
+       dispatch(updateError())
+      let res = await axios.get(`http://127.0.0.1:8000/api/orders/user/${user_id}`);
+          console.log('res',res);
+          dispatch(storedhuse(res.data.data));
+    } catch (error) {
+      console.log(error);
+    }}
+}
