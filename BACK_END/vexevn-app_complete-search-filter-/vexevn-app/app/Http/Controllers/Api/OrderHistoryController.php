@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderHistory;
-use App\Models\Order;  // Nếu bạn cần lấy thông tin của Order
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderHistoryController extends Controller
