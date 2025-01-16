@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 
+use DateTime;
+use DateInterval;
+
 class CarTrip extends Model
 {
     use HasFactory;
@@ -84,26 +87,42 @@ class CarTrip extends Model
         $completedTrips = self::where('status', 'completed')->get();
 
         foreach ($completedTrips as $trip) {
-            // Thực hiện cập nhật trạng thái và các ngày cho từng chuyến xe
-            $newDepartureDate = Carbon::parse($trip->departure_date)->addDays(7);
-            $newArrivalDate = Carbon::parse($trip->arrival_date)->addDays(7);
+            $originalDepartureDate = Carbon::parse($trip->departure_date);
+            $originalArrivalDate = Carbon::parse($trip->arrival_date);
+            $originalReturnDate = $trip->return_date ? Carbon::parse($trip->return_date) : null;
 
-            // Nếu có ngày về, cập nhật ngày về
-            $newReturnDate = $trip->return_date ? Carbon::parse($trip->return_date)->addDays(7) : null;
+            // Khoảng cách ban đầu
+            $arrivalOffset = $originalDepartureDate->diffInDays($originalArrivalDate);
+            $returnOffset = $originalReturnDate ? $originalArrivalDate->diffInDays($originalReturnDate) : null;
 
+            // Ngày mới cho ngày đi
+            $newDepartureDate = $originalReturnDate ? $originalReturnDate->copy()->addDays(1) : $originalArrivalDate->copy()->addDays(1);
+
+            // Ngày mới cho chuyến đến
+            $newArrivalDate = $newDepartureDate->copy()->addDays($arrivalOffset);
+
+            // Ngày mới cho chuyến về
+            if ($originalReturnDate) {
+                $newReturnDate = $newArrivalDate->copy()->addDays($returnOffset);
+            } else {
+                $newReturnDate = null;
+            }
+
+            // Cập nhật trạng thái và các ngày
             $trip->status = 'not_started';
             $trip->departure_date = $newDepartureDate;
             $trip->arrival_date = $newArrivalDate;
             $trip->return_date = $newReturnDate;
             $trip->save();
 
-            // Seats
+            // Reset trạng thái ghế
             foreach ($trip->seatCarTrips as $seatCarTrip) {
                 $seatCarTrip->is_available = true;
                 $seatCarTrip->save();
             }
         }
     }
+
 
     public static function updateStatuses()
     {
