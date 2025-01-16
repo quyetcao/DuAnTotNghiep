@@ -23,8 +23,31 @@
 // jghfkghjg
 
 import '../css/thanhtoanthatbai.css'; // Import CSS file
+import { postLogin, setLoginOK } from "../../redux/login-logout-register/login-lo-rg-createSlice";
+import { useDispatch } from "react-redux";
+import { Link } from '@mui/material';
 
 const Thanhtoanthatbai = () => {
+    const dispatch = useDispatch();
+
+    const token = localStorage.getItem("token");
+    const name = localStorage.getItem("name");
+    const role = localStorage.getItem("role");
+    const success = localStorage.getItem("success");
+    const id = localStorage.getItem("id");
+    const email = localStorage.getItem("email");
+    const phone = localStorage.getItem("phone");
+    const dataToDispatch = {
+        name,
+        role,
+        email,
+        id,
+        phone,
+    };
+
+
+    dispatch(setLoginOK(true))
+    dispatch(postLogin(dataToDispatch))
     return (
         <div className='payment-fail'>
             <div className='fail-content'>
@@ -37,7 +60,7 @@ const Thanhtoanthatbai = () => {
                     Bấm <strong>Quay về trang chủ</strong> để tiếp tục mua sắm.
                 </p>
                 <div className='fail-button-group'>
-                    <button className='fail-button fail-back-home'>Quay về trang chủ</button>
+                  <button className='fail-button fail-back-home'><Link to="/">Quay về trang chủ</Link></button>
                     <button className='fail-button fail-retry-payment'>Thanh toán lại</button>
                 </div>
             </div>

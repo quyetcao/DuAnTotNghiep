@@ -41,6 +41,7 @@ export default function Showdonhang() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Mã Đơn Hàng</th>
                                     <th>Tên KHKH</th>
                                     <th>Số điện thoại khách hàng </th>
                                     <th>Tổng tiền </th>
@@ -55,6 +56,7 @@ export default function Showdonhang() {
                                             <>
                                                 <tr>
                                                     <td>{index + 1}</td>
+                                                    <td>VXR{item?.id}</td>
                                                     <td>{item?.name}</td>
                                                     <td>{item?.phone}</td>
                                                     <td>{item?.total_price}</td>
@@ -62,11 +64,11 @@ export default function Showdonhang() {
                                                     {(() => {
                                                         switch (item?.status) {
                                                             case 'pending':
-                                                                return 'Trạng thái chờ';
+                                                                return <p style={{color:'#FF9900'}}>Trạng thái chờ</p>;
                                                             case 'paid':
-                                                                return 'Đã thanh toán';
+                                                                return <p style={{color:'#33FF00'}}>Đã thanh toán</p>;
                                                             case 'cancelled':
-                                                                return 'Chưa hoàn thành';
+                                                                return <p style={{color:'red'}}>Chưa hoàn thành</p>;
                                                             default:
                                                                 return '';
                                                         }

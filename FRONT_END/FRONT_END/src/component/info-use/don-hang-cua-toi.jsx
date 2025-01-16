@@ -1,12 +1,27 @@
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import '../css/user/don-hang-cua-toi.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { callApidonhanguser } from '../../redux/thanhtoan/AsyncThunk_thanhtoan';
 
 function CustomTabPanel(props) {
+
+    const dispatch = useDispatch();
+    const user_id = useSelector((state)=> state.LoginLogOutRegister?.infoUser);
+    console.log("infousserinfousser",user_id);
+
+    useEffect(()=>{
+     dispatch(callApidonhanguser(user_id?.id));
+    },[user_id])
+
+
+    const dh= useSelector((state)=> state.StoreThanhToan?.datadhuser);
+    console.log("fjnvkdfs",dh);
+
     const { children, value, index, ...other } = props;
 
     return (
