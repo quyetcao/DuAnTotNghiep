@@ -79,6 +79,7 @@ import Quanlyghechuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-x
 import DatDonTaiQuayB1 from './component/admin-carhouse/chuyenxe/datdontaiquayb1.jsx';
 import DatDonTaiQuayB2 from './component/admin-carhouse/chuyenxe/datdontaiquay.jsx';
 import Checkloginreister from './component/common/checklogin.jsx';
+import Thanhtoanthatbai from './component/thanhtoan/thanhtoanthatbai.jsx';
 // import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 // import Register1 from './component/Pages/register1.jsx';
 
@@ -151,6 +152,10 @@ const routes = createBrowserRouter([
       {
         path: '/thanhtoanok',
         element: <Thanhtoanthanhcong />
+      },
+      {
+        path: '/thanhtoanthatbai',
+        element: <Thanhtoanthatbai />
       },
       {
         path:'/checkloginregister',
