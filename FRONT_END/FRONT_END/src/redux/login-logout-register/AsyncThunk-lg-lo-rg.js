@@ -8,6 +8,11 @@ export function dangkytaikhoan(dk, body) {
     if(dk == 0){
       // Chuyển hướng người dùng đến trang Google OAuth
       window.location.href ="http://localhost:8000/auth/google"; // Đảm bảo URL này đúng với route trong Laravel của bạn
+      // window.open(
+      //   "http://localhost:8000/auth/google",
+      //   "GoogleAuth",
+      //   "width=600,height=400,resizable=yes,scrollbars=yes"
+      // );
     } else if(dk == 1){
       try {
         let res = await axios.post(
@@ -87,3 +92,7 @@ export function dangnhap(body) {
     }
   };
 }
+
+
+
+

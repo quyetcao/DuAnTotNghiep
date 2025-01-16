@@ -50,7 +50,10 @@ class AuthController extends HelpController
                 //     'user' => $user,
                 // ]);
                 $token = $user->createToken('API TOKEN')->plainTextToken;
-                 return redirect()->to("http://localhost:5173/?success=true&token={$token}&name={$user->name}");
+                //  return redirect()->to("http://localhost:5173/?success=true&token={$token}&name={$user->name}");
+                return redirect()->to("http://localhost:5173/checkloginregister/?" . http_build_query(
+                    $user->makeHidden(['password', 'remember_token'])->toArray() + ['success' => true, 'token' => $token]
+                ));
             } catch (\Throwable $th) {
                 Log::error('Google Login Error:', ['message' => $th->getMessage(), 'trace' => $th->getTraceAsString()]);
                 return redirect()->to("http://localhost:5173/?success=false&error=" . urlencode($th ->getMessage()));
@@ -58,47 +61,7 @@ class AuthController extends HelpController
         });
     }
 
-//     public function handleGoogleCallback()
-// {
-//     try {
-//         $googleUser = Socialite::driver('google')->user();
-
-//         // Ghi log thông tin Google User
-//         Log::info('Google User Info', [
-//             'id' => $googleUser->id,
-//             'email' => $googleUser->email,
-//             'name' => $googleUser->name,
-//         ]);
-
-//         // Kiểm tra dữ liệu từ Google
-//         if (!$googleUser->email || !$googleUser->id) {
-//             return $this->sendResponse(422, 'Dữ liệu từ Google không đầy đủ');
-//         }
-
-//         // Tìm hoặc tạo user
-//         $user = User::updateOrCreate(
-//             ['email' => $googleUser->email],
-//             [
-//                 'name' => $googleUser->name,
-//                 'google_id' => $googleUser->id,
-//                 'password' => Hash::make('12345678'),
-//             ]
-//         );
-
-//         // Tạo token và chuyển hướng về frontend
-//         $token = $user->createToken('API TOKEN')->plainTextToken;
-//         return redirect()->to("http://localhost:5173/?success=true&token={$token}&name={$user->name}");
-//     } catch (\Exception $e) {
-//         // Ghi log lỗi
-//         Log::error('Google OAuth Error', [
-//             'message' => $e->getMessage(),
-//             'trace' => $e->getTraceAsString(),
-//         ]);
-
-//         return redirect()->to("http://localhost:5173/?success=false&error=" . urlencode($e->getMessage()));
-//     }
-// }
-
+  
 
    public function sendResetLink(Request $request)
 {
