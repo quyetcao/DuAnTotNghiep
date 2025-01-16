@@ -39,6 +39,7 @@ class Payment extends Model
         return $this->belongsTo(DiscountCode::class);
     }
 
+    
     public function updateUsageLimit()
     {
         if ($this->discountCode) {

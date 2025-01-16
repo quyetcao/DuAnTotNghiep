@@ -21,6 +21,9 @@ class Order extends Model
         'email',
         'car_trip_pickup_point_id',
         'car_trip_dropoff_point_id',
+        'departure_date', 
+        'arrival_date',   
+        'return_date', 
     ];
 
     protected static function booted()
