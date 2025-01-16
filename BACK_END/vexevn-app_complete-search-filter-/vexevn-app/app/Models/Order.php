@@ -23,9 +23,6 @@ class Order extends Model
         'car_trip_dropoff_point_id',
     ];
 
-    /**
-     * Khởi tạo sự kiện khi tạo và cập nhật đơn hàng
-     */
     protected static function booted()
     {
         static::created(function ($order) {
@@ -56,41 +53,28 @@ class Order extends Model
     }
 
 
-    /**
-     * Quan hệ với lịch sử đơn hàng
-     */
     public function histories()
     {
         return $this->hasMany(OrderHistory::class);
     }
 
-    /**
-     * Quan hệ với ghế trong đơn hàng (có thể sửa lại theo cấu trúc dữ liệu)
-     */
+
     public function seats()
     {
         return $this->hasManyThrough(Seat::class, SeatCarTrip::class, 'car_trip_id', 'id', 'car_trip_id', 'seat_id');
     }
 
-    /**
-     * Quan hệ với chuyến xe
-     */
+
     public function carTrip()
     {
         return $this->belongsTo(CarTrip::class);
     }
 
-    /**
-     * Quan hệ với xe
-     */
     public function car()
     {
         return $this->belongsTo(Car::class);
     }
 
-    /**
-     * Quan hệ với tuyến xe
-     */
     public function carRoute()
     {
         return $this->belongsTo(CarRoute::class);
