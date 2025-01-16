@@ -311,63 +311,136 @@ class PaymentController extends Controller
     // }
 
 
+    // public function vnpayCallback(Request $request)
+    // {
+    //     $vnp_HashSecret = config('vnpay.vnp_HashSecret');
+    //     $inputData = $request->all();
+    //     $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
+
+    //     unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
+    //     ksort($inputData);
+    //     $query = http_build_query($inputData);
+    //     $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
+
+    //     if ($secureHash !== $vnp_SecureHash) {
+    //         return redirect(config('vnpay.frontend_return_url') . '?status=error&message=invalid_signature');
+    //     }
+
+    //     if ($inputData['vnp_ResponseCode'] == '00') {
+    //         $order = Order::find($inputData['vnp_OrderInfo']); 
+
+    //         if (!$order) {
+    //             return redirect(config('vnpay.frontend_return_url') . '?status=error&message=order_not_found');
+    //         }
+
+    //         if ($order->status === 'paid') {
+    //             return redirect(config('vnpay.frontend_return_url') . '?status=success&order_id=' . $order->id . '&amount=' . ($inputData['vnp_Amount'] / 100));
+    //         }
+
+    //         try {
+    //             DB::beginTransaction();
+
+    //             $payment = Payment::create([
+    //                 'order_id' => $order->id,
+    //                 'user_id' => $order->user_id,
+    //                 'amount' => $inputData['vnp_Amount'] / 100,
+    //                 'payment_method' => 'vnpay',
+    //                 'status' => 'completed',
+    //                 'transaction_id' => $inputData['vnp_TransactionNo'],
+    //                 'payment_gateway' => 'vnpay',
+    //             ]);
+
+    //             $order->update(['status' => 'paid']);
+
+    //             DB::commit();
+
+    //             Mail::to($order->email)->send(new OrderSuccessMail($order, $payment));
+    //             return redirect(config('vnpay.frontend_return_url') . '?status=success&order_id=' . $order->id . '&amount=' . ($inputData['vnp_Amount'] / 100));
+    //         } catch (\Exception $e) {
+    //             DB::rollBack();
+    //             return redirect(config('vnpay.frontend_return_url') . '?status=error&message=system_error');
+    //         }
+    //     }
+
+    //     return redirect(config('vnpay.frontend_return_url') . '?status=error&message=transaction_failed');
+    // }
+
     public function vnpayCallback(Request $request)
     {
-        $vnp_HashSecret = config('vnpay.vnp_HashSecret');
-        $inputData = $request->all();
-        $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
+        $vnp_HashSecret = config('vnpay.vnp_HashSecret'); 
+        $inputData = $request->all(); 
+        $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? ''; 
 
-        // Loại bỏ SecureHash để xác thực
         unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
-        ksort($inputData);
-        $query = http_build_query($inputData);
-        $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
+        ksort($inputData); 
+        $query = http_build_query($inputData); 
+        $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret); 
 
-        // Xác thực chữ ký
         if ($secureHash !== $vnp_SecureHash) {
             return redirect(config('vnpay.frontend_return_url') . '?status=error&message=invalid_signature');
         }
 
-        // Kiểm tra mã phản hồi từ VNPay
-        if ($inputData['vnp_ResponseCode'] == '00') {
-            $order = Order::find($inputData['vnp_OrderInfo']); // Tìm đơn hàng
+        if ($inputData['vnp_ResponseCode'] == '00') { 
+            $order = Order::find((int)$inputData['vnp_OrderInfo']); 
 
             if (!$order) {
                 return redirect(config('vnpay.frontend_return_url') . '?status=error&message=order_not_found');
             }
 
-            // Kiểm tra trạng thái đơn hàng
             if ($order->status === 'paid') {
                 return redirect(config('vnpay.frontend_return_url') . '?status=success&order_id=' . $order->id . '&amount=' . ($inputData['vnp_Amount'] / 100));
             }
 
-            // Tạo thanh toán và cập nhật đơn hàng
+            $seatIds = json_decode($order->seat_ids, true); 
+            $expectedAmount = $this->calculateOrderTotalAmount($seatIds) * 100; 
+            if ((int)$inputData['vnp_Amount'] !== $expectedAmount) {
+                return redirect(config('vnpay.frontend_return_url') . '?status=error&message=invalid_amount');
+            }
+
             try {
                 DB::beginTransaction();
 
                 $payment = Payment::create([
                     'order_id' => $order->id,
                     'user_id' => $order->user_id,
-                    'amount' => $inputData['vnp_Amount'] / 100,
+                    'amount' => $inputData['vnp_Amount'] / 100, 
                     'payment_method' => 'vnpay',
                     'status' => 'completed',
-                    'transaction_id' => $inputData['vnp_TransactionNo'],
+                    'transaction_id' => $inputData['vnp_TransactionNo'], 
                     'payment_gateway' => 'vnpay',
                 ]);
 
                 $order->update(['status' => 'paid']);
 
-                DB::commit();
+                DB::commit(); 
 
                 Mail::to($order->email)->send(new OrderSuccessMail($order, $payment));
+
                 return redirect(config('vnpay.frontend_return_url') . '?status=success&order_id=' . $order->id . '&amount=' . ($inputData['vnp_Amount'] / 100));
             } catch (\Exception $e) {
                 DB::rollBack();
+                Log::error('VNPay Callback Error:', ['error' => $e->getMessage()]);
                 return redirect(config('vnpay.frontend_return_url') . '?status=error&message=system_error');
             }
         }
 
-        return redirect(config('vnpay.frontend_return_url') . '?status=error&message=transaction_failed');
+        if ($inputData['vnp_ResponseCode'] !== '00') {
+            $order = Order::find((int)$inputData['vnp_OrderInfo']); 
+            if ($order) {
+                $order->update(['status' => 'cancelled']);
+            }
+
+            $payment = Payment::where('order_id', $inputData['vnp_OrderInfo'])
+                            ->where('status', 'pending')
+                            ->first();
+            if ($payment) {
+                $payment->update(['status' => 'failed']);
+            }
+
+            return redirect(config('vnpay.frontend_return_url') . '?status=error&message=transaction_failed');
+        }
+
+        return redirect(config('vnpay.frontend_return_url') . '?status=error&message=unknown_error');
     }
 
 

@@ -20,11 +20,11 @@ class Seat extends Model
 
     public function car()
     {
-        return $this->belongsTo(Car::class, 'car_id'); // cars_id là khóa ngoại
+        return $this->belongsTo(Car::class, 'car_id'); 
     }
 
     public function carType()
     {
-        return $this->belongsTo(CarType::class, 'car_type_id'); // car_type_id là khóa ngoại
+        return $this->belongsTo(CarType::class, 'car_type_id'); 
     }
 }
