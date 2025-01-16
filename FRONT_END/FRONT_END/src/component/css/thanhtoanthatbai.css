@@ -1,0 +1,115 @@
+/* Toàn bộ trang */
+.payment-fail {
+    background-color: #f4f4f4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .payment-fail + .footer {
+    display: none;
+  }
+
+
+  
+  .fail-content {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 80px;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .fail-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8d7da;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+  }
+  .fail-icon-zz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ddffe0;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
+  }
+  
+  .fail-icon {
+    font-size: 30px;
+    color: #d32f2f;
+    margin-bottom: 10px;
+  }
+  
+  .fail-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .fail-message {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  
+  .fail-note {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  
+  .fail-button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  
+  .fail-button {
+    width: 40%;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .fail-back-home {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+  
+  .fail-back-home:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fail-retry-payment {
+    border: 1px solid #FB4141;
+    color: #FB4141;
+    background-color: transparent;
+  }
+  
+  .fail-retry-payment:hover {
+    background-color: #FB4141;
+    color: #fff;
+  }
+  
+  .success-icon > svg {
+    color: #118B50;
+    font-size: 40px;
+  }

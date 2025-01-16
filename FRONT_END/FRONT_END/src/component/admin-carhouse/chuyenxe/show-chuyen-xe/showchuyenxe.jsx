@@ -8,7 +8,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { CallapiGetAllcxofCarHouse, CallapiGetDeleteCxCarHouse } from '../../../../redux/adminweb/admin-cx-carhouse/Asynthunk-cx-carhouse';
 import Pagination from '../../../pagination/pagination';
-
+import AirlineSeatReclineNormalIcon from '@mui/icons-material/AirlineSeatReclineNormal';
 
 export default function Quanlychuyenxe() {
     const dispatch = useDispatch();
@@ -36,6 +36,11 @@ export default function Quanlychuyenxe() {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber); // Cập nhật trang
       };
+
+    // show ghế
+    function Showseat(car_trip_id){
+        navigate(`/admincarhouse/show-edit-ghe-of-cx/${car_trip_id}`);
+    }
     
     return (
         <>
@@ -91,6 +96,10 @@ export default function Quanlychuyenxe() {
                                                                     deleteCxcarhouse(itemlist?.id);
                                                                 }}
                                                             />
+
+                                                        <AirlineSeatReclineNormalIcon onClick={()=>{
+                                                            Showseat(itemlist?.id);
+                                                        }}/>
                                                     </td>
                                                 </tr>
                                             </>

@@ -8,14 +8,23 @@ import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 import '../css/thanhtoan.css';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Apdunggiamgia, CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
 import { useForm } from 'react-hook-form';
-import { callApigetAlldonhangtheouser, postthanhtoan } from '../../redux/donhang/Asyncthunkdh';
+import { callApigetAlldonhangtheouser, postthanhtoan, postthanhtoanbynganhang } from '../../redux/donhang/Asyncthunkdh';
 
 export default function ThanhToan() {
     const location = useLocation();
     const formData = location.state;
+    const [pttt,setpttt]=useState(0);
+
+    function selectpttt(pt){
+        if(pt == 0){
+            setpttt(0)
+        }else if(pt== 1){
+            setpttt(1)
+        }
+    }
     console.log('formData', formData);
 
     const dispatch = useDispatch();
@@ -45,6 +54,7 @@ export default function ThanhToan() {
     const navigate = useNavigate();
     const { register: registerForm, handleSubmit: handleSubmitForm } = useForm();
     const onSubmit = (data) => {
+        if(pttt == 0){
         console.log(data);
         const formData = new FormData();
         data.payment_method = 'cash';
@@ -57,7 +67,14 @@ export default function ThanhToan() {
         formData.append('discount_code', '');
         formData.append('user_id', user.id);
         dispatch(postthanhtoan(formData))
-        navigate('/thanhtoanok');
+        }else if(pttt == 1){
+            const formData = new FormData();
+            data.order_id = donhangtheouser[donhangtheouser.length -1 ]?.id;
+            formData.append('order_id', data.order_id);
+            formData.append('amount', totalPrice);
+            formData.append('user_id', user.id);
+            dispatch(postthanhtoanbynganhang(formData))
+        }
     }
       
 
@@ -224,7 +241,7 @@ export default function ThanhToan() {
                                         </div>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' checked />
+                                                <input type='radio' name='kieu-tt' className='radio-input' onClick={()=>{selectpttt(0)}}  />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img
@@ -242,7 +259,7 @@ export default function ThanhToan() {
                                     <div className='payment-item border-bottom'>
                                         <lable className='list-qr'>
                                             <span className='ant-radio'>
-                                                <input type='radio' name='kieu-tt' className='radio-input' disabled />
+                                                <input type='radio' name='kieu-tt' className='radio-input' onClick={()=>{selectpttt(1)}}  />
                                             </span>
                                             <span className='list-pttt'>
                                                 <img

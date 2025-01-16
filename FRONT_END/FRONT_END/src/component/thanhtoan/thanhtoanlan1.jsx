@@ -72,8 +72,6 @@ export default function ThanhToanLanMot() {
         dataSeat.forEach((seat) => {
             formData.append('seat_ids[]', seat);
         });
-
-        // const user_id = 24;
         formData.append('user_id', user.id);
         for (let pair of formData.entries()) {
             console.log(pair[0]+ ': ' + pair[1]);

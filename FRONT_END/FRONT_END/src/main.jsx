@@ -75,6 +75,11 @@ import AllBinhLuan from './component/view-adminweb/binhluan/allbinhluan.jsx';
 import Showdonhang from './component/admin-carhouse/chuyenxe/show-list-don-hang.jsx';
 import Thanhtoanthanhcong from './component/thanhtoan/thanhtoanthanhcong.jsx';
 import AddNv from './component/admin-carhouse/nhanvien/add-nv.jsx';
+import Quanlyghechuyenxe from './component/admin-carhouse/chuyenxe/show-chuyen-xe/show-editghe.jsx';
+import DatDonTaiQuayB1 from './component/admin-carhouse/chuyenxe/datdontaiquayb1.jsx';
+import DatDonTaiQuayB2 from './component/admin-carhouse/chuyenxe/datdontaiquay.jsx';
+import Checkloginreister from './component/common/checklogin.jsx';
+import Thanhtoanthatbai from './component/thanhtoan/thanhtoanthatbai.jsx';
 // import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 // import Register1 from './component/Pages/register1.jsx';
 
@@ -149,6 +154,14 @@ const routes = createBrowserRouter([
         element: <Thanhtoanthanhcong />
       },
       {
+        path: '/thanhtoanthatbai',
+        element: <Thanhtoanthatbai />
+      },
+      {
+        path:'/checkloginregister',
+        element: <Checkloginreister/>
+      },
+      {
         path: "/taikhoan",
         element: <Taikhoan />,
         children: [
@@ -217,7 +230,7 @@ const routes = createBrowserRouter([
         path: 'editloaixe/:id',
         element: <EditCarType />
       },
-      // chuyến xe 
+      // chuyến xe , ghế của chuyến xe 
       {
         path: 'addchuyenxe',
         element: <AddChuyenXebyCarHouse />
@@ -230,6 +243,9 @@ const routes = createBrowserRouter([
       {
         path: 'edit-chuyen-xe/:id',
         element: <EditChuyenXebyCarHouse />
+      },
+      { path:'show-edit-ghe-of-cx/:car_trip_id',
+        element:<Quanlyghechuyenxe />
       },
 
       // điểm đón trả
@@ -266,6 +282,15 @@ const routes = createBrowserRouter([
         path: 'add-nhan-vien',
         element: <AddNv />
       },
+      //dat don tai quay 
+      {
+       path:'dat-don-tai-quay-b1',
+       element: <DatDonTaiQuayB1/>
+      },
+      {
+        path:'dat-don-tai-quay-b2/:id',
+        element: <DatDonTaiQuayB2 />
+       },
     ]
   },
 

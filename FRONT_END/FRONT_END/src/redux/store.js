@@ -14,7 +14,7 @@ import { StorEmmployee } from "./adminweb/nhanvienlaixe/createSlice-nvlx";
 import { StoreCity } from "./city/CreateSlice_city";
 import { StoreThanhToan } from "./thanhtoan/createSlice_thanhtoan";
 import { Storebinhluan } from "./adminweb/binhluan/binhluan-createSlide";
-import { MessageError } from "./ErrorandOK/createSlice_log";
+import { MessageError, MessageOk } from "./ErrorandOK/createSlice_log";
 import { Donhang } from "./donhang/createSlicedn";
 import { Errormessage } from "./error/creaslice_error";
 
@@ -30,6 +30,7 @@ const rootReducer = combineSlices(
   InfoofCarType,
   Infodropoffpoint,
   Infopickuppoint,
+  MessageOk,
   //thanhtoan, hiển thị ghế 
   SeatofCarid,
   //adminweb

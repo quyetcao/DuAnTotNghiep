@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getallseatcarid, getAllTuyenDuong, getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong, getSeatCarTripbyCarTripId } from "./createSlice-infobus";
+import { getAllseatbycarid, getallseatcarid, getAllTuyenDuong, getinfoBusHouse, getinfoCarType, getinfoChuyenXeSearch, getinfodropoffpoint, getinfopickuppoint, getinfoTuyenDuong, getonecxdetaodon, getSeatCarTripbyCarTripId } from "./createSlice-infobus";
 
 
 
@@ -28,7 +28,7 @@ export function callApiGetCarHouse(car_house_id,car_id){
     try {
    
       let res = await axios.get(
-        `http://localhost:8000/api/carhouse/${car_house_id}`);
+        `http://localhost:8000/api/car-house/${car_house_id}`);
       let data = res.data.data;
       // console.log("nhà xe", data);
       dispatch(getinfoBusHouse({car_id,data}));
@@ -45,7 +45,7 @@ export function callApiGetCarType(cartypeid,car_id){
     try {
    
       let res = await axios.get(
-        `http://localhost:8000/api/cartypes/${cartypeid}`);
+        `http://localhost:8000/api/car-type/${cartypeid}`);
       let data = res.data.data;
       // console.log("thông tin loại xe ", data);
       dispatch(getinfoCarType({car_id,data}));
@@ -100,7 +100,6 @@ export function callApiTuyenDuong(car_route_id){
       let res = await axios.get(
         `http://localhost:8000/api/car-route/${car_route_id}`);
       let data = res.data.data;
-      // console.log("áuncthunktuyenduong",data);
       dispatch(getinfoTuyenDuong({data}));
 
     } catch (error) {
@@ -112,11 +111,10 @@ export function callApiTuyenDuong(car_route_id){
 export function callApiListTuyenDuongAll(){
   return async (dispatch) => {
     try {
-   
       let res = await axios.get(
         `http://localhost:8000/api/car-route/`);
-      let data = res.data.data;
-      // console.log("áuncthunktuyenduong",data);
+      let data = res.data.data.data;
+      console.log("tuyenduong",res);
       dispatch(getAllTuyenDuong(data));
 
     } catch (error) {
@@ -129,12 +127,23 @@ export function callApiListTuyenDuongAll(){
 export function callApiSeat(car_id){
   return async (dispatch) => {
     try {
-   
-      let res = await axios.get(
-        `http://localhost:8000/api/seat/${car_id}`);
+      let res = await axios.get(`http://localhost:8000/api/seat/${car_id}`);
       let data = res.data.data;
       console.log("all ghế theo carid",data);
       dispatch(getallseatcarid({car_id,data}));
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}
+
+export function editseatcartrip(seat_id,seat){
+  return async (dispatch) => {
+    try {
+      let res = await axios.post(`http://localhost:8000/api/seat-car-trip/${seat_id}`,seat);
+      // let data = res.data.data;
+      // console.log("all ghế theo carid",data);
+      // dispatch(getallseatcarid({car_id,data}));
     } catch (error) {
       console.log(error);
     } 
@@ -150,6 +159,37 @@ export function callApiSeatCarTripByCarTripId(car_trip_id){
       let data = res.data.data;
       console.log("all ghế theo cartripid",data);
       dispatch(getSeatCarTripbyCarTripId(data));
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}
+
+
+export function getAllseatcartripbycartripid(car_trip_id){
+  return async (dispatch) => {
+    try {
+   
+      let res = await axios.get(
+        `http://localhost:8000/api/seat-car-trip/car-trip-id/${car_trip_id}`);
+      let data = res.data.data;
+      console.log("all ghế theo cartripid",res);
+      dispatch(getAllseatbycarid(data));
+    } catch (error) {
+      console.log(error);
+    } 
+  };
+}
+
+export function getAllseatcartripbycarid(car_id){
+  return async (dispatch) => {
+    try {
+   
+      let res = await axios.get(
+        `http://localhost:8000/api/car-trip/${car_id}`);
+      let data = res.data.data;
+      // console.log("all ghế theo cartripid",res);
+      dispatch(getonecxdetaodon(data));
     } catch (error) {
       console.log(error);
     } 

@@ -29,6 +29,11 @@ const initialState = {
   //Dữ liệu ghế của chuyến xe lấy theo id chuyến xe
   seatcartripbycartripid: {},
   // /seat-car-trip/car-trip-id/{car-trip-id}
+  dataseatcarid:[],
+
+
+  /////////////////////////LẤY THÔNG TIN CHUYẾN XE
+   datacartripbyid:[],
 
 };
 
@@ -56,10 +61,14 @@ export const InfoofBus = createSlice({
       // console.log("Tuyến Đường", action.payload);
       state.allTuyenDuong = action.payload
     },
+
+    getonecxdetaodon(state, action) {
+      state.dataseatcarid = action.payload
+    },
   },
 });
 
-export const { getinfoChuyenXeSearch, getinfoTuyenDuong, getAllTuyenDuong } = InfoofBus.actions;
+export const { getinfoChuyenXeSearch, getinfoTuyenDuong, getAllTuyenDuong,getonecxdetaodon } = InfoofBus.actions;
 
 
 //CREATSLICE THÔNG TIN NHÀ XE 
@@ -164,10 +173,16 @@ export const SeatofCarid = createSlice({
     getSeatCarTripbyCarTripId(state, action) {
 
       state.seatcartripbycartripid = action.payload;
+    },
+
+    getAllseatbycarid(state, action) {
+
+      state.dataseatcarid = action.payload;
     }
+
 
 
   }
 });
 
-export const { getallseatcarid,getSeatCarTripbyCarTripId } = SeatofCarid.actions;
+export const { getallseatcarid,getSeatCarTripbyCarTripId,getAllseatbycarid } = SeatofCarid.actions;

@@ -72,14 +72,17 @@ export default function EditChuyenXebyCarHouse() {
         });
         dispatch(CallapiUpdateCxCarHouse(dataonecx.id,formData));
     };
-    setValue('car_id', dataonecx?.car_id);
-    setValue('car_route_id', dataonecx?.car_route_id);
-    setValue('departure_date', dataonecx?.departure_date);
-    setValue('arrival_date', dataonecx?.arrival_date);
-    setValue('return_date', dataonecx?.return_date);
-    setValue('price', dataonecx?.price);
-    setValue('status', dataonecx?.status);
-
+    useEffect(() => {
+        if (dataonecx) {
+            setValue('car_id', dataonecx.car_id);
+            setValue('car_route_id', dataonecx.car_route_id);
+            setValue('departure_date', dataonecx.departure_date);
+            setValue('arrival_date', dataonecx.arrival_date);
+            setValue('return_date', dataonecx.return_date);
+            setValue('price', dataonecx.price);
+            setValue('status', dataonecx.status);
+        }
+    }, [dataonecx]);
 
     const handlePickupChange = (e) => {
       
@@ -113,7 +116,7 @@ export default function EditChuyenXebyCarHouse() {
 
     const notify = (event) => {
         if (event == true) {
-            toast.success("Thêm Xe Thành Công!", { theme: "colored" });
+            toast.success("Sửa Chuyến Xe Thành Công!", { theme: "colored" });
         } else if (event == false) {
             toast.error("Lỗi form nhập!", { theme: "colored" });
         }
@@ -145,7 +148,7 @@ export default function EditChuyenXebyCarHouse() {
                     {listerror?.data?.car_id?.[0] && <p className='add-error'>{listerror?.data?.car_id?.[0]}</p>}
                     <label htmlFor='car_route_id'>Tuyến Đường</label>
                     <select type='number' id='car_route_id' {...register('car_route_id')} >
-                    {allTuyenDuong && allTuyenDuong?.data?.map((itemtd) => {
+                    {allTuyenDuong && allTuyenDuong?.map((itemtd) => {
                           return <><option value={itemtd.id}>{itemtd.city_from}-{itemtd.city_to}</option></>  
                         })
                         }

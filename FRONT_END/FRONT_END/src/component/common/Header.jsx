@@ -10,6 +10,7 @@ import '../css/header.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AccountMenu from './iconuserheader';
+// import { useEffect } from 'react';
 
 
 export default function Header() {
@@ -18,7 +19,7 @@ export default function Header() {
     console.log("isAuthentication",isAuthentication);
     // const infoUser=useSelector((state) => state.LoginLogOutRegister?.infoUser);
 
-  
+   
 
     return (
         <div className='header'>

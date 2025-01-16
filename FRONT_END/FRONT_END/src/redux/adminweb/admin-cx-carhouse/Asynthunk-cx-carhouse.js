@@ -36,26 +36,19 @@ export function CallapiGetAllcxofCarHouse(id) {
   export function CallapiUpdateCxCarHouse(cx_id, dataform) {
     return async (dispatch) => {
       try {
+        console.log("aksankandadncnadcadcadc ");
         dispatch(updateError());
         let res = await axios.post(`http://localhost:8000/api/car-trip/${cx_id}`, dataform, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
-        
-        // Chỉ hiển thị thành công khi phản hồi là 200
-        if (res.status === 200) {
           dispatch(showPopupOk(true));
-        }
-  
+        
       } catch (error) {
         // Kiểm tra error.response để tránh lỗi khi không có response
-        if (error.response) {
+
           dispatch(updateError(error.response.data));
-        } else {
-          dispatch(updateError({ message: 'An unknown error occurred' }));
-        }
-  
         console.log("error", error);
         dispatch(showPopupError(true));
   

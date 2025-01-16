@@ -58,7 +58,7 @@ export default function DanhSachChuyenXe({ index, item, isActive, isActive1, onT
 
     function SplitChu(diadiem) {
         if (diadiem) {
-            if (diadiem.startsWith('Thành Phố')) {
+            if (diadiem.startsWith('Thành phố')) {
                 return diadiem.substring(10);
             } else if (diadiem.startsWith('Tỉnh')) {
                 return diadiem.substring(4);

@@ -106,28 +106,29 @@
 
 /*hang-ghe -giuwa*/
 .hang-ghe-giua{
-
     display: flex;
+    gap:28px;
     flex-wrap: wrap;
     justify-content:space-around;
 }
 .hang-ghe-giua div{
-    flex: 0 0 50%;
+    flex: 0 0 30%;
     margin-top:3px;
    display: flex;
    justify-content: center; 
   align-items: center;
+  gap:20px;
 }
 .vo-lang{
     display: flex;
     gap: 40px;
-    padding-left: 25px;
+    padding-left: 10px;
     margin-bottom: 10px;
 }
 .hang-ghe-cuoi{
     display: flex;
     margin-top: 10px;
-    padding-left: 20px;
+    padding-left: 5px;
     margin-bottom: 20px;
 }
 

@@ -30,7 +30,7 @@ export function getSearchChuyenxe(formSearch){
       dispatch(changeIsLoadcx(true))
       dispatch(reDataCx())
       let res = await axios.get(
-        "http://localhost:8000/api/cartrip/search?",{
+        "http://localhost:8000/api/car-trip/search?",{
         params: {
           city_from: formSearch.city_from,
           city_to:formSearch.city_to,
@@ -58,7 +58,7 @@ export function getChuyenxebyid(id_car_trip){
   return async (dispatch) => {
     try {
       let res = await axios.get(
-        `http://localhost:8000/api/cartrip/${id_car_trip}`);
+        `http://localhost:8000/api/car-trip/${id_car_trip}`);
       let data = res.data.data;
       dispatch(cartriptheoid(data));
 
@@ -68,26 +68,54 @@ export function getChuyenxebyid(id_car_trip){
   };
 }
 
+// export function getSearchChuyenxecarhouseid(formSearch) {
+//   return async (dispatch) => {
+//     try {
+//       dispatch(changeIsLoadcx(true));
+
+//       // Lấy token từ localStorage
+//       const token = localStorage.getItem('access_token');
+//       if (!token) {
+//         throw new Error('Token không tồn tại. Vui lòng đăng nhập.');
+//       }
+
+//       let res = await axios.get(
+//         "http://localhost:8000/api/cartrip/search-by-date-and-route/",
+//         {
+//           params: {
+//             car_route_id: formSearch.car_route_id,
+//             departure_date: formSearch.departure_date,
+//           },
+//           headers: {
+//             Authorization: `Bearer ${token}`, // Định dạng chính xác
+//           },
+//         }
+//       );
+
+//       let data = res.data.data;
+//       console.log("asyncthunkcatripdncsnds ", data);
+//       dispatch(cartriptheocarhouseid(data));
+//     } catch (error) {
+//       if (error.response) {
+//         console.error('Backend Error:', error.response.data.message || error.response.data);
+//       } else {
+//         console.error('Error:', error.message);
+//       }
+//     } finally {
+//       dispatch(changeIsLoadcx(false));
+//     }
+//   };
+// }
 export function getSearchChuyenxecarhouseid(formSearch) {
   return async (dispatch) => {
     try {
       dispatch(changeIsLoadcx(true));
-
-      // Lấy token từ localStorage
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        throw new Error('Token không tồn tại. Vui lòng đăng nhập.');
-      }
-
       let res = await axios.get(
-        "http://localhost:8000/api/cartrip/search-by-date-and-route/",
+        "http://localhost:8000/api/car-trip/search/car-route-and-date/",
         {
           params: {
             car_route_id: formSearch.car_route_id,
             departure_date: formSearch.departure_date,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`, // Định dạng chính xác
           },
         }
       );
