@@ -195,26 +195,22 @@ class PaymentController extends Controller
         $inputData = $request->all();
         $vnp_SecureHash = $inputData['vnp_SecureHash'] ?? '';
 
-        // Loại bỏ SecureHash để xác thực
         unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
         ksort($inputData);
         $query = http_build_query($inputData);
         $secureHash = hash_hmac('sha512', $query, $vnp_HashSecret);
 
-        // Xác thực chữ ký
         if ($secureHash !== $vnp_SecureHash) {
             return $this->sendResponse(400, 'Chữ ký không hợp lệ.');
         }
 
-        // Kiểm tra mã phản hồi từ VNPay
         if ($inputData['vnp_ResponseCode'] == '00') {
-            $order = Order::find($inputData['vnp_OrderInfo']); // Tìm đơn hàng
+            $order = Order::find($inputData['vnp_OrderInfo']); 
 
             if (!$order) {
                 return $this->sendResponse(404, 'Không tìm thấy đơn hàng.');
             }
 
-            // Kiểm tra trạng thái đơn hàng
             if ($order->status === 'paid') {
                 return $this->sendResponse(200, 'Đơn hàng đã được thanh toán.', [
                     'order_id' => $order->id,
@@ -222,7 +218,6 @@ class PaymentController extends Controller
                 ]);
             }
 
-            // Tạo thanh toán và cập nhật đơn hàng
             try {
                 DB::beginTransaction();
 
