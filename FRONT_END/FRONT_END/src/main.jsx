@@ -49,8 +49,8 @@ import AddBanner from './component/view-adminweb/banner/addbanner.jsx'
 import EditBanner from './component/view-adminweb/banner/editbanner.jsx'
 import { Provider } from 'react-redux';
 import Insufficientaccess from './component/bad-request/Insufficient-access.jsx';
-// import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
-// import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
+import PrivateRousterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
+import PrivateRouterAdminCarHouse from './privateRouter/privateRouterAdminCarHouse.jsx';
 import HomePageWebAdmin from './component/view-adminweb/dashboardadminweb.jsx/homepageadminweb.jsx';
 import QuanlyUser from './component/view-adminweb/listuser/quanlitkuser/show-list-user.jsx';
 import EditArticles from './component/view-adminweb/post-event/admin-post/edit-post.jsx';
@@ -180,7 +180,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "/admincarhouse",
-    element: <AppAdmin />,
+    element: <PrivateRouterAdminCarHouse><AppAdmin /></PrivateRouterAdminCarHouse> ,
     children: [
       {
         path: '',
@@ -296,7 +296,7 @@ const routes = createBrowserRouter([
 
   {
     path: "/adminweb",
-    element:<AppAdminQLWeb /> ,
+    element:  <PrivateRousterAdminWeb><AppAdminQLWeb /></PrivateRousterAdminWeb>,
     children: [
       {
         path: '',

@@ -10,18 +10,6 @@ import { callApidonhanguser } from '../../redux/thanhtoan/AsyncThunk_thanhtoan';
 
 function CustomTabPanel(props) {
 
-    const dispatch = useDispatch();
-    const user_id = useSelector((state)=> state.LoginLogOutRegister?.infoUser);
-    console.log("infousserinfousser",user_id);
-
-    useEffect(()=>{
-     dispatch(callApidonhanguser(user_id?.id));
-    },[user_id])
-
-
-    const dh= useSelector((state)=> state.StoreThanhToan?.datadhuser);
-    console.log("fjnvkdfs",dh);
-
     const { children, value, index, ...other } = props;
 
     return (
@@ -52,6 +40,18 @@ function a11yProps(index) {
 
 export default function DonHangCuaToi() {
     const [value, setValue] = useState(0);
+    const dispatch = useDispatch();
+    const user_id = useSelector((state) => state.LoginLogOutRegister?.infoUser);
+    console.log("infousserinfousser", user_id);
+
+    useEffect(() => {
+        dispatch(callApidonhanguser(user_id?.id));
+    }, [user_id])
+
+
+    const donhang = useSelector((state) => state.StoreThanhToan?.datadhuser);
+    console.log("fjnvkdfs", donhang.data);
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -76,7 +76,7 @@ export default function DonHangCuaToi() {
                         aria-label='basic tabs example'
                     >
                         <Tab label='Giới Thiệu' {...a11yProps(0)} sx={{ marginRight: 20 }} />
-                        <Tab label='Đã đi' {...a11yProps(1)} sx={{ marginRight: 20 }} />
+                        <Tab label='Vé Đã Đặt' {...a11yProps(1)} sx={{ marginRight: 20 }} />
                         <Tab label='Đã hủy' {...a11yProps(2)} sx={{ marginRight: 20 }} />
                     </Tabs>
                 </Box>
@@ -84,10 +84,31 @@ export default function DonHangCuaToi() {
                     <p>Bạn đang đăng nhập vào trang dành cho khách hàng,</p>
                     <p>Bạn có thể xem được trạng thái vé </p>
                     <p>Cảm Ơn quý khách </p>
-                    
+
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={1}>
-                    Chưa có chuyến nào
+                    {Array.isArray(donhang?.data) && donhang.data.map((item, index) => (
+                        <div className="item-chuyen-xe-huy" key={index}>
+                            <div className="noidung-chuyen-xe-huy">
+                                <div className="nd-cx-huy-top">
+                                    <p>
+                                        <strong>T6, 02/09/2024</strong>
+                                    </p>
+                                    <div>Đã hủy</div>
+                                </div>
+                                <div className="thoigian-cx">08:15</div>
+                                <div className="line-height this-is-nha-xe">NAM QUỲNH ANH</div>
+                                <div className="line-height dia-diem-don-tra">Hà Nội - Nghệ An</div>
+                                <div className="line-height bien-so-xe">
+                                    Biển số xe: <strong>37B-087.74</strong>
+                                </div>
+                                <button className="btn-dat-lai">
+                                    <ConfirmationNumberOutlinedIcon fontSize="small" />
+                                    Đặt lại
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </CustomTabPanel>
                 <CustomTabPanel value={value} index={2}>
                     <div className='item-chuyen-xe-huy'>
