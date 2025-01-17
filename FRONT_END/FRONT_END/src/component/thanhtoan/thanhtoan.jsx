@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { Apdunggiamgia, CallapiGetAllGiamGia } from '../../redux/admin-vexere/giam-gia-redux/AsyncThunk-giam-gia';
 import { useForm } from 'react-hook-form';
 import { callApigetAlldonhangtheouser, postthanhtoan, postthanhtoanbynganhang } from '../../redux/donhang/Asyncthunkdh';
+import { CallapiGetOneCarOfCarHouse } from '../../redux/adminweb/admin-cartype/cartype-asynthunk';
 
 export default function ThanhToan() {
     const location = useLocation();
@@ -44,7 +45,7 @@ export default function ThanhToan() {
         dispatch(CallapiGetAllGiamGia());
         dispatch( callApigetAlldonhangtheouser(user.id))
     }, [user.id]);
-    console.log('use',user.id);
+    // console.log('use',user.id);
     const { register: registerForm1, handleSubmit: handleSubmitForm1 } = useForm();
  
     const onSubmit1 = (data)=>{
@@ -76,7 +77,20 @@ export default function ThanhToan() {
             dispatch(postthanhtoanbynganhang(formData))
         }
     }
-      
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+
+
+
+      // hiển thị thông tin chuyến 
+      console.log("car_id",donhangtheouser[donhangtheouser.length -1 ]?.car_trip?.car_id);
+       useEffect(() => {
+              dispatch(CallapiGetOneCarOfCarHouse(donhangtheouser[donhangtheouser.length -1 ]?.car_trip?.car_id));
+          }, [donhangtheouser]);
+          const  infocar= useSelector((state) => state.StoreCar?.dataCar);
+          console.log("infocar",infocar);
 
     return (
         <>
@@ -318,7 +332,7 @@ export default function ThanhToan() {
                                 <div className='cart-item'>
                                     <span className='cart-heading'>Tổng tiền</span>
                                     <div className='cart-box'>
-                                        <span className='cart-price'>{totalPrice}đ</span>
+                                        <span className='cart-price'>{formatNumber(totalPrice)}đ</span>
                                         <img
                                             className='icon-expand-more '
                                             data-src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/expand_more.svg'

@@ -348,7 +348,7 @@ Route::get('/orders', [OrderController::class, 'listOrders']);
 
 //Route::middleware(['auth:sanctum', 'admin'])->group(function () {
 Route::post('/orders/create', [OrderController::class, 'createOrder']);
-Route::post('/orders/update/{id}', [OrderController::class, 'updateOrder']);
+Route::post('/orders/update/{id}', [OrderController::class, 'updateOrderStatus']);
 Route::delete('/orders/{orderId}/cancel', [OrderController::class, 'cancelOrder']);
 Route::get('/orders/user/{userId}', [OrderController::class, 'getOrdersByUserId']);
 //});

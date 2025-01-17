@@ -13,7 +13,10 @@ export default function Showdonhang() {
     }, []);
     const alldonhang = useSelector((state) => state.Donhang?.allDonHang);
     console.log("alldonhang", alldonhang);
-
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+      
 
     // //edit 
     // function EditDiemTraofCarHouse(id) {
@@ -27,6 +30,9 @@ export default function Showdonhang() {
     //         await dispatch(CallapiGetAllDiemTraByCarHouse(1));
     //     }
     // }
+    function editStatus(dh_id){
+        navigate(`/admincarhouse/edit-dh-status/${dh_id}`);
+    }
 
     return (
         <>
@@ -59,7 +65,7 @@ export default function Showdonhang() {
                                                     <td>VXR{item?.id}</td>
                                                     <td>{item?.name}</td>
                                                     <td>{item?.phone}</td>
-                                                    <td>{item?.total_price}</td>
+                                                    <td>{formatNumber(item?.total_price)}</td>
                                                     <td>
                                                     {(() => {
                                                         switch (item?.status) {
@@ -75,7 +81,9 @@ export default function Showdonhang() {
                                                     })()}
                                                     </td>
                                                     <td className='action-icons'>
-                                                        <EditIcon />
+                                                        <EditIcon onClick={()=>{
+                                                            editStatus(item?.id);
+                                                        }}/>
                                                         <DeleteIcon />
                                                     </td>
                                                 </tr>

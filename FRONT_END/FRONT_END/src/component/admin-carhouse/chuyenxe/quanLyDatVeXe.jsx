@@ -104,7 +104,6 @@ export default function QuanLyDatVeXe() {
                     <div className='time-group'>
                         <div className='time-group__list'>
                             {datacartriptheocarhouseid?.map((item, index) => {
-                                console.log("hello ");
                                 return <>
                                     <div className='time-group__item' key={item.id}
                                         onClick={() => {
@@ -122,27 +121,7 @@ export default function QuanLyDatVeXe() {
                                 </>
                             })}
 
-                            <div className='time-group__item'>
-                                <div className='time-group__heading'>....</div>
-                                <div className='time-group__title'>123.45 - 10/10</div>
-                                <div className='time-group__progress-bar'>
-                                    <div className='time-group__progress'></div>
-                                </div>
-                            </div>
-                            <div className='time-group__item'>
-                                <div className='time-group__heading'>....</div>
-                                <div className='time-group__title'>123.45 - 10/10</div>
-                                <div className='time-group__progress-bar'>
-                                    <div className='time-group__progress'></div>
-                                </div>
-                            </div>
-                            <div className='time-group__item'>
-                                <div className='time-group__heading'>....</div>
-                                <div className='time-group__title'>123.45 - 10/10</div>
-                                <div className='time-group__progress-bar'>
-                                    <div className='time-group__progress'></div>
-                                </div>
-                            </div>
+                           
 
                         </div>
                     </div>
@@ -211,7 +190,6 @@ export default function QuanLyDatVeXe() {
                                             <div>
                                                 <span className='info-label'>Biển Số xe:</span>
                                                 <span href='#' className='vehicle-link'>
-
                                                     <strong>{datacartriptheocarhouseid[selectedTrip]?.car?.license_plate}</strong>{' '}
                                                 </span>
                                             </div>

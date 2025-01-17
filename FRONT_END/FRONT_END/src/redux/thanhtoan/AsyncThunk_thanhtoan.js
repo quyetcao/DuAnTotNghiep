@@ -1,7 +1,7 @@
 import axios from "axios";
 import { logEr, logError, logOk } from "../ErrorandOK/createSlice_log";
 import { updateError } from "../error/creaslice_error";
-import { storedhuse } from "./createSlice_thanhtoan";
+import { getonedh, storedhuse } from "./createSlice_thanhtoan";
 
 
 
@@ -55,6 +55,32 @@ export function callApixe(user_id){
       let res = await axios.get(`http://127.0.0.1:8000/api/orders/user/${user_id}`);
           console.log('res',res);
           dispatch(storedhuse(res.data.data));
+    } catch (error) {
+      console.log(error);
+    }}
+}
+
+
+//// Chỉnh sửa trạng thái đơn hàng 
+export function callApiEditStatusdonhang(dh_id,data){
+  return async (dispatch) => {
+    try {
+       dispatch(updateError())
+      let res = await axios.post(`http://127.0.0.1:8000/api/orders/update/${dh_id}`,data);
+          console.log('res',res);
+    } catch (error) {
+      console.log(error);
+    }}
+}
+
+
+export function callApidonhangbyid(dh_id){
+  return async (dispatch) => {
+    try {
+       dispatch(updateError())
+      let res = await axios.get(`http://127.0.0.1:8000/api/orders/${dh_id}`);
+          console.log('res',res);
+          dispatch(getonedh(res.data.data));
     } catch (error) {
       console.log(error);
     }}

@@ -94,8 +94,9 @@ export default function ThanhToanLanMot() {
     const dropoffName = dropoffPoint?.name || "Tên không tồn tại";
     const dropoffAdress = dropoffPoint?.address || "Địa chỉ không tồn tại";
     const dropoffTime = dropoffPoint?.pivot?.dropoff_time || "Giờ không tồn tại";
-
-
+    function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
 
     return (
         <> 
@@ -276,7 +277,7 @@ export default function ThanhToanLanMot() {
                                     <div className='cart-item'>
                                         <span className='cart-heading'>Tạm tính</span>
                                         <div className='cart-box'>
-                                            <span className='cart-price'>{totalPrice}đ</span>
+                                            <span className='cart-price'>{formatNumber(totalPrice)}đ</span>
                                             <img
                                                 className='icon-expand-more '
                                                 data-src='https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/expand_more.svg'

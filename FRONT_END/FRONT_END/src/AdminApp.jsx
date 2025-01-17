@@ -15,6 +15,7 @@ import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumb
 // import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import DirectionsBusFilledOutlinedIcon from '@mui/icons-material/DirectionsBusFilledOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import NoCrashIcon from '@mui/icons-material/NoCrash';
 import RoomIcon from '@mui/icons-material/Room';
 import WhereToVoteIcon from '@mui/icons-material/WhereToVote';
@@ -51,6 +52,9 @@ function AppAdmin() {
                         </Link>
                         <Link to='/admincarhouse/routercar' className='sidebar-icon'>
                             <BuildOutlinedIcon />
+                        </Link>
+                        <Link to='/admincarhouse/dat-don-tai-quay-b1' className='sidebar-icon'>
+                            <LocalMallIcon />
                         </Link>
                         <Link to='/'><AccountBalanceIcon /></Link>
                    

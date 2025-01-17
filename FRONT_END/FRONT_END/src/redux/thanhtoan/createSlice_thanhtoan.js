@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   dataalldonhang: {},
   datadhuser:[],
+  dataonedh:[],
 };
 
 
@@ -19,9 +20,12 @@ export const StoreThanhToan = createSlice({
     storedhuse(state, action) {
       state.datadhuser=action.payload;
    },
+   getonedh(state, action) {
+    state.dataonedh=action.payload;
+ },
 
   
 }
 });
 
-export const { getalldonhang,storedhuse } = StoreThanhToan.actions;
+export const { getalldonhang,storedhuse,getonedh } = StoreThanhToan.actions;

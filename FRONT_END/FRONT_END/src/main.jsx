@@ -80,6 +80,7 @@ import DatDonTaiQuayB1 from './component/admin-carhouse/chuyenxe/datdontaiquayb1
 import DatDonTaiQuayB2 from './component/admin-carhouse/chuyenxe/datdontaiquay.jsx';
 import Checkloginreister from './component/common/checklogin.jsx';
 import Thanhtoanthatbai from './component/thanhtoan/thanhtoanthatbai.jsx';
+import EditStatusDh from './component/admin-carhouse/chuyenxe/editdontaiquay.jsx';
 // import PrivateRouterAdminWeb from './privateRouter/privateRouterAdminWeb.jsx';
 // import Register1 from './component/Pages/register1.jsx';
 
@@ -291,6 +292,10 @@ const routes = createBrowserRouter([
         path:'dat-don-tai-quay-b2/:id',
         element: <DatDonTaiQuayB2 />
        },
+       {
+        path:'edit-dh-status/:id',
+        element:<EditStatusDh/>
+       }
     ]
   },
 

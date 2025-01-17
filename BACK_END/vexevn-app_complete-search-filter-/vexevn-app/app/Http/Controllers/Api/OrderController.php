@@ -148,7 +148,7 @@ class OrderController extends Controller
 
     public function listOrders()
     {
-        $orders = Order::with(['user', 'carTrip'])->paginate(10);
+        $orders = Order::with(['user', 'carTrip'])->paginate(500);
 
         return $this->sendResponse(200, 'Hiển thị danh sách đơn hàng thành công.', $orders);
     }
@@ -226,11 +226,13 @@ class OrderController extends Controller
         }
     }
 
+
+
     public function getOrdersByUserId($userId)
     {
-        $orders = Order::with(['carTrip', 'carTrip.pickupPoints', 'carTrip.dropoffPoints'])
+        $orders = Order::with(['carTrip', 'carTrip.pickupPoints', 'carTrip.dropoffPoints' , 'carTrip.car'])
             ->where('user_id', $userId)
-            ->paginate(10);
+            ->paginate(500);
 
         if ($orders->isEmpty()) {
             return $this->sendResponse(404, 'Không tìm thấy đơn hàng nào cho người dùng này.');
