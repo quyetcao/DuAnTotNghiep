@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { getAllArticles, getAllTitleEvent, getOneArticles, getoneEvent, showLoading, showLoading1, showPopupError, showPopupError1, showPopupOk, showPopupOk1 } from "./event-post-createSlice";
+import { updateError } from "../../error/creaslice_error";
 
 
 // call lấy tất cả xe 
@@ -25,7 +26,7 @@ export function CallapiPostEvent(dataform) {
   return async (dispatch) => {
     try {
 
-      let res = await axios.post(`http://localhost:8000/api/event/create`, dataform
+      let res = await axios.post(`http://localhost:8000/api/event/`, dataform
       );
       dispatch(showPopupOk(true));
     } catch (error) {
@@ -46,7 +47,7 @@ export function CallapiPostEvent(dataform) {
 export function CallapiGetDeleteEvent(id) {
   return async (dispatch) => {
     try {
-      let res = await axios.delete(`http://localhost:8000/api/event/delete/${id}`);
+      let res = await axios.delete(`http://localhost:8000/api/event/${id}`);
       console.log('delete xóa sự kiện', res);
 
     } catch (error) {
@@ -70,7 +71,11 @@ export function CallapiGetOneEvent(id) {
 export function CallapiUpdateEvent(id,formdata) {
   return async (dispatch) => {
     try {
-      let res = await axios.post(`http://localhost:8000/api/event/update/${id}`,formdata);
+      let res = await axios.put(`http://localhost:8000/api/event/${id}`,formdata,{
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+      });
       dispatch(showPopupOk(true));
     } catch (error) {
       dispatch(showPopupError(true));
@@ -107,12 +112,13 @@ export function CallapiGetAllArticles() {
 export function CallapiPostArticles(dataform1) {
   return async (dispatch) => {
     try {
-
-      let res = await axios.post(`http://localhost:8000/api/article/create/`, dataform1
+     dispatch(updateError())
+      let res = await axios.post(`http://localhost:8000/api/article/`, dataform1
       );
       dispatch(showPopupOk1(true));
     } catch (error) {
       console.log("erooor", error.response.data.message);
+            dispatch(updateError(error.response.data.data))
       dispatch(showPopupError1(true));
     } finally {
       setTimeout(() => {
@@ -129,7 +135,7 @@ export function CallapiPostArticles(dataform1) {
 export function CallapiGetDeleteArticles(id) {
   return async (dispatch) => {
     try {
-      let res = await axios.delete(`http://localhost:8000/api/article/delete/${id}`);
+      let res = await axios.delete(`http://localhost:8000/api/article/${id}`);
       console.log('delete xóa sự kiện', res);
 
     } catch (error) {
@@ -153,7 +159,7 @@ export function CallapiGetOneArticles(id) {
 export function CallapiUpdateArticles(id,formdata) {
   return async (dispatch) => {
     try {
-      let res = await axios.post(`http://localhost:8000/api/article/update/${id}`,formdata);
+      let res = await axios.post(`http://localhost:8000/api/article/${id}`,formdata);
       dispatch(showPopupOk1(true));
     } catch (error) {
       dispatch(showPopupError1(true));

@@ -6,7 +6,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
-import { dangnhap } from '../../redux/login-logout-register/AsyncThunk-lg-lo-rg';
+import {  dangnhap, logingooogle } from '../../redux/login-logout-register/AsyncThunk-lg-lo-rg';
 import { useState } from 'react';
 
 
@@ -48,7 +48,9 @@ export default function Login() {
     if (isToastError) {
         notify(false);
     }
-   
+    function loginbygoogle(){
+           dispatch(dispatch(logingooogle()))
+       }
    
     return (
         <>
@@ -107,8 +109,8 @@ export default function Login() {
 
                         <div className='login_icon'>
                             <img src='../../images/imageslogin/icons8-google-48.png' alt='' />
-                            <p>
-                                Đăng nhập với <strong>Google</strong>.
+                            <p onClick={loginbygoogle}>
+                              Đăng nhập với <strong>Google</strong>.
                             </p>
                         </div>
                     </div>

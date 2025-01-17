@@ -23,6 +23,8 @@ export default function AddEArticles() {
         dispatch(CallapiGetAllTitleEvent())
     }, [])
     const dataTitleEvent = useSelector((state) => state.StoreEventPost?.dataTitleEvent);
+    const listerror = useSelector((state) => state.Errormessage?.error);
+    // console.log("list ê",listerror?.publication_date[0]);
     const { register, handleSubmit } = useForm()
     const onSubmit = (data) => {
         console.log("data form bài viết", data);
@@ -77,6 +79,7 @@ export default function AddEArticles() {
                     <input type="text" id="content"    {...register('content', { required: true })} />
                     <label htmlFor="publication_date">Ngày Bắt Đầu</label>
                     <input type="date" id="publication_date"    {...register('publication_date')} />
+                    {listerror && <p className='add-error'>{listerror?.publication_date?.[0]}</p>}
                     <label htmlFor="status">Trạng Thái</label>
                     <select name="status" id="status"  {...register('status')}>
                         <option value="published">Hoạt Động</option>

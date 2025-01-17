@@ -6,13 +6,8 @@ import { logError } from "../ErrorandOK/createSlice_log";
 export function dangkytaikhoan(dk, body) {
   return async (dispatch) => {
     if(dk == 0){
-      // Chuyển hướng người dùng đến trang Google OAuth
-      window.location.href ="http://localhost:8000/auth/google"; // Đảm bảo URL này đúng với route trong Laravel của bạn
-      // window.open(
-      //   "http://localhost:8000/auth/google",
-      //   "GoogleAuth",
-      //   "width=600,height=400,resizable=yes,scrollbars=yes"
-      // );
+     
+      window.location.href ="http://localhost:8000/auth/google"; 
     } else if(dk == 1){
       try {
         let res = await axios.post(
@@ -94,5 +89,16 @@ export function dangnhap(body) {
 }
 
 
+export function logingooogle() {
+  return async (dispatch) => {
+    
+      try {
+        window.location.href ="http://localhost:8000/auth/google"; 
+      } catch (error) {
+      console.log(error);
+       
+      } 
+    }
+  }
 
 

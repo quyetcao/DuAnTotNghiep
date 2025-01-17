@@ -451,13 +451,10 @@ class PaymentController extends Controller
     }
 
 
-<<<<<<< HEAD
 
 
 
     
-=======
->>>>>>> 7bea3cf7f55f17fa3554362c4b1e1cff371913ec
     public function showPayment($id)
     {
         $payment = Payment::find($id);

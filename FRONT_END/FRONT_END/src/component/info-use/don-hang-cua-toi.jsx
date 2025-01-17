@@ -7,7 +7,7 @@ import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumb
 import '../css/user/don-hang-cua-toi.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { callApidonhanguser } from '../../redux/thanhtoan/AsyncThunk_thanhtoan';
-
+import dayjs from 'dayjs';
 function CustomTabPanel(props) {
 
     const { children, value, index, ...other } = props;
@@ -48,7 +48,6 @@ export default function DonHangCuaToi() {
         dispatch(callApidonhanguser(user_id?.id));
     }, [user_id])
 
-
     const donhang = useSelector((state) => state.StoreThanhToan?.datadhuser);
     console.log("fjnvkdfs", donhang.data);
 
@@ -56,6 +55,20 @@ export default function DonHangCuaToi() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+
+    /// cách dùng hiển thị hay 
+    // const statusMessages = {
+    //     paid: "Đã Thanh Toán",
+    //     pending: "Đang Chờ Xử Lý",
+    //     canceled: "Đã Hủy",
+    //   };
+      
+    //   // Trong JSX
+    //   <>
+    //     {statusMessages[item?.status] || "Trạng Thái Không Xác Định"}
+    //   </>
+
     return (
         <>
             <div className='dhct-header'>
@@ -92,11 +105,21 @@ export default function DonHangCuaToi() {
                             <div className="noidung-chuyen-xe-huy">
                                 <div className="nd-cx-huy-top">
                                     <p>
-                                        <strong>T6, 02/09/2024</strong>
+                                        <strong>{item?.departure_date ? dayjs(item?.departure_date).format("DD-MM-YYYY") : <></>}</strong>
                                     </p>
-                                    <div>Đã hủy</div>
+                                    {
+                                        item?.status === 'paid' ? (
+                                            <div style={{color:'green'}}><>Đã Thanh Toán</></div>
+                                        ) : item?.status === 'pending' ? (
+                                            <div style={{color:'yellow'}}><>Đang Chờ Xử Lý</></div>
+                                        ) : item?.status === 'cancelled' ? (
+                                            <div style={{color:'red'}}><>Đã Hủy</></div>
+                                        ) : (
+                                            <>Trạng Thái Không Xác Định</>
+                                        )
+                                    }
                                 </div>
-                                <div className="thoigian-cx">08:15</div>
+                                <div className="thoigian-cx">{item?.car_trip?.pickup_points?.[0]?.pivot?.pickup_time}</div>
                                 <div className="line-height this-is-nha-xe">NAM QUỲNH ANH</div>
                                 <div className="line-height dia-diem-don-tra">Hà Nội - Nghệ An</div>
                                 <div className="line-height bien-so-xe">

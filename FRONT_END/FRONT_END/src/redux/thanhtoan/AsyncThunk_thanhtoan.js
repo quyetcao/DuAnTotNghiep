@@ -46,3 +46,16 @@ export function callApidonhanguser(user_id){
       console.log(error);
     }}
 }
+
+/// Gọi xe để render ra đơn hàng của khách hàng 
+export function callApixe(user_id){
+  return async (dispatch) => {
+    try {
+       dispatch(updateError())
+      let res = await axios.get(`http://127.0.0.1:8000/api/orders/user/${user_id}`);
+          console.log('res',res);
+          dispatch(storedhuse(res.data.data));
+    } catch (error) {
+      console.log(error);
+    }}
+}
